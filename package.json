@@ -1,0 +1,32 @@
+{
+  "name": "comp397-f2019",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wbalaniucCentennialCollege/COMP397-F2019.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wbalaniucCentennialCollege/COMP397-F2019/issues"
+  },
+  "homepage": "https://github.com/wbalaniucCentennialCollege/COMP397-F2019#readme",
+  "devDependencies": {
+    "@types/easeljs": "^1.0.0",
+    "@types/preloadjs": "^0.6.32",
+    "@types/soundjs": "^0.6.27",
+    "@types/tweenjs": "^1.0.0"
+  },
+  "dependencies": {
+    "createjs": "^1.0.1",
+    "easeljs": "^1.0.2",
+    "lite-server": "^2.5.4",
+    "preloadjs": "^1.0.1",
+    "soundjs": "^1.0.1"
+  }
+}
