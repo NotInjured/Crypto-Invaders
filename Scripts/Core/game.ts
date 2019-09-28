@@ -15,10 +15,13 @@
 
     assetManifest = [
         {id: "backButton", src:"./Assets/BackButton.png"},
-        {id: "nextButton", src:"./Assets/NextButton.png"},
+        {id: "startButton", src:"./Assets/StartButton.png"},
         {id: "background", src:"./Assets/background.png"},
         {id: "player", src:"./Assets/Spaceship.png"},
-        {id: "enemy", src:"./Assets/ship.png"}
+        {id: "enemy", src:"./Assets/ship.png"},
+        {id: "optionButton", src:"./Assets/OptionsButton.png"},
+        {id: "helpButton", src:"./Assets/HelpButton.png"},
+        {id: "logo", src:"./Assets/StartButton.png"}
     ];
 
     function Init() {
@@ -84,6 +87,16 @@
             case config.Scene.OVER:
                 stage.removeAllChildren();
                 currentScene = new scenes.GameOverScene(assetManager);
+                stage.addChild(currentScene);
+            break;
+            case config.Scene.HELP:
+                stage.removeAllChildren();
+                currentScene = new scenes.HelpScene(assetManager);
+                stage.addChild(currentScene);
+            break;
+            case config.Scene.INTRO:
+                stage.removeAllChildren();
+                currentScene = new scenes.IntroScene(assetManager);
                 stage.addChild(currentScene);
             break;
         }

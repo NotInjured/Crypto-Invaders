@@ -4,6 +4,8 @@ module scenes {
         private background: objects.Background;
         private welcomeLabel: objects.Label;
         private startButton: objects.Button;
+        private helpButton: objects.Button;
+        private optionButton: objects.Button;
 
         // Constructor
         constructor(assetManager:createjs.LoadQueue) {
@@ -16,9 +18,11 @@ module scenes {
             this.background = new objects.Background(this.assetManager);
 
             this.welcomeLabel = new objects.Label(
-                "Welcome to School!", "60px", "Consolas", "#FFFFFF", 320, 240, true);
+                "Crypto Invaders", "60px", "OptimusPrinceps", "#FFFFFF", 320, 240, true);
 
-            this.startButton = new objects.Button(this.assetManager, "nextButton", 320, 300);
+            this.startButton = new objects.Button(this.assetManager, "startButton", 220, 300);
+            this.helpButton = new objects.Button(this.assetManager, "helpButton", 220, 400);
+            this.optionButton = new objects.Button(this.assetManager, "optionButton", 220, 500);
             this.Main();
         }
         public Update():void {
@@ -30,11 +34,21 @@ module scenes {
             objects.Game.currentScene = config.Scene.GAME;
         }
 
+        private helpButtonClick():void{
+            objects.Game.currentScene = config.Scene.HELP;
+        }
+
+        private optionButtonClick():void{
+            objects.Game.currentScene = config.Scene.OPTIONS;
+        }
+
         public Main():void {
             // Add items to our scene
             this.addChild(this.background);
             this.addChild(this.welcomeLabel);
             this.addChild(this.startButton);
+            this.addChild(this.helpButton);
+            this.addChild(this.optionButton);
             this.startButton.on("click", this.startButtonClick);
         }
     }

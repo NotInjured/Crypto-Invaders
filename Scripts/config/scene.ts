@@ -2,6 +2,10 @@ module config {
     export enum Scene {
         START,
         GAME,
-        OVER
+        OVER,
+        HELP,
+        HISCORE,
+        OPTIONS,
+        INTRO
     }
 }

@@ -24,8 +24,10 @@ var scenes;
         StartScene.prototype.Start = function () {
             // Initialize our objects for this scene
             this.background = new objects.Background(this.assetManager);
-            this.welcomeLabel = new objects.Label("Welcome to School!", "60px", "Consolas", "#FFFFFF", 320, 240, true);
-            this.startButton = new objects.Button(this.assetManager, "nextButton", 320, 300);
+            this.welcomeLabel = new objects.Label("Crypto Invaders", "60px", "OptimusPrinceps", "#FFFFFF", 320, 240, true);
+            this.startButton = new objects.Button(this.assetManager, "startButton", 220, 300);
+            this.helpButton = new objects.Button(this.assetManager, "helpButton", 220, 400);
+            this.optionButton = new objects.Button(this.assetManager, "optionButton", 220, 500);
             this.Main();
         };
         StartScene.prototype.Update = function () {
@@ -35,11 +37,19 @@ var scenes;
             // Change our game state from START to GAME
             objects.Game.currentScene = config.Scene.GAME;
         };
+        StartScene.prototype.helpButtonClick = function () {
+            objects.Game.currentScene = config.Scene.HELP;
+        };
+        StartScene.prototype.optionButtonClick = function () {
+            objects.Game.currentScene = config.Scene.OPTIONS;
+        };
         StartScene.prototype.Main = function () {
             // Add items to our scene
             this.addChild(this.background);
             this.addChild(this.welcomeLabel);
             this.addChild(this.startButton);
+            this.addChild(this.helpButton);
+            this.addChild(this.optionButton);
             this.startButton.on("click", this.startButtonClick);
         };
         return StartScene;
