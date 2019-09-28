@@ -21,7 +21,8 @@
         {id: "enemy", src:"./Assets/ship.png"},
         {id: "optionButton", src:"./Assets/OptionsButton.png"},
         {id: "helpButton", src:"./Assets/HelpButton.png"},
-        {id: "logo", src:"./Assets/StartButton.png"}
+        {id: "logo", src:"./Assets/StartButton.png"},
+        {id: "infoPanel", src:"./Assets/infopanel.png"}
     ];
 
     function Init() {
@@ -74,9 +75,24 @@
 
         // Finite State Machine
         switch(objects.Game.currentScene) {
+            case config.Scene.INTRO:
+                stage.removeAllChildren();
+                currentScene = new scenes.IntroScene(assetManager);
+                stage.addChild(currentScene);
+            break;
             case config.Scene.START:
                 stage.removeAllChildren();
                 currentScene = new scenes.StartScene(assetManager);
+                stage.addChild(currentScene);
+            break;
+            case config.Scene.OPTIONS:
+                stage.removeAllChildren();
+                currentScene = new scenes.StartScene(assetManager);
+                stage.addChild(currentScene);
+            break;
+            case config.Scene.HELP:
+                stage.removeAllChildren();
+                currentScene = new scenes.HelpScene(assetManager);
                 stage.addChild(currentScene);
             break;
             case config.Scene.GAME:
@@ -87,16 +103,6 @@
             case config.Scene.OVER:
                 stage.removeAllChildren();
                 currentScene = new scenes.GameOverScene(assetManager);
-                stage.addChild(currentScene);
-            break;
-            case config.Scene.HELP:
-                stage.removeAllChildren();
-                currentScene = new scenes.HelpScene(assetManager);
-                stage.addChild(currentScene);
-            break;
-            case config.Scene.INTRO:
-                stage.removeAllChildren();
-                currentScene = new scenes.IntroScene(assetManager);
                 stage.addChild(currentScene);
             break;
         }

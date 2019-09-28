@@ -22,9 +22,26 @@ var scenes;
             return _this;
         }
         // Methods
-        HelpScene.prototype.Start = function () { };
-        HelpScene.prototype.Update = function () { };
-        HelpScene.prototype.Main = function () { };
+        HelpScene.prototype.Start = function () {
+            this.background = new objects.Background(this.assetManager);
+            this.player = new objects.Player(this.assetManager);
+            this.infoPanel = new objects.Image(this.assetManager, "infoPanel", 20, 125);
+            this.backButton = new objects.Button(this.assetManager, "backButton", -120, 525);
+            this.Main();
+        };
+        HelpScene.prototype.Update = function () {
+            this.player.Update();
+        };
+        HelpScene.prototype.backButtonClick = function () {
+            objects.Game.currentScene = config.Scene.START;
+        };
+        HelpScene.prototype.Main = function () {
+            this.addChild(this.background);
+            this.addChild(this.infoPanel);
+            this.addChild(this.backButton);
+            this.addChild(this.player);
+            this.backButton.on("click", this.backButtonClick);
+        };
         return HelpScene;
     }(objects.Scene));
     scenes.HelpScene = HelpScene;

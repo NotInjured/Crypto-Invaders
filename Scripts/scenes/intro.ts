@@ -5,7 +5,7 @@ module scenes {
         private logo: objects.Background;
 
         // Constructor
-        constructor(assetManager: createjs.LoadQueue) {
+        constructor(assetManager:createjs.LoadQueue) {
             super(assetManager);
             this.Start();
         }

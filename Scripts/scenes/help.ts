@@ -1,10 +1,10 @@
 module scenes {
-    export class HelpScene extends objects.Scene{
+    export class HelpScene extends objects.Scene {
         // Variables
+        private infoPanel: objects.Image;
         private background: objects.Background;
-        private movementLabel: objects.Label;
-        private shootLabel: objects.Label;
-        private
+        private backButton: objects.Button;
+        private player:objects.Player;
 
         // Constructor
         constructor(assetManager: createjs.LoadQueue){
@@ -15,10 +15,29 @@ module scenes {
 
         // Methods
 
-        public Start():void{}
+        public Start():void{
+            this.background = new objects.Background(this.assetManager);
+            this.player = new objects.Player(this.assetManager);
+            this.infoPanel = new objects.Image(this.assetManager, "infoPanel", 20, 125);
+            this.backButton = new objects.Button(this.assetManager, "backButton", -120, 525);
 
-        public Update():void{}
+            this.Main();
+        }
 
-        public Main():void{}
+        public Update(): void {
+            this.player.Update();
+        }
+
+        public backButtonClick():void{
+            objects.Game.currentScene = config.Scene.START;
+        }
+
+        public Main():void{
+            this.addChild(this.background);
+            this.addChild(this.infoPanel);
+            this.addChild(this.backButton);
+            this.addChild(this.player);
+            this.backButton.on("click", this.backButtonClick);
+        }
     }
 }

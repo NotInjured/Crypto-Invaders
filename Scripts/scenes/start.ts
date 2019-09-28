@@ -18,11 +18,11 @@ module scenes {
             this.background = new objects.Background(this.assetManager);
 
             this.welcomeLabel = new objects.Label(
-                "Crypto Invaders", "60px", "OptimusPrinceps", "#FFFFFF", 320, 240, true);
+                "Crypto Invaders", "60px", "OptimusPrinceps", "#FFFFFF", 240, 240, true);
 
-            this.startButton = new objects.Button(this.assetManager, "startButton", 220, 300);
-            this.helpButton = new objects.Button(this.assetManager, "helpButton", 220, 400);
-            this.optionButton = new objects.Button(this.assetManager, "optionButton", 220, 500);
+            this.startButton = new objects.Button(this.assetManager, "startButton", 140, 300);
+            this.helpButton = new objects.Button(this.assetManager, "helpButton", 140, 350);
+            this.optionButton = new objects.Button(this.assetManager, "optionButton", 140, 400);
             this.Main();
         }
         public Update():void {
@@ -50,6 +50,7 @@ module scenes {
             this.addChild(this.helpButton);
             this.addChild(this.optionButton);
             this.startButton.on("click", this.startButtonClick);
+            this.helpButton.on("click", this.helpButtonClick);
         }
     }
 }
