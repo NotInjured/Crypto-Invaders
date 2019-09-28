@@ -15,18 +15,19 @@ var objects;
 (function (objects) {
     var Player = /** @class */ (function (_super) {
         __extends(Player, _super);
-        // Variables
         // Constructor
         function Player(assetManager) {
             var _this = _super.call(this, assetManager, "player") || this;
+            document.addEventListener("keydown", _this.keyDown.bind(_this), false);
+            document.addEventListener("keyup", _this.keyUp.bind(_this), false);
             _this.Start();
             return _this;
         }
         // Methods
         Player.prototype.Start = function () {
             // Set the initial position
-            this.y = 700;
-            this.x = 320;
+            this.y = 600;
+            this.x = 240;
             //this.scaleX = 0.25;
             //this.scaleY = 0.25;
         };
@@ -36,10 +37,22 @@ var objects;
         };
         Player.prototype.Reset = function () { };
         Player.prototype.Move = function () {
-            // We reference the stage object and get mouse position
-            this.x = objects.Game.stage.mouseX;
-            // This is evetually replaced with keyboard input
-            // Maybe xbox controller...
+            if (this.leftArrow)
+                this.x -= 3;
+            if (!this.leftArrow)
+                this.x += 0;
+            if (this.rightArrow)
+                this.x += 3;
+            if (!this.rightArrow)
+                this.x += 0;
+            if (this.upArrow)
+                this.y -= 3;
+            if (!this.upArrow)
+                this.y += 0;
+            if (this.downArrow)
+                this.y += 3;
+            if (!this.downArrow)
+                this.y += 0;
         };
         Player.prototype.CheckBound = function () {
             // Right boundary
@@ -49,6 +62,50 @@ var objects;
             // Left boundary
             if (this.x <= this.halfW) {
                 this.x = this.halfW;
+            }
+        };
+        Player.prototype.keyDown = function (event) {
+            switch (event.keyCode) {
+                case 37:
+                    this.leftArrow = true;
+                    break;
+                case 39:
+                    this.rightArrow = true;
+                    break;
+                case 38:
+                    this.upArrow = true;
+                    break;
+                case 40:
+                    this.downArrow = true;
+                    break;
+                case 88:
+                    this.shoot = true;
+                    break;
+                case 90:
+                    this.special = true;
+                    break;
+            }
+        };
+        Player.prototype.keyUp = function (event) {
+            switch (event.keyCode) {
+                case 37:
+                    this.leftArrow = false;
+                    break;
+                case 39:
+                    this.rightArrow = false;
+                    break;
+                case 38:
+                    this.upArrow = false;
+                    break;
+                case 40:
+                    this.downArrow = false;
+                    break;
+                case 88:
+                    this.shoot = false;
+                    break;
+                case 90:
+                    this.special = false;
+                    break;
             }
         };
         return Player;
