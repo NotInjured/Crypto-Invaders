@@ -18,6 +18,8 @@ var scenes;
         // Constructor
         function PlayScene(assetManager) {
             var _this = _super.call(this, assetManager) || this;
+            document.addEventListener("keydown", _this.keyDown.bind(_this), false);
+            document.addEventListener("keyup", _this.keyUp.bind(_this), false);
             _this.Start();
             return _this;
         }
@@ -41,6 +43,7 @@ var scenes;
             // Update the background here
             this.background.Update();
             this.player.Update();
+            this.IsPaused();
             // this.enemy.Update();
             this.enemies.forEach(function (e) {
                 e.Update();
@@ -62,6 +65,26 @@ var scenes;
             this.enemies.forEach(function (e) {
                 _this.addChild(e);
             });
+        };
+        PlayScene.prototype.IsPaused = function () {
+            if (this.pause) {
+                objects.Game.currentScene = config.Scene.START;
+                console.log("Switching to start menu...");
+            }
+        };
+        PlayScene.prototype.keyDown = function (event) {
+            switch (event.keyCode) {
+                case 27:
+                    this.pause = true;
+                    break;
+            }
+        };
+        PlayScene.prototype.keyUp = function (event) {
+            switch (event.keyCode) {
+                case 27:
+                    this.pause = false;
+                    break;
+            }
         };
         return PlayScene;
     }(objects.Scene));

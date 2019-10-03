@@ -11,9 +11,14 @@ module scenes {
         private enemies:objects.Enemy[];
         private enemyNum:number;
 
+        private pause:boolean;
+
         // Constructor
         constructor(assetManager:createjs.LoadQueue) {
             super(assetManager);
+
+            document.addEventListener("keydown", this.keyDown.bind(this), false);
+            document.addEventListener("keyup", this.keyUp.bind(this), false);
 
             this.Start();
         }
@@ -29,7 +34,7 @@ module scenes {
             for(let i = 0; i < this.enemyNum; i++) {
                 this.enemies[i] = new objects.Enemy(this.assetManager);
             }
-            
+
             this.hudImage = new objects.Image(this.assetManager, "hud", 0, 0);            
             this.hud = new managers.HUD;
 
@@ -40,6 +45,7 @@ module scenes {
             // Update the background here
             this.background.Update();
             this.player.Update();
+            this.IsPaused();
             // this.enemy.Update();
 
             this.enemies.forEach(e => {
@@ -62,6 +68,30 @@ module scenes {
             this.enemies.forEach(e => {
                 this.addChild(e);
             });
+        }
+
+        public IsPaused():void{
+            if(this.pause){
+                objects.Game.currentScene = config.Scene.START;
+                console.log("Switching to start menu...");
+            }
+        }
+
+        public keyDown(event:KeyboardEvent):void{
+            switch(event.keyCode){
+                case 27:
+                    this.pause = true;
+                break;
+            }
+                
+        }
+
+        public keyUp(event:KeyboardEvent):void{
+            switch(event.keyCode){
+                case 27:
+                    this.pause = false;
+                break;
+            }
         }
     }
 }
