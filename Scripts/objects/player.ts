@@ -10,11 +10,6 @@ module objects {
         private swap:boolean;
         private pause:boolean;
 
-        public lives:number;
-        public bombs:number;
-        public power:number;
-        public score:number;
-        
         private swapTimer:number;
 
         private shipType: config.Ship;
@@ -34,10 +29,6 @@ module objects {
             this.y = 600;
             this.x = 240;
             
-            this.lives = 3;
-            this.bombs = 1;
-            this.power = 1;
-            this.score = 0;
             this.swapTimer = 15;
 
             this.shipType = config.Ship.Botcoin;
@@ -47,6 +38,7 @@ module objects {
         public Update():void {
             this.Move();
             this.CheckBound(); // <-- Check collisions
+            this.Shoot();
         }
         public Reset():void {}
 
@@ -109,14 +101,24 @@ module objects {
 
         public CheckBound():void {
             // Right boundary
-            if(this.x >= 640 - this.halfW) {
-                this.x = 640 - this.halfW;
-            }
+            if(this.x >= 480 - this.halfW) 
+                this.x = 480 - this.halfW;
 
             // Left boundary
-            if(this.x <= this.halfW) {
-                this.x = this.halfW;
-            }
+            if(this.x <= this.halfW) 
+                this.x = this.halfW;  
+
+            if(this.y >= 720 - this.halfH)
+                this.y = 720 - this.halfH;
+            
+            if(this.y <= this.halfH)
+                this.y = this.halfH;
+
+        }
+
+        public Shoot():void{
+            if(this.shoot)
+            console.log("Shooting...");
         }
 
         public keyDown(event:KeyboardEvent):void{
@@ -138,6 +140,7 @@ module objects {
                 break;
                 case 90:    
                     this.special = true;
+                    console.log("Using special...");
                 break;
                 case 32:
                     this.swap = true;

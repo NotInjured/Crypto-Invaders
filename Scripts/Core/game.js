@@ -19,7 +19,10 @@
         { id: "optionButton", src: "./Assets/OptionsButton.png" },
         { id: "helpButton", src: "./Assets/HelpButton.png" },
         { id: "logo", src: "./Assets/StartButton.png" },
-        { id: "infoPanel", src: "./Assets/infopanel.png" }
+        { id: "infoPanel", src: "./Assets/infopanel.png" },
+        { id: "hud", src: "./Assets/HUD.png" },
+        { id: "nextButton", src: "./Assets/NextButton.png" },
+        { id: "infoPanel2", src: "./ASsets/infopanel2.png" }
     ];
     function Init() {
         console.log("Initialization Start");

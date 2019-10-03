@@ -28,10 +28,6 @@ var objects;
             // Set the initial position
             this.y = 600;
             this.x = 240;
-            this.lives = 3;
-            this.bombs = 1;
-            this.power = 1;
-            this.score = 0;
             this.swapTimer = 15;
             this.shipType = config.Ship.Botcoin;
             //this.scaleX = 0.25;
@@ -40,6 +36,7 @@ var objects;
         Player.prototype.Update = function () {
             this.Move();
             this.CheckBound(); // <-- Check collisions
+            this.Shoot();
         };
         Player.prototype.Reset = function () { };
         Player.prototype.Move = function () {
@@ -92,13 +89,19 @@ var objects;
         };
         Player.prototype.CheckBound = function () {
             // Right boundary
-            if (this.x >= 640 - this.halfW) {
-                this.x = 640 - this.halfW;
-            }
+            if (this.x >= 480 - this.halfW)
+                this.x = 480 - this.halfW;
             // Left boundary
-            if (this.x <= this.halfW) {
+            if (this.x <= this.halfW)
                 this.x = this.halfW;
-            }
+            if (this.y >= 720 - this.halfH)
+                this.y = 720 - this.halfH;
+            if (this.y <= this.halfH)
+                this.y = this.halfH;
+        };
+        Player.prototype.Shoot = function () {
+            if (this.shoot)
+                console.log("Shooting...");
         };
         Player.prototype.keyDown = function (event) {
             switch (event.keyCode) {
@@ -119,6 +122,7 @@ var objects;
                     break;
                 case 90:
                     this.special = true;
+                    console.log("Using special...");
                     break;
                 case 32:
                     this.swap = true;

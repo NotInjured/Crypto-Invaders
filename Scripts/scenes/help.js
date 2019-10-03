@@ -27,6 +27,10 @@ var scenes;
             this.player = new objects.Player(this.assetManager);
             this.infoPanel = new objects.Image(this.assetManager, "infoPanel", 20, 125);
             this.backButton = new objects.Button(this.assetManager, "backButton", -120, 525);
+            this.nextButton = new objects.Button(this.assetManager, "nextButton", 460, 525);
+            this.backButton2 = new objects.Button(this.assetManager, "backButton", -120, 525);
+            this.hudImage = new objects.Image(this.assetManager, "hud", 0, 0);
+            this.hud = new managers.HUD;
             this.Main();
         };
         HelpScene.prototype.Update = function () {
@@ -35,12 +39,22 @@ var scenes;
         HelpScene.prototype.backButtonClick = function () {
             objects.Game.currentScene = config.Scene.START;
         };
+        HelpScene.prototype.nextButtonClick = function () {
+            this.removeChild(this.infoPanel);
+        };
         HelpScene.prototype.Main = function () {
             this.addChild(this.background);
             this.addChild(this.infoPanel);
             this.addChild(this.backButton);
+            this.addChild(this.hudImage);
             this.addChild(this.player);
+            this.addChild(this.hud.playerLivesLabel);
+            this.addChild(this.hud.playerBombsLabel);
+            //this.addChild(this.hud.playerPowerLabel);
+            this.addChild(this.hud.playerScoreLabel);
+            this.addChild(this.hud.scoreMultLabel);
             this.backButton.on("click", this.backButtonClick);
+            this.nextButton;
         };
         return HelpScene;
     }(objects.Scene));

@@ -32,6 +32,7 @@ var scenes;
             for (var i = 0; i < this.enemyNum; i++) {
                 this.enemies[i] = new objects.Enemy(this.assetManager);
             }
+            this.hud = new managers.HUD;
             this.Main();
         };
         PlayScene.prototype.Update = function () {
