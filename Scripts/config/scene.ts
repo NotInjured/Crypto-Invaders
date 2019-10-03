@@ -4,6 +4,7 @@ module config {
         START,
         OPTIONS,
         HELP,
+        INFO,
         GAME,
         OVER   
     }

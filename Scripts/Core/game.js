@@ -22,7 +22,8 @@
         { id: "infoPanel", src: "./Assets/infopanel.png" },
         { id: "hud", src: "./Assets/HUD.png" },
         { id: "nextButton", src: "./Assets/NextButton.png" },
-        { id: "infoPanel2", src: "./ASsets/infopanel2.png" }
+        { id: "infoPanel2", src: "./Assets/infopanel2.png" },
+        { id: "toggleHud", src: "./Assets/UIButton.png" }
     ];
     function Init() {
         console.log("Initialization Start");
@@ -81,6 +82,11 @@
             case config.Scene.HELP:
                 stage.removeAllChildren();
                 currentScene = new scenes.HelpScene(assetManager);
+                stage.addChild(currentScene);
+                break;
+            case config.Scene.INFO:
+                stage.removeAllChildren();
+                currentScene = new scenes.InfoScene(assetManager);
                 stage.addChild(currentScene);
                 break;
             case config.Scene.GAME:
