@@ -17,7 +17,7 @@ var objects;
         __extends(Player, _super);
         // Constructor
         function Player(assetManager) {
-            var _this = _super.call(this, assetManager, "player") || this;
+            var _this = _super.call(this, assetManager, "player1") || this;
             document.addEventListener("keydown", _this.keyDown.bind(_this), false);
             document.addEventListener("keyup", _this.keyUp.bind(_this), false);
             _this.Start();
@@ -28,6 +28,10 @@ var objects;
             // Set the initial position
             this.y = 600;
             this.x = 240;
+            this.lives = 3;
+            this.bombs = 1;
+            this.power = 1;
+            this.score = 0;
             //this.scaleX = 0.25;
             //this.scaleY = 0.25;
         };
@@ -53,6 +57,20 @@ var objects;
                 this.y += 3;
             if (!this.downArrow)
                 this.y += 0;
+            /* code to spawn bullets, implemented later
+            if(this.shoot)
+            
+            if(!this.shoot)*/
+            /* code to spawn bomb
+            if(this.special)
+             
+            if(!this.special)
+            */
+            /* code to swap ship
+            if(this.swap)
+
+            if(!this.swap)
+            */
         };
         Player.prototype.CheckBound = function () {
             // Right boundary
@@ -84,6 +102,9 @@ var objects;
                 case 90:
                     this.special = true;
                     break;
+                case 32:
+                    this.swap = true;
+                    break;
             }
         };
         Player.prototype.keyUp = function (event) {
@@ -105,6 +126,9 @@ var objects;
                     break;
                 case 90:
                     this.special = false;
+                    break;
+                case 32:
+                    this.swap = false;
                     break;
             }
         };

@@ -7,11 +7,17 @@ module objects {
         private downArrow:boolean;
         private shoot:boolean;
         private special:boolean;
+        private swap:boolean;
+        private pause:boolean;
+
+        public lives:number;
+        public bombs:number;
+        public power:number;
+        public score:number;
 
         // Constructor
         constructor(assetManager:createjs.LoadQueue) {
-            super(assetManager, "player");
-            
+            super(assetManager, "player1");          
 
             document.addEventListener("keydown", this.keyDown.bind(this), false);
             document.addEventListener("keyup", this.keyUp.bind(this), false);
@@ -24,6 +30,11 @@ module objects {
             this.y = 600;
             this.x = 240;
             
+            this.lives = 3;
+            this.bombs = 1;
+            this.power = 1;
+            this.score = 0;
+
             //this.scaleX = 0.25;
             //this.scaleY = 0.25;
         }
@@ -53,7 +64,26 @@ module objects {
             this.y += 3;
             if(!this.downArrow)
             this.y += 0;
+
+            /* code to spawn bullets, implemented later
+            if(this.shoot)
+            
+            if(!this.shoot)*/
+
+            /* code to spawn bomb
+            if(this.special)
+             
+            if(!this.special)
+            */
+
+            /* code to swap ship
+            if(this.swap)
+
+            if(!this.swap)
+            */
+
         }
+
         public CheckBound():void {
             // Right boundary
             if(this.x >= 640 - this.halfW) {
@@ -85,7 +115,10 @@ module objects {
                 break;
                 case 90:    
                     this.special = true;
-                break;   
+                break;
+                case 32:
+                    this.swap = true;
+                break;
             }
                 
         }
@@ -109,7 +142,10 @@ module objects {
                 break;
                 case 90:    
                     this.special = false;
-                break;   
+                break;
+                case 32:
+                    this.swap = false;
+                break;  
             }
         }
     }

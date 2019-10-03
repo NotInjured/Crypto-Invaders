@@ -12,7 +12,7 @@
         { id: "backButton", src: "./Assets/BackButton.png" },
         { id: "startButton", src: "./Assets/StartButton.png" },
         { id: "background", src: "./Assets/background.png" },
-        { id: "player", src: "./Assets/Spaceship.png" },
+        { id: "player1", src: "./Assets/Ship1.png" },
         { id: "enemy", src: "./Assets/ship.png" },
         { id: "optionButton", src: "./Assets/OptionsButton.png" },
         { id: "helpButton", src: "./Assets/HelpButton.png" },
