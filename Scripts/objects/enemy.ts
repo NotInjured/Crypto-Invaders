@@ -17,14 +17,14 @@ module objects {
             this.CheckBounds();
         }
         public Reset():void {
-            this.x = Math.floor(Math.random() * 550) + 50;
-            this.y = Math.floor(Math.random() * -800) - 50;
+            this.x = Math.floor(Math.random() * 430) + 50;
+            this.y = Math.floor(Math.random() * -670) - 50;
         }
         public Move():void {
             this.y += 5;
         }
         public CheckBounds():void {
-            if(this.y >= 900 + this.halfH + 5) {
+            if(this.y >= 720 + this.halfH + 5) {
                 this.Reset();
             }
         }

@@ -32,6 +32,7 @@ var scenes;
             for (var i = 0; i < this.enemyNum; i++) {
                 this.enemies[i] = new objects.Enemy(this.assetManager);
             }
+            this.hudImage = new objects.Image(this.assetManager, "hud", 0, 0);
             this.hud = new managers.HUD;
             this.Main();
         };
@@ -50,6 +51,12 @@ var scenes;
             var _this = this;
             // Order matters when adding game objects.
             this.addChild(this.background);
+            this.addChild(this.hudImage);
+            this.addChild(this.hud.playerLivesLabel);
+            this.addChild(this.hud.playerBombsLabel);
+            //this.addChild(this.hud.playerPowerLabel);
+            this.addChild(this.hud.playerScoreLabel);
+            this.addChild(this.hud.scoreMultLabel);
             this.addChild(this.player);
             // this.addChild(this.enemy);
             this.enemies.forEach(function (e) {

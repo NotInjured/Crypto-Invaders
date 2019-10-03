@@ -39,8 +39,9 @@ var scenes;
                 "dropped by enemies/bosses (Max:10)" + "\n\n" +
                 "Top Right: " + "\n" +
                 "Score is gained by destroying enemies, bosses" + "\n" +
-                "and collecting item drops Score multiplier is gained " + "\n" +
-                "upon destroying enemies and is lost when dead", "16px", "OptimusPrimus", "#000000", 60, 230, false);
+                "and collecting item drops " + "\n\n" +
+                "Score multiplier is gained upon destroying enemies" + "\n" +
+                "and is lost when dead", "16px", "OptimusPrimus", "#000000", 60, 215, false);
             this.hud = new managers.HUD;
             this.Main();
         };
