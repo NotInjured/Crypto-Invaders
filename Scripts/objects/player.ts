@@ -14,10 +14,14 @@ module objects {
         public bombs:number;
         public power:number;
         public score:number;
+        
+        private swapTimer:number;
+
+        private shipType: config.Ship;
 
         // Constructor
         constructor(assetManager:createjs.LoadQueue) {
-            super(assetManager, "player1");          
+            super(assetManager, "ship1");          
 
             document.addEventListener("keydown", this.keyDown.bind(this), false);
             document.addEventListener("keyup", this.keyUp.bind(this), false);
@@ -34,7 +38,9 @@ module objects {
             this.bombs = 1;
             this.power = 1;
             this.score = 0;
+            this.swapTimer = 15;
 
+            this.shipType = config.Ship.Botcoin;
             //this.scaleX = 0.25;
             //this.scaleY = 0.25;
         }
@@ -84,6 +90,23 @@ module objects {
 
         }
 
+        public ChangeShip():void{
+            switch(this.shipType){
+                case config.Ship.Botcoin:
+                    this.shipType = config.Ship.Lightcoin;
+                    console.log("Changing to Lightcoin Ship");
+                break;
+                case config.Ship.Lightcoin:
+                    this.shipType = config.Ship.Enderium;
+                    console.log("Changing to Enderium Ship");
+                break;
+                case config.Ship.Enderium:
+                    this.shipType = config.Ship.Botcoin;
+                    console.log("Changing to Botcoin Ship");
+                break;
+            }
+        }
+
         public CheckBound():void {
             // Right boundary
             if(this.x >= 640 - this.halfW) {
@@ -118,6 +141,7 @@ module objects {
                 break;
                 case 32:
                     this.swap = true;
+                    this.ChangeShip();
                 break;
             }
                 

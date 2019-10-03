@@ -27,9 +27,7 @@ var managers;
         HUD.prototype.Main = function () { };
         HUD.prototype.PlayerLives = function () {
             //this.playerLivesImage = new objects.Image(this.assetManager, "playerLives", 100, 100);
-            //if(this.player.lives >= 0)
-            //    this.playerLives = new objects.Label(
-            //        "x" + this.player.lives, "30px", "OptimusPrinceps","#000000", 240, 240, false );
+            this.playerLives = new objects.Label("x" + this.player.lives, "30px", "OptimusPrinceps", "#000000", 240, 240, false);
         };
         HUD.prototype.PlayerBombs = function () {
         };

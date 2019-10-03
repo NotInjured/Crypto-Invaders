@@ -17,7 +17,7 @@ var objects;
         __extends(Player, _super);
         // Constructor
         function Player(assetManager) {
-            var _this = _super.call(this, assetManager, "player1") || this;
+            var _this = _super.call(this, assetManager, "ship1") || this;
             document.addEventListener("keydown", _this.keyDown.bind(_this), false);
             document.addEventListener("keyup", _this.keyUp.bind(_this), false);
             _this.Start();
@@ -32,6 +32,8 @@ var objects;
             this.bombs = 1;
             this.power = 1;
             this.score = 0;
+            this.swapTimer = 15;
+            this.shipType = config.Ship.Botcoin;
             //this.scaleX = 0.25;
             //this.scaleY = 0.25;
         };
@@ -72,6 +74,22 @@ var objects;
             if(!this.swap)
             */
         };
+        Player.prototype.ChangeShip = function () {
+            switch (this.shipType) {
+                case config.Ship.Botcoin:
+                    this.shipType = config.Ship.Lightcoin;
+                    console.log("Changing to Lightcoin Ship");
+                    break;
+                case config.Ship.Lightcoin:
+                    this.shipType = config.Ship.Enderium;
+                    console.log("Changing to Enderium Ship");
+                    break;
+                case config.Ship.Enderium:
+                    this.shipType = config.Ship.Botcoin;
+                    console.log("Changing to Botcoin Ship");
+                    break;
+            }
+        };
         Player.prototype.CheckBound = function () {
             // Right boundary
             if (this.x >= 640 - this.halfW) {
@@ -104,6 +122,7 @@ var objects;
                     break;
                 case 32:
                     this.swap = true;
+                    this.ChangeShip();
                     break;
             }
         };

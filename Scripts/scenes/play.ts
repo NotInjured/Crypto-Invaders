@@ -3,6 +3,8 @@ module scenes {
         // Variables
         private background:objects.Background;
         private player:objects.Player;
+        private hud:managers.HUD;
+
         // private enemy:objects.Enemy;
         private enemies:objects.Enemy[];
         private enemyNum:number;
