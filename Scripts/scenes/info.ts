@@ -73,11 +73,7 @@ module scenes {
             this.addChild(this.info1); 
             this.addChild(this.backButton);
             this.addChild(this.hudImage);
-            this.addChild(this.hud.playerLivesLabel);
-            this.addChild(this.hud.playerBombsLabel);
-            //this.addChild(this.hud.playerPowerLabel);
-            this.addChild(this.hud.playerScoreLabel);
-            this.addChild(this.hud.scoreMultLabel);
+            this.addChild(this.hud);
             this.addChild(this.player);
 
             this.ammoManager.Ammo.forEach(ammo =>{

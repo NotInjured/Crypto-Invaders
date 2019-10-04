@@ -1,5 +1,5 @@
 module managers {
-    export class HUD {
+    export class HUD extends createjs.Container{
 
         // Variables
         public playerLivesImage: objects.Image;
@@ -61,6 +61,7 @@ module managers {
 
         // Constructor
         constructor(){
+            super();
             this.Initialize();
         }
         // Methods
@@ -77,6 +78,14 @@ module managers {
             this.Power = 0;
             this.Score = 0;
             this.ScoreMult = 0;
+        }
+
+        public Main():void{
+            this.addChild(this.playerLivesLabel);
+            this.addChild(this.playerBombsLabel);
+            this.addChild(this.playerPowerLabel);
+            this.addChild(this.playerScoreLabel);
+            this.addChild(this.scoreMultLabel);
         }
     }
 }
