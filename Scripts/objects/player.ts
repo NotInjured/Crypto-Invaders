@@ -14,6 +14,8 @@ module objects {
 
         private shipType: config.Ship;
 
+        private bullet:objects.Bullet;
+
         // Constructor
         constructor(assetManager:createjs.LoadQueue) {
             super(assetManager, "ship1");          

@@ -11,30 +11,69 @@
 
     // Store current scene and state information
     let currentScene:objects.Scene;
-    let currentState:number
+    let currentState:number;
+
+    let textureSpriteData: any;
+    let textureSprite: createjs.SpriteSheet;
+
+    textureSpriteData = {
+
+        "images": [
+            "./Assets/Sprites/Spritesheet.png"
+        ],
+
+        "framerate": 20,
+        "frames": [
+            [0, 0, 34, 38, 0, 0, 0],
+            [34, 0, 34, 38, 0, 0, 0],
+            [68, 0, 34, 38, 0, 0, 0],
+            [102, 0, 29, 29, 0, 0, 0],
+            [131, 0, 29, 29, 0, 0, 0],
+            [0, 38, 14, 19, 0, 0, 0],
+            [0, 58, 11, 13, 0, 0, 0],
+            [11, 71, 14, 9, 0, 0, 0],
+            [25, 71, 14, 14, 0, 0, 0],
+            [39, 71, 14, 20, 0, 0, 0],
+            [53, 71, 21, 15, 0, 0, 0],
+            [0, 207, 437, 456, 0, 0, 0],
+            [437, 207, 437, 456, 0, 0, 0],
+            [437, 256, 437, 456, 0, 0, 0],
+            [437, 305, 437, 456, 0, 0, 0],
+            [437, 354, 437, 456, 0, 0, 0],
+            [437, 403, 437, 456, 0, 0, 0],
+            [437, 452, 437, 456, 0, 0, 0],
+        ],
+
+        "animations": {
+            "StartButton": { "frames": [14] },
+            "HelpButton": { "frames": [15] },
+            "OptionsButton": { "frames": [16] },
+            "UIButton": { "frames": [17] },
+            "Ship1": { "frames": [0] },
+            "Ship2": { "frames": [1] },
+            "Ship3": { "frames": [2] },
+            "Enemy": { "frames": [3] },
+            "Enemy2": { "frames": [4] },
+            "Bullet": { "frames": [5] },
+            "Arc1": { "frames": [6] },
+            "Arc2": { "frames": [7] },
+            "Arc3": { "frames": [8] },
+            "Arc4": { "frames": [9] },
+            "Arc5": { "frames": [10] }
+        },
+    }
 
     assetManifest = [
-        {id: "backButton", src:"./Assets/BackButton.png"},
-        {id: "startButton", src:"./Assets/StartButton.png"},
-        {id: "background", src:"./Assets/background.png"},
-        {id: "ship1", src:"./Assets/Ship1.png"},
-        {id: "ship2", src:"./Assets/Ship2.png"},
-        {id: "ship3", src:"./Assets/Ship3.png"},
-        {id: "enemy", src:"./Assets/ship.png"},
-        {id: "optionButton", src:"./Assets/OptionsButton.png"},
-        {id: "helpButton", src:"./Assets/HelpButton.png"},
-        {id: "logo", src:"./Assets/StartButton.png"},
-        {id: "infoPanel", src:"./Assets/infopanel.png"},
         {id: "hud", src:"./Assets/HUD.png"},
-        {id: "nextButton", src:"./Assets/NextButton.png"},
-        {id: "infoPanel2", src:"./Assets/infopanel2.png"},
-        {id: "toggleHud", src:"./Assets/UIButton.png"}
-
+        {id: "infoPanel", src:"./Assets/infopanel.png"},
+        {id: "toggleHud", src:"./Assets/UIButton.png"},
     ];
 
     function Init() {
         console.log("Initialization Start");
         // Start();
+
+        textureSprite = new createjs.SpriteSheet(textureSpriteData);
 
         assetManager = new createjs.LoadQueue();
         assetManager.installPlugin(createjs.Sound);
