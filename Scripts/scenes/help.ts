@@ -81,7 +81,7 @@ module scenes {
             if(managers.Game.keyboardManager.swap && (ticker % 200 == 0)){
                 let playerPosX = this.player.x;
                 let playerPosY = this.player.y;
-                this.stage.removeChild(this.player);
+                managers.Game.currentSceneObject.removeChild(this.player);
 
                 switch(this.player.shipType){
                     case config.Ship.Botcoin:

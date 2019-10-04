@@ -1,9 +1,25 @@
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var managers;
 (function (managers) {
-    var HUD = /** @class */ (function () {
+    var HUD = /** @class */ (function (_super) {
+        __extends(HUD, _super);
         // Constructor
         function HUD() {
-            this.Initialize();
+            var _this = _super.call(this) || this;
+            _this.Initialize();
+            return _this;
         }
         Object.defineProperty(HUD.prototype, "Lives", {
             get: function () {
@@ -73,8 +89,15 @@ var managers;
             this.Score = 0;
             this.ScoreMult = 0;
         };
+        HUD.prototype.Main = function () {
+            this.addChild(this.playerLivesLabel);
+            this.addChild(this.playerBombsLabel);
+            this.addChild(this.playerPowerLabel);
+            this.addChild(this.playerScoreLabel);
+            this.addChild(this.scoreMultLabel);
+        };
         return HUD;
-    }());
+    }(createjs.Container));
     managers.HUD = HUD;
 })(managers || (managers = {}));
 //# sourceMappingURL=hud.js.map

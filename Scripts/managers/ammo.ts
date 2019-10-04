@@ -15,7 +15,6 @@ module managers {
             switch(shipType){
                 case config.Ship.Botcoin:
                     for(let i = 0; i < this.ammoCount; i++) {
-                        console.log(Ammo);
                         this.Ammo[i] = new objects.Ammo("Arc1");
                     }
                 break;
@@ -45,8 +44,8 @@ module managers {
         public Start():void {
             this.ammoCount = 50;
             this.Ammo = new Array<objects.Ammo>();
-            this.buildAmmoPool(config.Ship.Botcoin);
             this.CurrentAmmo = 0;
+            this.buildAmmoPool(config.Ship.Botcoin);
         }
         public Update():void {
             this.Ammo.forEach(ammo => {

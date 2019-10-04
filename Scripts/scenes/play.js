@@ -65,11 +65,7 @@ var scenes;
             // Order matters when adding game objects.
             this.addChild(this.background);
             this.addChild(this.hudImage);
-            this.addChild(this.hud.playerLivesLabel);
-            this.addChild(this.hud.playerBombsLabel);
-            //this.addChild(this.hud.playerPowerLabel);
-            this.addChild(this.hud.playerScoreLabel);
-            this.addChild(this.hud.scoreMultLabel);
+            this.addChild(this.hud);
             this.addChild(this.player);
             this.ammoManager.Ammo.forEach(function (ammo) {
                 _this.addChild(ammo);

@@ -11,7 +11,6 @@ var managers;
             switch (shipType) {
                 case config.Ship.Botcoin:
                     for (var i = 0; i < this.ammoCount; i++) {
-                        console.log(Ammo);
                         this.Ammo[i] = new objects.Ammo("Arc1");
                     }
                     break;
@@ -38,8 +37,8 @@ var managers;
         Ammo.prototype.Start = function () {
             this.ammoCount = 50;
             this.Ammo = new Array();
-            this.buildAmmoPool(config.Ship.Botcoin);
             this.CurrentAmmo = 0;
+            this.buildAmmoPool(config.Ship.Botcoin);
         };
         Ammo.prototype.Update = function () {
             this.Ammo.forEach(function (ammo) {
