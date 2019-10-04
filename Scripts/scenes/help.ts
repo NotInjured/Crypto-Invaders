@@ -15,8 +15,8 @@ module scenes {
         private hud:managers.HUD;
 
         // Constructor
-        constructor(assetManager: createjs.LoadQueue){
-            super(assetManager)
+        constructor(){
+            super()
 
             this.Start();
         }
@@ -25,12 +25,12 @@ module scenes {
 
         public Start():void{
             this.background = new objects.Background(this.assetManager);
-            this.player = new objects.Player(this.assetManager);
-            this.infoPanel = new objects.Image(this.assetManager, "infoPanel", 20, 125);
-            this.backButton = new objects.Button(this.assetManager, "backButton", -120, 525);
-            this.nextButton = new objects.Button(this.assetManager, "nextButton", 415, 525);
-            this.toggleHud = new objects.Button(this.assetManager, "toggleHud", 150, 525);
-            this.hudImage = new objects.Image(this.assetManager, "hud", 0, 0);
+            this.player = new objects.Player();
+            this.infoPanel = new objects.Image("InfoPanel", 20, 125);
+            this.backButton = new objects.Button("BackButton", -120, 525);
+            this.nextButton = new objects.Button("NextButton", 415, 525);
+            this.toggleHud = new objects.Button("UIButton", 150, 525);
+            this.hudImage = new objects.Image("HUD", 0, 0);
 
             this.hud = new managers.HUD;
 

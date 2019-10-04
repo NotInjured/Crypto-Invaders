@@ -16,10 +16,8 @@ var scenes;
     var PlayScene = /** @class */ (function (_super) {
         __extends(PlayScene, _super);
         // Constructor
-        function PlayScene(assetManager) {
-            var _this = _super.call(this, assetManager) || this;
-            document.addEventListener("keydown", _this.keyDown.bind(_this), false);
-            document.addEventListener("keyup", _this.keyUp.bind(_this), false);
+        function PlayScene() {
+            var _this = _super.call(this) || this;
             _this.Start();
             return _this;
         }
@@ -27,14 +25,14 @@ var scenes;
         PlayScene.prototype.Start = function () {
             // Initialize our variables
             this.background = new objects.Background(this.assetManager);
-            this.player = new objects.Player(this.assetManager);
+            this.player = new objects.Player();
             // this.enemy = new objects.Enemy(this.assetManager);
             this.enemies = new Array();
             this.enemyNum = 5;
             for (var i = 0; i < this.enemyNum; i++) {
-                this.enemies[i] = new objects.Enemy(this.assetManager);
+                this.enemies[i] = new objects.Enemy();
             }
-            this.hudImage = new objects.Image(this.assetManager, "hud", 0, 0);
+            this.hudImage = new objects.Image("HUD", 0, 0);
             this.hud = new managers.HUD;
             this.Main();
         };
@@ -67,23 +65,9 @@ var scenes;
             });
         };
         PlayScene.prototype.IsPaused = function () {
-            if (this.pause) {
+            if (managers.Game.keyboardManager.pause) {
                 objects.Game.currentScene = config.Scene.START;
                 console.log("Switching to start menu...");
-            }
-        };
-        PlayScene.prototype.keyDown = function (event) {
-            switch (event.keyCode) {
-                case 27:
-                    this.pause = true;
-                    break;
-            }
-        };
-        PlayScene.prototype.keyUp = function (event) {
-            switch (event.keyCode) {
-                case 27:
-                    this.pause = false;
-                    break;
             }
         };
         return PlayScene;

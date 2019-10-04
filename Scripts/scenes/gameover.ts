@@ -5,9 +5,8 @@ module scenes {
         private backButton: objects.Button;
 
         // Constructor
-        constructor(assetManager: createjs.LoadQueue) {
-            super(assetManager);
-
+        constructor() {
+            super();
             this.Start();
         }
 
@@ -16,7 +15,7 @@ module scenes {
             this.gameOverLabel = new objects.Label(
                 "Game Over!", "40px", "Consolas", "#000000", 320, 240, true);
             
-            this.backButton = new objects.Button(this.assetManager, "backButton", 320, 340);
+            this.backButton = new objects.Button("BackButton", 320, 340);
             this.Main();
         }
 

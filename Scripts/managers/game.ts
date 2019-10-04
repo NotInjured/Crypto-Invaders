@@ -6,6 +6,6 @@ module managers {        // Access to globally-required items
         public static hud: managers.HUD;
         public static keyboardManager: managers.Keyboard;
         public static highscore: number;
-        public static textureAtlas: createjs.SpriteSheet;
+        public static textureSprite: createjs.SpriteSheet;
     }
 }

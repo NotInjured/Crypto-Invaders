@@ -6,19 +6,15 @@ module scenes {
 
         private hudImage: objects.Image;
         private hud:managers.HUD;
-
-        // private enemy:objects.Enemy;
+        
         private enemies:objects.Enemy[];
         private enemyNum:number;
 
         private pause:boolean;
 
         // Constructor
-        constructor(assetManager:createjs.LoadQueue) {
-            super(assetManager);
-
-            document.addEventListener("keydown", this.keyDown.bind(this), false);
-            document.addEventListener("keyup", this.keyUp.bind(this), false);
+        constructor() {
+            super();
 
             this.Start();
         }
@@ -27,15 +23,15 @@ module scenes {
         public Start(): void {
             // Initialize our variables
             this.background = new objects.Background(this.assetManager);
-            this.player = new objects.Player(this.assetManager);
+            this.player = new objects.Player();
             // this.enemy = new objects.Enemy(this.assetManager);
             this.enemies = new Array<objects.Enemy>();
             this.enemyNum = 5;
             for(let i = 0; i < this.enemyNum; i++) {
-                this.enemies[i] = new objects.Enemy(this.assetManager);
+                this.enemies[i] = new objects.Enemy();
             }
 
-            this.hudImage = new objects.Image(this.assetManager, "hud", 0, 0);            
+            this.hudImage = new objects.Image("HUD", 0, 0);            
             this.hud = new managers.HUD;
 
             this.Main();
@@ -71,26 +67,9 @@ module scenes {
         }
 
         public IsPaused():void{
-            if(this.pause){
+            if(managers.Game.keyboardManager.pause){
                 objects.Game.currentScene = config.Scene.START;
                 console.log("Switching to start menu...");
-            }
-        }
-
-        public keyDown(event:KeyboardEvent):void{
-            switch(event.keyCode){
-                case 27:
-                    this.pause = true;
-                break;
-            }
-                
-        }
-
-        public keyUp(event:KeyboardEvent):void{
-            switch(event.keyCode){
-                case 27:
-                    this.pause = false;
-                break;
             }
         }
     }

@@ -16,6 +16,8 @@
     let textureSpriteData: any;
     let textureSprite: createjs.SpriteSheet;
 
+    let keyboardManager: managers.Keyboard;
+
     textureSpriteData = {
 
         "images": [
@@ -35,20 +37,17 @@
             [25, 71, 14, 14, 0, 0, 0],
             [39, 71, 14, 20, 0, 0, 0],
             [53, 71, 21, 15, 0, 0, 0],
-            [0, 207, 437, 456, 0, 0, 0],
-            [437, 207, 437, 456, 0, 0, 0],
-            [437, 256, 437, 456, 0, 0, 0],
-            [437, 305, 437, 456, 0, 0, 0],
-            [437, 354, 437, 456, 0, 0, 0],
-            [437, 403, 437, 456, 0, 0, 0],
-            [437, 452, 437, 456, 0, 0, 0],
+            [0, 25, 437, 456, 0, 0, 0],
+            [0, 556, 190, 49, 0, 0, 0],
+            [0, 605, 190, 49, 0, 0, 0],
+            [0, 654, 190, 49, 0, 0, 0],
+            [0, 703, 190, 49, 0, 0, 0],
+            [0, 752, 190, 49, 0, 0, 0],
+            [0, 801, 190, 49, 0, 0, 0],
+            [437, 0, 480, 720, 0, 0, 0]
         ],
 
         "animations": {
-            "StartButton": { "frames": [14] },
-            "HelpButton": { "frames": [15] },
-            "OptionsButton": { "frames": [16] },
-            "UIButton": { "frames": [17] },
             "Ship1": { "frames": [0] },
             "Ship2": { "frames": [1] },
             "Ship3": { "frames": [2] },
@@ -59,7 +58,16 @@
             "Arc2": { "frames": [7] },
             "Arc3": { "frames": [8] },
             "Arc4": { "frames": [9] },
-            "Arc5": { "frames": [10] }
+            "Arc5": { "frames": [10] },
+            "InfoPanel": { "frames": [11] },
+            "BackButton": { "frames": [12] },
+            "NextButton": { "frames": [13] },
+            "StartButton": { "frames": [14] },
+            "HelpButton": { "frames": [15] },
+            "OptionsButton": { "frames": [16] },
+            "UIButton": { "frames": [17] },
+            "HUD": { "frames": [18] }
+            
         },
     }
 
@@ -93,9 +101,15 @@
 
         // Set up default game state
         // Create a global reference to our stage object
-        objects.Game.stage = stage;
-        objects.Game.currentScene = config.Scene.START;
+        managers.Game.stage = stage;
+        managers.Game.currentScene = config.Scene.START;
         currentState = config.Scene.START; 
+
+        keyboardManager = new managers.Keyboard;
+
+        managers.Game.keyboardManager = keyboardManager;
+        managers.Game.assetManager = assetManager;
+        managers.Game.textureSprite = textureSprite;
 
         Main();
     }
@@ -103,7 +117,7 @@
     function Update() {
         // Has my state changed since the last check?
         if(currentState != objects.Game.currentScene) {
-            console.log("Changing scenes to" + objects.Game.currentScene);
+            console.log(objects.Game.currentScene);
             Main();
         }
 
@@ -123,37 +137,37 @@
         switch(objects.Game.currentScene) {
             case config.Scene.INTRO:
                 stage.removeAllChildren();
-                currentScene = new scenes.IntroScene(assetManager);
+                currentScene = new scenes.IntroScene();
                 stage.addChild(currentScene);
             break;
             case config.Scene.START:
                 stage.removeAllChildren();
-                currentScene = new scenes.StartScene(assetManager);
+                currentScene = new scenes.StartScene();
                 stage.addChild(currentScene);
             break;
             case config.Scene.OPTIONS:
                 stage.removeAllChildren();
-                currentScene = new scenes.StartScene(assetManager);
+                currentScene = new scenes.StartScene();
                 stage.addChild(currentScene);
             break;
             case config.Scene.HELP:
                 stage.removeAllChildren();
-                currentScene = new scenes.HelpScene(assetManager);
+                currentScene = new scenes.HelpScene();
                 stage.addChild(currentScene);
             break;
             case config.Scene.INFO:
                 stage.removeAllChildren();
-                currentScene = new scenes.InfoScene(assetManager);
+                currentScene = new scenes.InfoScene();
                 stage.addChild(currentScene);
                 break;
             case config.Scene.GAME:
                 stage.removeAllChildren();
-                currentScene = new scenes.PlayScene(assetManager);
+                currentScene = new scenes.PlayScene();
                 stage.addChild(currentScene);
             break;
             case config.Scene.OVER:
                 stage.removeAllChildren();
-                currentScene = new scenes.GameOverScene(assetManager);
+                currentScene = new scenes.GameOverScene();
                 stage.addChild(currentScene);
             break;
         }

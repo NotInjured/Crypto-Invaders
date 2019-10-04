@@ -1,5 +1,5 @@
 module objects {
-    export abstract class GameObject extends createjs.Bitmap {
+    export abstract class GameObject extends createjs.Sprite {
         // Variables
         protected speedX: number;
         protected speedY: number;
@@ -10,8 +10,8 @@ module objects {
         public halfH: number;   // Half-height
         public isColliding: boolean;
         // Constructor
-        constructor(assetManager:createjs.LoadQueue, imageString:string) {
-            super(assetManager.getResult(imageString));
+        constructor(imageString:string) {
+            super(managers.Game.textureSprite, imageString);
 
             this.name = imageString;
 

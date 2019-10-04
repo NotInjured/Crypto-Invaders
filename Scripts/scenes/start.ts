@@ -8,8 +8,8 @@ module scenes {
         private optionButton: objects.Button;
 
         // Constructor
-        constructor(assetManager:createjs.LoadQueue) {
-            super(assetManager);
+        constructor() {
+            super();
             this.Start();
         }
 
@@ -20,9 +20,9 @@ module scenes {
             this.welcomeLabel = new objects.Label(
                 "Crypto Invaders", "60px", "OptimusPrinceps", "#FFFFFF", 240, 240, true);
 
-            this.startButton = new objects.Button(this.assetManager, "startButton", 140, 300);
-            this.helpButton = new objects.Button(this.assetManager, "helpButton", 140, 350);
-            this.optionButton = new objects.Button(this.assetManager, "optionButton", 140, 400);
+            this.startButton = new objects.Button("StartButton", 140, 300);
+            this.helpButton = new objects.Button("HelpButton", 140, 350);
+            this.optionButton = new objects.Button("OptionButton", 140, 400);
             this.Main();
         }
         public Update():void {

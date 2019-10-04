@@ -15,10 +15,10 @@ var objects;
 (function (objects) {
     var Image = /** @class */ (function (_super) {
         __extends(Image, _super);
-        function Image(assetManager, imageString, x, y) {
+        function Image(imageString, x, y) {
             if (x === void 0) { x = 0; }
             if (y === void 0) { y = 0; }
-            var _this = _super.call(this, assetManager.getResult(imageString)) || this;
+            var _this = _super.call(this, imageString) || this;
             // Set default position
             _this.x = x;
             _this.y = y;

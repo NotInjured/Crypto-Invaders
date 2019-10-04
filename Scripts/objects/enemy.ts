@@ -2,8 +2,8 @@ module objects {
     export class Enemy extends objects.GameObject {
         // Variables
         // Constructor
-        constructor(assetManager:createjs.LoadQueue) {
-            super(assetManager, "enemy");
+        constructor() {
+            super("Enemy");
             this.Start();
         }
         // Methods

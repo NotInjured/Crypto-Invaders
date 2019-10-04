@@ -16,8 +16,8 @@ var scenes;
     var IntroScene = /** @class */ (function (_super) {
         __extends(IntroScene, _super);
         // Constructor
-        function IntroScene(assetManager) {
-            var _this = _super.call(this, assetManager) || this;
+        function IntroScene() {
+            var _this = _super.call(this) || this;
             _this.Start();
             return _this;
         }

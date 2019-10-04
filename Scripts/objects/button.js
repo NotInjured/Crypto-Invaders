@@ -17,10 +17,10 @@ var objects;
         __extends(Button, _super);
         // Variables
         // Constructor
-        function Button(assetManager, imageString, x, y) {
+        function Button(imageString, x, y) {
             if (x === void 0) { x = 0; }
             if (y === void 0) { y = 0; }
-            var _this = _super.call(this, assetManager.getResult(imageString)) || this;
+            var _this = _super.call(this, imageString) || this;
             // Set default position
             _this.x = x;
             _this.y = y;
@@ -37,7 +37,7 @@ var objects;
             this.alpha = 1.0;
         };
         return Button;
-    }(createjs.Bitmap));
+    }(objects.GameObject));
     objects.Button = Button;
 })(objects || (objects = {}));
 //# sourceMappingURL=button.js.map

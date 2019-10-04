@@ -5,8 +5,8 @@ module objects {
         private speed:number = -10;
 
         // Constructor
-        constructor(assetManager:createjs.LoadQueue) {
-            super(assetManager, "bullet");
+        constructor() {
+            super("Bullet");
             this.Start();
         }
         // Methods

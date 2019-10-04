@@ -16,15 +16,15 @@ var scenes;
     var GameOverScene = /** @class */ (function (_super) {
         __extends(GameOverScene, _super);
         // Constructor
-        function GameOverScene(assetManager) {
-            var _this = _super.call(this, assetManager) || this;
+        function GameOverScene() {
+            var _this = _super.call(this) || this;
             _this.Start();
             return _this;
         }
         // Method
         GameOverScene.prototype.Start = function () {
             this.gameOverLabel = new objects.Label("Game Over!", "40px", "Consolas", "#000000", 320, 240, true);
-            this.backButton = new objects.Button(this.assetManager, "backButton", 320, 340);
+            this.backButton = new objects.Button("BackButton", 320, 340);
             this.Main();
         };
         GameOverScene.prototype.Update = function () { };

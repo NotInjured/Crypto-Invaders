@@ -16,8 +16,8 @@ var scenes;
     var StartScene = /** @class */ (function (_super) {
         __extends(StartScene, _super);
         // Constructor
-        function StartScene(assetManager) {
-            var _this = _super.call(this, assetManager) || this;
+        function StartScene() {
+            var _this = _super.call(this) || this;
             _this.Start();
             return _this;
         }
@@ -25,9 +25,9 @@ var scenes;
             // Initialize our objects for this scene
             this.background = new objects.Background(this.assetManager);
             this.welcomeLabel = new objects.Label("Crypto Invaders", "60px", "OptimusPrinceps", "#FFFFFF", 240, 240, true);
-            this.startButton = new objects.Button(this.assetManager, "startButton", 140, 300);
-            this.helpButton = new objects.Button(this.assetManager, "helpButton", 140, 350);
-            this.optionButton = new objects.Button(this.assetManager, "optionButton", 140, 400);
+            this.startButton = new objects.Button("StartButton", 140, 300);
+            this.helpButton = new objects.Button("HelpButton", 140, 350);
+            this.optionButton = new objects.Button("OptionButton", 140, 400);
             this.Main();
         };
         StartScene.prototype.Update = function () {
