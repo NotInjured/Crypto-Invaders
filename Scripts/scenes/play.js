@@ -33,8 +33,11 @@ var scenes;
             for (var i = 0; i < this.enemyNum; i++) {
                 this.enemies[i] = new objects.Enemy();
             }
-            this.hudImage = new objects.Image("HUD", 240, 360);
+            this.hudImage = new objects.Image("HUD", 0, 0);
             this.hud = new managers.HUD;
+            managers.Game.hud = this.hud;
+            managers.Game.hud.Lives = 3;
+            managers.Game.hud.Bombs = 1;
             this.Main();
         };
         PlayScene.prototype.Update = function () {
@@ -44,6 +47,7 @@ var scenes;
             this.player.Update();
             this.IsPaused();
             this.ammoManager.Update();
+            this.ChangeShip();
             this.enemies.forEach(function (e) {
                 if (!e.isDead) {
                     e.Update();
@@ -79,6 +83,46 @@ var scenes;
             if (managers.Game.keyboardManager.pause) {
                 managers.Game.currentScene = config.Scene.START;
                 console.log("Switching to start menu...");
+            }
+        };
+        PlayScene.prototype.ChangeShip = function () {
+            var ticker = createjs.Ticker.getTicks();
+            if (managers.Game.keyboardManager.swap && (ticker % 200 == 0)) {
+                var playerPosX = this.player.x;
+                var playerPosY = this.player.y;
+                this.stage.removeChild(this.player);
+                switch (this.player.shipType) {
+                    case config.Ship.Botcoin:
+                        playerPosX = this.player.x;
+                        playerPosY = this.player.y;
+                        this.stage.addChild(this.player = new objects.Player("Ship2", playerPosX, playerPosY, true));
+                        this.player.shipType = config.Ship.Lightcoin;
+                        console.log("Changing to Lightcoin Ship");
+                        console.log(this.player.shipType);
+                        this.ammoManager.buildAmmoPool(this.player.shipType);
+                        console.log("Changing to Arc2");
+                        break;
+                    case config.Ship.Lightcoin:
+                        playerPosX = this.player.x;
+                        playerPosY = this.player.y;
+                        this.stage.addChild(this.player = new objects.Player("Ship3", playerPosX, playerPosY, true));
+                        this.player.shipType = config.Ship.Enderium;
+                        console.log("Changing to Enderium Ship");
+                        console.log(this.player.shipType);
+                        this.ammoManager.buildAmmoPool(this.player.shipType);
+                        console.log("Changing to Arc3");
+                        break;
+                    case config.Ship.Enderium:
+                        playerPosX = this.player.x;
+                        playerPosY = this.player.y;
+                        this.stage.addChild(this.player = new objects.Player("Ship1", playerPosX, playerPosY, true));
+                        this.player.shipType = config.Ship.Botcoin;
+                        console.log("Changing to Botcoin Ship");
+                        console.log(this.player.shipType);
+                        this.ammoManager.buildAmmoPool(this.player.shipType);
+                        console.log("Changing to Arc1");
+                        break;
+                }
             }
         };
         return PlayScene;

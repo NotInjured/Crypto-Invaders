@@ -24,6 +24,7 @@ module managers {
         }
         set Lives(newLives:number){
             this.lives = newLives;
+            this.playerLivesLabel.text = "Lives x" + this.lives;
         }
         
         get Bombs():number{
@@ -31,6 +32,7 @@ module managers {
         }
         set Bombs(newBombs:number){
             this.bombs = newBombs;
+            this.playerBombsLabel.text = "Bombs x" + this.bombs;
         }
 
         get Power():number{
@@ -38,6 +40,7 @@ module managers {
         }
         set Power(newPower:number){
             this.power = newPower;
+            this.playerBombsLabel.text = "PWR " + this.power;
         }
 
         get Score():number{
@@ -45,6 +48,7 @@ module managers {
         }
         set Score(newScore:number){
             this.score = newScore;
+            this.playerScoreLabel.text = "Score: " + this.score;
         }
 
         get ScoreMult():number{
@@ -52,6 +56,7 @@ module managers {
         }
         set ScoreMult(newScoreMult:number){
             this.scoreMult = newScoreMult;
+            this.scoreMultLabel.text = "x" + this.scoreMult; 
         }
 
         // Constructor
@@ -61,19 +66,17 @@ module managers {
         // Methods
 
         public Initialize():void{
-            this.lives = 3;
-            this.bombs = 1;
-            this.power = 1;
-            this.score = 0;
-            this.scoreMult = 1;
-            
-            this.playerLivesLabel = new objects.Label("Lives x" + this.Lives, "18px", "OptimusPrinceps","#000000", 5, 667, false );
-            this.playerBombsLabel = new objects.Label("Bombs x" + this.Bombs, "18px", "OptimusPrinceps","#000000", 5, 688, false );       
-            this.playerScoreLabel = new objects.Label("" + this.score, "20px", "OptimusPrinceps","#000000", 350, 15, false );
-            this.playerPowerLabel = new objects.Label("" + this.power, "18px", "OptimusPrinceps","#000000", 465, 20, false );    
-            this.scoreMultLabel = new objects.Label("x" + this.scoreMult, "18px", "OptimusPrinceps","#000000", 437, 45, false );
+            this.playerLivesLabel = new objects.Label("", "18px", "OptimusPrinceps","#000000", 5, 667, false );
+            this.playerBombsLabel = new objects.Label("", "18px", "OptimusPrinceps","#000000", 5, 688, false );       
+            this.playerScoreLabel = new objects.Label("", "20px", "OptimusPrinceps","#000000", 350, 15, false );
+            this.playerPowerLabel = new objects.Label("", "18px", "OptimusPrinceps","#000000", 465, 20, false );    
+            this.scoreMultLabel = new objects.Label("", "18px", "OptimusPrinceps","#000000", 437, 45, false );
+
+            this.Lives = 0;
+            this.Bombs = 0;
+            this.Power = 0;
+            this.Score = 0;
+            this.ScoreMult = 0;
         }
-
     }
-
 }

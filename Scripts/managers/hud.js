@@ -11,6 +11,7 @@ var managers;
             },
             set: function (newLives) {
                 this.lives = newLives;
+                this.playerLivesLabel.text = "Lives x" + this.lives;
             },
             enumerable: true,
             configurable: true
@@ -21,6 +22,7 @@ var managers;
             },
             set: function (newBombs) {
                 this.bombs = newBombs;
+                this.playerBombsLabel.text = "Bombs x" + this.bombs;
             },
             enumerable: true,
             configurable: true
@@ -31,6 +33,7 @@ var managers;
             },
             set: function (newPower) {
                 this.power = newPower;
+                this.playerBombsLabel.text = "PWR " + this.power;
             },
             enumerable: true,
             configurable: true
@@ -41,6 +44,7 @@ var managers;
             },
             set: function (newScore) {
                 this.score = newScore;
+                this.playerScoreLabel.text = "Score: " + this.score;
             },
             enumerable: true,
             configurable: true
@@ -51,22 +55,23 @@ var managers;
             },
             set: function (newScoreMult) {
                 this.scoreMult = newScoreMult;
+                this.scoreMultLabel.text = "x" + this.scoreMult;
             },
             enumerable: true,
             configurable: true
         });
         // Methods
         HUD.prototype.Initialize = function () {
-            this.lives = 3;
-            this.bombs = 1;
-            this.power = 1;
-            this.score = 0;
-            this.scoreMult = 1;
-            this.playerLivesLabel = new objects.Label("Lives x" + this.Lives, "18px", "OptimusPrinceps", "#000000", 5, 667, false);
-            this.playerBombsLabel = new objects.Label("Bombs x" + this.Bombs, "18px", "OptimusPrinceps", "#000000", 5, 688, false);
-            this.playerScoreLabel = new objects.Label("" + this.score, "20px", "OptimusPrinceps", "#000000", 350, 15, false);
-            this.playerPowerLabel = new objects.Label("" + this.power, "18px", "OptimusPrinceps", "#000000", 465, 20, false);
-            this.scoreMultLabel = new objects.Label("x" + this.scoreMult, "18px", "OptimusPrinceps", "#000000", 437, 45, false);
+            this.playerLivesLabel = new objects.Label("", "18px", "OptimusPrinceps", "#000000", 5, 667, false);
+            this.playerBombsLabel = new objects.Label("", "18px", "OptimusPrinceps", "#000000", 5, 688, false);
+            this.playerScoreLabel = new objects.Label("", "20px", "OptimusPrinceps", "#000000", 350, 15, false);
+            this.playerPowerLabel = new objects.Label("", "18px", "OptimusPrinceps", "#000000", 465, 20, false);
+            this.scoreMultLabel = new objects.Label("", "18px", "OptimusPrinceps", "#000000", 437, 45, false);
+            this.Lives = 0;
+            this.Bombs = 0;
+            this.Power = 0;
+            this.Score = 0;
+            this.ScoreMult = 0;
         };
         return HUD;
     }());
