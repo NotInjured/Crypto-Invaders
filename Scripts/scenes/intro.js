@@ -24,7 +24,7 @@ var scenes;
         // Methods
         IntroScene.prototype.Start = function () {
             //this.background = new objects.Background(this.assetManager);
-            this.logo = new objects.Background(this.assetManager);
+            this.logo = new objects.Background();
             this.Main();
         };
         IntroScene.prototype.Update = function () {

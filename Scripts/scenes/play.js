@@ -24,7 +24,7 @@ var scenes;
         // Methods
         PlayScene.prototype.Start = function () {
             // Initialize our variables
-            this.background = new objects.Background(this.assetManager);
+            this.background = new objects.Background();
             this.player = new objects.Player();
             // this.enemy = new objects.Enemy(this.assetManager);
             this.enemies = new Array();
@@ -32,7 +32,7 @@ var scenes;
             for (var i = 0; i < this.enemyNum; i++) {
                 this.enemies[i] = new objects.Enemy();
             }
-            this.hudImage = new objects.Image("HUD", 0, 0);
+            this.hudImage = new objects.Image("HUD", 240, 360);
             this.hud = new managers.HUD;
             this.Main();
         };
@@ -66,7 +66,7 @@ var scenes;
         };
         PlayScene.prototype.IsPaused = function () {
             if (managers.Game.keyboardManager.pause) {
-                objects.Game.currentScene = config.Scene.START;
+                managers.Game.currentScene = config.Scene.START;
                 console.log("Switching to start menu...");
             }
         };

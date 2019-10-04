@@ -23,11 +23,11 @@ var scenes;
         }
         StartScene.prototype.Start = function () {
             // Initialize our objects for this scene
-            this.background = new objects.Background(this.assetManager);
-            this.welcomeLabel = new objects.Label("Crypto Invaders", "60px", "OptimusPrinceps", "#FFFFFF", 240, 240, true);
-            this.startButton = new objects.Button("StartButton", 140, 300);
-            this.helpButton = new objects.Button("HelpButton", 140, 350);
-            this.optionButton = new objects.Button("OptionButton", 140, 400);
+            this.background = new objects.Background();
+            this.gameLabel = new objects.Label("Crypto Invaders", "60px", "OptimusPrinceps", "#FFFFFF", 240, 240, true);
+            this.startButton = new objects.Button("buttonStart", 330, 325);
+            this.helpButton = new objects.Button("buttonHelp", 330, 390);
+            this.optionButton = new objects.Button("buttonOptions", 330, 455);
             this.Main();
         };
         StartScene.prototype.Update = function () {
@@ -35,18 +35,18 @@ var scenes;
         };
         StartScene.prototype.startButtonClick = function () {
             // Change our game state from START to GAME
-            objects.Game.currentScene = config.Scene.GAME;
+            managers.Game.currentScene = config.Scene.GAME;
         };
         StartScene.prototype.helpButtonClick = function () {
-            objects.Game.currentScene = config.Scene.HELP;
+            managers.Game.currentScene = config.Scene.HELP;
         };
         StartScene.prototype.optionButtonClick = function () {
-            objects.Game.currentScene = config.Scene.OPTIONS;
+            managers.Game.currentScene = config.Scene.OPTIONS;
         };
         StartScene.prototype.Main = function () {
             // Add items to our scene
             this.addChild(this.background);
-            this.addChild(this.welcomeLabel);
+            this.addChild(this.gameLabel);
             this.addChild(this.startButton);
             this.addChild(this.helpButton);
             this.addChild(this.optionButton);

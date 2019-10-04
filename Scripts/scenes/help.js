@@ -23,13 +23,13 @@ var scenes;
         }
         // Methods
         HelpScene.prototype.Start = function () {
-            this.background = new objects.Background(this.assetManager);
+            this.background = new objects.Background();
             this.player = new objects.Player();
-            this.infoPanel = new objects.Image("InfoPanel", 20, 125);
-            this.backButton = new objects.Button("BackButton", -120, 525);
-            this.nextButton = new objects.Button("NextButton", 415, 525);
-            this.toggleHud = new objects.Button("UIButton", 150, 525);
-            this.hudImage = new objects.Image("HUD", 0, 0);
+            this.infoPanel = new objects.Image("panelUI", 240, 360);
+            this.backButton = new objects.Button("buttonBack", 90, 575);
+            this.nextButton = new objects.Button("buttonNext", 575, 575);
+            //this.toggleHud = new objects.Button("buttonUI", 330, 575);
+            this.hudImage = new objects.Image("HUD", 240, 360);
             this.hud = new managers.HUD;
             this.Main();
         };
@@ -37,10 +37,10 @@ var scenes;
             this.player.Update();
         };
         HelpScene.prototype.backButtonClick = function () {
-            objects.Game.currentScene = config.Scene.START;
+            managers.Game.currentScene = config.Scene.START;
         };
         HelpScene.prototype.nextButtonClick = function () {
-            objects.Game.currentScene = config.Scene.INFO;
+            managers.Game.currentScene = config.Scene.INFO;
         };
         HelpScene.prototype.toggleButtonClick = function () {
         };
@@ -50,7 +50,7 @@ var scenes;
             this.addChild(this.backButton);
             this.addChild(this.nextButton);
             this.addChild(this.hudImage);
-            this.addChild(this.toggleHud);
+            //this.addChild(this.toggleHud);
             this.addChild(this.hud.playerLivesLabel);
             this.addChild(this.hud.playerBombsLabel);
             //this.addChild(this.hud.playerPowerLabel);

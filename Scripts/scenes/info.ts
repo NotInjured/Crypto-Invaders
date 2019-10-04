@@ -25,12 +25,12 @@ module scenes {
         // Methods
 
         public Start():void{
-            this.background = new objects.Background(this.assetManager);
+            this.background = new objects.Background();
             this.player = new objects.Player();
-            this.infoPanel = new objects.Image("InfoPanel", 20, 125);            
-            this.backButton = new objects.Button("BackButton", -120, 525);
-            this.toggleHud = new objects.Button("UIButton", 150, 525);
-            this.hudImage = new objects.Image("HUD", 0, 0);
+            this.infoPanel = new objects.Image("panelInfo", 240, 360);            
+            this.backButton = new objects.Button("buttonBack", 90, 575);
+            //this.toggleHud = new objects.Button("buttonUI", 330, 575);
+            this.hudImage = new objects.Image("HUD", 240, 360);
             this.info1 = new objects.Label(
             "Bottom Left: "+ "\n" +
             "Player starts with 3 lives " + "\n" +
@@ -57,7 +57,7 @@ module scenes {
         }
 
         public backButtonClick():void{
-            objects.Game.currentScene = config.Scene.HELP;
+            managers.Game.currentScene = config.Scene.HELP;
         }
 
         public Main():void{
@@ -66,7 +66,7 @@ module scenes {
             this.addChild(this.info1); 
             this.addChild(this.backButton);
             this.addChild(this.hudImage);
-            this.addChild(this.toggleHud);
+            //this.addChild(this.toggleHud);
             this.addChild(this.hud.playerLivesLabel);
             this.addChild(this.hud.playerBombsLabel);
             //this.addChild(this.hud.playerPowerLabel);

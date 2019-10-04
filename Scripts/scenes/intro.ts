@@ -13,7 +13,7 @@ module scenes {
         // Methods
         public Start():void {
             //this.background = new objects.Background(this.assetManager);
-            this.logo = new objects.Background(this.assetManager);
+            this.logo = new objects.Background();
             this.Main();
         }
         public Update():void {

@@ -1,4 +1,5 @@
 // Immediate Invoked Anonymous Function
+/// <reference path="_references.ts"/>
 (function () {
     // Global Game Variables
     var canvas = document.getElementById("canvas");
@@ -13,56 +14,56 @@
     var keyboardManager;
     textureSpriteData = {
         "images": [
-            "./Assets/Sprites/Spritesheet.png"
+            "./Assets/Sprites/CrpytoSpritesheet.png"
         ],
         "framerate": 20,
         "frames": [
-            [0, 0, 34, 38, 0, 0, 0],
-            [34, 0, 34, 38, 0, 0, 0],
-            [68, 0, 34, 38, 0, 0, 0],
-            [102, 0, 29, 29, 0, 0, 0],
-            [131, 0, 29, 29, 0, 0, 0],
-            [0, 38, 14, 19, 0, 0, 0],
-            [0, 58, 11, 13, 0, 0, 0],
-            [11, 71, 14, 9, 0, 0, 0],
-            [25, 71, 14, 14, 0, 0, 0],
-            [39, 71, 14, 20, 0, 0, 0],
-            [53, 71, 21, 15, 0, 0, 0],
-            [0, 25, 437, 456, 0, 0, 0],
-            [0, 556, 190, 49, 0, 0, 0],
-            [0, 605, 190, 49, 0, 0, 0],
-            [0, 654, 190, 49, 0, 0, 0],
-            [0, 703, 190, 49, 0, 0, 0],
-            [0, 752, 190, 49, 0, 0, 0],
-            [0, 801, 190, 49, 0, 0, 0],
-            [437, 0, 480, 720, 0, 0, 0]
+            [1, 1, 480, 720, 0, 240, 360],
+            [483, 1, 437, 456, 0, 218.5, 228],
+            [483, 459, 437, 456, 0, 218.5, 228],
+            [1, 723, 190, 49, 0, 95, 24.5],
+            [1, 774, 190, 49, 0, 95, 24.5],
+            [1, 825, 190, 49, 0, 95, 24.5],
+            [1, 876, 34, 38, 0, 17, 19],
+            [37, 876, 34, 38, 0, 17, 19],
+            [73, 876, 34, 38, 0, 17, 19],
+            [109, 876, 28, 29, 0, 14, 14.5],
+            [139, 876, 28, 29, 0, 14, 14.5],
+            [169, 876, 14, 20, 0, 7, 10],
+            [169, 898, 21, 15, 0, 10.5, 7.5],
+            [185, 876, 14, 20, 0, 7, 10],
+            [192, 898, 14, 14, 0, 7, 7],
+            [208, 723, 190, 49, 0, 95, 24.5],
+            [193, 723, 11, 13, 0, 6, 7],
+            [193, 774, 190, 49, 0, 95, 24.5],
+            [193, 825, 190, 49, 0, 95, 24.5],
+            [201, 876, 14, 9, 0, 7, 4.5]
         ],
         "animations": {
-            "Ship1": { "frames": [0] },
-            "Ship2": { "frames": [1] },
-            "Ship3": { "frames": [2] },
-            "Enemy": { "frames": [3] },
-            "Enemy2": { "frames": [4] },
-            "Bullet": { "frames": [5] },
-            "Arc1": { "frames": [6] },
-            "Arc2": { "frames": [7] },
-            "Arc3": { "frames": [8] },
-            "Arc4": { "frames": [9] },
-            "Arc5": { "frames": [10] },
-            "InfoPanel": { "frames": [11] },
-            "BackButton": { "frames": [12] },
-            "NextButton": { "frames": [13] },
-            "StartButton": { "frames": [14] },
-            "HelpButton": { "frames": [15] },
-            "OptionsButton": { "frames": [16] },
-            "UIButton": { "frames": [17] },
-            "HUD": { "frames": [18] }
-        },
+            "HUD": { "frames": [0] },
+            "panelInfo": { "frames": [1] },
+            "panelUI": { "frames": [2] },
+            "buttonBack": { "frames": [3] },
+            "buttonHelp": { "frames": [4] },
+            "buttonNext": { "frames": [5] },
+            "Ship1": { "frames": [6] },
+            "Ship2": { "frames": [7] },
+            "Ship3": { "frames": [8] },
+            "Enemy": { "frames": [9] },
+            "Enemy2": { "frames": [10] },
+            "Arc4": { "frames": [11] },
+            "Arc5": { "frames": [12] },
+            "Bullet": { "frames": [13] },
+            "Arc3": { "frames": [14] },
+            "buttonOptions": { "frames": [15] },
+            "Arc1": { "frames": [16] },
+            "buttonStart": { "frames": [17] },
+            "buttonUI": { "frames": [18] },
+            "Arc2": { "frames": [19] }
+        }
     };
     assetManifest = [
-        { id: "hud", src: "./Assets/HUD.png" },
-        { id: "infoPanel", src: "./Assets/infopanel.png" },
-        { id: "toggleHud", src: "./Assets/UIButton.png" },
+        { id: "background", src: "./Assets/background.png" }
     ];
     function Init() {
         console.log("Initialization Start");
@@ -94,8 +95,8 @@
     }
     function Update() {
         // Has my state changed since the last check?
-        if (currentState != objects.Game.currentScene) {
-            console.log(objects.Game.currentScene);
+        if (currentState != managers.Game.currentScene) {
+            console.log(managers.Game.currentScene);
             Main();
         }
         currentScene.Update();
@@ -107,7 +108,7 @@
     function Main() {
         console.log("Game Start...");
         // Finite State Machine
-        switch (objects.Game.currentScene) {
+        switch (managers.Game.currentScene) {
             case config.Scene.INTRO:
                 stage.removeAllChildren();
                 currentScene = new scenes.IntroScene();
@@ -144,7 +145,7 @@
                 stage.addChild(currentScene);
                 break;
         }
-        currentState = objects.Game.currentScene;
+        currentState = managers.Game.currentScene;
     }
     window.onload = Init;
 })();
