@@ -28,7 +28,7 @@ module scenes {
 
         public Start():void{
             this.background = new objects.Background();
-            this.player = new objects.Player("Ship1");
+            this.player = new objects.Player("Ship1", 240, 600, false);
 
             this.ammoManager = new managers.Ammo();
             managers.Game.ammoManager = this.ammoManager;

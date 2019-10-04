@@ -1,20 +1,35 @@
 module managers {
     export class Ammo {
         // Variables
-        private ammoCount:number; 
-
+        private ammoCount:number;
         public Ammo:objects.Ammo[];
         public CurrentAmmo:number;
+
         // Constructor
         constructor() {
             this.Start();
         }
         // Methods
-        private buildAmmoPool():void {
+        public buildAmmoPool(shipType:config.Ship):void {
             // Initialize a pool of laser assets
-            for(let i = 0; i < this.ammoCount; i++) {
-                this.Ammo[i] = new objects.Ammo("Bullet");
-            }
+            switch(shipType){
+                case config.Ship.Botcoin:
+                    for(let i = 0; i < this.ammoCount; i++) {
+                        console.log(Ammo);
+                        this.Ammo[i] = new objects.Ammo("Arc1");
+                    }
+                break;
+                case config.Ship.Lightcoin:
+                    for(let i = 0; i < this.ammoCount; i++) {
+                        this.Ammo[i] = new objects.Ammo("Arc2");
+                    }
+                break;
+                case config.Ship.Enderium:
+                    for(let i = 0; i < this.ammoCount; i++) {
+                        this.Ammo[i] = new objects.Ammo("Arc3");
+                    }
+                break;
+            }   
         }
 
         public GetAmmo(): objects.Ammo {
@@ -30,7 +45,7 @@ module managers {
         public Start():void {
             this.ammoCount = 50;
             this.Ammo = new Array<objects.Ammo>();
-            this.buildAmmoPool();
+            this.buildAmmoPool(config.Ship.Botcoin);
             this.CurrentAmmo = 0;
         }
         public Update():void {

@@ -6,29 +6,29 @@ module objects {
         private ammoSpawn:math.Vec2;
         public swapped:boolean;
 
+        public GetShipType():config.Ship{
+            return this.shipType;
+        }
+
         // Constructor
-        constructor(sprite, xPos:number, yPos:number) {
+        constructor(sprite, xPos:number, yPos:number, swapped:boolean) {
             super(sprite);          
             this.isDead = false;
             this.y = yPos;
             this.x = xPos;
+            this.swapped = swapped;
             
             this.Start();
         }
         // Methods
         public Start():void {
-            // Set the initial position
-
-            this.swapped = false;
-
-            this.shipType = config.Ship.Botcoin;
-            //this.scaleX = 0.25;
-            //this.scaleY = 0.25;
+            this.Swapped();
         }
         public Update():void {
             this.Move();
             this.CheckBound(); // <-- Check collisions
             this.Shoot();
+            this.Swapped();
         }
         public Reset():void {}
 
@@ -77,17 +77,22 @@ module objects {
                 let ticker:number = createjs.Ticker.getTicks();
 
                 if((managers.Game.keyboardManager.shoot) && (ticker % 10 == 0)) {
-                    // Position our laser spawner
+
                     this.ammoSpawn = new math.Vec2(this.x + 7, this.y - 7);
 
-                    // IDEAL
                     let ammo = managers.Game.ammoManager.GetAmmo();
+                    console.log(ammo);
 
                     ammo.x = this.ammoSpawn.x;
                     ammo.y = this.ammoSpawn.y;
 
                 }
             }
+        }
+
+        public Swapped():void{
+            if(!this.swapped)
+                this.shipType = config.Ship.Botcoin;
         }
     }
 }

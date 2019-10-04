@@ -6,10 +6,25 @@ var managers;
             this.Start();
         }
         // Methods
-        Ammo.prototype.buildAmmoPool = function () {
+        Ammo.prototype.buildAmmoPool = function (shipType) {
             // Initialize a pool of laser assets
-            for (var i = 0; i < this.ammoCount; i++) {
-                this.Ammo[i] = new objects.Ammo("Bullet");
+            switch (shipType) {
+                case config.Ship.Botcoin:
+                    for (var i = 0; i < this.ammoCount; i++) {
+                        console.log(Ammo);
+                        this.Ammo[i] = new objects.Ammo("Arc1");
+                    }
+                    break;
+                case config.Ship.Lightcoin:
+                    for (var i = 0; i < this.ammoCount; i++) {
+                        this.Ammo[i] = new objects.Ammo("Arc2");
+                    }
+                    break;
+                case config.Ship.Enderium:
+                    for (var i = 0; i < this.ammoCount; i++) {
+                        this.Ammo[i] = new objects.Ammo("Arc3");
+                    }
+                    break;
             }
         };
         Ammo.prototype.GetAmmo = function () {
@@ -23,7 +38,7 @@ var managers;
         Ammo.prototype.Start = function () {
             this.ammoCount = 50;
             this.Ammo = new Array();
-            this.buildAmmoPool();
+            this.buildAmmoPool(config.Ship.Botcoin);
             this.CurrentAmmo = 0;
         };
         Ammo.prototype.Update = function () {

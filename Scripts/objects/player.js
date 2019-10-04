@@ -16,26 +16,27 @@ var objects;
     var Player = /** @class */ (function (_super) {
         __extends(Player, _super);
         // Constructor
-        function Player(sprite, xPos, yPos) {
+        function Player(sprite, xPos, yPos, swapped) {
             var _this = _super.call(this, sprite) || this;
             _this.isDead = false;
             _this.y = yPos;
             _this.x = xPos;
+            _this.swapped = swapped;
             _this.Start();
             return _this;
         }
+        Player.prototype.GetShipType = function () {
+            return this.shipType;
+        };
         // Methods
         Player.prototype.Start = function () {
-            // Set the initial position
-            this.swapped = false;
-            this.shipType = config.Ship.Botcoin;
-            //this.scaleX = 0.25;
-            //this.scaleY = 0.25;
+            this.Swapped();
         };
         Player.prototype.Update = function () {
             this.Move();
             this.CheckBound(); // <-- Check collisions
             this.Shoot();
+            this.Swapped();
         };
         Player.prototype.Reset = function () { };
         Player.prototype.Move = function () {
@@ -72,14 +73,17 @@ var objects;
             if (!this.isDead) {
                 var ticker = createjs.Ticker.getTicks();
                 if ((managers.Game.keyboardManager.shoot) && (ticker % 10 == 0)) {
-                    // Position our laser spawner
                     this.ammoSpawn = new math.Vec2(this.x + 7, this.y - 7);
-                    // IDEAL
                     var ammo = managers.Game.ammoManager.GetAmmo();
+                    console.log(ammo);
                     ammo.x = this.ammoSpawn.x;
                     ammo.y = this.ammoSpawn.y;
                 }
             }
+        };
+        Player.prototype.Swapped = function () {
+            if (!this.swapped)
+                this.shipType = config.Ship.Botcoin;
         };
         return Player;
     }(objects.GameObject));
