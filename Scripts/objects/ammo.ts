@@ -1,5 +1,5 @@
 module objects {
-    export class Bullet extends objects.GameObject {
+    export class Ammo extends objects.GameObject {
 
         // Variables
         private speed:number = -10;

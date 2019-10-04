@@ -25,16 +25,19 @@ var scenes;
         HelpScene.prototype.Start = function () {
             this.background = new objects.Background();
             this.player = new objects.Player();
+            this.ammoManager = new managers.Ammo();
+            managers.Game.ammoManager = this.ammoManager;
             this.infoPanel = new objects.Image("panelUI", 240, 360);
             this.backButton = new objects.Button("buttonBack", 90, 575);
             this.nextButton = new objects.Button("buttonNext", 575, 575);
             //this.toggleHud = new objects.Button("buttonUI", 330, 575);
-            this.hudImage = new objects.Image("HUD", 240, 360);
+            this.hudImage = new objects.Image("HUD", 0, 0);
             this.hud = new managers.HUD;
             this.Main();
         };
         HelpScene.prototype.Update = function () {
             this.player.Update();
+            this.ammoManager.Update();
         };
         HelpScene.prototype.backButtonClick = function () {
             managers.Game.currentScene = config.Scene.START;
@@ -45,6 +48,7 @@ var scenes;
         HelpScene.prototype.toggleButtonClick = function () {
         };
         HelpScene.prototype.Main = function () {
+            var _this = this;
             this.addChild(this.background);
             this.addChild(this.infoPanel);
             this.addChild(this.backButton);
@@ -57,6 +61,9 @@ var scenes;
             this.addChild(this.hud.playerScoreLabel);
             this.addChild(this.hud.scoreMultLabel);
             this.addChild(this.player);
+            this.ammoManager.Ammo.forEach(function (ammo) {
+                _this.addChild(ammo);
+            });
             this.backButton.on("click", this.backButtonClick);
             this.nextButton.on("click", this.nextButtonClick);
             //this.toggleHud.on("click", this.toggleButtonClick);

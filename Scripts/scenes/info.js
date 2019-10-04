@@ -25,10 +25,12 @@ var scenes;
         InfoScene.prototype.Start = function () {
             this.background = new objects.Background();
             this.player = new objects.Player();
+            this.ammoManager = new managers.Ammo();
+            managers.Game.ammoManager = this.ammoManager;
             this.infoPanel = new objects.Image("panelInfo", 240, 360);
             this.backButton = new objects.Button("buttonBack", 90, 575);
             //this.toggleHud = new objects.Button("buttonUI", 330, 575);
-            this.hudImage = new objects.Image("HUD", 240, 360);
+            this.hudImage = new objects.Image("HUD", 0, 0);
             this.info1 = new objects.Label("Bottom Left: " + "\n" +
                 "Player starts with 3 lives " + "\n" +
                 "- Gain more lives by completing stages (Max:10)" + "\n\n" +
@@ -47,11 +49,13 @@ var scenes;
         };
         InfoScene.prototype.Update = function () {
             this.player.Update();
+            this.ammoManager.Update();
         };
         InfoScene.prototype.backButtonClick = function () {
             managers.Game.currentScene = config.Scene.HELP;
         };
         InfoScene.prototype.Main = function () {
+            var _this = this;
             this.addChild(this.background);
             this.addChild(this.infoPanel);
             this.addChild(this.info1);
@@ -64,6 +68,9 @@ var scenes;
             this.addChild(this.hud.playerScoreLabel);
             this.addChild(this.hud.scoreMultLabel);
             this.addChild(this.player);
+            this.ammoManager.Ammo.forEach(function (ammo) {
+                _this.addChild(ammo);
+            });
             this.backButton.on("click", this.backButtonClick);
         };
         return InfoScene;

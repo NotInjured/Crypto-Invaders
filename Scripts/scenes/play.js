@@ -26,7 +26,8 @@ var scenes;
             // Initialize our variables
             this.background = new objects.Background();
             this.player = new objects.Player();
-            // this.enemy = new objects.Enemy(this.assetManager);
+            this.ammoManager = new managers.Ammo();
+            managers.Game.ammoManager = this.ammoManager;
             this.enemies = new Array();
             this.enemyNum = 5;
             for (var i = 0; i < this.enemyNum; i++) {
@@ -42,10 +43,17 @@ var scenes;
             this.background.Update();
             this.player.Update();
             this.IsPaused();
-            // this.enemy.Update();
+            this.ammoManager.Update();
             this.enemies.forEach(function (e) {
-                e.Update();
-                managers.Collision.Check(_this.player, e);
+                if (!e.isDead) {
+                    e.Update();
+                    managers.Collision.CheckAABB(_this.player, e);
+                }
+            });
+            this.ammoManager.Ammo.forEach(function (ammo) {
+                _this.enemies.forEach(function (enemy) {
+                    managers.Collision.CheckAABB(ammo, enemy);
+                });
             });
         };
         PlayScene.prototype.Main = function () {
@@ -59,6 +67,9 @@ var scenes;
             this.addChild(this.hud.playerScoreLabel);
             this.addChild(this.hud.scoreMultLabel);
             this.addChild(this.player);
+            this.ammoManager.Ammo.forEach(function (ammo) {
+                _this.addChild(ammo);
+            });
             // this.addChild(this.enemy);
             this.enemies.forEach(function (e) {
                 _this.addChild(e);

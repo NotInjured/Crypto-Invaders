@@ -18,6 +18,7 @@ var objects;
         // Constructor
         function Player() {
             var _this = _super.call(this, "Ship1") || this;
+            _this.isDead = false;
             _this.Start();
             return _this;
         }
@@ -87,6 +88,17 @@ var objects;
                 this.y = this.halfH;
         };
         Player.prototype.Shoot = function () {
+            if (!this.isDead) {
+                var ticker = createjs.Ticker.getTicks();
+                if ((managers.Game.keyboardManager.shoot) && (ticker % 10 == 0)) {
+                    // Position our laser spawner
+                    this.ammoSpawn = new math.Vec2(this.x + 7, this.y - 7);
+                    // IDEAL
+                    var ammo = managers.Game.ammoManager.GetAmmo();
+                    ammo.x = this.ammoSpawn.x;
+                    ammo.y = this.ammoSpawn.y;
+                }
+            }
         };
         return Player;
     }(objects.GameObject));

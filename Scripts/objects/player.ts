@@ -2,15 +2,14 @@ module objects {
     export class Player extends objects.GameObject {
         // Variables
         private swapTimer:number;
-
+        public isDead:boolean;
         private shipType:config.Ship;
-
-        private bullet:objects.Bullet;
+        private ammoSpawn:math.Vec2;
 
         // Constructor
         constructor() {
             super("Ship1");          
-
+            this.isDead =false;
             this.Start();
         }
         // Methods
@@ -92,7 +91,22 @@ module objects {
         }
 
         public Shoot():void{
-            
+            if(!this.isDead) {
+
+                let ticker:number = createjs.Ticker.getTicks();
+
+                if((managers.Game.keyboardManager.shoot) && (ticker % 10 == 0)) {
+                    // Position our laser spawner
+                    this.ammoSpawn = new math.Vec2(this.x + 7, this.y - 7);
+
+                    // IDEAL
+                    let ammo = managers.Game.ammoManager.GetAmmo();
+
+                    ammo.x = this.ammoSpawn.x;
+                    ammo.y = this.ammoSpawn.y;
+
+                }
+            }
         }
     }
 }

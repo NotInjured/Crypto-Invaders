@@ -13,10 +13,10 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var objects;
 (function (objects) {
-    var Bullet = /** @class */ (function (_super) {
-        __extends(Bullet, _super);
+    var Ammo = /** @class */ (function (_super) {
+        __extends(Ammo, _super);
         // Constructor
-        function Bullet() {
+        function Ammo() {
             var _this = _super.call(this, "Bullet") || this;
             // Variables
             _this.speed = -10;
@@ -24,24 +24,24 @@ var objects;
             return _this;
         }
         // Methods
-        Bullet.prototype.Start = function () {
+        Ammo.prototype.Start = function () {
             this.speedY = this.speed;
             this.Reset();
         };
-        Bullet.prototype.Update = function () {
+        Ammo.prototype.Update = function () {
             this.Move();
         };
-        Bullet.prototype.Reset = function () {
+        Ammo.prototype.Reset = function () {
             this.x = -5000;
             this.y = -5000;
         };
-        Bullet.prototype.Main = function () { };
-        Bullet.prototype.Move = function () {
+        Ammo.prototype.Main = function () { };
+        Ammo.prototype.Move = function () {
             this.y += this.speedY;
         };
-        Bullet.prototype.CheckBounds = function () { };
-        return Bullet;
+        Ammo.prototype.CheckBounds = function () { };
+        return Ammo;
     }(objects.GameObject));
-    objects.Bullet = Bullet;
+    objects.Ammo = Ammo;
 })(objects || (objects = {}));
-//# sourceMappingURL=bullets.js.map
+//# sourceMappingURL=ammo.js.map

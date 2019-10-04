@@ -12,6 +12,8 @@ module scenes {
 
         private pause:boolean;
 
+        private ammoManager:managers.Ammo;
+
         // Constructor
         constructor() {
             super();
@@ -24,7 +26,10 @@ module scenes {
             // Initialize our variables
             this.background = new objects.Background();
             this.player = new objects.Player();
-            // this.enemy = new objects.Enemy(this.assetManager);
+            
+            this.ammoManager = new managers.Ammo();
+            managers.Game.ammoManager = this.ammoManager;
+
             this.enemies = new Array<objects.Enemy>();
             this.enemyNum = 5;
             for(let i = 0; i < this.enemyNum; i++) {
@@ -42,12 +47,20 @@ module scenes {
             this.background.Update();
             this.player.Update();
             this.IsPaused();
-            // this.enemy.Update();
+            this.ammoManager.Update();
 
             this.enemies.forEach(e => {
-                e.Update();
-                managers.Collision.Check(this.player, e);
+                if(!e.isDead){
+                    e.Update();
+                    managers.Collision.CheckAABB(this.player, e);
+                }
             });
+
+            this.ammoManager.Ammo.forEach(ammo =>{
+                this.enemies.forEach(enemy =>{
+                    managers.Collision.CheckAABB(ammo, enemy);
+                })
+            })
         }
 
         public Main(): void {
@@ -60,6 +73,11 @@ module scenes {
             this.addChild(this.hud.playerScoreLabel);
             this.addChild(this.hud.scoreMultLabel);
             this.addChild(this.player);
+
+            this.ammoManager.Ammo.forEach(ammo =>{
+                this.addChild(ammo);
+            })
+
             // this.addChild(this.enemy);
             this.enemies.forEach(e => {
                 this.addChild(e);
