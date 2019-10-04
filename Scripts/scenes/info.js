@@ -24,7 +24,7 @@ var scenes;
         // Methods
         InfoScene.prototype.Start = function () {
             this.background = new objects.Background();
-            this.player = new objects.Player();
+            this.player = new objects.Player("Ship1");
             this.ammoManager = new managers.Ammo();
             managers.Game.ammoManager = this.ammoManager;
             this.infoPanel = new objects.Image("panelInfo", 240, 360);
@@ -61,7 +61,6 @@ var scenes;
             this.addChild(this.info1);
             this.addChild(this.backButton);
             this.addChild(this.hudImage);
-            //this.addChild(this.toggleHud);
             this.addChild(this.hud.playerLivesLabel);
             this.addChild(this.hud.playerBombsLabel);
             //this.addChild(this.hud.playerPowerLabel);

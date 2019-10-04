@@ -16,18 +16,18 @@ var objects;
     var Player = /** @class */ (function (_super) {
         __extends(Player, _super);
         // Constructor
-        function Player() {
-            var _this = _super.call(this, "Ship1") || this;
+        function Player(sprite, xPos, yPos) {
+            var _this = _super.call(this, sprite) || this;
             _this.isDead = false;
+            _this.y = yPos;
+            _this.x = xPos;
             _this.Start();
             return _this;
         }
         // Methods
         Player.prototype.Start = function () {
             // Set the initial position
-            this.y = 600;
-            this.x = 240;
-            this.swapTimer = 15;
+            this.swapped = false;
             this.shipType = config.Ship.Botcoin;
             //this.scaleX = 0.25;
             //this.scaleY = 0.25;
@@ -36,7 +36,6 @@ var objects;
             this.Move();
             this.CheckBound(); // <-- Check collisions
             this.Shoot();
-            this.ChangeShip();
         };
         Player.prototype.Reset = function () { };
         Player.prototype.Move = function () {
@@ -56,24 +55,6 @@ var objects;
                 this.y += 3;
             if (!managers.Game.keyboardManager.moveDown)
                 this.y += 0;
-        };
-        Player.prototype.ChangeShip = function () {
-            if (managers.Game.keyboardManager.swap) {
-                switch (this.shipType) {
-                    case config.Ship.Botcoin:
-                        this.shipType = config.Ship.Lightcoin;
-                        console.log("Changing to Lightcoin Ship");
-                        break;
-                    case config.Ship.Lightcoin:
-                        this.shipType = config.Ship.Enderium;
-                        console.log("Changing to Enderium Ship");
-                        break;
-                    case config.Ship.Enderium:
-                        this.shipType = config.Ship.Botcoin;
-                        console.log("Changing to Botcoin Ship");
-                        break;
-                }
-            }
         };
         Player.prototype.CheckBound = function () {
             // Right boundary

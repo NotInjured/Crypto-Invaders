@@ -9,7 +9,7 @@ var managers;
         Ammo.prototype.buildAmmoPool = function () {
             // Initialize a pool of laser assets
             for (var i = 0; i < this.ammoCount; i++) {
-                this.Ammo[i] = new objects.Ammo();
+                this.Ammo[i] = new objects.Ammo("Bullet");
             }
         };
         Ammo.prototype.GetAmmo = function () {

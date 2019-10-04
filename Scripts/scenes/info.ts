@@ -7,11 +7,11 @@ module scenes {
         private background: objects.Background;
 
         private backButton: objects.Button;
-        private toggleHud: objects.Button;
 
         private info1: objects.Label;
 
         private player:objects.Player;
+        private shipType:config.Ship;
 
         private hud:managers.HUD;
 
@@ -28,7 +28,7 @@ module scenes {
 
         public Start():void{
             this.background = new objects.Background();
-            this.player = new objects.Player();
+            this.player = new objects.Player("Ship1");
 
             this.ammoManager = new managers.Ammo();
             managers.Game.ammoManager = this.ammoManager;
@@ -73,7 +73,6 @@ module scenes {
             this.addChild(this.info1); 
             this.addChild(this.backButton);
             this.addChild(this.hudImage);
-            //this.addChild(this.toggleHud);
             this.addChild(this.hud.playerLivesLabel);
             this.addChild(this.hud.playerBombsLabel);
             //this.addChild(this.hud.playerPowerLabel);

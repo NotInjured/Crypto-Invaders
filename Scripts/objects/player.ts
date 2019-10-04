@@ -1,24 +1,25 @@
 module objects {
     export class Player extends objects.GameObject {
         // Variables
-        private swapTimer:number;
         public isDead:boolean;
-        private shipType:config.Ship;
+        public shipType:config.Ship;
         private ammoSpawn:math.Vec2;
+        public swapped:boolean;
 
         // Constructor
-        constructor() {
-            super("Ship1");          
-            this.isDead =false;
+        constructor(sprite, xPos:number, yPos:number) {
+            super(sprite);          
+            this.isDead = false;
+            this.y = yPos;
+            this.x = xPos;
+            
             this.Start();
         }
         // Methods
         public Start():void {
             // Set the initial position
-            this.y = 600;
-            this.x = 240;
-            
-            this.swapTimer = 15;
+
+            this.swapped = false;
 
             this.shipType = config.Ship.Botcoin;
             //this.scaleX = 0.25;
@@ -28,7 +29,6 @@ module objects {
             this.Move();
             this.CheckBound(); // <-- Check collisions
             this.Shoot();
-            this.ChangeShip();
         }
         public Reset():void {}
 
@@ -52,25 +52,6 @@ module objects {
             this.y += 3;
             if(!managers.Game.keyboardManager.moveDown)
             this.y += 0;
-        }
-
-        public ChangeShip():void{
-            if(managers.Game.keyboardManager.swap){
-                switch(this.shipType){
-                    case config.Ship.Botcoin:
-                        this.shipType = config.Ship.Lightcoin;
-                        console.log("Changing to Lightcoin Ship");
-                    break;
-                    case config.Ship.Lightcoin:
-                        this.shipType = config.Ship.Enderium;
-                        console.log("Changing to Enderium Ship");
-                    break;
-                    case config.Ship.Enderium:
-                        this.shipType = config.Ship.Botcoin;
-                        console.log("Changing to Botcoin Ship");
-                    break;
-                }
-            }
         }
 
         public CheckBound():void {

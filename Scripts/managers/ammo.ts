@@ -13,7 +13,7 @@ module managers {
         private buildAmmoPool():void {
             // Initialize a pool of laser assets
             for(let i = 0; i < this.ammoCount; i++) {
-                this.Ammo[i] = new objects.Ammo();
+                this.Ammo[i] = new objects.Ammo("Bullet");
             }
         }
 

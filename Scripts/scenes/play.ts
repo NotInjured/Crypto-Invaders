@@ -3,6 +3,7 @@ module scenes {
         // Variables
         private background:objects.Background;
         private player:objects.Player;
+        private shipType:config.Ship;
 
         private hudImage: objects.Image;
         private hud:managers.HUD;
@@ -25,7 +26,7 @@ module scenes {
         public Start(): void {
             // Initialize our variables
             this.background = new objects.Background();
-            this.player = new objects.Player();
+            this.player = new objects.Player("Ship1", 240, 600);
             
             this.ammoManager = new managers.Ammo();
             managers.Game.ammoManager = this.ammoManager;

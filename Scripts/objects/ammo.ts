@@ -5,8 +5,8 @@ module objects {
         private speed:number = -10;
 
         // Constructor
-        constructor() {
-            super("Bullet");
+        constructor(ammo:string) {
+            super(ammo);
             this.Start();
         }
         // Methods

@@ -16,8 +16,8 @@ var objects;
     var Ammo = /** @class */ (function (_super) {
         __extends(Ammo, _super);
         // Constructor
-        function Ammo() {
-            var _this = _super.call(this, "Bullet") || this;
+        function Ammo(ammo) {
+            var _this = _super.call(this, ammo) || this;
             // Variables
             _this.speed = -10;
             _this.Start();

@@ -11,9 +11,15 @@ module managers {
         public special:boolean;
         public swap:boolean;
 
+        public cooldown:number;
+        public counter:number;
+
         // Constructor
         constructor() {
             this.enabled = true;
+
+            this.cooldown = 1000;
+            this.counter = 0;
             // Listen for keyup and keydown events through DOM
             document.addEventListener("keydown", this.onKeyDown.bind(this), false);
             document.addEventListener("keyup", this.onKeyUp.bind(this), false);
