@@ -27,8 +27,6 @@ var scenes;
             this.player = new objects.Player("Ship1", 240, 600, false);
             this.ammoManager = new managers.Ammo();
             managers.Game.ammoManager = this.ammoManager;
-            this.sceneObject = new objects.Scene;
-            managers.Game.currentSceneObject = this.sceneObject;
             this.infoPanel = new objects.Image("panelUI", 240, 360);
             this.backButton = new objects.Button("buttonBack", 90, 575);
             this.nextButton = new objects.Button("buttonNext", 575, 575);

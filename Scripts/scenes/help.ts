@@ -15,8 +15,6 @@ module scenes {
 
         private ammoManager:managers.Ammo;
 
-        private sceneObject: objects.Scene;
-
         // Constructor
         constructor(){
             super()
@@ -32,9 +30,6 @@ module scenes {
 
             this.ammoManager = new managers.Ammo();
             managers.Game.ammoManager = this.ammoManager;
-
-            this.sceneObject = new objects.Scene;
-            managers.Game.currentSceneObject = this.sceneObject;
 
             this.infoPanel = new objects.Image("panelUI", 240, 360);
             this.backButton = new objects.Button("buttonBack", 90, 575);
@@ -87,7 +82,7 @@ module scenes {
                 let playerPosX = this.player.x;
                 let playerPosY = this.player.y;
                 this.removeChild(this.player);
-                
+
                 switch(this.player.shipType){
                     case config.Ship.Botcoin:
                         
