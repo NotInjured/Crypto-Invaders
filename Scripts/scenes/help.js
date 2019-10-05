@@ -27,6 +27,8 @@ var scenes;
             this.player = new objects.Player("Ship1", 240, 600, false);
             this.ammoManager = new managers.Ammo();
             managers.Game.ammoManager = this.ammoManager;
+            this.sceneObject = new objects.Scene;
+            managers.Game.currentSceneObject = this.sceneObject;
             this.infoPanel = new objects.Image("panelUI", 240, 360);
             this.backButton = new objects.Button("buttonBack", 90, 575);
             this.nextButton = new objects.Button("buttonNext", 575, 575);
@@ -67,12 +69,10 @@ var scenes;
             if (managers.Game.keyboardManager.swap && (ticker % 200 == 0)) {
                 var playerPosX = this.player.x;
                 var playerPosY = this.player.y;
-                managers.Game.currentSceneObject.removeChild(this.player);
+                this.removeChild(this.player);
                 switch (this.player.shipType) {
                     case config.Ship.Botcoin:
-                        //playerPosX = this.player.x;
-                        //playerPosY = this.player.y
-                        this.stage.addChild(this.player = new objects.Player("Ship2", playerPosX, playerPosY, true));
+                        this.addChild(this.player = new objects.Player("Ship2", playerPosX, playerPosY, true));
                         this.player.shipType = config.Ship.Lightcoin;
                         console.log("Changing to Lightcoin Ship");
                         console.log(this.player.shipType);
@@ -80,9 +80,7 @@ var scenes;
                         console.log("Changing to Arc2");
                         break;
                     case config.Ship.Lightcoin:
-                        //playerPosX = this.player.x;
-                        //playerPosY = this.player.y;
-                        this.stage.addChild(this.player = new objects.Player("Ship3", playerPosX, playerPosY, true));
+                        this.addChild(this.player = new objects.Player("Ship3", playerPosX, playerPosY, true));
                         this.player.shipType = config.Ship.Enderium;
                         console.log("Changing to Enderium Ship");
                         console.log(this.player.shipType);
@@ -90,9 +88,7 @@ var scenes;
                         console.log("Changing to Arc3");
                         break;
                     case config.Ship.Enderium:
-                        //playerPosX = this.player.x;
-                        //playerPosY = this.player.y;
-                        this.stage.addChild(this.player = new objects.Player("Ship1", playerPosX, playerPosY, true));
+                        this.addChild(this.player = new objects.Player("Ship1", playerPosX, playerPosY, true));
                         this.player.shipType = config.Ship.Botcoin;
                         console.log("Changing to Botcoin Ship");
                         console.log(this.player.shipType);

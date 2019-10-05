@@ -49,7 +49,7 @@ var managers;
             },
             set: function (newPower) {
                 this.power = newPower;
-                this.playerBombsLabel.text = "PWR " + this.power;
+                this.playerPowerLabel.text = "PWR " + this.power;
             },
             enumerable: true,
             configurable: true
@@ -83,18 +83,16 @@ var managers;
             this.playerScoreLabel = new objects.Label("", "20px", "OptimusPrinceps", "#000000", 350, 15, false);
             this.playerPowerLabel = new objects.Label("", "18px", "OptimusPrinceps", "#000000", 465, 20, false);
             this.scoreMultLabel = new objects.Label("", "18px", "OptimusPrinceps", "#000000", 437, 45, false);
-            this.Lives = 0;
-            this.Bombs = 0;
+            this.addChild(this.playerLivesLabel);
+            this.addChild(this.playerBombsLabel);
+            //this.addChild(this.playerPowerLabel);
+            this.addChild(this.playerScoreLabel);
+            this.addChild(this.scoreMultLabel);
+            this.Lives = 3;
+            this.Bombs = 1;
             this.Power = 0;
             this.Score = 0;
             this.ScoreMult = 0;
-        };
-        HUD.prototype.Main = function () {
-            this.addChild(this.playerLivesLabel);
-            this.addChild(this.playerBombsLabel);
-            this.addChild(this.playerPowerLabel);
-            this.addChild(this.playerScoreLabel);
-            this.addChild(this.scoreMultLabel);
         };
         return HUD;
     }(createjs.Container));
