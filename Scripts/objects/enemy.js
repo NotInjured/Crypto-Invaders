@@ -31,11 +31,13 @@ var objects;
         Enemy.prototype.Update = function () {
             this.Move();
             this.CheckBounds();
+            if (this.isDead) {
+                this.Reset();
+            }
         };
         Enemy.prototype.Reset = function () {
-            this.isDead = true;
-            this.x = -1000;
-            this.y = -1000;
+            this.isDead = false;
+            this.y = -300;
         };
         Enemy.prototype.Move = function () {
             this.y -= -5;

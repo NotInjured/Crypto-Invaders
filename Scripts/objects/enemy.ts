@@ -15,11 +15,14 @@ module objects {
         public Update():void {
             this.Move();
             this.CheckBounds();
+
+            if(this.isDead){
+                this.Reset();
+            }
         }
         public Reset():void {
-            this.isDead = true;
-            this.x = -1000;
-            this.y = -1000;
+            this.isDead = false;
+            this.y = -300;
         }
         public Move():void {
             this.y -= -5;

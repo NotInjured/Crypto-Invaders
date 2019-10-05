@@ -85,7 +85,7 @@ module scenes {
                 this.ammoManager.Ammo.forEach(ammo =>{
                     this.removeChild(ammo);
                 });
-
+                
                 switch(this.player.shipType){
                     case config.Ship.Botcoin:
                         
