@@ -63,11 +63,15 @@ var scenes;
             this.nextButton.on("click", this.nextButtonClick);
         };
         HelpScene.prototype.ChangeShip = function () {
+            var _this = this;
             var ticker = createjs.Ticker.getTicks();
             if (managers.Game.keyboardManager.swap && (ticker % 200 == 0)) {
                 var playerPosX = this.player.x;
                 var playerPosY = this.player.y;
                 this.removeChild(this.player);
+                this.ammoManager.Ammo.forEach(function (ammo) {
+                    _this.removeChild(ammo);
+                });
                 switch (this.player.shipType) {
                     case config.Ship.Botcoin:
                         this.addChild(this.player = new objects.Player("Ship2", playerPosX, playerPosY, true));
@@ -75,6 +79,9 @@ var scenes;
                         console.log("Changing to Lightcoin Ship");
                         console.log(this.player.shipType);
                         this.ammoManager.buildAmmoPool(this.player.shipType);
+                        this.ammoManager.Ammo.forEach(function (ammo) {
+                            _this.addChild(ammo);
+                        });
                         console.log("Changing to Arc2");
                         break;
                     case config.Ship.Lightcoin:
@@ -83,6 +90,9 @@ var scenes;
                         console.log("Changing to Enderium Ship");
                         console.log(this.player.shipType);
                         this.ammoManager.buildAmmoPool(this.player.shipType);
+                        this.ammoManager.Ammo.forEach(function (ammo) {
+                            _this.addChild(ammo);
+                        });
                         console.log("Changing to Arc3");
                         break;
                     case config.Ship.Enderium:
@@ -91,6 +101,9 @@ var scenes;
                         console.log("Changing to Botcoin Ship");
                         console.log(this.player.shipType);
                         this.ammoManager.buildAmmoPool(this.player.shipType);
+                        this.ammoManager.Ammo.forEach(function (ammo) {
+                            _this.addChild(ammo);
+                        });
                         console.log("Changing to Arc1");
                         break;
                 }

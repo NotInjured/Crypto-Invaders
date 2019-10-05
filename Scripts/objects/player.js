@@ -70,7 +70,7 @@ var objects;
                 this.y = this.halfH;
         };
         Player.prototype.Shoot = function () {
-            if (!this.isDead) {
+            if (!this.isDead || this.swapped) {
                 var ticker = createjs.Ticker.getTicks();
                 if ((managers.Game.keyboardManager.shoot) && (ticker % 10 == 0)) {
                     this.ammoSpawn = new math.Vec2(this.x + 7, this.y - 7);

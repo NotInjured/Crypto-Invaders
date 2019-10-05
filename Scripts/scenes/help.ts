@@ -82,6 +82,9 @@ module scenes {
                 let playerPosX = this.player.x;
                 let playerPosY = this.player.y;
                 this.removeChild(this.player);
+                this.ammoManager.Ammo.forEach(ammo =>{
+                    this.removeChild(ammo);
+                });
 
                 switch(this.player.shipType){
                     case config.Ship.Botcoin:
@@ -92,6 +95,9 @@ module scenes {
                         console.log(this.player.shipType);
                                                 
                         this.ammoManager.buildAmmoPool(this.player.shipType);
+                        this.ammoManager.Ammo.forEach(ammo =>{
+                            this.addChild(ammo);
+                        });
                         console.log("Changing to Arc2"); 
                     break;       
                     case config.Ship.Lightcoin:
@@ -101,7 +107,11 @@ module scenes {
                         console.log("Changing to Enderium Ship");
                         console.log(this.player.shipType);
 
+                        
                         this.ammoManager.buildAmmoPool(this.player.shipType);
+                        this.ammoManager.Ammo.forEach(ammo =>{
+                            this.addChild(ammo);
+                        });
                         console.log("Changing to Arc3"); 
                     break;
                     case config.Ship.Enderium:
@@ -112,6 +122,9 @@ module scenes {
                         console.log(this.player.shipType); 
                         
                         this.ammoManager.buildAmmoPool(this.player.shipType);
+                        this.ammoManager.Ammo.forEach(ammo =>{
+                            this.addChild(ammo);
+                        });
                         console.log("Changing to Arc1"); 
                     break;
                 }
