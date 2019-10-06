@@ -77,13 +77,13 @@ var objects;
         };
         Player.prototype.CheckBound = function () {
             // Right boundary
-            if (this.x >= 480 - this.halfW)
-                this.x = 480 - this.halfW;
+            if (this.x >= 480)
+                this.x = 480;
             // Left boundary
             if (this.x <= this.halfW)
                 this.x = this.halfW;
-            if (this.y >= 720 - this.halfH)
-                this.y = 720 - this.halfH;
+            if (this.y >= 720)
+                this.y = 720;
             if (this.y <= this.halfH)
                 this.y = this.halfH;
         };
@@ -91,11 +91,94 @@ var objects;
             if (!this.isDead || this.swapped) {
                 var ticker = createjs.Ticker.getTicks();
                 if ((managers.Game.keyboardManager.shoot) && (ticker % 10 == 0)) {
-                    this.ammoSpawn = new math.Vec2(this.x + 7, this.y - 7);
-                    var ammo = managers.Game.ammoManager.GetAmmo();
-                    console.log(ammo);
-                    ammo.x = this.ammoSpawn.x;
-                    ammo.y = this.ammoSpawn.y;
+                    switch (this.ShipType) {
+                        case config.Ship.Botcoin:
+                            if (this.POWER >= 1 && this.POWER <= 3) {
+                                this.ammoSpawn = new math.Vec2(this.x - 15.35, this.y - 35);
+                                var ammo = managers.Game.ammoManager.GetAmmo();
+                                console.log(ammo);
+                                ammo.x = this.ammoSpawn.x;
+                                ammo.y = this.ammoSpawn.y;
+                            }
+                            else if (this.POWER >= 4 && this.POWER <= 5) {
+                                this.ammoSpawn = new math.Vec2(this.x - 11, this.y - 25);
+                                var ammo = managers.Game.ammoManager.GetAmmo();
+                                console.log(ammo);
+                                ammo.x = this.ammoSpawn.x;
+                                ammo.y = this.ammoSpawn.y;
+                            }
+                            else if (this.POWER >= 6 && this.POWER <= 7) {
+                                this.ammoSpawn = new math.Vec2(this.x - 12.5, this.y - 25);
+                                var ammo = managers.Game.ammoManager.GetAmmo();
+                                console.log(ammo);
+                                ammo.x = this.ammoSpawn.x;
+                                ammo.y = this.ammoSpawn.y;
+                            }
+                            else if (this.POWER >= 8 && this.POWER <= 9) {
+                                this.ammoSpawn = new math.Vec2(this.x - 11, this.y - 25);
+                                var ammo = managers.Game.ammoManager.GetAmmo();
+                                console.log(ammo);
+                                ammo.x = this.ammoSpawn.x;
+                                ammo.y = this.ammoSpawn.y;
+                            }
+                            else if (this.POWER == 10) {
+                                this.ammoSpawn = new math.Vec2(this.x - 7.5, this.y - 25);
+                                var ammo = managers.Game.ammoManager.GetAmmo();
+                                console.log(ammo);
+                                ammo.x = this.ammoSpawn.x;
+                                ammo.y = this.ammoSpawn.y;
+                            }
+                            break;
+                        case config.Ship.Lightcoin:
+                            if (this.POWER >= 1 && this.POWER <= 10) {
+                                this.ammoSpawn = new math.Vec2(this.x - 11, this.y - 25);
+                                var ammo = managers.Game.ammoManager.GetAmmo();
+                                console.log(ammo);
+                                ammo.x = this.ammoSpawn.x;
+                                ammo.y = this.ammoSpawn.y;
+                            }
+                            break;
+                        case config.Ship.Enderium:
+                            if (this.POWER >= 1 && this.POWER <= 3) {
+                                this.ammoSpawn = new math.Vec2(this.x - 10, this.y - 35);
+                                var ammo = managers.Game.ammoManager.GetAmmo();
+                                console.log(ammo);
+                                ammo.x = this.ammoSpawn.x;
+                                ammo.y = this.ammoSpawn.y;
+                            }
+                            else if (this.POWER >= 4 && this.POWER <= 5) {
+                                this.ammoSpawn = new math.Vec2(this.x - 10, this.y - 35);
+                                var ammo = managers.Game.ammoManager.GetAmmo();
+                                console.log(ammo);
+                                ammo.x = this.ammoSpawn.x;
+                                ammo.y = this.ammoSpawn.y;
+                            }
+                            else if (this.POWER >= 6 && this.POWER <= 7) {
+                                this.ammoSpawn = new math.Vec2(this.x - 10, this.y - 35);
+                                var ammo = managers.Game.ammoManager.GetAmmo();
+                                console.log(ammo);
+                                ammo.x = this.ammoSpawn.x;
+                                ammo.y = this.ammoSpawn.y;
+                            }
+                            else if (this.POWER >= 8 && this.POWER <= 9) {
+                                this.ammoSpawn = new math.Vec2(this.x - 7, this.y - 30);
+                                var ammo = managers.Game.ammoManager.GetAmmo();
+                                console.log(ammo);
+                                ammo.x = this.ammoSpawn.x;
+                                ammo.y = this.ammoSpawn.y;
+                            }
+                            else if (this.POWER == 10) {
+                                this.ammoSpawn = new math.Vec2(this.x + 4, this.y - 25);
+                                var ammo = managers.Game.ammoManager.GetAmmo();
+                                console.log(ammo);
+                                ammo.x = this.ammoSpawn.x;
+                                ammo.y = this.ammoSpawn.y;
+                            }
+                            break;
+                    }
+                    // Botcoin Ship
+                    // Lightcoin Ship
+                    // Enderium Ship
                 }
             }
         };

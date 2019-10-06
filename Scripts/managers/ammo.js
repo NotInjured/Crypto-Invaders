@@ -15,7 +15,7 @@ var managers;
                     switch (shipType) {
                         case config.Ship.Botcoin:
                             for (var i = 0; i < this.ammoCount; i++) {
-                                this.Ammo[i] = new objects.Ammo("Laser1");
+                                this.Ammo[i] = new objects.Ammo("Laser2");
                             }
                             break;
                         case config.Ship.Lightcoin:
@@ -35,7 +35,7 @@ var managers;
                     switch (shipType) {
                         case config.Ship.Botcoin:
                             for (var i = 0; i < this.ammoCount; i++) {
-                                this.Ammo[i] = new objects.Ammo("Laser2");
+                                this.Ammo[i] = new objects.Ammo("Laser1");
                             }
                             break;
                         case config.Ship.Lightcoin:

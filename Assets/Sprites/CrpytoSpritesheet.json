@@ -11,9 +11,9 @@
     [483, 459, 437, 456, 0, 218.5, 228],
     [1, 723, 190, 49, 0, 95, 24.5],
     [193, 723, 190, 49, 0, 95, 24.5],
-    [385, 723, 34, 38, 0, 0, 0],
-    [385, 763, 34, 38, 0, 0, 0],
-    [421, 723, 34, 38, 0, 0, 0],
+    [385, 723, 34, 38, 0, 17, 19],
+    [385, 763, 34, 38, 0, 17, 19],
+    [421, 723, 34, 38, 0, 17, 19],
     [421, 763, 42, 30, 0, 21, 15],
     [457, 723, 21, 30, 0, 10.5, 15],
     [421, 795, 29, 29, 0, 14.5, 14.5],
@@ -98,7 +98,7 @@
 },
 
 "texturepacker": [
-        "SmartUpdateHash: $TexturePacker:SmartUpdate:9d3011bdec8949b1de63dd7e6f80a890:fb9e04a0a2221b3171db1bff91e4e039:882c7af10125e9ff50756ad7992018d6$",
+        "SmartUpdateHash: $TexturePacker:SmartUpdate:3dfa08dad4a5f23af544747b6771241a:fb9e04a0a2221b3171db1bff91e4e039:882c7af10125e9ff50756ad7992018d6$",
         "Created with TexturePacker (https://www.codeandweb.com/texturepacker) for EaselJS"
 ]
 

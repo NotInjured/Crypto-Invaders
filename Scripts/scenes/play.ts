@@ -24,7 +24,7 @@ module scenes {
         public Start(): void {
             // Initialize our variables
             this.background = new objects.Background();
-            this.player = new objects.Player("Ship1", 240, 600, false, 1);
+            this.player = new objects.Player("Ship1", 260, 600, false, 10);
             
             this.ammoManager = new managers.Ammo();
             managers.Game.ammoManager = this.ammoManager;
@@ -93,7 +93,7 @@ module scenes {
         public ChangeShip():void{
             let ticker:number = createjs.Ticker.getTicks();
     
-                if(managers.Game.keyboardManager.swap && (ticker % 200 == 0)){
+                if(managers.Game.keyboardManager.swap && (ticker % 50 == 0)){
                     let playerPosX = this.player.x;
                     let playerPosY = this.player.y;
                     this.removeChild(this.player);
@@ -113,7 +113,6 @@ module scenes {
                             this.ammoManager.Ammo.forEach(ammo =>{
                                 this.addChild(ammo);
                             });
-                            console.log("Changing to Arc2"); 
                         break;       
                         case config.Ship.Lightcoin:
     
@@ -127,7 +126,6 @@ module scenes {
                             this.ammoManager.Ammo.forEach(ammo =>{
                                 this.addChild(ammo);
                             });
-                            console.log("Changing to Arc3"); 
                         break;
                         case config.Ship.Enderium:
     
@@ -140,7 +138,6 @@ module scenes {
                             this.ammoManager.Ammo.forEach(ammo =>{
                                 this.addChild(ammo);
                             });
-                            console.log("Changing to Arc1"); 
                         break;
                     }
                 }

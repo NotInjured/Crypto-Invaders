@@ -25,7 +25,7 @@ var scenes;
         PlayScene.prototype.Start = function () {
             // Initialize our variables
             this.background = new objects.Background();
-            this.player = new objects.Player("Ship1", 240, 600, false, 1);
+            this.player = new objects.Player("Ship1", 260, 600, false, 10);
             this.ammoManager = new managers.Ammo();
             managers.Game.ammoManager = this.ammoManager;
             this.enemies = new Array();
@@ -84,7 +84,7 @@ var scenes;
         PlayScene.prototype.ChangeShip = function () {
             var _this = this;
             var ticker = createjs.Ticker.getTicks();
-            if (managers.Game.keyboardManager.swap && (ticker % 200 == 0)) {
+            if (managers.Game.keyboardManager.swap && (ticker % 50 == 0)) {
                 var playerPosX = this.player.x;
                 var playerPosY = this.player.y;
                 this.removeChild(this.player);
@@ -101,7 +101,6 @@ var scenes;
                         this.ammoManager.Ammo.forEach(function (ammo) {
                             _this.addChild(ammo);
                         });
-                        console.log("Changing to Arc2");
                         break;
                     case config.Ship.Lightcoin:
                         this.addChild(this.player = new objects.Player("Ship3", playerPosX, playerPosY, true, this.player.POWER));
@@ -112,7 +111,6 @@ var scenes;
                         this.ammoManager.Ammo.forEach(function (ammo) {
                             _this.addChild(ammo);
                         });
-                        console.log("Changing to Arc3");
                         break;
                     case config.Ship.Enderium:
                         this.addChild(this.player = new objects.Player("Ship1", playerPosX, playerPosY, true, this.player.POWER));
@@ -123,7 +121,6 @@ var scenes;
                         this.ammoManager.Ammo.forEach(function (ammo) {
                             _this.addChild(ammo);
                         });
-                        console.log("Changing to Arc1");
                         break;
                 }
             }
