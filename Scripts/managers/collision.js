@@ -14,7 +14,7 @@ var managers;
                 (object1.y - object1.halfH) < (object2.y + object2.halfH)) {
                 switch (object2.name) {
                     case "Enemy":
-                        managers.Game.hud.Score += Math.round(100 * Math.pow(1.1, managers.Game.hud.ScoreMult));
+                        managers.Game.hud.Score += Math.round(100 * Math.pow(1.01, managers.Game.hud.ScoreMult));
                         managers.Game.hud.ScoreMult += 1;
                         //let explosion = new objects.Explosion(object2.x - object2.halfW, object2.y - object2.halfH);
                         //managers.Game.currentSceneObject.addChild(explosion);

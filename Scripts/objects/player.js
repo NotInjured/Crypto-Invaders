@@ -22,12 +22,30 @@ var objects;
             _this.y = yPos;
             _this.x = xPos;
             _this.swapped = swapped;
+            _this.power = 1;
             _this.Start();
             return _this;
         }
-        Player.prototype.GetShipType = function () {
-            return this.shipType;
-        };
+        Object.defineProperty(Player.prototype, "ShipType", {
+            get: function () {
+                return this.shipType;
+            },
+            set: function (type) {
+                this.shipType = type;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(Player.prototype, "POWER", {
+            get: function () {
+                return this.power;
+            },
+            set: function (num) {
+                this.power = num;
+            },
+            enumerable: true,
+            configurable: true
+        });
         // Methods
         Player.prototype.Start = function () {
             this.Swapped();

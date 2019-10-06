@@ -91,13 +91,13 @@ var scenes;
                 this.ammoManager.Ammo.forEach(function (ammo) {
                     _this.removeChild(ammo);
                 });
-                switch (this.player.shipType) {
+                switch (this.player.ShipType) {
                     case config.Ship.Botcoin:
                         this.addChild(this.player = new objects.Player("Ship2", playerPosX, playerPosY, true));
-                        this.player.shipType = config.Ship.Lightcoin;
+                        this.player.ShipType = config.Ship.Lightcoin;
                         console.log("Changing to Lightcoin Ship");
-                        console.log(this.player.shipType);
-                        this.ammoManager.buildAmmoPool(this.player.shipType);
+                        console.log(this.player.ShipType);
+                        this.ammoManager.buildAmmoPool(this.player.ShipType);
                         this.ammoManager.Ammo.forEach(function (ammo) {
                             _this.addChild(ammo);
                         });
@@ -105,10 +105,10 @@ var scenes;
                         break;
                     case config.Ship.Lightcoin:
                         this.addChild(this.player = new objects.Player("Ship3", playerPosX, playerPosY, true));
-                        this.player.shipType = config.Ship.Enderium;
+                        this.player.ShipType = config.Ship.Enderium;
                         console.log("Changing to Enderium Ship");
-                        console.log(this.player.shipType);
-                        this.ammoManager.buildAmmoPool(this.player.shipType);
+                        console.log(this.player.ShipType);
+                        this.ammoManager.buildAmmoPool(this.player.ShipType);
                         this.ammoManager.Ammo.forEach(function (ammo) {
                             _this.addChild(ammo);
                         });
@@ -116,10 +116,10 @@ var scenes;
                         break;
                     case config.Ship.Enderium:
                         this.addChild(this.player = new objects.Player("Ship1", playerPosX, playerPosY, true));
-                        this.player.shipType = config.Ship.Botcoin;
+                        this.player.ShipType = config.Ship.Botcoin;
                         console.log("Changing to Botcoin Ship");
-                        console.log(this.player.shipType);
-                        this.ammoManager.buildAmmoPool(this.player.shipType);
+                        console.log(this.player.ShipType);
+                        this.ammoManager.buildAmmoPool(this.player.ShipType);
                         this.ammoManager.Ammo.forEach(function (ammo) {
                             _this.addChild(ammo);
                         });

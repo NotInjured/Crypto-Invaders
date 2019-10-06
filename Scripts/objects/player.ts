@@ -2,12 +2,25 @@ module objects {
     export class Player extends objects.GameObject {
         // Variables
         public isDead:boolean;
-        public shipType:config.Ship;
+        private shipType:config.Ship;
         private ammoSpawn:math.Vec2;
         public swapped:boolean;
+        private power:number;
 
-        public GetShipType():config.Ship{
+        get ShipType():config.Ship{
             return this.shipType;
+        }
+
+        set ShipType(type:config.Ship){
+            this.shipType = type;
+        }
+
+        get POWER():number{
+            return this.power;
+        }
+
+        set POWER(num:number){
+            this.power = num;
         }
 
         // Constructor
@@ -17,6 +30,7 @@ module objects {
             this.y = yPos;
             this.x = xPos;
             this.swapped = swapped;
+            this.power = 1;
             
             this.Start();
         }
