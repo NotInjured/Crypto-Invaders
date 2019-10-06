@@ -18,10 +18,11 @@ module objects {
         public Update():void{}
         public Main():void{}
 
+
         private animationEnded():void {
             this.alpha = 0;
             this.off("animationend", this.animationEnded.bind(this), false);
-            managers.Game.stage.removeChild(this)
+            managers.Game.currentSceneObject.removeChild(this);
         }
     }
 }

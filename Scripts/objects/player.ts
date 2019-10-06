@@ -94,7 +94,7 @@ module objects {
                         case config.Ship.Botcoin:
                                 if(this.POWER >= 1 && this.POWER <= 3){
                                     this.ammoSpawn = new math.Vec2(this.x - 15.35, this.y - 35);
-                                    //this.effect = new objects.Effect("Laser_Shoot", this.x - 13, this.y -43);
+                                    this.effect = new objects.Effect("Laser_Shoot", this.x - 13, this.y -43);
                                     let ammo = managers.Game.ammoManager.GetAmmo();
 
                                     console.log(ammo);
@@ -102,7 +102,7 @@ module objects {
                                     ammo.x = this.ammoSpawn.x;
                                     ammo.y = this.ammoSpawn.y;
 
-                                    //managers.Game.stage.addChild(this.effect);
+                                    //managers.Game.currentSceneObject.addChild(this.effect);
                                 }
                                 else if(this.POWER >= 4 && this.POWER <= 5){
                                     this.ammoSpawn = new math.Vec2(this.x - 11, this.y - 25);

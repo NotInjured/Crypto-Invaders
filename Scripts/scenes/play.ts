@@ -78,7 +78,6 @@ module scenes {
                 this.addChild(ammo);
             })
 
-            // this.addChild(this.enemy);
             this.enemies.forEach(e => {
                 this.addChild(e);
             });
@@ -94,12 +93,12 @@ module scenes {
         public Effect():void{
             let ticker:number = createjs.Ticker.getTicks();
 
-            if(managers.Game.keyboardManager.shoot && (this.player.POWER >= 1 && this.player.POWER <= 3) && (ticker % 10 == 0)){
+            if(managers.Game.keyboardManager.shoot && (this.player.POWER >= 1 && this.player.POWER <= 3) && this.player.ShipType == config.Ship.Botcoin && (ticker % 10 == 0)){
                 this.effect = new objects.Effect("Laser_Shoot", this.player.x - 13, this.player.y -43);
-                this.addChild(this.effect);
+                managers.Game.currentSceneObject.addChild(this.effect);
             }
             if(!managers.Game.keyboardManager.shoot){
-                this.removeChild(this.effect);
+                managers.Game.currentSceneObject.removeChild(this.effect);
             }
         }
 

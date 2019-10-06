@@ -16,8 +16,8 @@ var managers;
                     case "Enemy":
                         managers.Game.hud.Score += Math.round(10 * Math.pow(1.01, managers.Game.hud.ScoreMult));
                         managers.Game.hud.ScoreMult += 1;
-                        //let effect = new objects.Effect("",object2.x - object2.halfW, object2.y - object2.halfH);
-                        //managers.Game.currentSceneObject.addChild(effect);
+                        var effect = new objects.Effect("Laser_Hit", object2.x - object2.halfW, object2.y - object2.halfH);
+                        managers.Game.currentSceneObject.addChild(effect);
                         //managers.Game.stage.removeChild(object2);
                         //managers.Game.stage.removeChild(object1);
                         //managers.Game.currentSceneObject.removeChild(object1);
