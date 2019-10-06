@@ -24,14 +24,14 @@ module objects {
         }
 
         // Constructor
-        constructor(sprite, xPos:number, yPos:number, swapped:boolean) {
+        constructor(sprite, xPos:number, yPos:number, swapped:boolean, power:number) {
             super(sprite);          
             this.isDead = false;
             this.y = yPos;
             this.x = xPos;
             this.swapped = swapped;
-            this.power = 1;
-            
+            this.power = power;
+
             this.Start();
         }
         // Methods
@@ -87,20 +87,18 @@ module objects {
 
         public Shoot():void{
             if(!this.isDead || this.swapped) {
-
-            let ticker:number = createjs.Ticker.getTicks();
+                let ticker:number = createjs.Ticker.getTicks();
 
                 if((managers.Game.keyboardManager.shoot) && (ticker % 10 == 0)) {
-
+        
                     this.ammoSpawn = new math.Vec2(this.x + 7, this.y - 7);
-    
+            
                     let ammo = managers.Game.ammoManager.GetAmmo();
                     console.log(ammo);
-    
+            
                     ammo.x = this.ammoSpawn.x;
-                    ammo.y = this.ammoSpawn.y;
-    
-                } 
+                    ammo.y = this.ammoSpawn.y; 
+                }  
             }
         }
 

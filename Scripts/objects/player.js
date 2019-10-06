@@ -16,13 +16,13 @@ var objects;
     var Player = /** @class */ (function (_super) {
         __extends(Player, _super);
         // Constructor
-        function Player(sprite, xPos, yPos, swapped) {
+        function Player(sprite, xPos, yPos, swapped, power) {
             var _this = _super.call(this, sprite) || this;
             _this.isDead = false;
             _this.y = yPos;
             _this.x = xPos;
             _this.swapped = swapped;
-            _this.power = 1;
+            _this.power = power;
             _this.Start();
             return _this;
         }

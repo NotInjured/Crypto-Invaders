@@ -3,6 +3,7 @@ module scenes {
         // Variables
         private background:objects.Background;
         private player:objects.Player;
+        private effect:objects.Effect;
 
         private hudImage: objects.Image;
         private hud:managers.HUD;
@@ -23,7 +24,7 @@ module scenes {
         public Start(): void {
             // Initialize our variables
             this.background = new objects.Background();
-            this.player = new objects.Player("Ship1", 240, 600, false);
+            this.player = new objects.Player("Ship1", 240, 600, false, 1);
             
             this.ammoManager = new managers.Ammo();
             managers.Game.ammoManager = this.ammoManager;
@@ -103,12 +104,12 @@ module scenes {
                     switch(this.player.ShipType){
                         case config.Ship.Botcoin:
                             
-                            this.addChild(this.player = new objects.Player("Ship2", playerPosX, playerPosY, true));
+                            this.addChild(this.player = new objects.Player("Ship2", playerPosX, playerPosY, true, this.player.POWER));
                             this.player.ShipType = config.Ship.Lightcoin;
                             console.log("Changing to Lightcoin Ship"); 
                             console.log(this.player.ShipType);
                                                     
-                            this.ammoManager.buildAmmoPool(this.player.ShipType);
+                            this.ammoManager.buildAmmoPool(this.player.ShipType, this.player.POWER);
                             this.ammoManager.Ammo.forEach(ammo =>{
                                 this.addChild(ammo);
                             });
@@ -116,13 +117,13 @@ module scenes {
                         break;       
                         case config.Ship.Lightcoin:
     
-                            this.addChild(this.player = new objects.Player("Ship3", playerPosX, playerPosY, true));
+                            this.addChild(this.player = new objects.Player("Ship3", playerPosX, playerPosY, true, this.player.POWER));
                             this.player.ShipType = config.Ship.Enderium;
                             console.log("Changing to Enderium Ship");
                             console.log(this.player.ShipType);
     
                             
-                            this.ammoManager.buildAmmoPool(this.player.ShipType);
+                            this.ammoManager.buildAmmoPool(this.player.ShipType, this.player.POWER);
                             this.ammoManager.Ammo.forEach(ammo =>{
                                 this.addChild(ammo);
                             });
@@ -130,12 +131,12 @@ module scenes {
                         break;
                         case config.Ship.Enderium:
     
-                            this.addChild(this.player = new objects.Player("Ship1", playerPosX, playerPosY, true));
+                            this.addChild(this.player = new objects.Player("Ship1", playerPosX, playerPosY, true, this.player.POWER));
                             this.player.ShipType = config.Ship.Botcoin;
                             console.log("Changing to Botcoin Ship");
                             console.log(this.player.ShipType); 
                             
-                            this.ammoManager.buildAmmoPool(this.player.ShipType);
+                            this.ammoManager.buildAmmoPool(this.player.ShipType, this.player.POWER);
                             this.ammoManager.Ammo.forEach(ammo =>{
                                 this.addChild(ammo);
                             });

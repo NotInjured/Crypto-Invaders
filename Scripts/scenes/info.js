@@ -24,7 +24,7 @@ var scenes;
         // Methods
         InfoScene.prototype.Start = function () {
             this.background = new objects.Background();
-            this.player = new objects.Player("Ship1", 240, 600, false);
+            this.player = new objects.Player("Ship1", 240, 600, false, this.player.POWER);
             this.ammoManager = new managers.Ammo();
             managers.Game.ammoManager = this.ammoManager;
             this.infoPanel = new objects.Image("panelInfo", 240, 360);
