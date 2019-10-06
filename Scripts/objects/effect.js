@@ -32,7 +32,7 @@ var objects;
         Effect.prototype.animationEnded = function () {
             this.alpha = 0;
             this.off("animationend", this.animationEnded.bind(this), false);
-            managers.Game.currentSceneObject.removeChild(this);
+            managers.Game.stage.removeChild(this);
         };
         return Effect;
     }(objects.GameObject));

@@ -21,7 +21,7 @@ module objects {
         private animationEnded():void {
             this.alpha = 0;
             this.off("animationend", this.animationEnded.bind(this), false);
-            managers.Game.currentSceneObject.removeChild(this);
+            managers.Game.stage.removeChild(this)
         }
     }
 }

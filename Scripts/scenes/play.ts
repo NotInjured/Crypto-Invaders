@@ -24,7 +24,7 @@ module scenes {
         public Start(): void {
             // Initialize our variables
             this.background = new objects.Background();
-            this.player = new objects.Player("Ship1", 260, 600, false, 10);
+            this.player = new objects.Player("Ship1", 260, 600, false, 1);
             
             this.ammoManager = new managers.Ammo();
             managers.Game.ammoManager = this.ammoManager;
@@ -51,6 +51,7 @@ module scenes {
             this.IsPaused();
             this.ammoManager.Update();
             this.ChangeShip();
+            this.Effect();
 
             this.enemies.forEach(e => {
                 if(!e.isDead){
@@ -87,6 +88,18 @@ module scenes {
             if(managers.Game.keyboardManager.pause){
                 managers.Game.currentScene = config.Scene.START;
                 console.log("Switching to start menu...");
+            }
+        }
+
+        public Effect():void{
+            let ticker:number = createjs.Ticker.getTicks();
+
+            if(managers.Game.keyboardManager.shoot && (this.player.POWER >= 1 && this.player.POWER <= 3) && (ticker % 10 == 0)){
+                this.effect = new objects.Effect("Laser_Shoot", this.player.x - 13, this.player.y -43);
+                this.addChild(this.effect);
+            }
+            if(!managers.Game.keyboardManager.shoot){
+                this.removeChild(this.effect);
             }
         }
 
