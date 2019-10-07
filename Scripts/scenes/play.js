@@ -25,7 +25,7 @@ var scenes;
         PlayScene.prototype.Start = function () {
             // Initialize our variables
             this.background = new objects.Background();
-            this.player = new objects.Player("Ship1", 260, 600, false, 1);
+            this.player = new objects.Player("Ship1", 260, 600, false, 10);
             this.ammoManager = new managers.Ammo();
             managers.Game.ammoManager = this.ammoManager;
             this.enemies = new Array();
@@ -48,7 +48,7 @@ var scenes;
             this.IsPaused();
             this.ammoManager.Update();
             this.ChangeShip();
-            this.Effect();
+            //this.Effect();
             this.enemies.forEach(function (e) {
                 if (!e.isDead) {
                     e.Update();
@@ -85,11 +85,14 @@ var scenes;
             var ticker = createjs.Ticker.getTicks();
             if (managers.Game.keyboardManager.shoot && (this.player.POWER >= 1 && this.player.POWER <= 3) && this.player.ShipType == config.Ship.Botcoin && (ticker % 10 == 0)) {
                 this.effect = new objects.Effect("Laser_Shoot", this.player.x - 13, this.player.y - 43);
+                this.effect.on("animationend", this.animationEnded);
                 managers.Game.currentSceneObject.addChild(this.effect);
             }
-            if (!managers.Game.keyboardManager.shoot) {
-                managers.Game.currentSceneObject.removeChild(this.effect);
-            }
+        };
+        PlayScene.prototype.animationEnded = function () {
+            this.alpha = 0;
+            this.off("animationend", this.animationEnded.bind(this), false);
+            managers.Game.currentSceneObject.removeChild(this);
         };
         PlayScene.prototype.ChangeShip = function () {
             var _this = this;
