@@ -31,22 +31,41 @@ var objects;
         Enemy.prototype.Update = function () {
             this.Move();
             this.CheckBounds();
+            console.log(this.y);
             if (this.isDead) {
                 this.Reset();
             }
         };
         Enemy.prototype.Reset = function () {
             this.isDead = false;
+            this.back = false;
             this.y = -300;
         };
         Enemy.prototype.Move = function () {
-            this.y -= -5;
+            if (this.y >= 300 && !this.back) {
+                this.y -= 0;
+                this.back = true;
+            }
+            else if (this.y < 300 && !this.back) {
+                this.y -= -5;
+            }
+            else if (this.back && this.y > -200) {
+                this.y -= 2;
+            }
+            else if (this.back && this.y < -190) {
+                this.Reset();
+            }
         };
         Enemy.prototype.CheckBounds = function () {
             // Check the bottom boundary
             if (this.y >= 720 + this.height) {
                 this.y = -50;
             }
+        };
+        Enemy.prototype.FindPlayer = function (player) {
+            var angle = Math.atan2(player.y - this.y, player.x - this.x);
+            angle = angle * (180 / Math.PI);
+            this.rotation = -90 + angle;
         };
         return Enemy;
     }(objects.GameObject));

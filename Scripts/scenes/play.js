@@ -25,7 +25,7 @@ var scenes;
         PlayScene.prototype.Start = function () {
             // Initialize our variables
             this.background = new objects.Background();
-            this.player = new objects.Player("Ship1", 260, 600, false, 10);
+            this.player = new objects.Player("Ship1", 260, 600, false, 1);
             this.ammoManager = new managers.Ammo();
             managers.Game.ammoManager = this.ammoManager;
             this.enemies = new Array();
@@ -52,6 +52,7 @@ var scenes;
             this.enemies.forEach(function (e) {
                 if (!e.isDead) {
                     e.Update();
+                    e.FindPlayer(_this.player);
                     managers.Collision.CheckAABB(_this.player, e);
                 }
             });

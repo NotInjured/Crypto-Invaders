@@ -24,7 +24,7 @@ module scenes {
         public Start(): void {
             // Initialize our variables
             this.background = new objects.Background();
-            this.player = new objects.Player("Ship1", 260, 600, false, 10);
+            this.player = new objects.Player("Ship1", 260, 600, false, 1);
             
             this.ammoManager = new managers.Ammo();
             managers.Game.ammoManager = this.ammoManager;
@@ -56,6 +56,7 @@ module scenes {
             this.enemies.forEach(e => {
                 if(!e.isDead){
                     e.Update();
+                    e.FindPlayer(this.player);
                     managers.Collision.CheckAABB(this.player, e);
                 }
             });
