@@ -15,6 +15,7 @@ var scenes;
 (function (scenes) {
     var PlayScene = /** @class */ (function (_super) {
         __extends(PlayScene, _super);
+        //private enemyAmmoManager:managers.EnemyAmmo;
         // Constructor
         function PlayScene() {
             var _this = _super.call(this) || this;
@@ -28,10 +29,11 @@ var scenes;
             this.player = new objects.Player("Ship1", 260, 600, false, 1);
             this.ammoManager = new managers.Ammo();
             managers.Game.ammoManager = this.ammoManager;
-            this.enemyAmmoManager = new managers.EnemyAmmo();
-            managers.Game.enemyAmmoManager = this.enemyAmmoManager;
+            //this.enemyAmmoManager = new managers.EnemyAmmo();
+            //managers.Game.enemyAmmoManager = this.enemyAmmoManager;
+            this.enemyAmmo = new objects.EnemyAmmo("Enemy_Shot");
             this.enemies = new Array();
-            this.enemyNum = 5;
+            this.enemyNum = 1;
             for (var i = 0; i < this.enemyNum; i++) {
                 this.enemies[i] = new objects.Enemy();
             }
@@ -49,18 +51,21 @@ var scenes;
             this.player.Update();
             this.IsPaused();
             this.ammoManager.Update();
-            this.enemyAmmoManager.Update();
+            //this.enemyAmmoManager.Update();
             this.ChangeShip();
             //this.Effect();
             this.enemies.forEach(function (e) {
                 if (!e.isDead) {
                     e.Update();
-                    e.FindPlayer(_this.player);
+                    e.FindPlayerAngle(_this.player);
                     if (!e.Shoot) {
-                        e.ShootPlayer();
-                        e.Shoot = true;
+                        var dTP = _this.player.y - e.y;
+                        if (dTP < 200 || dTP > 400 && dTP < 500) {
+                            e.ShootPlayer();
+                            _this.addChild(_this.enemyAmmo);
+                            managers.Collision.CheckAABB(_this.player, _this.enemyAmmo);
+                        }
                     }
-                    managers.Collision.CheckAABB(_this.player, e);
                 }
             });
             this.ammoManager.Ammo.forEach(function (ammo) {
@@ -81,9 +86,6 @@ var scenes;
             });
             this.enemies.forEach(function (e) {
                 _this.addChild(e);
-            });
-            this.enemyAmmoManager.Ammo.forEach(function (ammo) {
-                _this.addChild(ammo);
             });
         };
         PlayScene.prototype.IsPaused = function () {

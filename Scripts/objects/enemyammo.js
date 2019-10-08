@@ -19,29 +19,13 @@ var objects;
         function EnemyAmmo(ammo) {
             var _this = _super.call(this, ammo) || this;
             // Variables
-            _this.velX = 50;
-            _this.velY = 50;
+            _this.speed = 25;
             _this.Start();
             return _this;
         }
-        Object.defineProperty(EnemyAmmo.prototype, "VelX", {
-            set: function (x) {
-                this.velX = x;
-            },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(EnemyAmmo.prototype, "VelY", {
-            set: function (y) {
-                this.velY = y;
-            },
-            enumerable: true,
-            configurable: true
-        });
         // Methods
         EnemyAmmo.prototype.Start = function () {
-            this.speedY = this.velX;
-            this.speedX = this.velY;
+            this.speedY = this.speed;
             this.Reset();
         };
         EnemyAmmo.prototype.Update = function () {
@@ -51,8 +35,7 @@ var objects;
         };
         EnemyAmmo.prototype.Main = function () { };
         EnemyAmmo.prototype.Move = function () {
-            this.y -= this.speedY;
-            this.x -= this.speedX;
+            this.y += this.speedY;
         };
         EnemyAmmo.prototype.CheckBounds = function () { };
         return EnemyAmmo;

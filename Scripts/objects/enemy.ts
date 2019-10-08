@@ -5,7 +5,7 @@ module objects {
         private back:boolean;
         private ammoSpawn:math.Vec2;
         private angle:number;
-        private shoot:boolean;
+        private shoot:boolean = false;
         private player:objects.Player;
 
         get Shoot():boolean{
@@ -23,12 +23,13 @@ module objects {
         }
         // Methods
         public Start():void {
-            this.x = Math.floor(Math.random() * 480) + 50;
+            this.x = Math.floor(Math.random() * 430) + 50;
             this.y = Math.floor(Math.random() * -720) + -50;
         }
         public Update():void {
             this.Move();
             this.CheckBounds();  
+            //this.ShootPlayer();
 
             if(this.isDead){
                 this.Reset();
@@ -62,7 +63,7 @@ module objects {
             }
         }
 
-        public FindPlayer(player:objects.Player):void{
+        public FindPlayerAngle(player:objects.Player):void{
             this.angle = Math.atan2(player.y - this.y, player.x - this.x );
             this.angle = this.angle * (180/Math.PI);
 
@@ -70,20 +71,27 @@ module objects {
         }
 
         public ShootPlayer():void{
-            this.ammoSpawn = new math.Vec2(this.x, this.y);      
+            if(!this.isDead && !this.shoot){
+                this.ammoSpawn = new math.Vec2(this.x - 17, this.y + 10);      
 
-            let velocityX = Math.cos((this.angle) * Math.PI / 180) * 100;
-            let velocityY = Math.sin((this.angle) * Math.PI / 180) * 100;
+                let velocityX = Math.cos((this.angle) * Math.PI / 180) * 100;
+                let velocityY = Math.sin((this.angle) * Math.PI / 180) * 100;
+    
+                let ammo = new objects.EnemyAmmo("Enemy_Shot");
+                ammo.rotation = 90 + this.angle;
+            
+                console.log(ammo);
+                //ammo.VelX += velocityX;
+                //ammo.VelY += velocityY;
+    
+                ammo.x = this.ammoSpawn.x;
+                ammo.y = this.ammoSpawn.y;
+                
 
-            let ammo = managers.Game.enemyAmmoManager.GetAmmo();
-            ammo.rotation =90 + this.angle;
-
-            console.log(ammo);
-            ammo.VelX += velocityX;
-            ammo.VelY += velocityY;
-
-            ammo.x = this.ammoSpawn.x;
-            ammo.y = this.ammoSpawn.y;   
+                //ammo.VelY = 25;
+                managers.Game.stage.addChild(ammo);
+                this.shoot = true;
+            }
         }
     }
 }

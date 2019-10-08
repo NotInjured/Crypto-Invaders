@@ -10,9 +10,10 @@ module scenes {
         
         private enemies:objects.Enemy[];
         private enemyNum:number;
+        private enemyAmmo:objects.EnemyAmmo;
 
         private ammoManager:managers.Ammo;
-        private enemyAmmoManager:managers.EnemyAmmo;
+        //private enemyAmmoManager:managers.EnemyAmmo;
 
         // Constructor
         constructor() {
@@ -30,11 +31,13 @@ module scenes {
             this.ammoManager = new managers.Ammo();
             managers.Game.ammoManager = this.ammoManager;
 
-            this.enemyAmmoManager = new managers.EnemyAmmo();
-            managers.Game.enemyAmmoManager = this.enemyAmmoManager;
+            //this.enemyAmmoManager = new managers.EnemyAmmo();
+            //managers.Game.enemyAmmoManager = this.enemyAmmoManager;
+
+            this.enemyAmmo = new objects.EnemyAmmo("Enemy_Shot");
 
             this.enemies = new Array<objects.Enemy>();
-            this.enemyNum = 5;
+            this.enemyNum = 1;
             for(let i = 0; i < this.enemyNum; i++) {
                 this.enemies[i] = new objects.Enemy();
             }
@@ -54,19 +57,22 @@ module scenes {
             this.player.Update();
             this.IsPaused();
             this.ammoManager.Update();
-            this.enemyAmmoManager.Update();
+            //this.enemyAmmoManager.Update();
             this.ChangeShip();
             //this.Effect();
 
             this.enemies.forEach(e => {
                 if(!e.isDead){
                     e.Update();
-                    e.FindPlayer(this.player);
+                    e.FindPlayerAngle(this.player);
                     if(!e.Shoot){
-                        e.ShootPlayer();
-                        e.Shoot = true;
+                        let dTP = this.player.y - e.y;
+                        if(dTP < 200 || dTP >  400 && dTP < 500){
+                            e.ShootPlayer();
+                            this.addChild(this.enemyAmmo);
+                        managers.Collision.CheckAABB(this.player, this.enemyAmmo);
+                        }
                     }
-                    managers.Collision.CheckAABB(this.player, e);
                 }
             });
 
@@ -75,6 +81,8 @@ module scenes {
                     managers.Collision.CheckAABB(ammo, enemy);
                 })
             })
+
+            
         }
 
         public Main(): void {
@@ -90,11 +98,7 @@ module scenes {
 
             this.enemies.forEach(e => {
                 this.addChild(e);
-            });
-
-            this.enemyAmmoManager.Ammo.forEach(ammo =>{
-                this.addChild(ammo);
-            })
+            }); 
         }
 
         public IsPaused():void{

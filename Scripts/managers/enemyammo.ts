@@ -24,23 +24,24 @@ module managers {
         public GetAmmo(): objects.EnemyAmmo {
             let ammo:objects.EnemyAmmo = this.Ammo[this.CurrentAmmo];
             this.CurrentAmmo++;
-            if(managers.Game.enemyAmmoManager.CurrentAmmo > 4) {
+            if(managers.Game.enemyAmmoManager.CurrentAmmo > 0) {
                 managers.Game.enemyAmmoManager.CurrentAmmo = 0;
-            }
+             }
 
             return ammo;
         }
 
         public Start():void {
-            this.ammoCount = 5;
+            this.ammoCount = 2;
             this.Ammo = new Array<objects.EnemyAmmo>();
             this.CurrentAmmo = 0;
-            this.buildAmmoPool("Enemy");
+            this.buildAmmoPool("Enemy_Shot");
         }
         public Update():void {
             this.Ammo.forEach(ammo => {
                 ammo.Update();
             });
+            //this.Ammo.Update();
         } 
     }
 } 

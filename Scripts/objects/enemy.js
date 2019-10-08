@@ -20,6 +20,7 @@ var objects;
             var _this = _super.call(this, "Enemy") || this;
             // Variables
             _this.isDead = false;
+            _this.shoot = false;
             _this.Start();
             return _this;
         }
@@ -35,12 +36,13 @@ var objects;
         });
         // Methods
         Enemy.prototype.Start = function () {
-            this.x = Math.floor(Math.random() * 480) + 50;
+            this.x = Math.floor(Math.random() * 430) + 50;
             this.y = Math.floor(Math.random() * -720) + -50;
         };
         Enemy.prototype.Update = function () {
             this.Move();
             this.CheckBounds();
+            //this.ShootPlayer();
             if (this.isDead) {
                 this.Reset();
             }
@@ -72,22 +74,27 @@ var objects;
                 this.y = -50;
             }
         };
-        Enemy.prototype.FindPlayer = function (player) {
+        Enemy.prototype.FindPlayerAngle = function (player) {
             this.angle = Math.atan2(player.y - this.y, player.x - this.x);
             this.angle = this.angle * (180 / Math.PI);
             this.rotation = -90 + this.angle;
         };
         Enemy.prototype.ShootPlayer = function () {
-            this.ammoSpawn = new math.Vec2(this.x, this.y);
-            var velocityX = Math.cos((this.angle) * Math.PI / 180) * 100;
-            var velocityY = Math.sin((this.angle) * Math.PI / 180) * 100;
-            var ammo = managers.Game.enemyAmmoManager.GetAmmo();
-            ammo.rotation = 90 + this.angle;
-            console.log(ammo);
-            ammo.VelX += velocityX;
-            ammo.VelY += velocityY;
-            ammo.x = this.ammoSpawn.x;
-            ammo.y = this.ammoSpawn.y;
+            if (!this.isDead && !this.shoot) {
+                this.ammoSpawn = new math.Vec2(this.x - 17, this.y + 10);
+                var velocityX = Math.cos((this.angle) * Math.PI / 180) * 100;
+                var velocityY = Math.sin((this.angle) * Math.PI / 180) * 100;
+                var ammo = new objects.EnemyAmmo("Enemy_Shot");
+                ammo.rotation = 90 + this.angle;
+                console.log(ammo);
+                //ammo.VelX += velocityX;
+                //ammo.VelY += velocityY;
+                ammo.x = this.ammoSpawn.x;
+                ammo.y = this.ammoSpawn.y;
+                //ammo.VelY = 25;
+                managers.Game.stage.addChild(ammo);
+                this.shoot = true;
+            }
         };
         return Enemy;
     }(objects.GameObject));

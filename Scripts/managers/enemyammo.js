@@ -19,21 +19,22 @@ var managers;
         EnemyAmmo.prototype.GetAmmo = function () {
             var ammo = this.Ammo[this.CurrentAmmo];
             this.CurrentAmmo++;
-            if (managers.Game.enemyAmmoManager.CurrentAmmo > 4) {
+            if (managers.Game.enemyAmmoManager.CurrentAmmo > 0) {
                 managers.Game.enemyAmmoManager.CurrentAmmo = 0;
             }
             return ammo;
         };
         EnemyAmmo.prototype.Start = function () {
-            this.ammoCount = 5;
+            this.ammoCount = 2;
             this.Ammo = new Array();
             this.CurrentAmmo = 0;
-            this.buildAmmoPool("Enemy");
+            this.buildAmmoPool("Enemy_Shot");
         };
         EnemyAmmo.prototype.Update = function () {
             this.Ammo.forEach(function (ammo) {
                 ammo.Update();
             });
+            //this.Ammo.Update();
         };
         return EnemyAmmo;
     }());
