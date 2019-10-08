@@ -8,6 +8,7 @@ module managers {        // Access to globally-required items
         public static highscore: number;
         public static textureSprite: createjs.SpriteSheet;
         public static ammoManager: managers.Ammo;
+        public static enemyAmmoManager :managers.EnemyAmmo;
         public static currentSceneObject: objects.Scene;
     }
 }

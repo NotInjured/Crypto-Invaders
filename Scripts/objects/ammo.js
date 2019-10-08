@@ -32,8 +32,6 @@ var objects;
             this.Move();
         };
         Ammo.prototype.Reset = function () {
-            this.x = -5000;
-            this.y = -5000;
         };
         Ammo.prototype.Main = function () { };
         Ammo.prototype.Move = function () {

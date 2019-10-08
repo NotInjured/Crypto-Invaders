@@ -12,6 +12,7 @@ module scenes {
         private enemyNum:number;
 
         private ammoManager:managers.Ammo;
+        private enemyAmmoManager:managers.EnemyAmmo;
 
         // Constructor
         constructor() {
@@ -28,6 +29,9 @@ module scenes {
             
             this.ammoManager = new managers.Ammo();
             managers.Game.ammoManager = this.ammoManager;
+
+            this.enemyAmmoManager = new managers.EnemyAmmo();
+            managers.Game.enemyAmmoManager = this.enemyAmmoManager;
 
             this.enemies = new Array<objects.Enemy>();
             this.enemyNum = 5;
@@ -50,6 +54,7 @@ module scenes {
             this.player.Update();
             this.IsPaused();
             this.ammoManager.Update();
+            this.enemyAmmoManager.Update();
             this.ChangeShip();
             //this.Effect();
 
@@ -57,6 +62,10 @@ module scenes {
                 if(!e.isDead){
                     e.Update();
                     e.FindPlayer(this.player);
+                    if(!e.Shoot){
+                        e.ShootPlayer();
+                        e.Shoot = true;
+                    }
                     managers.Collision.CheckAABB(this.player, e);
                 }
             });
@@ -82,6 +91,10 @@ module scenes {
             this.enemies.forEach(e => {
                 this.addChild(e);
             });
+
+            this.enemyAmmoManager.Ammo.forEach(ammo =>{
+                this.addChild(ammo);
+            })
         }
 
         public IsPaused():void{

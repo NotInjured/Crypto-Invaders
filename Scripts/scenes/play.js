@@ -28,6 +28,8 @@ var scenes;
             this.player = new objects.Player("Ship1", 260, 600, false, 1);
             this.ammoManager = new managers.Ammo();
             managers.Game.ammoManager = this.ammoManager;
+            this.enemyAmmoManager = new managers.EnemyAmmo();
+            managers.Game.enemyAmmoManager = this.enemyAmmoManager;
             this.enemies = new Array();
             this.enemyNum = 5;
             for (var i = 0; i < this.enemyNum; i++) {
@@ -47,12 +49,17 @@ var scenes;
             this.player.Update();
             this.IsPaused();
             this.ammoManager.Update();
+            this.enemyAmmoManager.Update();
             this.ChangeShip();
             //this.Effect();
             this.enemies.forEach(function (e) {
                 if (!e.isDead) {
                     e.Update();
                     e.FindPlayer(_this.player);
+                    if (!e.Shoot) {
+                        e.ShootPlayer();
+                        e.Shoot = true;
+                    }
                     managers.Collision.CheckAABB(_this.player, e);
                 }
             });
@@ -74,6 +81,9 @@ var scenes;
             });
             this.enemies.forEach(function (e) {
                 _this.addChild(e);
+            });
+            this.enemyAmmoManager.Ammo.forEach(function (ammo) {
+                _this.addChild(ammo);
             });
         };
         PlayScene.prototype.IsPaused = function () {

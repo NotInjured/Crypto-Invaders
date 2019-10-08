@@ -23,6 +23,16 @@ var objects;
             _this.Start();
             return _this;
         }
+        Object.defineProperty(Enemy.prototype, "Shoot", {
+            get: function () {
+                return this.shoot;
+            },
+            set: function (s) {
+                this.shoot = s;
+            },
+            enumerable: true,
+            configurable: true
+        });
         // Methods
         Enemy.prototype.Start = function () {
             this.x = Math.floor(Math.random() * 480) + 50;
@@ -31,7 +41,6 @@ var objects;
         Enemy.prototype.Update = function () {
             this.Move();
             this.CheckBounds();
-            console.log(this.y);
             if (this.isDead) {
                 this.Reset();
             }
@@ -39,17 +48,18 @@ var objects;
         Enemy.prototype.Reset = function () {
             this.isDead = false;
             this.back = false;
+            this.shoot = false;
             this.y = -300;
         };
         Enemy.prototype.Move = function () {
             if (this.y >= 300 && !this.back) {
-                this.y -= 0;
                 this.back = true;
             }
             else if (this.y < 300 && !this.back) {
                 this.y -= -5;
             }
             else if (this.back && this.y > -200) {
+                this.ShootPlayer();
                 this.y -= 2;
             }
             else if (this.back && this.y < -190) {
@@ -63,9 +73,21 @@ var objects;
             }
         };
         Enemy.prototype.FindPlayer = function (player) {
-            var angle = Math.atan2(player.y - this.y, player.x - this.x);
-            angle = angle * (180 / Math.PI);
-            this.rotation = -90 + angle;
+            this.angle = Math.atan2(player.y - this.y, player.x - this.x);
+            this.angle = this.angle * (180 / Math.PI);
+            this.rotation = -90 + this.angle;
+        };
+        Enemy.prototype.ShootPlayer = function () {
+            this.ammoSpawn = new math.Vec2(this.x, this.y);
+            var velocityX = Math.cos((this.angle) * Math.PI / 180) * 100;
+            var velocityY = Math.sin((this.angle) * Math.PI / 180) * 100;
+            var ammo = managers.Game.enemyAmmoManager.GetAmmo();
+            ammo.rotation = 90 + this.angle;
+            console.log(ammo);
+            ammo.VelX += velocityX;
+            ammo.VelY += velocityY;
+            ammo.x = this.ammoSpawn.x;
+            ammo.y = this.ammoSpawn.y;
         };
         return Enemy;
     }(objects.GameObject));
