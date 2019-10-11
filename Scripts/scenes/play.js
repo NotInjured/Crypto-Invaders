@@ -60,9 +60,11 @@ var scenes;
                     e.FindPlayerAngle(_this.player);
                     if (!e.Shoot) {
                         var dTP = _this.player.y - e.y;
-                        if (dTP < 200 || dTP > 400 && dTP < 500) {
+                        if (dTP < 200 || dTP > 300 && dTP < 400) {
                             e.ShootPlayer();
+                            e.Update();
                             _this.addChild(_this.enemyAmmo);
+                            _this.enemyAmmo.Move();
                             managers.Collision.CheckAABB(_this.player, _this.enemyAmmo);
                         }
                     }

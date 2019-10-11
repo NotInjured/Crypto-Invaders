@@ -41,7 +41,6 @@ module managers {
             this.Ammo.forEach(ammo => {
                 ammo.Update();
             });
-            //this.Ammo.Update();
         } 
     }
 } 

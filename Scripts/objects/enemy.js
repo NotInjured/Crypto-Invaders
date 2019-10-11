@@ -42,7 +42,6 @@ var objects;
         Enemy.prototype.Update = function () {
             this.Move();
             this.CheckBounds();
-            //this.ShootPlayer();
             if (this.isDead) {
                 this.Reset();
             }
@@ -51,17 +50,18 @@ var objects;
             this.isDead = false;
             this.back = false;
             this.shoot = false;
-            this.y = -300;
+            this.x = Math.floor(Math.random() * 430) + 50;
+            this.y = Math.floor(Math.random() * -720) + -50;
         };
         Enemy.prototype.Move = function () {
             if (this.y >= 300 && !this.back) {
+                this.ShootPlayer();
                 this.back = true;
             }
             else if (this.y < 300 && !this.back) {
                 this.y -= -5;
             }
             else if (this.back && this.y > -200) {
-                this.ShootPlayer();
                 this.y -= 2;
             }
             else if (this.back && this.y < -190) {
@@ -82,8 +82,6 @@ var objects;
         Enemy.prototype.ShootPlayer = function () {
             if (!this.isDead && !this.shoot) {
                 this.ammoSpawn = new math.Vec2(this.x - 17, this.y + 10);
-                var velocityX = Math.cos((this.angle) * Math.PI / 180) * 100;
-                var velocityY = Math.sin((this.angle) * Math.PI / 180) * 100;
                 var ammo = new objects.EnemyAmmo("Enemy_Shot");
                 ammo.rotation = 90 + this.angle;
                 console.log(ammo);

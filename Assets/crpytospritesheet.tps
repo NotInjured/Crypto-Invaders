@@ -316,6 +316,19 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">Enemy_Shot.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>2,3,4,7</rect>
+                <key>scale9Paddings</key>
+                <rect>2,3,4,7</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">HUD.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
@@ -754,6 +767,7 @@
             <filename>Arc2_Shoot.png</filename>
             <filename>Arc4_Shoot.png</filename>
             <filename>Arc5_Shoot.png</filename>
+            <filename>Enemy_Shot.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

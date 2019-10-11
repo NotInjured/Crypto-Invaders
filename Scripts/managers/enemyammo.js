@@ -34,7 +34,6 @@ var managers;
             this.Ammo.forEach(function (ammo) {
                 ammo.Update();
             });
-            //this.Ammo.Update();
         };
         return EnemyAmmo;
     }());

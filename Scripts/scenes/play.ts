@@ -67,10 +67,14 @@ module scenes {
                     e.FindPlayerAngle(this.player);
                     if(!e.Shoot){
                         let dTP = this.player.y - e.y;
-                        if(dTP < 200 || dTP >  400 && dTP < 500){
+                        if(dTP < 200 || dTP >  300 && dTP < 400){
                             e.ShootPlayer();
+                            e.Update();
+                            
                             this.addChild(this.enemyAmmo);
-                        managers.Collision.CheckAABB(this.player, this.enemyAmmo);
+                            this.enemyAmmo.Move();
+
+                            managers.Collision.CheckAABB(this.player, this.enemyAmmo);
                         }
                     }
                 }
@@ -137,7 +141,6 @@ module scenes {
                     
                     switch(this.player.ShipType){
                         case config.Ship.Botcoin:
-                            
                             this.addChild(this.player = new objects.Player("Ship2", playerPosX, playerPosY, true, this.player.POWER));
                             this.player.ShipType = config.Ship.Lightcoin;
                             console.log("Changing to Lightcoin Ship"); 
