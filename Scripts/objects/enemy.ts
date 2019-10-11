@@ -6,6 +6,7 @@ module objects {
         private ammoSpawn:math.Vec2;
         private angle:number;
         private shoot:boolean = false;
+        private ammo:objects.EnemyAmmo;
 
         get Shoot():boolean{
             return this.shoot;
@@ -32,6 +33,9 @@ module objects {
             if(this.isDead){
                 this.Reset();
             }
+
+            if(this.ammo != undefined)
+                this.ammo.Update();
         }
         public Reset():void {
             this.isDead = false;
@@ -73,18 +77,18 @@ module objects {
             if(!this.isDead && !this.shoot){
                 this.ammoSpawn = new math.Vec2(this.x - 17, this.y + 10);      
 
-                let ammo = new objects.EnemyAmmo("Enemy_Shot");
-                ammo.rotation = 90 + this.angle;
+                this.ammo = new objects.EnemyAmmo("Enemy_Shot");
+                this.ammo.rotation = 90 + this.angle;
             
-                console.log(ammo);
+                console.log(this.ammo);
                 //ammo.VelX += velocityX;
                 //ammo.VelY += velocityY;
     
-                ammo.x = this.ammoSpawn.x;
-                ammo.y = this.ammoSpawn.y;
+                this.ammo.x = this.ammoSpawn.x;
+                this.ammo.y = this.ammoSpawn.y;
 
                 //ammo.VelY = 25;
-                managers.Game.stage.addChild(ammo);
+                managers.Game.currentSceneObject.addChild(this.ammo);
                 this.shoot = true;
             }
         }

@@ -45,6 +45,8 @@ var objects;
             if (this.isDead) {
                 this.Reset();
             }
+            if (this.ammo != undefined)
+                this.ammo.Update();
         };
         Enemy.prototype.Reset = function () {
             this.isDead = false;
@@ -82,15 +84,15 @@ var objects;
         Enemy.prototype.ShootPlayer = function () {
             if (!this.isDead && !this.shoot) {
                 this.ammoSpawn = new math.Vec2(this.x - 17, this.y + 10);
-                var ammo = new objects.EnemyAmmo("Enemy_Shot");
-                ammo.rotation = 90 + this.angle;
-                console.log(ammo);
+                this.ammo = new objects.EnemyAmmo("Enemy_Shot");
+                this.ammo.rotation = 90 + this.angle;
+                console.log(this.ammo);
                 //ammo.VelX += velocityX;
                 //ammo.VelY += velocityY;
-                ammo.x = this.ammoSpawn.x;
-                ammo.y = this.ammoSpawn.y;
+                this.ammo.x = this.ammoSpawn.x;
+                this.ammo.y = this.ammoSpawn.y;
                 //ammo.VelY = 25;
-                managers.Game.stage.addChild(ammo);
+                managers.Game.currentSceneObject.addChild(this.ammo);
                 this.shoot = true;
             }
         };

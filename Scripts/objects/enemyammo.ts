@@ -1,7 +1,7 @@
 module objects {
     export class EnemyAmmo extends objects.GameObject {
         // Variables
-        private speed:number = -25;
+        private speed:number = -10;
         // Constructor
         constructor(ammo:string) {
             super(ammo);
