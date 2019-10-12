@@ -34,6 +34,13 @@ var objects;
             enumerable: true,
             configurable: true
         });
+        Object.defineProperty(Enemy.prototype, "Ammo", {
+            get: function () {
+                return this.ammo;
+            },
+            enumerable: true,
+            configurable: true
+        });
         // Methods
         Enemy.prototype.Start = function () {
             this.x = Math.floor(Math.random() * 430) + 50;
@@ -44,6 +51,8 @@ var objects;
             this.CheckBounds();
             if (this.isDead) {
                 this.Reset();
+            }
+            if (!this.isDead) {
             }
             if (this.ammo != undefined)
                 this.ammo.Update();
@@ -61,7 +70,7 @@ var objects;
                 this.back = true;
             }
             else if (this.y < 300 && !this.back) {
-                this.y -= -5;
+                this.y += 5;
             }
             else if (this.back && this.y > -200) {
                 this.y -= 2;
@@ -76,17 +85,18 @@ var objects;
                 this.y = -50;
             }
         };
-        Enemy.prototype.FindPlayerAngle = function (player) {
+        Enemy.prototype.FindPlayer = function (player) {
             this.angle = Math.atan2(player.y - this.y, player.x - this.x);
             this.angle = this.angle * (180 / Math.PI);
             this.rotation = -90 + this.angle;
             this.playerPos = new math.Vec2(player.x, player.y);
+            if (this.shoot)
+                managers.Collision.CheckAABB(player, this.ammo);
         };
         Enemy.prototype.ShootPlayer = function () {
             if (!this.isDead && !this.shoot) {
                 this.ammoSpawn = new math.Vec2(this.x - 17, this.y + 10);
                 this.position = new math.Vec2(this.x, this.y);
-                var velocity = -4;
                 this.ammo = new objects.EnemyAmmo("Enemy_Shot");
                 this.ammo.rotation = 90 + this.angle;
                 console.log(this.ammo);

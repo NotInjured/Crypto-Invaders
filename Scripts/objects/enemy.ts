@@ -18,6 +18,10 @@ module objects {
             this.shoot = s;
         }
 
+        get Ammo():objects.EnemyAmmo{
+            return this.ammo;
+        }
+
         // Constructor
         constructor() {
             super("Enemy");
@@ -36,6 +40,10 @@ module objects {
                 this.Reset();
             }
 
+            if(!this.isDead){
+
+            }
+
             if(this.ammo != undefined)
                 this.ammo.Update();
         }
@@ -52,7 +60,7 @@ module objects {
                 this.back = true;
             }
             else if(this.y < 300 && !this.back){
-                this.y -= -5;
+                this.y += 5;
             }
             else if(this.back && this.y > -200){
                 this.y -= 2;
@@ -68,13 +76,16 @@ module objects {
             }
         }
 
-        public FindPlayerAngle(player:objects.Player):void{
+        public FindPlayer(player:objects.Player):void{
             this.angle = Math.atan2(player.y - this.y, player.x - this.x );
             this.angle = this.angle * (180/Math.PI);
 
-            this.rotation = -90  + this.angle;  
+            this.rotation = -90  + this.angle;
 
             this.playerPos = new math.Vec2(player.x, player.y);
+            
+            if(this.shoot)
+                managers.Collision.CheckAABB(player, this.ammo);
         }
 
         public ShootPlayer():void{
@@ -82,8 +93,6 @@ module objects {
                 this.ammoSpawn = new math.Vec2(this.x - 17, this.y + 10);      
 
                 this.position = new math.Vec2(this.x, this.y);
-
-                let velocity = -4;
 
                 this.ammo = new objects.EnemyAmmo("Enemy_Shot");
                 this.ammo.rotation = 90 + this.angle;

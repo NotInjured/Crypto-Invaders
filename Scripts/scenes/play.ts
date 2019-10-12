@@ -37,7 +37,7 @@ module scenes {
             this.enemyAmmo = new objects.EnemyAmmo("Enemy_Shot");
 
             this.enemies = new Array<objects.Enemy>();
-            this.enemyNum = 1;
+            this.enemyNum = 5;
             for(let i = 0; i < this.enemyNum; i++) {
                 this.enemies[i] = new objects.Enemy();
             }
@@ -64,26 +64,27 @@ module scenes {
             this.enemies.forEach(e => {
                 if(!e.isDead){
                     e.Update();
-                    e.FindPlayerAngle(this.player);
+                    e.FindPlayer(this.player);
+
                     if(!e.Shoot){
                         let dTP = this.player.y - e.y;
                         if(dTP < 200 || dTP >  300 && dTP < 400){
                             e.ShootPlayer();
                             e.Update();
-
-                            managers.Collision.CheckAABB(this.player, this.enemyAmmo);
+                            
                         }
                     }
                 }
+
+
             });
+
 
             this.ammoManager.Ammo.forEach(ammo =>{
                 this.enemies.forEach(enemy =>{
                     managers.Collision.CheckAABB(ammo, enemy);
                 })
             })
-
-            
         }
 
         public Main(): void {

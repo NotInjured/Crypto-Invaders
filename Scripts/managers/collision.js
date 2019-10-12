@@ -25,6 +25,10 @@ var managers;
                         object1.Reset();
                         object2.Reset();
                         break;
+                    case "Enemy_Shot":
+                        console.log("Player Hit");
+                        managers.Game.hud.Lives--;
+                        break;
                 }
             }
         };

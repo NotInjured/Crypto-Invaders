@@ -48,13 +48,17 @@ var objects;
         };
         EnemyAmmo.prototype.Update = function () {
             this.Move();
+            if (this.x > 480 || this.x < 0 ||
+                this.y > 720) {
+                managers.Game.currentSceneObject.removeChild(this);
+            }
         };
         EnemyAmmo.prototype.Reset = function () {
         };
         EnemyAmmo.prototype.Main = function () { };
         EnemyAmmo.prototype.Move = function () {
-            this.y += this.dir.y * (60 / 10000);
-            this.x += this.dir.x * (60 / 10000);
+            this.y += this.dir.y * (60 / 17500);
+            this.x += this.dir.x * (60 / 17500);
         };
         EnemyAmmo.prototype.CheckBounds = function () { };
         return EnemyAmmo;

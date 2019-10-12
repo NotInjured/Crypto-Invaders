@@ -3,7 +3,7 @@ module objects {
         // Variables
         private speed:number = 7;
         private dir:math.Vec2;
-
+        
         get Dir():math.Vec2{
             return this.dir;
         }
@@ -30,14 +30,21 @@ module objects {
         }
         public Update():void {
             this.Move();
+
+
+            if(this.x > 480 || this.x < 0 ||
+                this.y > 720){
+                    managers.Game.currentSceneObject.removeChild(this);
+                }
+            
         }
         public Reset():void {
             
         }
         public Main():void{}
         public Move():void {
-            this.y += this.dir.y * (60/10000);
-            this.x += this.dir.x * (60/10000);
+            this.y += this.dir.y * (60/17500);
+            this.x += this.dir.x * (60/17500);
         }
         public CheckBounds():void {}
         

@@ -33,7 +33,7 @@ var scenes;
             //managers.Game.enemyAmmoManager = this.enemyAmmoManager;
             this.enemyAmmo = new objects.EnemyAmmo("Enemy_Shot");
             this.enemies = new Array();
-            this.enemyNum = 1;
+            this.enemyNum = 5;
             for (var i = 0; i < this.enemyNum; i++) {
                 this.enemies[i] = new objects.Enemy();
             }
@@ -57,13 +57,12 @@ var scenes;
             this.enemies.forEach(function (e) {
                 if (!e.isDead) {
                     e.Update();
-                    e.FindPlayerAngle(_this.player);
+                    e.FindPlayer(_this.player);
                     if (!e.Shoot) {
                         var dTP = _this.player.y - e.y;
                         if (dTP < 200 || dTP > 300 && dTP < 400) {
                             e.ShootPlayer();
                             e.Update();
-                            managers.Collision.CheckAABB(_this.player, _this.enemyAmmo);
                         }
                     }
                 }
