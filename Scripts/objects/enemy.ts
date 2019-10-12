@@ -7,6 +7,8 @@ module objects {
         private angle:number;
         private shoot:boolean = false;
         private ammo:objects.EnemyAmmo;
+        private playerPos:math.Vec2;
+        private position:math.Vec2;
 
         get Shoot():boolean{
             return this.shoot;
@@ -71,19 +73,25 @@ module objects {
             this.angle = this.angle * (180/Math.PI);
 
             this.rotation = -90  + this.angle;  
+
+            this.playerPos = new math.Vec2(player.x, player.y);
         }
 
         public ShootPlayer():void{
             if(!this.isDead && !this.shoot){
                 this.ammoSpawn = new math.Vec2(this.x - 17, this.y + 10);      
 
+                this.position = new math.Vec2(this.x, this.y);
+
+                let velocity = -4;
+
                 this.ammo = new objects.EnemyAmmo("Enemy_Shot");
                 this.ammo.rotation = 90 + this.angle;
             
                 console.log(this.ammo);
-                //ammo.VelX += velocityX;
-                //ammo.VelY += velocityY;
-    
+
+                this.ammo.Dir = new math.Vec2((this.playerPos.x - this.position.x) * this.ammo.Speed, (this.playerPos.y - this.position.y) * this.ammo.Speed);
+
                 this.ammo.x = this.ammoSpawn.x;
                 this.ammo.y = this.ammoSpawn.y;
 

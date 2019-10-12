@@ -70,9 +70,6 @@ module scenes {
                         if(dTP < 200 || dTP >  300 && dTP < 400){
                             e.ShootPlayer();
                             e.Update();
-                            
-                            this.addChild(this.enemyAmmo);
-                            this.enemyAmmo.Move();
 
                             managers.Collision.CheckAABB(this.player, this.enemyAmmo);
                         }

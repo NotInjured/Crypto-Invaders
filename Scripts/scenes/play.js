@@ -63,8 +63,6 @@ var scenes;
                         if (dTP < 200 || dTP > 300 && dTP < 400) {
                             e.ShootPlayer();
                             e.Update();
-                            _this.addChild(_this.enemyAmmo);
-                            _this.enemyAmmo.Move();
                             managers.Collision.CheckAABB(_this.player, _this.enemyAmmo);
                         }
                     }

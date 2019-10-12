@@ -19,12 +19,30 @@ var objects;
         function EnemyAmmo(ammo) {
             var _this = _super.call(this, ammo) || this;
             // Variables
-            _this.speed = -10;
+            _this.speed = 7;
             _this.Start();
             return _this;
         }
+        Object.defineProperty(EnemyAmmo.prototype, "Dir", {
+            get: function () {
+                return this.dir;
+            },
+            set: function (d) {
+                this.dir = d;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(EnemyAmmo.prototype, "Speed", {
+            get: function () {
+                return this.speed;
+            },
+            enumerable: true,
+            configurable: true
+        });
         // Methods
         EnemyAmmo.prototype.Start = function () {
+            this.speedX = this.speed;
             this.speedY = this.speed;
             this.Reset();
         };
@@ -35,7 +53,8 @@ var objects;
         };
         EnemyAmmo.prototype.Main = function () { };
         EnemyAmmo.prototype.Move = function () {
-            this.y -= this.speedY;
+            this.y += this.dir.y * (60 / 10000);
+            this.x += this.dir.x * (60 / 10000);
         };
         EnemyAmmo.prototype.CheckBounds = function () { };
         return EnemyAmmo;
