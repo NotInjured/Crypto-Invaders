@@ -29,7 +29,7 @@ module objects {
         }
         // Methods
         public Start():void {
-            this.x = Math.floor(Math.random() * (710 - 380 + 1) + 50);
+            this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
             this.y = Math.floor(Math.random() * -720) + -50;
         }
         public Update():void {
@@ -51,7 +51,7 @@ module objects {
             this.isDead = false;
             this.back = false;
             this.shoot = false;
-            this.x = Math.floor(Math.random() * (710 - 380 + 1) + 50);
+            this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
             this.y = Math.floor(Math.random() * -720) + -50;
         }
         public Move():void {

@@ -43,7 +43,7 @@ var objects;
         });
         // Methods
         Enemy.prototype.Start = function () {
-            this.x = Math.floor(Math.random() * (710 - 380 + 1) + 50);
+            this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
             this.y = Math.floor(Math.random() * -720) + -50;
         };
         Enemy.prototype.Update = function () {
@@ -61,7 +61,7 @@ var objects;
             this.isDead = false;
             this.back = false;
             this.shoot = false;
-            this.x = Math.floor(Math.random() * (710 - 380 + 1) + 50);
+            this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
             this.y = Math.floor(Math.random() * -720) + -50;
         };
         Enemy.prototype.Move = function () {
