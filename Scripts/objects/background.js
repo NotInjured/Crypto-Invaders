@@ -17,7 +17,7 @@ var objects;
         __extends(Background, _super);
         // Constructor
         function Background() {
-            var _this = _super.call(this, managers.Game.assetManager.getResult("background")) || this;
+            var _this = _super.call(this, managers.Game.assetManager.getResult("bg1")) || this;
             _this.Start();
             return _this;
         }
@@ -25,7 +25,10 @@ var objects;
         // Initializing our variables with default values
         Background.prototype.Start = function () {
             this.speedY = 0.5;
-            this.Reset();
+            //this.y = 1;
+            this.y = -3122;
+            this.x = 297;
+            //this.Reset();
         };
         // Updated 60 times per second (60FPS)
         Background.prototype.Update = function () {
@@ -34,7 +37,6 @@ var objects;
         };
         // Resets the position of the object
         Background.prototype.Reset = function () {
-            this.y = -124;
         };
         // Move the object
         Background.prototype.Move = function () {
@@ -42,9 +44,8 @@ var objects;
         };
         // Collision Detection 
         Background.prototype.CheckBound = function () {
-            if (this.y >= 0) {
-                this.Reset();
-            }
+            if (this.y > -1)
+                this.speedY = 0;
         };
         return Background;
     }(createjs.Bitmap));

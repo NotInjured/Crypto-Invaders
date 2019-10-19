@@ -70,12 +70,12 @@ module objects {
 
         public CheckBound():void {
             // Right boundary
-            if(this.x >= 480) 
-                this.x = 480;
+            if(this.x >= 710) 
+                this.x = 710;
 
             // Left boundary
-            if(this.x <= this.halfW) 
-                this.x = this.halfW;  
+            if(this.x <= 380) 
+                this.x = 380;  
 
             if(this.y >= 720)
                 this.y = 720;

@@ -13,19 +13,17 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var objects;
 (function (objects) {
-    var Image = /** @class */ (function (_super) {
-        __extends(Image, _super);
-        function Image(imageString, x, y) {
-            if (x === void 0) { x = 0; }
-            if (y === void 0) { y = 0; }
-            var _this = _super.call(this, managers.Game.assetManager.getResult(imageString)) || this;
+    var Sprite = /** @class */ (function (_super) {
+        __extends(Sprite, _super);
+        function Sprite(imageString, x, y) {
+            var _this = _super.call(this, imageString) || this;
             // Set default position
             _this.x = x;
             _this.y = y;
             return _this;
         }
-        return Image;
-    }(createjs.Bitmap));
-    objects.Image = Image;
+        return Sprite;
+    }(objects.GameObject));
+    objects.Sprite = Sprite;
 })(objects || (objects = {}));
-//# sourceMappingURL=image.js.map
+//# sourceMappingURL=sprites.js.map

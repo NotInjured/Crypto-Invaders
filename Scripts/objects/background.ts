@@ -4,7 +4,7 @@ module objects {
         private speedY:number;  // Speed of background scrolling on Y-axis
         // Constructor
         constructor() {
-            super(managers.Game.assetManager.getResult("background"));
+            super(managers.Game.assetManager.getResult("bg1"));
 
             this.Start();
         }
@@ -12,7 +12,10 @@ module objects {
         // Initializing our variables with default values
         public Start():void {
             this.speedY = 0.5;
-            this.Reset();
+            //this.y = 1;
+            this.y = -3122;
+            this.x = 297;
+            //this.Reset();
         }
         // Updated 60 times per second (60FPS)
         public Update():void {
@@ -21,7 +24,6 @@ module objects {
         }
         // Resets the position of the object
         public Reset():void {
-            this.y = -124;
         }
         // Move the object
         public Move():void {
@@ -29,9 +31,8 @@ module objects {
         }
         // Collision Detection 
         public CheckBound():void {
-            if(this.y >= 0) {
-                this.Reset();
-            }
+            if(this.y > -1)
+                this.speedY = 0;
         }
     }
 }

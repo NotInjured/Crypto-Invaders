@@ -26,7 +26,7 @@ var scenes;
         PlayScene.prototype.Start = function () {
             // Initialize our variables
             this.background = new objects.Background();
-            this.player = new objects.Player("Ship1", 260, 600, false, 1);
+            this.player = new objects.Player("Ship1", 550, 700, false, 1);
             this.ammoManager = new managers.Ammo();
             managers.Game.ammoManager = this.ammoManager;
             //this.enemyAmmoManager = new managers.EnemyAmmo();
@@ -37,7 +37,7 @@ var scenes;
             for (var i = 0; i < this.enemyNum; i++) {
                 this.enemies[i] = new objects.Enemy();
             }
-            this.hudImage = new objects.Image("HUD", 0, 0);
+            this.hudImage = new objects.Image("HUD", 342, 0);
             this.hud = new managers.HUD;
             managers.Game.hud = this.hud;
             managers.Game.hud.Lives = 3;
