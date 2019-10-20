@@ -42,8 +42,8 @@ module objects {
         }
         public Main():void{}
         public Move():void {
-            this.y += this.dir.y * (60/17500);
-            this.x += this.dir.x * (60/17500);
+            this.y += this.dir.y * (60/20000);
+            this.x += this.dir.x * (60/20000);
         }
         public CheckBounds():void {}
         

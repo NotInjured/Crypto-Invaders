@@ -34,12 +34,12 @@ module scenes {
             //this.enemyAmmoManager = new managers.EnemyAmmo();
             //managers.Game.enemyAmmoManager = this.enemyAmmoManager;
 
-            this.enemyAmmo = new objects.EnemyAmmo("Enemy_Shot");
+            this.enemyAmmo = new objects.EnemyAmmo("Enemy6_Shot");
 
             this.enemies = new Array<objects.Enemy>();
             this.enemyNum = 5;
             for(let i = 0; i < this.enemyNum; i++) {
-                this.enemies[i] = new objects.Enemy();
+                this.enemies[i] = new objects.Enemy("Enemy4");
             }
 
             this.hudImage = new objects.Image("HUD", 342, 0);  

@@ -3,12 +3,18 @@ module objects {
         // Variables
         public isDead:boolean = false;
         private back:boolean;
-        private ammoSpawn:math.Vec2;
-        private angle:number;
         private shoot:boolean = false;
+
+        private angle:number;
+        private sprite:string;
+        
         private ammo:objects.EnemyAmmo;
+
+        private ammoSpawn:math.Vec2;
         private playerPos:math.Vec2;
         private position:math.Vec2;
+
+        private randomNum;
 
         get Shoot():boolean{
             return this.shoot;
@@ -23,14 +29,41 @@ module objects {
         }
 
         // Constructor
-        constructor() {
-            super("Enemy");
+        constructor(sprite) {
+            super(sprite);
+            this.sprite = sprite;
             this.Start();
         }
         // Methods
         public Start():void {
-            this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
-            this.y = Math.floor(Math.random() * -720) + -50;
+            switch(this.sprite){
+                case "Enemy3":
+                    this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
+                    this.y = Math.floor(Math.random() * -720) + -50;
+                break;
+                case "Enemy4":
+                    this.randomNum = Math.floor(Math.random() * (2 - 1 + 1) + 1);
+                    switch(this.randomNum){
+                        case 1:
+                            this.x = 200
+                            this.y = 400
+                        break;
+                        case 2:
+                            this.x = 900
+                            this.y = 300
+                        break;
+                    }
+                break;
+                case "Enemy5":
+                    this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
+                    this.y = Math.floor(Math.random() * -720) + -50;
+                break;
+                case "Enemy6":
+                    this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
+                    this.y = Math.floor(Math.random() * -720) + -50;
+                break;
+            }
+            
         }
         public Update():void {
             this.Move();
@@ -55,19 +88,115 @@ module objects {
             this.y = Math.floor(Math.random() * -720) + -50;
         }
         public Move():void {
-            if(this.y >= 300 && !this.back){
-                this.ShootPlayer();
-                this.back = true;
+            switch(this.sprite){
+                case "Enemy3":
+                        if(this.y >= 300 && !this.back){
+                            this.ShootPlayer();
+                            this.back = true;
+                        }
+                        else if(this.y < 300 && !this.back){
+                            this.y += 5;
+                        }
+                        else if(this.back && this.y > -200){
+                            this.y -= 2;
+                            this.shoot = false;
+                            
+                            if(this.y < 100)
+                                this.ShootPlayer();
+                        }
+                        else if(this.back && this.y < -190){
+                            this.Reset();
+                        }
+                break;
+                case "Enemy4":
+                    switch(this.randomNum){
+                        case 1:
+                            if(this.x < 1000 && !this.back){
+                                this.x += 3;
+                                if(this.x > 400 && this.x < 600)
+                                    this.ShootPlayer();
+                            }
+                            else if(this.x > 995 && !this.back){
+                                this.back = true;
+                                this.shoot = false;
+                            }
+                            else if(this.x > 200 && this.back){
+                                this.x -= 5;
+                                if(this.x > 400 && this.x < 600){
+                                    this.ShootPlayer();
+                                }
+                                if(this.x < 290)
+                                    managers.Game.currentSceneObject.removeChild(this);
+                            }
+                        break;
+                        case 2:
+                            if(this.x > 0 && !this.back){
+                                this.x -= 3;
+                                if(this.x > 400 && this.x < 600)
+                                    this.ShootPlayer();
+                            }
+                            else if(this.x < 10 && !this.back){
+                                this.back = true;
+                                this.shoot = false;
+                            }
+                            else if(this.x < 800 && this.back){
+                                this.x += 5;
+                                if(this.x > 400 && this.x < 600){
+                                    this.ShootPlayer();
+                                }
+                                if(this.x > 790)
+                                    managers.Game.currentSceneObject.removeChild(this);
+                            }
+                        break;
+                    }
+                break;
+                case "Enemy5":
+                        if(this.y >= 300 && !this.back){
+                            this.ShootPlayer();
+                            this.back = true;
+                        }
+                        else if(this.y < 300 && !this.back){
+                            this.y += 5;
+                        }
+                        else if(this.back && this.y > -200){
+                            this.y -= 2;
+                        }
+                        else if(this.back && this.y < -190){
+                            this.Reset();
+                        }
+                break;
+                case "Enemy6":
+                        if(this.y >= 300 && !this.back){
+                            this.ShootPlayer();
+                            this.back = true;
+                        }
+                        else if(this.y < 300 && !this.back){
+                            this.y += 5;
+                        }
+                        else if(this.back && this.y > -200){
+                            this.y -= 2;
+                        }
+                        else if(this.back && this.y < -190){
+                            this.Reset();
+                        }
+                break;
+                case "Enemy3":
+                        if(this.y >= 300 && !this.back){
+                            this.ShootPlayer();
+                            this.back = true;
+                        }
+                        else if(this.y < 300 && !this.back){
+                            this.y += 5;
+                        }
+                        else if(this.back && this.y > -200){
+                            this.y -= 2;
+                        }
+                        else if(this.back && this.y < -190){
+                            this.Reset();
+                        }
+                break;
             }
-            else if(this.y < 300 && !this.back){
-                this.y += 5;
-            }
-            else if(this.back && this.y > -200){
-                this.y -= 2;
-            }
-            else if(this.back && this.y < -190){
-                this.Reset();
-            }
+            
         }
         public CheckBounds():void {
             // Check the bottom boundary

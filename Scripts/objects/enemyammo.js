@@ -57,8 +57,8 @@ var objects;
         };
         EnemyAmmo.prototype.Main = function () { };
         EnemyAmmo.prototype.Move = function () {
-            this.y += this.dir.y * (60 / 17500);
-            this.x += this.dir.x * (60 / 17500);
+            this.y += this.dir.y * (60 / 20000);
+            this.x += this.dir.x * (60 / 20000);
         };
         EnemyAmmo.prototype.CheckBounds = function () { };
         return EnemyAmmo;
