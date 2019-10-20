@@ -177,6 +177,17 @@ module scenes {
                         break;
                     }
                 }
-            }
+        }
+
+        public SpawnTimer(c:number):void{
+            let counter = c;
+
+            let interval = setInterval(() =>{
+                counter--;
+                if(counter < 0){
+                    clearInterval(interval);
+                }
+            }, 1000)
+        }
     }
 }

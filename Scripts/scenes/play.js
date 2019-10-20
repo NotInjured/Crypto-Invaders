@@ -150,6 +150,15 @@ var scenes;
                 }
             }
         };
+        PlayScene.prototype.SpawnTimer = function (c) {
+            var counter = c;
+            var interval = setInterval(function () {
+                counter--;
+                if (counter < 0) {
+                    clearInterval(interval);
+                }
+            }, 1000);
+        };
         return PlayScene;
     }(objects.Scene));
     scenes.PlayScene = PlayScene;
