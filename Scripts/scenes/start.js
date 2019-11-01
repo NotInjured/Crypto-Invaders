@@ -24,7 +24,10 @@ var scenes;
         StartScene.prototype.Start = function () {
             // Initialize our objects for this scene
             this.background = new objects.Background();
-            this.gameLabel = new objects.Label("Crypto Invaders", "36px", "OptimusPrinceps", "#FFFFFF", 530, 240, true);
+            this.bBackground = new objects.Image("backgroundB", 343, 0);
+            this.eBackground = new objects.Image("backgroundE", 712, 0);
+            this.lBackground = new objects.Image("backgroundL", 0, 0);
+            this.gameLabel = new objects.Label("Crypto Invaders", "36px", "OptimusPrinceps", "#000000", 530, 240, true);
             this.player = new objects.Player("Ship1", 555, 690, false, 1);
             this.aircraft = new objects.Image("aircraft", 418, 450);
             this.startButton = new objects.Button("buttonStart", 630, 375);
@@ -52,13 +55,16 @@ var scenes;
         StartScene.prototype.Main = function () {
             var _this = this;
             // Add items to our scene
-            this.addChild(this.background);
+            //this.addChild(this.background);
+            this.addChild(this.eBackground);
+            this.addChild(this.lBackground);
+            this.addChild(this.bBackground);
             this.addChild(this.hud);
-            this.addChild(this.aircraft);
+            //this.addChild(this.aircraft);
             this.addChild(this.gameLabel);
             this.addChild(this.startButton);
             this.addChild(this.optionButton);
-            this.addChild(this.player);
+            //this.addChild(this.player);
             this.ammoManager.Ammo.forEach(function (ammo) {
                 _this.addChild(ammo);
             });

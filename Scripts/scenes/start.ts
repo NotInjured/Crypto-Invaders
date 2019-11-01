@@ -4,6 +4,13 @@ module scenes {
 
         private hudImage: objects.Image;
         private aircraft: objects.Image;
+        private bBackground: objects.Image;
+        private lBackground: objects.Image;
+        private eBackground: objects.Image;
+
+        private bCoin: objects.Sprite;
+        private eCoin: objects.Sprite;
+        privatCoin: objects.Sprite;
 
         private background: objects.Background;
 
@@ -29,9 +36,12 @@ module scenes {
         public Start():void {
             // Initialize our objects for this scene
             this.background = new objects.Background();
+            this.bBackground = new objects.Image("backgroundB", 343, 0);
+            this.eBackground = new objects.Image("backgroundE", 712, 0);
+            this.lBackground = new objects.Image("backgroundL", 0, 0);
 
             this.gameLabel = new objects.Label(
-                "Crypto Invaders", "36px", "OptimusPrinceps", "#FFFFFF", 530, 240, true);
+                "Crypto Invaders", "36px", "OptimusPrinceps", "#000000", 530, 240, true);
 
             this.player = new objects.Player("Ship1", 555, 690, false, 1);
 
@@ -66,13 +76,16 @@ module scenes {
 
         public Main():void {
             // Add items to our scene
-            this.addChild(this.background);
+            //this.addChild(this.background);
+            this.addChild(this.eBackground);
+            this.addChild(this.lBackground);
+            this.addChild(this.bBackground);
             this.addChild(this.hud);
-            this.addChild(this.aircraft);
+            //this.addChild(this.aircraft);
             this.addChild(this.gameLabel);
             this.addChild(this.startButton);
             this.addChild(this.optionButton);
-            this.addChild(this.player);
+            //this.addChild(this.player);
 
             this.ammoManager.Ammo.forEach(ammo =>{
                 this.addChild(ammo);

@@ -26,6 +26,8 @@ var scenes;
         PlayScene.prototype.Start = function () {
             // Initialize our variables
             this.background = new objects.Background();
+            this.eBackground = new objects.Image("backgroundE", 712, 0);
+            this.lBackground = new objects.Image("backgroundL", 0, 0);
             this.player = new objects.Player("Ship1", 555, 690, false, 1);
             this.aircraft = new objects.Image("aircraft", 418, 450);
             this.ammoManager = new managers.Ammo();
@@ -88,6 +90,8 @@ var scenes;
             var _this = this;
             // Order matters when adding game objects.
             this.addChild(this.background);
+            this.addChild(this.eBackground);
+            this.addChild(this.lBackground);
             this.addChild(this.aircraft);
             this.addChild(this.player);
             this.ammoManager.Ammo.forEach(function (ammo) {

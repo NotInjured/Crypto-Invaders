@@ -3,6 +3,8 @@ module scenes {
         // Variables
         private background:objects.Background;
         private aircraft: objects.Image;
+        private lBackground: objects.Image;
+        private eBackground: objects.Image;
 
         private player:objects.Player;
         private effect:objects.Effect;
@@ -29,6 +31,9 @@ module scenes {
         public Start(): void {
             // Initialize our variables
             this.background = new objects.Background();
+            this.eBackground = new objects.Image("backgroundE", 712, 0);
+            this.lBackground = new objects.Image("backgroundL", 0, 0);
+
             this.player = new objects.Player("Ship1", 555, 690, false, 1);
 
             this.aircraft = new objects.Image("aircraft", 418, 450);
@@ -101,6 +106,8 @@ module scenes {
         public Main(): void {
             // Order matters when adding game objects.
             this.addChild(this.background);
+            this.addChild(this.eBackground);
+            this.addChild(this.lBackground);
             this.addChild(this.aircraft);
             this.addChild(this.player);
 
