@@ -26,16 +26,19 @@ var scenes;
         PlayScene.prototype.Start = function () {
             // Initialize our variables
             this.background = new objects.Background();
-            this.player = new objects.Player("Ship1", 550, 700, false, 1);
+            this.player = new objects.Player("Ship1", 555, 690, false, 1);
+            this.aircraft = new objects.Image("aircraft", 418, 450);
             this.ammoManager = new managers.Ammo();
             managers.Game.ammoManager = this.ammoManager;
             //this.enemyAmmoManager = new managers.EnemyAmmo();
             //managers.Game.enemyAmmoManager = this.enemyAmmoManager;
             this.enemyAmmo = new objects.EnemyAmmo("Enemy6_Shot");
-            this.enemies = new Array();
+            this.wave1 = new Array();
+            this.wave2 = new Array();
             this.enemyNum = 5;
             for (var i = 0; i < this.enemyNum; i++) {
-                this.enemies[i] = new objects.Enemy("Enemy4");
+                this.wave1[i] = new objects.Enemy("Enemy3");
+                this.wave2[i] = new objects.Enemy("Enemy4");
             }
             this.hudImage = new objects.Image("HUD", 342, 0);
             this.hud = new managers.HUD;
@@ -48,27 +51,35 @@ var scenes;
             var _this = this;
             // Update the background here
             this.background.Update();
+            this.aircraft.y += 3;
+            if (this.aircraft.y > 720) {
+                this.removeChild(this.aircraft);
+            }
             this.player.Update();
             this.IsPaused();
             this.ammoManager.Update();
             //this.enemyAmmoManager.Update();
             this.ChangeShip();
             //this.Effect();
-            this.enemies.forEach(function (e) {
-                if (!e.isDead) {
-                    e.Update();
-                    e.FindPlayer(_this.player);
-                    if (!e.Shoot) {
-                        var dTP = _this.player.y - e.y;
-                        if (dTP < 200 || dTP > 300 && dTP < 400) {
-                            e.ShootPlayer();
-                            e.Update();
-                        }
+            console.log(managers.Game.timer);
+            if (managers.Game.timer <= 590) {
+                this.wave1.forEach(function (e) {
+                    if (!e.isDead) {
+                        e.Update();
+                        e.FindPlayer(_this.player);
                     }
-                }
-            });
+                });
+            }
+            if (managers.Game.timer <= 580) {
+                this.wave2.forEach(function (e) {
+                    if (!e.isDead) {
+                        e.Update();
+                        e.FindPlayer(_this.player);
+                    }
+                });
+            }
             this.ammoManager.Ammo.forEach(function (ammo) {
-                _this.enemies.forEach(function (enemy) {
+                _this.wave1.forEach(function (enemy) {
                     managers.Collision.CheckAABB(ammo, enemy);
                 });
             });
@@ -77,15 +88,17 @@ var scenes;
             var _this = this;
             // Order matters when adding game objects.
             this.addChild(this.background);
-            this.addChild(this.hudImage);
-            this.addChild(this.hud);
+            this.addChild(this.aircraft);
             this.addChild(this.player);
             this.ammoManager.Ammo.forEach(function (ammo) {
                 _this.addChild(ammo);
             });
-            this.enemies.forEach(function (e) {
+            this.SpawnTimer();
+            this.wave1.forEach(function (e) {
                 _this.addChild(e);
             });
+            this.addChild(this.hudImage);
+            this.addChild(this.hud);
         };
         PlayScene.prototype.IsPaused = function () {
             if (managers.Game.keyboardManager.pause) {
@@ -150,11 +163,11 @@ var scenes;
                 }
             }
         };
-        PlayScene.prototype.SpawnTimer = function (c) {
-            var counter = c;
+        PlayScene.prototype.SpawnTimer = function () {
+            managers.Game.timer = 600;
             var interval = setInterval(function () {
-                counter--;
-                if (counter < 0) {
+                managers.Game.timer--;
+                if (managers.Game.timer < 0) {
                     clearInterval(interval);
                 }
             }, 1000);

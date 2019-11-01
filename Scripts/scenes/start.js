@@ -25,9 +25,7 @@ var scenes;
             // Initialize our objects for this scene
             this.background = new objects.Background();
             this.gameLabel = new objects.Label("Crypto Invaders", "36px", "OptimusPrinceps", "#FFFFFF", 530, 240, true);
-            this.player = new objects.Player("Ship1", 550, 700, false, 1);
-            this.player.scaleX = 0.75;
-            this.player.scaleY = 0.75;
+            this.player = new objects.Player("Ship1", 555, 690, false, 1);
             this.aircraft = new objects.Image("aircraft", 418, 450);
             this.startButton = new objects.Button("buttonStart", 630, 375);
             this.optionButton = new objects.Button("buttonOptions", 630, 455);
@@ -43,7 +41,6 @@ var scenes;
             this.player.Update();
             this.ammoManager.Update();
             this.ChangeShip();
-            this.background.Update();
         };
         StartScene.prototype.startButtonClick = function () {
             // Change our game state from START to GAME

@@ -6,6 +6,7 @@ module managers {        // Access to globally-required items
         public static hud: managers.HUD;
         public static keyboardManager: managers.Keyboard;
         public static highscore: number;
+        public static timer:number;
         public static textureSprite: createjs.SpriteSheet;
         public static ammoManager: managers.Ammo;
         public static enemyAmmoManager :managers.EnemyAmmo;

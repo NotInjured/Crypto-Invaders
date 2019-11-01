@@ -2,13 +2,16 @@ module scenes {
     export class PlayScene extends objects.Scene {
         // Variables
         private background:objects.Background;
+        private aircraft: objects.Image;
+
         private player:objects.Player;
         private effect:objects.Effect;
 
         private hudImage: objects.Image;
         private hud:managers.HUD;
         
-        private enemies:objects.Enemy[];
+        private wave1:objects.Enemy[];
+        private wave2:objects.Enemy[];
         private enemyNum:number;
         private enemyAmmo:objects.EnemyAmmo;
 
@@ -26,7 +29,9 @@ module scenes {
         public Start(): void {
             // Initialize our variables
             this.background = new objects.Background();
-            this.player = new objects.Player("Ship1", 550, 700, false, 1);
+            this.player = new objects.Player("Ship1", 555, 690, false, 1);
+
+            this.aircraft = new objects.Image("aircraft", 418, 450);
             
             this.ammoManager = new managers.Ammo();
             managers.Game.ammoManager = this.ammoManager;
@@ -36,10 +41,12 @@ module scenes {
 
             this.enemyAmmo = new objects.EnemyAmmo("Enemy6_Shot");
 
-            this.enemies = new Array<objects.Enemy>();
+            this.wave1 = new Array<objects.Enemy>();
+            this.wave2 = new Array<objects.Enemy>();
             this.enemyNum = 5;
             for(let i = 0; i < this.enemyNum; i++) {
-                this.enemies[i] = new objects.Enemy("Enemy4");
+                this.wave1[i] = new objects.Enemy("Enemy3");
+                this.wave2[i] = new objects.Enemy("Enemy4");
             }
 
             this.hudImage = new objects.Image("HUD", 342, 0);  
@@ -55,34 +62,37 @@ module scenes {
         public Update(): void {
             // Update the background here
             this.background.Update();
+            this.aircraft.y += 3;
+            if(this.aircraft.y > 720){
+                this.removeChild(this.aircraft);
+            }
             this.player.Update();
             this.IsPaused();
             this.ammoManager.Update();
             //this.enemyAmmoManager.Update();
             this.ChangeShip();
             //this.Effect();
+            console.log(managers.Game.timer);
 
-            this.enemies.forEach(e => {
-                if(!e.isDead){
-                    e.Update();
-                    e.FindPlayer(this.player);
-
-                    if(!e.Shoot){
-                        let dTP = this.player.y - e.y;
-                        if(dTP < 200 || dTP >  300 && dTP < 400){
-                            e.ShootPlayer();
-                            e.Update();
-                            
-                        }
+            if(managers.Game.timer <= 590){
+                this.wave1.forEach(e => {
+                    if(!e.isDead){
+                        e.Update();
+                        e.FindPlayer(this.player);
                     }
-                }
-
-
-            });
-
+                });
+            }
+            if(managers.Game.timer <= 580){
+                this.wave2.forEach(e => {
+                    if(!e.isDead){
+                        e.Update();
+                        e.FindPlayer(this.player);
+                    }
+                });
+            }
 
             this.ammoManager.Ammo.forEach(ammo =>{
-                this.enemies.forEach(enemy =>{
+                this.wave1.forEach(enemy =>{
                     managers.Collision.CheckAABB(ammo, enemy);
                 })
             })
@@ -91,17 +101,21 @@ module scenes {
         public Main(): void {
             // Order matters when adding game objects.
             this.addChild(this.background);
-            this.addChild(this.hudImage);
-            this.addChild(this.hud);
+            this.addChild(this.aircraft);
             this.addChild(this.player);
 
             this.ammoManager.Ammo.forEach(ammo =>{
                 this.addChild(ammo);
             })
+            this.SpawnTimer();
 
-            this.enemies.forEach(e => {
+            this.wave1.forEach(e => {
                 this.addChild(e);
-            }); 
+            });
+            
+            this.addChild(this.hudImage);
+            this.addChild(this.hud);
+
         }
 
         public IsPaused():void{
@@ -179,12 +193,12 @@ module scenes {
                 }
         }
 
-        public SpawnTimer(c:number):void{
-            let counter = c;
+        public SpawnTimer():void{
+            managers.Game.timer = 600;
 
             let interval = setInterval(() =>{
-                counter--;
-                if(counter < 0){
+                managers.Game.timer--;
+                if(managers.Game.timer < 0){
                     clearInterval(interval);
                 }
             }, 1000)

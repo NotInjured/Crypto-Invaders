@@ -6,6 +6,7 @@ module objects {
         private shoot:boolean = false;
 
         private angle:number;
+        private shootNum:number;
         private sprite:string;
         
         private ammo:objects.EnemyAmmo;
@@ -92,6 +93,7 @@ module objects {
                 case "Enemy3":
                         if(this.y >= 300 && !this.back){
                             this.ShootPlayer();
+                            this.shootNum += 1;
                             this.back = true;
                         }
                         else if(this.y < 300 && !this.back){
@@ -101,7 +103,7 @@ module objects {
                             this.y -= 2;
                             this.shoot = false;
                             
-                            if(this.y < 100)
+                            if(this.y < 100 && !this.shoot && this.shootNum == 1)
                                 this.ShootPlayer();
                         }
                         else if(this.back && this.y < -190){
