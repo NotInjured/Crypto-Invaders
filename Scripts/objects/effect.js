@@ -21,6 +21,7 @@ var objects;
             var _this = _super.call(this, effect) || this;
             _this.x = x;
             _this.y = y;
+            _this.Start();
             return _this;
         }
         // Methods

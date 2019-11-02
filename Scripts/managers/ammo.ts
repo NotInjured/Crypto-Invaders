@@ -133,7 +133,7 @@ module managers {
         }
 
         public Start():void {
-            this.ammoCount = 50;
+            this.ammoCount =100;
             this.Ammo = new Array<objects.Ammo>();
             this.CurrentAmmo = 0;
             this.buildAmmoPool(config.Ship.Botcoin, 1);

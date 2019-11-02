@@ -77,12 +77,18 @@ module scenes {
             this.addChild(this.bBackground);
             
             this.bCoins.forEach(c =>{
+                c.scaleX = 0.75;
+                c.scaleY = 0.75;
                 this.addChild(c)
             })
             this.eCoins.forEach(c =>{
+                c.scaleX = 0.75;
+                c.scaleY = 0.75;
                 this.addChild(c)
             })
             this.lCoins.forEach(c =>{
+                c.scaleX = 0.75;
+                c.scaleY = 0.75;
                 this.addChild(c)
             })
             

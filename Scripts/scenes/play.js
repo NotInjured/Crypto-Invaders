@@ -28,6 +28,7 @@ var scenes;
             this.background = new objects.Background();
             this.eBackground = new objects.Image("backgroundE", 712, 0);
             this.lBackground = new objects.Image("backgroundL", 0, 0);
+            this.stageName = new objects.Label("Stage 1: Invasion", "36px", "OptimusPrinceps", "#FFFFFF", 530, 240, true);
             this.player = new objects.Player("Ship1", 555, 690, false, 1);
             this.aircraft = new objects.Image("aircraft", 418, 450);
             this.ammoManager = new managers.Ammo();
@@ -35,12 +36,13 @@ var scenes;
             //this.enemyAmmoManager = new managers.EnemyAmmo();
             //managers.Game.enemyAmmoManager = this.enemyAmmoManager;
             this.enemyAmmo = new objects.EnemyAmmo("Enemy6_Shot");
-            this.wave1 = new Array();
-            this.wave2 = new Array();
-            this.enemyNum = 5;
-            for (var i = 0; i < this.enemyNum; i++) {
-                this.wave1[i] = new objects.Enemy("Enemy3");
-                this.wave2[i] = new objects.Enemy("Enemy4");
+            this.eType3 = new Array();
+            this.eType4 = new Array();
+            this.eType5 = new Array();
+            for (var i = 0; i < 5; i++) {
+                this.eType3[i] = new objects.Enemy("Enemy3");
+                this.eType4[i] = new objects.Enemy("Enemy4");
+                this.eType5[i] = new objects.Enemy("Enemy5");
             }
             this.hudImage = new objects.Image("HUD", 342, 0);
             this.hud = new managers.HUD;
@@ -51,7 +53,6 @@ var scenes;
         };
         PlayScene.prototype.Update = function () {
             var _this = this;
-            // Update the background here
             this.background.Update();
             this.aircraft.y += 3;
             if (this.aircraft.y > 720) {
@@ -60,31 +61,48 @@ var scenes;
             this.player.Update();
             this.IsPaused();
             this.ammoManager.Update();
-            //this.enemyAmmoManager.Update();
             this.ChangeShip();
             //this.Effect();
             console.log(managers.Game.timer);
-            if (managers.Game.timer <= 590) {
-                this.wave1.forEach(function (e) {
+            if (managers.Game.timer <= 595) {
+                this.removeChild(this.stageName);
+                this.eType3.forEach(function (e) {
+                    _this.addChild(e);
                     if (!e.isDead) {
                         e.Update();
                         e.FindPlayer(_this.player);
+                        //managers.Collision.CheckAABB(this.player, e)
                     }
                 });
-            }
-            if (managers.Game.timer <= 580) {
-                this.wave2.forEach(function (e) {
+                this.eType4.forEach(function (e) {
+                    _this.addChild(e);
                     if (!e.isDead) {
                         e.Update();
                         e.FindPlayer(_this.player);
+                        //managers.Collision.CheckAABB(this.player, e)
+                    }
+                });
+                this.eType5.forEach(function (e) {
+                    _this.addChild(e);
+                    if (!e.isDead) {
+                        e.Update();
+                        e.FindPlayer(_this.player);
+                        //managers.Collision.CheckAABB(this.player, e)
                     }
                 });
             }
             this.ammoManager.Ammo.forEach(function (ammo) {
-                _this.wave1.forEach(function (enemy) {
-                    managers.Collision.CheckAABB(ammo, enemy);
+                _this.eType3.forEach(function (e) {
+                    managers.Collision.CheckAABB(ammo, e);
+                });
+                _this.eType4.forEach(function (e) {
+                    managers.Collision.CheckAABB(ammo, e);
+                });
+                _this.eType5.forEach(function (e) {
+                    managers.Collision.CheckAABB(ammo, e);
                 });
             });
+            managers.Collision.CheckAABB(this.player, this.enemyAmmo);
         };
         PlayScene.prototype.Main = function () {
             var _this = this;
@@ -93,14 +111,12 @@ var scenes;
             this.addChild(this.eBackground);
             this.addChild(this.lBackground);
             this.addChild(this.aircraft);
+            this.addChild(this.stageName);
             this.addChild(this.player);
             this.ammoManager.Ammo.forEach(function (ammo) {
                 _this.addChild(ammo);
             });
             this.SpawnTimer();
-            this.wave1.forEach(function (e) {
-                _this.addChild(e);
-            });
             this.addChild(this.hudImage);
             this.addChild(this.hud);
         };
@@ -109,19 +125,6 @@ var scenes;
                 managers.Game.currentScene = config.Scene.START;
                 console.log("Switching to start menu...");
             }
-        };
-        PlayScene.prototype.Effect = function () {
-            var ticker = createjs.Ticker.getTicks();
-            if (managers.Game.keyboardManager.shoot && (this.player.POWER >= 1 && this.player.POWER <= 3) && this.player.ShipType == config.Ship.Botcoin && (ticker % 10 == 0)) {
-                this.effect = new objects.Effect("Laser_Shoot", this.player.x - 13, this.player.y - 43);
-                this.effect.on("animationend", this.animationEnded);
-                managers.Game.currentSceneObject.addChild(this.effect);
-            }
-        };
-        PlayScene.prototype.animationEnded = function () {
-            this.alpha = 0;
-            this.off("animationend", this.animationEnded.bind(this), false);
-            managers.Game.currentSceneObject.removeChild(this);
         };
         PlayScene.prototype.ChangeShip = function () {
             var _this = this;

@@ -37,7 +37,10 @@ var objects;
         Ammo.prototype.Move = function () {
             this.y += this.speedY;
         };
-        Ammo.prototype.CheckBounds = function () { };
+        Ammo.prototype.CheckBounds = function () {
+            if (this.y < -10)
+                managers.Game.currentSceneObject.removeChild(this);
+        };
         return Ammo;
     }(objects.GameObject));
     objects.Ammo = Ammo;

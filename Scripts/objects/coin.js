@@ -23,7 +23,7 @@ var objects;
         Coins.prototype.Start = function () {
             switch (this.coin) {
                 case "B":
-                    this.x = Math.floor(Math.random() * (712 - 350 + 1) + 350);
+                    this.x = Math.floor(Math.random() * (712 - 370 + 1) + 370);
                     this.y = Math.floor(Math.random() * -720) + -20;
                     break;
                 case "L":
@@ -31,7 +31,7 @@ var objects;
                     this.y = Math.floor(Math.random() * -720) + -50;
                     break;
                 case "E":
-                    this.x = Math.floor(Math.random() * (1050 - 720 + 1) + 720);
+                    this.x = Math.floor(Math.random() * (1050 - 745 + 1) + 745);
                     this.y = Math.floor(Math.random() * -720) + -20;
                     break;
             }
@@ -46,7 +46,7 @@ var objects;
         Coins.prototype.Reset = function () {
             switch (this.coin) {
                 case "B":
-                    this.x = Math.floor(Math.random() * (712 - 350 + 1) + 350);
+                    this.x = Math.floor(Math.random() * (712 - 370 + 1) + 370);
                     this.y = Math.floor(Math.random() * -720) + -20;
                     break;
                 case "L":
@@ -54,7 +54,7 @@ var objects;
                     this.y = Math.floor(Math.random() * -720) + -20;
                     break;
                 case "E":
-                    this.x = Math.floor(Math.random() * (1050 - 720 + 1) + 720);
+                    this.x = Math.floor(Math.random() * (1050 - 745 + 1) + 745);
                     this.y = Math.floor(Math.random() * -720) + -20;
                     break;
             }

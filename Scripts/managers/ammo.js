@@ -120,7 +120,7 @@ var managers;
             return ammo;
         };
         Ammo.prototype.Start = function () {
-            this.ammoCount = 50;
+            this.ammoCount = 100;
             this.Ammo = new Array();
             this.CurrentAmmo = 0;
             this.buildAmmoPool(config.Ship.Botcoin, 1);

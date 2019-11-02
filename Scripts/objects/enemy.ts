@@ -47,17 +47,26 @@ module objects {
                     switch(this.randomNum){
                         case 1:
                             this.x = 200
-                            this.y = 400
+                            this.y = Math.floor(Math.random() * (500 - 200 + 1) + 200);
                         break;
                         case 2:
                             this.x = 900
-                            this.y = 300
+                            this.y = Math.floor(Math.random() * (500 - 200 + 1) + 200);
                         break;
                     }
                 break;
                 case "Enemy5":
-                    this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
-                    this.y = Math.floor(Math.random() * -720) + -50;
+                    this.randomNum = Math.floor(Math.random() * (2 - 1 + 1) + 1);
+                    switch(this.randomNum){
+                        case 1:
+                            this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
+                            this.y = Math.floor(Math.random() * -720) + -20;
+                        break;
+                        case 2:
+                            this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
+                            this.y = Math.floor(Math.random() * -720) + -20;
+                        break;
+                    }
                 break;
                 case "Enemy6":
                     this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
@@ -67,17 +76,11 @@ module objects {
             
         }
         public Update():void {
-            this.Move();
-            this.CheckBounds();  
-
-            if(this.isDead){
-                this.Reset();
-            }
-
             if(!this.isDead){
-
+                this.Move();
+                this.CheckBounds();
             }
-
+            
             if(this.ammo != undefined)
                 this.ammo.Update();
         }
@@ -85,11 +88,49 @@ module objects {
             this.isDead = false;
             this.back = false;
             this.shoot = false;
-            this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
-            this.y = Math.floor(Math.random() * -720) + -50;
+            switch(this.sprite){
+                case "Enemy3":
+                    this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
+                    this.y = Math.floor(Math.random() * -720) + -50;
+                break;
+                case "Enemy4":
+                    this.randomNum = Math.floor(Math.random() * (2 - 1 + 1) + 1);
+                    switch(this.randomNum){
+                        case 1:
+                            this.x = 200
+                            this.y = Math.floor(Math.random() * (500 - 200 + 1) + 200);
+                        break;
+                        case 2:
+                            this.x = 900
+                            this.y = Math.floor(Math.random() * (500 - 200 + 1) + 200);
+                        break;
+                    }
+                break;
+                case "Enemy5":
+                    this.randomNum = Math.floor(Math.random() * (2 - 1 + 1) + 1);
+                    switch(this.randomNum){
+                        case 1:
+                            this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
+                            this.y = Math.floor(Math.random() * -720) + -20;
+                        break;
+                        case 2:
+                            this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
+                            this.y = Math.floor(Math.random() * -720) + -20;
+                        break;
+                    }
+                break;
+                case "Enemy6":
+                    this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
+                    this.y = Math.floor(Math.random() * -720) + -50;
+                break;
+            }
         }
         public Move():void {
             switch(this.sprite){
+                case "Enemy1":
+                break;
+                case "Enemy2":
+                break;
                 case "Enemy3":
                         if(this.y >= 300 && !this.back){
                             this.ShootPlayer();
@@ -128,7 +169,7 @@ module objects {
                                     this.ShootPlayer();
                                 }
                                 if(this.x < 290)
-                                    managers.Game.currentSceneObject.removeChild(this);
+                                    this.Reset();
                             }
                         break;
                         case 2:
@@ -147,55 +188,24 @@ module objects {
                                     this.ShootPlayer();
                                 }
                                 if(this.x > 790)
-                                    managers.Game.currentSceneObject.removeChild(this);
+                                this.Reset();
                             }
                         break;
                     }
                 break;
-                case "Enemy5":
-                        if(this.y >= 300 && !this.back){
-                            this.ShootPlayer();
-                            this.back = true;
-                        }
-                        else if(this.y < 300 && !this.back){
-                            this.y += 5;
-                        }
-                        else if(this.back && this.y > -200){
-                            this.y -= 2;
-                        }
-                        else if(this.back && this.y < -190){
-                            this.Reset();
-                        }
+                case "Enemy5":{
+                    if(this.y > 350 && this.y < 400 && !this.shoot){
+                        this.ShootPlayer();
+                    }
+                    if(this.y < 740)
+                        this.y += 3;
+                    if(this.y > 740)
+                        this.Reset();
+                }
                 break;
                 case "Enemy6":
-                        if(this.y >= 300 && !this.back){
-                            this.ShootPlayer();
-                            this.back = true;
-                        }
-                        else if(this.y < 300 && !this.back){
-                            this.y += 5;
-                        }
-                        else if(this.back && this.y > -200){
-                            this.y -= 2;
-                        }
-                        else if(this.back && this.y < -190){
-                            this.Reset();
-                        }
                 break;
-                case "Enemy3":
-                        if(this.y >= 300 && !this.back){
-                            this.ShootPlayer();
-                            this.back = true;
-                        }
-                        else if(this.y < 300 && !this.back){
-                            this.y += 5;
-                        }
-                        else if(this.back && this.y > -200){
-                            this.y -= 2;
-                        }
-                        else if(this.back && this.y < -190){
-                            this.Reset();
-                        }
+                case "Enemy7":
                 break;
             }
             

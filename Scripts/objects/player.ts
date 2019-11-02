@@ -264,14 +264,7 @@ module objects {
 
                         break;
                     }
-                    // Botcoin Ship
-                    
-                    // Lightcoin Ship
-                    
-                    // Enderium Ship
-                    
                 }
-                
             }
         }
 

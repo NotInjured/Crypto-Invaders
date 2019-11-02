@@ -6,15 +6,18 @@ module scenes {
         private lBackground: objects.Image;
         private eBackground: objects.Image;
 
+        private stageName: objects.Label;
+
         private player:objects.Player;
         private effect:objects.Effect;
 
         private hudImage: objects.Image;
         private hud:managers.HUD;
-        
-        private wave1:objects.Enemy[];
-        private wave2:objects.Enemy[];
-        private enemyNum:number;
+
+        private eType3: objects.Enemy[];
+        private eType4: objects.Enemy[];
+        private eType5: objects.Enemy[];
+
         private enemyAmmo:objects.EnemyAmmo;
 
         private ammoManager:managers.Ammo;
@@ -34,6 +37,8 @@ module scenes {
             this.eBackground = new objects.Image("backgroundE", 712, 0);
             this.lBackground = new objects.Image("backgroundL", 0, 0);
 
+            this.stageName = new objects.Label("Stage 1: Invasion", "36px", "OptimusPrinceps", "#FFFFFF", 530, 240, true);
+
             this.player = new objects.Player("Ship1", 555, 690, false, 1);
 
             this.aircraft = new objects.Image("aircraft", 418, 450);
@@ -46,12 +51,14 @@ module scenes {
 
             this.enemyAmmo = new objects.EnemyAmmo("Enemy6_Shot");
 
-            this.wave1 = new Array<objects.Enemy>();
-            this.wave2 = new Array<objects.Enemy>();
-            this.enemyNum = 5;
-            for(let i = 0; i < this.enemyNum; i++) {
-                this.wave1[i] = new objects.Enemy("Enemy3");
-                this.wave2[i] = new objects.Enemy("Enemy4");
+            this.eType3 = new Array<objects.Enemy>();
+            this.eType4 = new Array<objects.Enemy>();
+            this.eType5 = new Array<objects.Enemy>();
+
+            for(let i = 0; i < 5; i++){
+                this.eType3[i] = new objects.Enemy("Enemy3");
+                this.eType4[i] = new objects.Enemy("Enemy4");
+                this.eType5[i] = new objects.Enemy("Enemy5");
             }
 
             this.hudImage = new objects.Image("HUD", 342, 0);  
@@ -65,7 +72,6 @@ module scenes {
         }
 
         public Update(): void {
-            // Update the background here
             this.background.Update();
             this.aircraft.y += 3;
             if(this.aircraft.y > 720){
@@ -74,33 +80,55 @@ module scenes {
             this.player.Update();
             this.IsPaused();
             this.ammoManager.Update();
-            //this.enemyAmmoManager.Update();
             this.ChangeShip();
             //this.Effect();
             console.log(managers.Game.timer);
 
-            if(managers.Game.timer <= 590){
-                this.wave1.forEach(e => {
+            if(managers.Game.timer <= 595){
+                this.removeChild(this.stageName)
+                this.eType3.forEach(e =>{
+                    this.addChild(e);
                     if(!e.isDead){
                         e.Update();
                         e.FindPlayer(this.player);
+
+                        //managers.Collision.CheckAABB(this.player, e)
                     }
-                });
-            }
-            if(managers.Game.timer <= 580){
-                this.wave2.forEach(e => {
+                })
+                this.eType4.forEach(e =>{
+                    this.addChild(e);
                     if(!e.isDead){
                         e.Update();
                         e.FindPlayer(this.player);
+
+                        //managers.Collision.CheckAABB(this.player, e)
                     }
-                });
+                })
+                this.eType5.forEach(e =>{
+                    this.addChild(e);
+                    if(!e.isDead){
+                        e.Update();
+                        e.FindPlayer(this.player);
+
+                        //managers.Collision.CheckAABB(this.player, e)
+                    }
+                })
             }
 
             this.ammoManager.Ammo.forEach(ammo =>{
-                this.wave1.forEach(enemy =>{
-                    managers.Collision.CheckAABB(ammo, enemy);
+                this.eType3.forEach(e =>{
+                    managers.Collision.CheckAABB(ammo, e);
+                })
+                this.eType4.forEach(e =>{
+                    managers.Collision.CheckAABB(ammo, e);
+                })
+                this.eType5.forEach(e =>{
+                    managers.Collision.CheckAABB(ammo, e);
                 })
             })
+
+            managers.Collision.CheckAABB(this.player, this.enemyAmmo)
+
         }
 
         public Main(): void {
@@ -109,16 +137,14 @@ module scenes {
             this.addChild(this.eBackground);
             this.addChild(this.lBackground);
             this.addChild(this.aircraft);
+            this.addChild(this.stageName);
             this.addChild(this.player);
 
             this.ammoManager.Ammo.forEach(ammo =>{
                 this.addChild(ammo);
             })
-            this.SpawnTimer();
 
-            this.wave1.forEach(e => {
-                this.addChild(e);
-            });
+            this.SpawnTimer();
             
             this.addChild(this.hudImage);
             this.addChild(this.hud);
@@ -130,22 +156,6 @@ module scenes {
                 managers.Game.currentScene = config.Scene.START;
                 console.log("Switching to start menu...");
             }
-        }
-
-        public Effect():void{
-            let ticker:number = createjs.Ticker.getTicks();
-
-            if(managers.Game.keyboardManager.shoot && (this.player.POWER >= 1 && this.player.POWER <= 3) && this.player.ShipType == config.Ship.Botcoin && (ticker % 10 == 0)){
-                this.effect = new objects.Effect("Laser_Shoot", this.player.x - 13, this.player.y -43);
-                this.effect.on("animationend", this.animationEnded);
-                managers.Game.currentSceneObject.addChild(this.effect);
-            }
-        }
-
-        private animationEnded():void {
-            this.alpha = 0;
-            this.off("animationend", this.animationEnded.bind(this), false);
-            managers.Game.currentSceneObject.removeChild(this);
         }
 
         public ChangeShip():void{

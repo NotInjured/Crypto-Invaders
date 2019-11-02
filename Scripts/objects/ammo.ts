@@ -23,7 +23,10 @@ module objects {
         public Move():void {
             this.y += this.speedY;
         }
-        public CheckBounds():void {}
+        public CheckBounds():void {
+            if(this.y < -10)
+                managers.Game.currentSceneObject.removeChild(this);
+        }
         
     }
 }

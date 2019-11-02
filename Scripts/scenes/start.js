@@ -66,12 +66,18 @@ var scenes;
             this.addChild(this.lBackground);
             this.addChild(this.bBackground);
             this.bCoins.forEach(function (c) {
+                c.scaleX = 0.75;
+                c.scaleY = 0.75;
                 _this.addChild(c);
             });
             this.eCoins.forEach(function (c) {
+                c.scaleX = 0.75;
+                c.scaleY = 0.75;
                 _this.addChild(c);
             });
             this.lCoins.forEach(function (c) {
+                c.scaleX = 0.75;
+                c.scaleY = 0.75;
                 _this.addChild(c);
             });
             this.addChild(this.hud);
