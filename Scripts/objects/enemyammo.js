@@ -19,7 +19,7 @@ var objects;
         function EnemyAmmo(ammo) {
             var _this = _super.call(this, ammo) || this;
             // Variables
-            _this.speed = 7;
+            _this.speed = 12;
             _this.Start();
             return _this;
         }

@@ -6,29 +6,25 @@ var managers;
             this.Start();
         }
         // Methods
-        EnemyAmmo.prototype.buildAmmoPool = function (enemy) {
+        EnemyAmmo.prototype.buildAmmoPool = function () {
             // Initialize a pool of ammo assets
-            switch (enemy) {
-                case "Enemy":
-                    for (var i = 0; i < this.ammoCount; i++) {
-                        this.Ammo[i] = new objects.EnemyAmmo("Enemy_Shot");
-                    }
-                    break;
+            for (var i = 0; i < this.ammoCount; i++) {
+                this.Ammo[i] = new objects.EnemyAmmo("Enemy_Shot");
             }
         };
         EnemyAmmo.prototype.GetAmmo = function () {
             var ammo = this.Ammo[this.CurrentAmmo];
             this.CurrentAmmo++;
-            if (managers.Game.enemyAmmoManager.CurrentAmmo > 0) {
+            if (managers.Game.enemyAmmoManager.CurrentAmmo > 49) {
                 managers.Game.enemyAmmoManager.CurrentAmmo = 0;
             }
             return ammo;
         };
         EnemyAmmo.prototype.Start = function () {
-            this.ammoCount = 2;
+            this.ammoCount = 50;
             this.Ammo = new Array();
             this.CurrentAmmo = 0;
-            this.buildAmmoPool("Enemy_Shot");
+            this.buildAmmoPool();
         };
         EnemyAmmo.prototype.Update = function () {
             this.Ammo.forEach(function (ammo) {

@@ -1,7 +1,7 @@
 module objects {
     export class EnemyAmmo extends objects.GameObject {
         // Variables
-        private speed:number = 7;
+        private speed:number = 12;
         private dir:math.Vec2;
         
         get Dir():math.Vec2{

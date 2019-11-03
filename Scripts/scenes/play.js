@@ -15,7 +15,6 @@ var scenes;
 (function (scenes) {
     var PlayScene = /** @class */ (function (_super) {
         __extends(PlayScene, _super);
-        //private enemyAmmoManager:managers.EnemyAmmo;
         // Constructor
         function PlayScene() {
             var _this = _super.call(this) || this;
@@ -33,13 +32,13 @@ var scenes;
             this.aircraft = new objects.Image("aircraft", 418, 450);
             this.ammoManager = new managers.Ammo();
             managers.Game.ammoManager = this.ammoManager;
-            //this.enemyAmmoManager = new managers.EnemyAmmo();
-            //managers.Game.enemyAmmoManager = this.enemyAmmoManager;
-            this.enemyAmmo = new objects.EnemyAmmo("Enemy6_Shot");
+            this.enemyAmmoManager = new managers.EnemyAmmo();
+            managers.Game.enemyAmmoManager = this.enemyAmmoManager;
+            this.eType2 = new objects.Enemy("Enemy2");
             this.eType3 = new Array();
             this.eType4 = new Array();
             this.eType5 = new Array();
-            for (var i = 0; i < 5; i++) {
+            for (var i = 0; i < 1; i++) {
                 this.eType3[i] = new objects.Enemy("Enemy3");
                 this.eType4[i] = new objects.Enemy("Enemy4");
                 this.eType5[i] = new objects.Enemy("Enemy5");
@@ -66,30 +65,39 @@ var scenes;
             console.log(managers.Game.timer);
             if (managers.Game.timer <= 595) {
                 this.removeChild(this.stageName);
-                this.eType3.forEach(function (e) {
-                    _this.addChild(e);
-                    if (!e.isDead) {
+                this.addChild(this.eType2);
+                if (!this.eType2.isDead) {
+                    this.eType2.FindPlayer(this.player);
+                    this.eType2.Update();
+                    //managers.Collision.CheckAABB(this.player, e)
+                }
+                /*this.eType3.forEach(e =>{
+                    this.addChild(e);
+                    if(!e.isDead){
                         e.Update();
-                        e.FindPlayer(_this.player);
+                        e.FindPlayer(this.player);
+
                         //managers.Collision.CheckAABB(this.player, e)
                     }
-                });
-                this.eType4.forEach(function (e) {
-                    _this.addChild(e);
-                    if (!e.isDead) {
+                })
+                this.eType4.forEach(e =>{
+                    this.addChild(e);
+                    if(!e.isDead){
                         e.Update();
-                        e.FindPlayer(_this.player);
+                        e.FindPlayer(this.player);
+
                         //managers.Collision.CheckAABB(this.player, e)
                     }
-                });
-                this.eType5.forEach(function (e) {
-                    _this.addChild(e);
-                    if (!e.isDead) {
+                })
+                this.eType5.forEach(e =>{
+                    this.addChild(e);
+                    if(!e.isDead){
                         e.Update();
-                        e.FindPlayer(_this.player);
+                        e.FindPlayer(this.player);
+
                         //managers.Collision.CheckAABB(this.player, e)
                     }
-                });
+                })*/
             }
             this.ammoManager.Ammo.forEach(function (ammo) {
                 _this.eType3.forEach(function (e) {
@@ -102,7 +110,6 @@ var scenes;
                     managers.Collision.CheckAABB(ammo, e);
                 });
             });
-            managers.Collision.CheckAABB(this.player, this.enemyAmmo);
         };
         PlayScene.prototype.Main = function () {
             var _this = this;

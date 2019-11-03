@@ -14,14 +14,13 @@ module scenes {
         private hudImage: objects.Image;
         private hud:managers.HUD;
 
+        private eType2: objects.Enemy;
         private eType3: objects.Enemy[];
         private eType4: objects.Enemy[];
         private eType5: objects.Enemy[];
 
-        private enemyAmmo:objects.EnemyAmmo;
-
         private ammoManager:managers.Ammo;
-        //private enemyAmmoManager:managers.EnemyAmmo;
+        private enemyAmmoManager:managers.EnemyAmmo;
 
         // Constructor
         constructor() {
@@ -46,16 +45,16 @@ module scenes {
             this.ammoManager = new managers.Ammo();
             managers.Game.ammoManager = this.ammoManager;
 
-            //this.enemyAmmoManager = new managers.EnemyAmmo();
-            //managers.Game.enemyAmmoManager = this.enemyAmmoManager;
+            this.enemyAmmoManager = new managers.EnemyAmmo();
+            managers.Game.enemyAmmoManager = this.enemyAmmoManager;
 
-            this.enemyAmmo = new objects.EnemyAmmo("Enemy6_Shot");
-
+            this.eType2 = new objects.Enemy("Enemy2");
             this.eType3 = new Array<objects.Enemy>();
             this.eType4 = new Array<objects.Enemy>();
             this.eType5 = new Array<objects.Enemy>();
 
-            for(let i = 0; i < 5; i++){
+            for(let i = 0; i < 1; i++){
+                
                 this.eType3[i] = new objects.Enemy("Enemy3");
                 this.eType4[i] = new objects.Enemy("Enemy4");
                 this.eType5[i] = new objects.Enemy("Enemy5");
@@ -86,7 +85,14 @@ module scenes {
 
             if(managers.Game.timer <= 595){
                 this.removeChild(this.stageName)
-                this.eType3.forEach(e =>{
+                    this.addChild(this.eType2);
+                    if(!this.eType2.isDead){
+                        this.eType2.FindPlayer(this.player);
+                        this.eType2.Update();
+
+                        //managers.Collision.CheckAABB(this.player, e)
+                    }
+                /*this.eType3.forEach(e =>{
                     this.addChild(e);
                     if(!e.isDead){
                         e.Update();
@@ -112,7 +118,7 @@ module scenes {
 
                         //managers.Collision.CheckAABB(this.player, e)
                     }
-                })
+                })*/
             }
 
             this.ammoManager.Ammo.forEach(ammo =>{
@@ -126,8 +132,6 @@ module scenes {
                     managers.Collision.CheckAABB(ammo, e);
                 })
             })
-
-            managers.Collision.CheckAABB(this.player, this.enemyAmmo)
 
         }
 

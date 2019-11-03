@@ -94,7 +94,7 @@ module managers {
             "#000000", 740, 235, false);
 
             this.controls = new objects.Label("Arrow Keys - Movement"+ "\n\n" + "           X - Shoot"
-            + "\n\n" + "           Z - Bombs" + "\n\n" + "    Space - Swap Ships", "24px", "OptimusPrimus", 
+            + "\n\n" + "Z - Bombs (Not Working)" + "\n\n" + "    Space - Swap Ships", "24px", "OptimusPrimus", 
             "#000000", 50, 285, false)
 
             this.controlPanel = new objects.Image("panelUI", 5, 175);

@@ -10,21 +10,17 @@ module managers {
             this.Start();
         }
         // Methods
-        public buildAmmoPool(enemy:string):void {
+        public buildAmmoPool():void {
             // Initialize a pool of ammo assets
-            switch(enemy){
-                case "Enemy":
-                    for(let i = 0; i < this.ammoCount; i++) {
-                        this.Ammo[i] = new objects.EnemyAmmo("Enemy_Shot");
-                    }
-                break;
+            for(let i = 0; i < this.ammoCount; i++) {
+                this.Ammo[i] = new objects.EnemyAmmo("Enemy_Shot");
             }
         }
 
         public GetAmmo(): objects.EnemyAmmo {
             let ammo:objects.EnemyAmmo = this.Ammo[this.CurrentAmmo];
             this.CurrentAmmo++;
-            if(managers.Game.enemyAmmoManager.CurrentAmmo > 0) {
+            if(managers.Game.enemyAmmoManager.CurrentAmmo > 49) {
                 managers.Game.enemyAmmoManager.CurrentAmmo = 0;
              }
 
@@ -32,10 +28,10 @@ module managers {
         }
 
         public Start():void {
-            this.ammoCount = 2;
+            this.ammoCount = 50;
             this.Ammo = new Array<objects.EnemyAmmo>();
             this.CurrentAmmo = 0;
-            this.buildAmmoPool("Enemy_Shot");
+            this.buildAmmoPool();
         }
         public Update():void {
             this.Ammo.forEach(ammo => {
