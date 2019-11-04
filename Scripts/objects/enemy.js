@@ -89,8 +89,11 @@ var objects;
             if (!this.isDead) {
                 this.Move();
                 this.CheckBounds();
+                if (this.shoot && !this.player.isInvincible && managers.Game.hud.Lives > 0)
+                    managers.Collision.CheckAABB(this.player, this.ammo);
             }
-            this.ammo.Update();
+            if (this.ammo != undefined)
+                this.ammo.Update();
         };
         Enemy.prototype.Reset = function () {
             this.isDead = false;
@@ -229,8 +232,7 @@ var objects;
             this.angle = this.angle * (180 / Math.PI);
             this.rotation = -90 + this.angle;
             this.playerPos = new math.Vec2(player.x, player.y);
-            if (this.shoot)
-                managers.Collision.CheckAABB(player, this.ammo);
+            this.player = player;
         };
         Enemy.prototype.ShootPlayer = function () {
             switch (this.sprite) {

@@ -7,6 +7,7 @@ module objects {
         public swapped:boolean;
         private power:number;
         private effect:objects.Effect;
+        public isInvincible:boolean;
 
         get ShipType():config.Ship{
             return this.shipType;
@@ -39,12 +40,26 @@ module objects {
             this.Swapped();
         }
         public Update():void {
-            this.Move();
-            this.CheckBound(); // <-- Check collisions
-            this.Shoot();
-            this.Swapped();
+            if(!this.isDead){
+                this.Move();
+                this.CheckBound(); // <-- Check collisions
+                this.Shoot();
+                this.Swapped();
+            }
+
+            if(managers.Game.hud.Lives > 0 && this.isDead){
+                this.isInvincible = true;
+                if(this.isInvincible){
+                    this.RespawnTimer();
+                }
+            }
         }
-        public Reset():void {}
+        public Reset():void {
+            this.isDead = true;
+            this.alpha = 0;
+            this.x = 555;
+            this.y = 675;
+        }
 
         public Move():void {
             if(managers.Game.keyboardManager.moveLeft)
@@ -96,7 +111,6 @@ module objects {
                                     this.ammoSpawn = new math.Vec2(this.x - 15.35, this.y - 40);
                                     
                                     this.effect = new objects.Effect("Laser_Shoot", this.x - 13, this.y -43);
-                                    this.effect.on("animationend", this.animationEnded);
                                     
                                     let ammo = managers.Game.ammoManager.GetAmmo();
 
@@ -111,7 +125,6 @@ module objects {
                                     this.ammoSpawn = new math.Vec2(this.x - 11, this.y - 25);
 
                                     this.effect = new objects.Effect("Laser_Shoot", this.x - 13, this.y -43);
-                                    this.effect.on("animationend", this.animationEnded);
                                     
                                     let ammo = managers.Game.ammoManager.GetAmmo();
 
@@ -126,7 +139,6 @@ module objects {
                                     this.ammoSpawn = new math.Vec2(this.x - 12.5, this.y - 25);
             
                                     this.effect = new objects.Effect("Laser_Shoot", this.x - 13, this.y -43);
-                                    this.effect.on("animationend", this.animationEnded);
                                     
                                     let ammo = managers.Game.ammoManager.GetAmmo();
 
@@ -141,7 +153,6 @@ module objects {
                                     this.ammoSpawn = new math.Vec2(this.x - 11, this.y - 25);
             
                                     this.effect = new objects.Effect("Laser_Shoot", this.x - 13, this.y -43);
-                                    this.effect.on("animationend", this.animationEnded);
                                     
                                     let ammo = managers.Game.ammoManager.GetAmmo();
 
@@ -156,7 +167,6 @@ module objects {
                                     this.ammoSpawn = new math.Vec2(this.x - 7.5, this.y - 25);
             
                                     this.effect = new objects.Effect("Laser_Shoot", this.x - 13, this.y -43);
-                                    this.effect.on("animationend", this.animationEnded);
                                     
                                     let ammo = managers.Game.ammoManager.GetAmmo();
 
@@ -173,7 +183,6 @@ module objects {
                                     this.ammoSpawn = new math.Vec2(this.x - 11, this.y - 25);
             
                                     this.effect = new objects.Effect("Laser1_Shoot", this.x - 7, this.y -30);
-                                    this.effect.on("animationend", this.animationEnded);
                                     
                                     let ammo = managers.Game.ammoManager.GetAmmo();
 
@@ -190,7 +199,6 @@ module objects {
                                     this.ammoSpawn = new math.Vec2(this.x - 10.5, this.y - 45);
             
                                     this.effect = new objects.Effect("Arc_Shoot", this.x - 13, this.y -41);
-                                    this.effect.on("animationend", this.animationEnded);
 
                                     let ammo = managers.Game.ammoManager.GetAmmo();
 
@@ -205,7 +213,6 @@ module objects {
                                     this.ammoSpawn = new math.Vec2(this.x - 10, this.y - 45);
             
                                     this.effect = new objects.Effect("Arc_Shoot", this.x - 13, this.y -41);
-                                    this.effect.on("animationend", this.animationEnded);
                                     
                                     let ammo = managers.Game.ammoManager.GetAmmo();
 
@@ -220,7 +227,6 @@ module objects {
                                     this.ammoSpawn = new math.Vec2(this.x - 10, this.y - 35);
             
                                     this.effect = new objects.Effect("Arc2_Shoot", this.x - 6.5, this.y -28);
-                                    this.effect.on("animationend", this.animationEnded);
                                     
                                     let ammo = managers.Game.ammoManager.GetAmmo();
 
@@ -235,7 +241,6 @@ module objects {
                                     this.ammoSpawn = new math.Vec2(this.x - 7, this.y - 45);
             
                                     this.effect = new objects.Effect("Arc4_Shoot", this.x - 7, this.y -29);
-                                    this.effect.on("animationend", this.animationEnded);
                                     
                                     let ammo = managers.Game.ammoManager.GetAmmo();
 
@@ -250,7 +255,6 @@ module objects {
                                     this.ammoSpawn = new math.Vec2(this.x + 4, this.y - 40);
             
                                     this.effect = new objects.Effect("Arc5_Shoot", this.x, this.y -21);
-                                    this.effect.on("animationend", this.animationEnded);
                                     
                                     let ammo = managers.Game.ammoManager.GetAmmo();
 
@@ -268,15 +272,24 @@ module objects {
             }
         }
 
-        private animationEnded():void {
-            this.alpha = 0;
-            this.off("animationend", this.animationEnded.bind(this), false);
-            managers.Game.currentSceneObject.removeChild(this);
-        }
-
         public Swapped():void{
             if(!this.swapped)
                 this.shipType = config.Ship.Botcoin;
+        }
+
+        public RespawnTimer():void{
+            let counter = 2;
+
+            let interval = setInterval(() =>{
+                counter--;
+                if(counter < 0){
+                    clearInterval(interval);
+                    this.isInvincible = false;
+                    this.isDead = false;
+                    this.alpha = 1;
+                    counter = 2;
+                }
+            }, 1000)
         }
     }
 }

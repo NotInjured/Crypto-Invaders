@@ -25,8 +25,6 @@ var scenes;
         PlayScene.prototype.Start = function () {
             // Initialize our variables
             this.background = new objects.Background();
-            this.eBackground = new objects.Image("backgroundE", 712, 0);
-            this.lBackground = new objects.Image("backgroundL", 0, 0);
             this.stageName = new objects.Label("Stage 1: Invasion", "36px", "OptimusPrinceps", "#FFFFFF", 530, 240, true);
             this.player = new objects.Player("Ship1", 555, 690, false, 1);
             this.aircraft = new objects.Image("aircraft", 418, 450);
@@ -63,41 +61,44 @@ var scenes;
             this.ChangeShip();
             //this.Effect();
             console.log(managers.Game.timer);
-            if (managers.Game.timer <= 595) {
+            if (managers.Game.timer >= 598 && managers.Game.timer <= 600) {
+                if (this.player.y > 550)
+                    this.player.y -= 1;
+            }
+            if (managers.Game.timer >= 597 && managers.Game.timer <= 598) {
+                if (this.player.y < 675)
+                    this.player.y += 1;
+            }
+            if (managers.Game.timer <= 596) {
+                this.addChild(this.stageName);
+            }
+            if (managers.Game.timer <= 590) {
                 this.removeChild(this.stageName);
-                this.addChild(this.eType2);
-                if (!this.eType2.isDead) {
-                    this.eType2.FindPlayer(this.player);
-                    this.eType2.Update();
-                    //managers.Collision.CheckAABB(this.player, e)
-                }
-                /*this.eType3.forEach(e =>{
-                    this.addChild(e);
-                    if(!e.isDead){
-                        e.Update();
-                        e.FindPlayer(this.player);
+                /*this.addChild(this.eType2);
+                    if(!this.eType2.isDead){
+                        this.eType2.FindPlayer(this.player);
+                        this.eType2.Update();
 
                         //managers.Collision.CheckAABB(this.player, e)
-                    }
-                })
-                this.eType4.forEach(e =>{
-                    this.addChild(e);
-                    if(!e.isDead){
+                    }*/
+                this.eType3.forEach(function (e) {
+                    if (!e.isDead) {
                         e.Update();
-                        e.FindPlayer(this.player);
-
-                        //managers.Collision.CheckAABB(this.player, e)
+                        e.FindPlayer(_this.player);
                     }
-                })
-                this.eType5.forEach(e =>{
-                    this.addChild(e);
-                    if(!e.isDead){
+                });
+                this.eType4.forEach(function (e) {
+                    if (!e.isDead) {
                         e.Update();
-                        e.FindPlayer(this.player);
-
-                        //managers.Collision.CheckAABB(this.player, e)
+                        e.FindPlayer(_this.player);
                     }
-                })*/
+                });
+                this.eType5.forEach(function (e) {
+                    if (!e.isDead) {
+                        e.Update();
+                        e.FindPlayer(_this.player);
+                    }
+                });
             }
             this.ammoManager.Ammo.forEach(function (ammo) {
                 _this.eType3.forEach(function (e) {
@@ -115,10 +116,16 @@ var scenes;
             var _this = this;
             // Order matters when adding game objects.
             this.addChild(this.background);
-            this.addChild(this.eBackground);
-            this.addChild(this.lBackground);
+            this.eType3.forEach(function (e) {
+                _this.addChild(e);
+            });
+            this.eType4.forEach(function (e) {
+                _this.addChild(e);
+            });
+            this.eType5.forEach(function (e) {
+                _this.addChild(e);
+            });
             this.addChild(this.aircraft);
-            this.addChild(this.stageName);
             this.addChild(this.player);
             this.ammoManager.Ammo.forEach(function (ammo) {
                 _this.addChild(ammo);

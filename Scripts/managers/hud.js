@@ -103,13 +103,21 @@ var managers;
             this.playerLivesSprite = new objects.Sprite("Ship1", 370, 688);
             this.playerLivesSprite.scaleX = 0.5;
             this.playerLivesSprite.scaleY = 0.5;
+            this.bBackground = new objects.Image("backgroundB", 343, 0);
+            this.eBackground = new objects.Image("backgroundE", 712, 0);
+            this.lBackground = new objects.Image("backgroundL", 0, 0);
             if (managers.Game.currentScene == config.Scene.START) {
+                this.addChild(this.eBackground);
+                this.addChild(this.lBackground);
+                this.addChild(this.bBackground);
                 this.addChild(this.controlPanel);
                 this.addChild(this.infoPanel);
                 this.addChild(this.info1);
                 this.addChild(this.controls);
             }
             if (managers.Game.currentScene == config.Scene.GAME) {
+                this.addChild(this.eBackground);
+                this.addChild(this.lBackground);
                 this.addChild(this.controlPanel);
                 this.addChild(this.infoPanel);
                 this.addChild(this.info1);

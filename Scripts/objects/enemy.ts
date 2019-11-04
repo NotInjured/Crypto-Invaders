@@ -15,6 +15,8 @@ module objects {
         private playerPos:math.Vec2;
         private position:math.Vec2;
 
+        private player:objects.Player;
+
         private randomNum;
 
         get Shoot():boolean{
@@ -83,9 +85,12 @@ module objects {
             if(!this.isDead){
                 this.Move();
                 this.CheckBounds();
+                if(this.shoot && !this.player.isInvincible && managers.Game.hud.Lives > 0)
+                    managers.Collision.CheckAABB(this.player, this.ammo);
             }
 
-            this.ammo.Update();
+            if(this.ammo != undefined)
+                this.ammo.Update();
                 
         }
         public Reset():void {
@@ -229,9 +234,8 @@ module objects {
             this.rotation = -90  + this.angle;
 
             this.playerPos = new math.Vec2(player.x, player.y);
-            
-            if(this.shoot)
-                managers.Collision.CheckAABB(player, this.ammo);
+
+            this.player = player;
         }
 
         public ShootPlayer():void{

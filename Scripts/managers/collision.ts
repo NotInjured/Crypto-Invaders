@@ -6,6 +6,8 @@ module managers {
             let P1: math.Vec2 = new math.Vec2(object1.x, object1.y);
             let P2: math.Vec2 = new math.Vec2(object2.x, object2.y);
             let effect = new objects.Effect("Laser_Hit", object2.x - object2.halfW, object2.y - object2.halfH);
+            effect.scaleX *= 2;
+            effect.scaleY *= 2;
 
             // CHECK ALL BOUNDS
             if((object1.x + object1.halfW) > (object2.x - object2.halfW) &&
@@ -108,9 +110,10 @@ module managers {
                         break;
                         case "Enemy_Shot":
                             console.log("Player Hit");
+                            managers.Game.currentSceneObject.removeChild(object2);
                             managers.Game.hud.Lives--;
                             managers.Game.hud.ScoreMult = 0;
-                            managers.Game.currentSceneObject.removeChild(object2);
+                            object1.Reset();
                         break;
                     }
                 }

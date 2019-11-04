@@ -22,9 +22,6 @@ var scenes;
             return _this;
         }
         StartScene.prototype.Start = function () {
-            this.bBackground = new objects.Image("backgroundB", 343, 0);
-            this.eBackground = new objects.Image("backgroundE", 712, 0);
-            this.lBackground = new objects.Image("backgroundL", 0, 0);
             this.bCoins = new Array();
             this.eCoins = new Array();
             this.lCoins = new Array();
@@ -59,12 +56,8 @@ var scenes;
             managers.Game.currentScene = config.Scene.OPTIONS;
         };
         StartScene.prototype.Main = function () {
-            var _this = this;
             // Add items to our scene
-            //this.addChild(this.background);
-            this.addChild(this.eBackground);
-            this.addChild(this.lBackground);
-            this.addChild(this.bBackground);
+            var _this = this;
             this.bCoins.forEach(function (c) {
                 c.scaleX = 0.75;
                 c.scaleY = 0.75;

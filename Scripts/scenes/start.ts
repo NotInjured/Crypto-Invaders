@@ -2,10 +2,6 @@ module scenes {
     export class StartScene extends objects.Scene {
         // Variables
 
-        private bBackground: objects.Image;
-        private lBackground: objects.Image;
-        private eBackground: objects.Image;
-
         private bCoins: objects.Coins[];
         private eCoins: objects.Coins[];
         private lCoins: objects.Coins[];
@@ -24,9 +20,6 @@ module scenes {
         }
 
         public Start():void {
-            this.bBackground = new objects.Image("backgroundB", 343, 0);
-            this.eBackground = new objects.Image("backgroundE", 712, 0);
-            this.lBackground = new objects.Image("backgroundL", 0, 0);
 
             this.bCoins = new Array<objects.Coins>();
             this.eCoins = new Array<objects.Coins>();
@@ -71,10 +64,6 @@ module scenes {
 
         public Main():void {
             // Add items to our scene
-            //this.addChild(this.background);
-            this.addChild(this.eBackground);
-            this.addChild(this.lBackground);
-            this.addChild(this.bBackground);
             
             this.bCoins.forEach(c =>{
                 c.scaleX = 0.75;
