@@ -22,6 +22,9 @@ var scenes;
             return _this;
         }
         StartScene.prototype.Start = function () {
+            this.bgm = createjs.Sound.play("mainMenu");
+            this.bgm.loop = -1;
+            this.bgm.volume = 0.1;
             this.gameLabel = new objects.Label("Crypto Invaders", "36px", "OptimusPrinceps", "#000000", 530, 240, true);
             this.startButton = new objects.Button("buttonStart", 630, 375);
             this.optionButton = new objects.Button("buttonOptions", 630, 455);

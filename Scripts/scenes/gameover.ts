@@ -8,6 +8,7 @@ module scenes {
         private startButton: objects.Button;
 
         private hud:managers.HUD;
+        private bgm:createjs.AbstractSoundInstance;
 
         // Constructor
         constructor() {
@@ -17,6 +18,11 @@ module scenes {
 
         // Method
         public Start():void {
+            createjs.Sound.stop();
+            this.bgm = createjs.Sound.play("mainMenu");
+            this.bgm.loop = -1;
+            this.bgm.volume = 0.1;
+
             this.gameOverLabel = new objects.Label(
                 "     Game Over!" + "\n" + "Ran out of lives.", 
                 "36px", "OptimusPrinceps", "#000000", 650, 240, true);

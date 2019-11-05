@@ -1,14 +1,14 @@
 module objects {
     export class Player extends objects.GameObject {
         // Variables
-        public isDead:boolean;
+        public isDead:boolean = false;
         private shipType:config.Ship;
         private ammoSpawn:math.Vec2;
         public swapped:boolean;
         private power:number;
         private effect:objects.Effect;
-        public isInvincible:boolean;
-
+        public isInvincible:boolean = false;
+        
         get ShipType():config.Ship{
             return this.shipType;
         }
@@ -28,7 +28,6 @@ module objects {
         // Constructor
         constructor(sprite, xPos:number, yPos:number, swapped:boolean, power:number) {
             super(sprite);          
-            this.isDead = false;
             this.y = yPos;
             this.x = xPos;
             this.swapped = swapped;
@@ -53,10 +52,11 @@ module objects {
                     this.RespawnTimer();
                 }
             }
-            if(managers.Game.hud.Lives <= 0 && this.isDead){
-                //this.RespawnTimer();
-                managers.Game.over = true;
-                managers.Game.currentScene = config.Scene.OVER;
+            if(managers.Game.hud.Lives < 0 && this.isDead){
+                this.isInvincible = true;
+                if(this.isInvincible){
+                    this.RespawnTimer();
+                }
             }
         }
         public Reset():void {
@@ -109,7 +109,7 @@ module objects {
             if(!this.isDead || this.swapped) {
                 let ticker:number = createjs.Ticker.getTicks();
 
-                if((managers.Game.keyboardManager.shoot) && (ticker % 10 == 0)) {
+                if((managers.Game.keyboardManager.shoot) && (ticker % 15 == 0)) {
                     switch(this.ShipType){
                         case config.Ship.Botcoin:
                                 if(this.POWER >= 1 && this.POWER <= 3){
@@ -123,6 +123,9 @@ module objects {
                         
                                     ammo.x = this.ammoSpawn.x;
                                     ammo.y = this.ammoSpawn.y;
+
+                                    let laser = createjs.Sound.play("laser");
+                                    laser.volume = 0.2;
 
                                     managers.Game.currentSceneObject.addChild(this.effect);
                                 }
@@ -286,13 +289,17 @@ module objects {
             let counter = 2;
 
             let interval = setInterval(() =>{
-                counter--;
+               counter--;
                 if(counter < 0){
                     clearInterval(interval);
-                    this.isInvincible = false;
+                    counter = 2;
                     this.isDead = false;
                     this.alpha = 1;
-                    counter = 2;
+                    this.isInvincible = false;
+                    if(managers.Game.hud.Lives < 0){
+                        managers.Game.over = true;
+                        managers.Game.currentScene = config.Scene.OVER;
+                    }
                 }
             }, 1000)
         }

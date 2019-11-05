@@ -7,6 +7,8 @@ module scenes {
         private optionButton: objects.Button;
 
         private hud:managers.HUD;
+
+        private bgm:createjs.AbstractSoundInstance;
         
         // Constructor
         constructor() {
@@ -15,6 +17,9 @@ module scenes {
         }
 
         public Start():void {
+            this.bgm = createjs.Sound.play("mainMenu");
+            this.bgm.loop = -1;
+            this.bgm.volume = 0.1;
 
             this.gameLabel = new objects.Label(
                 "Crypto Invaders", "36px", "OptimusPrinceps", "#000000", 530, 240, true);

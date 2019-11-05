@@ -18,7 +18,9 @@ var objects;
         // Constructor
         function Player(sprite, xPos, yPos, swapped, power) {
             var _this = _super.call(this, sprite) || this;
+            // Variables
             _this.isDead = false;
+            _this.isInvincible = false;
             _this.y = yPos;
             _this.x = xPos;
             _this.swapped = swapped;
@@ -63,10 +65,11 @@ var objects;
                     this.RespawnTimer();
                 }
             }
-            if (managers.Game.hud.Lives <= 0 && this.isDead) {
-                //this.RespawnTimer();
-                managers.Game.over = true;
-                managers.Game.currentScene = config.Scene.OVER;
+            if (managers.Game.hud.Lives < 0 && this.isDead) {
+                this.isInvincible = true;
+                if (this.isInvincible) {
+                    this.RespawnTimer();
+                }
             }
         };
         Player.prototype.Reset = function () {
@@ -108,7 +111,7 @@ var objects;
         Player.prototype.Shoot = function () {
             if (!this.isDead || this.swapped) {
                 var ticker = createjs.Ticker.getTicks();
-                if ((managers.Game.keyboardManager.shoot) && (ticker % 10 == 0)) {
+                if ((managers.Game.keyboardManager.shoot) && (ticker % 15 == 0)) {
                     switch (this.ShipType) {
                         case config.Ship.Botcoin:
                             if (this.POWER >= 1 && this.POWER <= 3) {
@@ -118,6 +121,8 @@ var objects;
                                 console.log(ammo);
                                 ammo.x = this.ammoSpawn.x;
                                 ammo.y = this.ammoSpawn.y;
+                                var laser = createjs.Sound.play("laser");
+                                laser.volume = 0.2;
                                 managers.Game.currentSceneObject.addChild(this.effect);
                             }
                             else if (this.POWER >= 4 && this.POWER <= 5) {
@@ -230,10 +235,14 @@ var objects;
                 counter--;
                 if (counter < 0) {
                     clearInterval(interval);
-                    _this.isInvincible = false;
+                    counter = 2;
                     _this.isDead = false;
                     _this.alpha = 1;
-                    counter = 2;
+                    _this.isInvincible = false;
+                    if (managers.Game.hud.Lives < 0) {
+                        managers.Game.over = true;
+                        managers.Game.currentScene = config.Scene.OVER;
+                    }
                 }
             }, 1000);
         };

@@ -20,6 +20,8 @@ module scenes {
         private ammoManager:managers.Ammo;
         private enemyAmmoManager:managers.EnemyAmmo;
 
+        private bgm:createjs.AbstractSoundInstance;
+
         // Constructor
         constructor() {
             super();
@@ -31,6 +33,11 @@ module scenes {
         public Start(): void {
             // Initialize our variables
             this.background = new objects.Background();
+            
+            createjs.Sound.stop();
+            this.bgm = createjs.Sound.play("bgm");
+            this.bgm.loop = -1;
+            this.bgm.volume = 0.05;
 
             this.stageName = new objects.Label("Stage 1: Invasion", "36px", "OptimusPrinceps", "#FFFFFF", 530, 240, true);
 
@@ -78,13 +85,24 @@ module scenes {
 
             this.hud = new managers.HUD;
             managers.Game.hud = this.hud;
-            managers.Game.hud.Lives = 3;
-            managers.Game.hud.Bombs = 1;
+            if(managers.Game.normal){
+                managers.Game.hud.Lives = 3;
+                managers.Game.hud.Bombs = 1;
+            }
+            if(managers.Game.hard){
+                managers.Game.hud.Lives = 2;
+                managers.Game.hud.Bombs = 1;
+            }
+            if(managers.Game.hell){
+                managers.Game.hud.Lives = 1;
+                managers.Game.hud.Bombs = 1;
+            }
 
             this.Main();
         }
 
         public Update(): void {
+            managers.Game.highscore = this.hud.Score;
             this.aircraft.y += 3;
             if(this.aircraft.y > 720){
                 this.removeChild(this.aircraft);

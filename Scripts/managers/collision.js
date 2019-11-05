@@ -17,75 +17,13 @@ var managers;
                 (object1.y - object1.halfH) < (object2.y + object2.halfH)) {
                 switch (object2.name) {
                     case "Enemy1":
-                        managers.Game.hud.Score += Math.round(50 * Math.pow(1.01, managers.Game.hud.ScoreMult));
-                        managers.Game.hud.ScoreMult += 1;
-                        managers.Game.currentSceneObject.addChild(effect);
-                        object1.Reset();
-                        object2.Reset();
-                        break;
                     case "Enemy2":
-                        managers.Game.hud.Score += Math.round(50 * Math.pow(1.01, managers.Game.hud.ScoreMult));
-                        managers.Game.hud.ScoreMult += 1;
-                        managers.Game.currentSceneObject.addChild(effect);
-                        object1.Reset();
-                        object2.Reset();
-                        break;
                     case "Enemy3":
-                        managers.Game.hud.Score += Math.round(50 * Math.pow(1.01, managers.Game.hud.ScoreMult));
-                        managers.Game.hud.ScoreMult += 1;
-                        managers.Game.currentSceneObject.addChild(effect);
-                        object1.Reset();
-                        object2.Reset();
-                        break;
-                    case "Enemy4":
-                        managers.Game.hud.Score += Math.round(50 * Math.pow(1.01, managers.Game.hud.ScoreMult));
-                        managers.Game.hud.ScoreMult += 1;
-                        managers.Game.currentSceneObject.addChild(effect);
-                        object1.Reset();
-                        object2.Reset();
-                        break;
                     case "Enemy5":
-                        managers.Game.hud.Score += Math.round(50 * Math.pow(1.01, managers.Game.hud.ScoreMult));
-                        managers.Game.hud.ScoreMult += 1;
-                        managers.Game.currentSceneObject.addChild(effect);
-                        object1.Reset();
-                        object2.Reset();
-                        break;
                     case "Enemy6":
-                        managers.Game.hud.Score += Math.round(50 * Math.pow(1.01, managers.Game.hud.ScoreMult));
-                        managers.Game.hud.ScoreMult += 1;
-                        managers.Game.currentSceneObject.addChild(effect);
-                        object1.Reset();
-                        object2.Reset();
-                        break;
                     case "Enemy7":
-                        managers.Game.hud.Score += Math.round(50 * Math.pow(1.01, managers.Game.hud.ScoreMult));
-                        managers.Game.hud.ScoreMult += 1;
-                        managers.Game.currentSceneObject.addChild(effect);
-                        object1.Reset();
-                        object2.Reset();
-                        break;
-                    case "Enemy8":
-                        managers.Game.hud.Score += Math.round(50 * Math.pow(1.01, managers.Game.hud.ScoreMult));
-                        managers.Game.hud.ScoreMult += 1;
-                        managers.Game.currentSceneObject.addChild(effect);
-                        object1.Reset();
-                        object2.Reset();
-                        break;
                     case "Enemy9":
-                        managers.Game.hud.Score += Math.round(50 * Math.pow(1.01, managers.Game.hud.ScoreMult));
-                        managers.Game.hud.ScoreMult += 1;
-                        managers.Game.currentSceneObject.addChild(effect);
-                        object1.Reset();
-                        object2.Reset();
-                        break;
                     case "Enemy10":
-                        managers.Game.hud.Score += Math.round(50 * Math.pow(1.01, managers.Game.hud.ScoreMult));
-                        managers.Game.hud.ScoreMult += 1;
-                        managers.Game.currentSceneObject.addChild(effect);
-                        object1.Reset();
-                        object2.Reset();
-                        break;
                     case "Enemy11":
                         managers.Game.hud.Score += Math.round(50 * Math.pow(1.01, managers.Game.hud.ScoreMult));
                         managers.Game.hud.ScoreMult += 1;
@@ -93,26 +31,21 @@ var managers;
                         object1.Reset();
                         object2.Reset();
                         break;
+                    case "Enemy4":
+                    case "Enemy8":
                     case "Enemy12":
-                        managers.Game.hud.Score += Math.round(50 * Math.pow(1.01, managers.Game.hud.ScoreMult));
-                        managers.Game.hud.ScoreMult += 1;
-                        managers.Game.currentSceneObject.addChild(effect);
-                        object1.Reset();
-                        object2.Reset();
-                        break;
                     case "Enemy13":
-                        managers.Game.hud.Score += Math.round(50 * Math.pow(1.01, managers.Game.hud.ScoreMult));
-                        managers.Game.hud.ScoreMult += 1;
-                        managers.Game.currentSceneObject.addChild(effect);
-                        object1.Reset();
-                        object2.Reset();
                         break;
-                    case "Enemy1_Shot":
+                    case "Ship1":
+                    case "Ship2":
+                    case "Ship3":
                         console.log("Player Hit");
-                        managers.Game.currentSceneObject.removeChild(object2);
+                        var death = createjs.Sound.play("playerDeath");
+                        death.volume = 0.5;
+                        managers.Game.currentSceneObject.removeChild(object1);
                         managers.Game.hud.Lives -= 1;
                         managers.Game.hud.ScoreMult = 0;
-                        object1.Reset();
+                        object2.Reset();
                         break;
                 }
             }

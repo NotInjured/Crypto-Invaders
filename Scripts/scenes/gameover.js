@@ -23,6 +23,10 @@ var scenes;
         }
         // Method
         GameOverScene.prototype.Start = function () {
+            createjs.Sound.stop();
+            this.bgm = createjs.Sound.play("mainMenu");
+            this.bgm.loop = -1;
+            this.bgm.volume = 0.1;
             this.gameOverLabel = new objects.Label("     Game Over!" + "\n" + "Ran out of lives.", "36px", "OptimusPrinceps", "#000000", 650, 240, true);
             this.tryAgainLabel = new objects.Label("Try Again?", "20px", "OptimusPrinceps", "#000000", 535, 400, true);
             this.diffLabel = new objects.Label("Maybe turn down the difficulty if its too hard.", "12px", "OptimusPrinceps", "#000000", 535, 690, true);

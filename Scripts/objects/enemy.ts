@@ -91,7 +91,7 @@ module objects {
                     this.ammo.Update();
                 
                 if(this.shoot && !this.player.isInvincible && managers.Game.hud.Lives >= 0)
-                    managers.Collision.CheckAABB(this.player, this.ammo);
+                    managers.Collision.CheckAABB(this.ammo, this.player);
             }   
         }
 

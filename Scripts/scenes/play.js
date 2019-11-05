@@ -25,6 +25,10 @@ var scenes;
         PlayScene.prototype.Start = function () {
             // Initialize our variables
             this.background = new objects.Background();
+            createjs.Sound.stop();
+            this.bgm = createjs.Sound.play("bgm");
+            this.bgm.loop = -1;
+            this.bgm.volume = 0.05;
             this.stageName = new objects.Label("Stage 1: Invasion", "36px", "OptimusPrinceps", "#FFFFFF", 530, 240, true);
             this.player = new objects.Player("Ship1", 555, 690, false, 1);
             this.aircraft = new objects.Image("aircraft", 418, 450);
@@ -64,12 +68,23 @@ var scenes;
             this.hudImage = new objects.Image("HUD", 342, 0);
             this.hud = new managers.HUD;
             managers.Game.hud = this.hud;
-            managers.Game.hud.Lives = 3;
-            managers.Game.hud.Bombs = 1;
+            if (managers.Game.normal) {
+                managers.Game.hud.Lives = 3;
+                managers.Game.hud.Bombs = 1;
+            }
+            if (managers.Game.hard) {
+                managers.Game.hud.Lives = 2;
+                managers.Game.hud.Bombs = 1;
+            }
+            if (managers.Game.hell) {
+                managers.Game.hud.Lives = 1;
+                managers.Game.hud.Bombs = 1;
+            }
             this.Main();
         };
         PlayScene.prototype.Update = function () {
             var _this = this;
+            managers.Game.highscore = this.hud.Score;
             this.aircraft.y += 3;
             if (this.aircraft.y > 720) {
                 this.removeChild(this.aircraft);

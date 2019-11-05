@@ -222,7 +222,14 @@
         {id: "HUD", src:"./Assets/HUD.png"},
         {id: "backgroundB", src:"./Assets/B_background.png"},
         {id: "backgroundL", src:"./Assets/L_background.png"},
-        {id: "backgroundE", src:"./Assets/E_background.png"}
+        {id: "backgroundE", src:"./Assets/E_background.png"},
+        {id: "bgm", src:"./Assets/Sounds/Mysterious_Mountain.mp3"},
+        {id: "bgm2", src:"./Assets/Sounds/RFN - III.ogg"},
+        {id: "bgm3", src:"./Assets/Sounds/The Truth Never Spoken.mp3"},
+        {id: "playerDeath", src:"./Assets/Sounds/1516.mp3"},
+        {id: "laser", src:"./Assets/Sounds/167.mp3"},
+        {id: "bossMusic", src:"./Assets/Sounds/Sudden Death.ogg"},
+        {id: "mainMenu", src:"./Assets/Sounds/cyberspace.exe.ogg"}
     ];
 
     function Init() {
