@@ -11,5 +11,13 @@ module managers {        // Access to globally-required items
         public static ammoManager: managers.Ammo;
         public static enemyAmmoManager :managers.EnemyAmmo;
         public static currentSceneObject: objects.Scene;
+        public static player:objects.Player;
+        public static eType2:objects.Enemy;
+        public static pause:boolean = false;
+        public static over:boolean = false;
+        public static difficulty:config.Difficulty;
+        public static normal:boolean = true;
+        public static hard:boolean = false;
+        public static hell:boolean = false;
     }
 }

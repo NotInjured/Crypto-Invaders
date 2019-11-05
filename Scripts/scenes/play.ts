@@ -40,21 +40,39 @@ module scenes {
             
             this.ammoManager = new managers.Ammo();
             managers.Game.ammoManager = this.ammoManager;
-
-            this.enemyAmmoManager = new managers.EnemyAmmo();
-            managers.Game.enemyAmmoManager = this.enemyAmmoManager;
+            managers.Game.player = this.player;
+            managers.Game.timer = 600;
 
             this.eType2 = new objects.Enemy("Enemy2");
             this.eType3 = new Array<objects.Enemy>();
             this.eType4 = new Array<objects.Enemy>();
             this.eType5 = new Array<objects.Enemy>();
+            managers.Game.eType2 =this.eType2;
 
-            for(let i = 0; i < 1; i++){
-                
-                this.eType3[i] = new objects.Enemy("Enemy3");
-                this.eType4[i] = new objects.Enemy("Enemy4");
-                this.eType5[i] = new objects.Enemy("Enemy5");
+            switch(managers.Game.difficulty){
+                case 0:
+                    for(let i = 0; i < 2; i++){
+                        this.eType3[i] = new objects.Enemy("Enemy3");
+                        this.eType4[i] = new objects.Enemy("Enemy4");
+                        this.eType5[i] = new objects.Enemy("Enemy5");
+                    }
+                break;
+                case 1:
+                    for(let i = 0; i < 4; i++){
+                        this.eType3[i] = new objects.Enemy("Enemy3");
+                        this.eType4[i] = new objects.Enemy("Enemy4");
+                        this.eType5[i] = new objects.Enemy("Enemy5");
+                    }
+                break;
+                case 2:
+                    for(let i = 0; i < 6; i++){
+                        this.eType3[i] = new objects.Enemy("Enemy3");
+                        this.eType4[i] = new objects.Enemy("Enemy4");
+                        this.eType5[i] = new objects.Enemy("Enemy5");
+                    }
+                break;
             }
+            
 
             this.hudImage = new objects.Image("HUD", 342, 0);  
 
@@ -67,76 +85,64 @@ module scenes {
         }
 
         public Update(): void {
-            this.background.Update();
             this.aircraft.y += 3;
             if(this.aircraft.y > 720){
                 this.removeChild(this.aircraft);
             }
-            this.player.Update();
-            this.IsPaused();
             this.ammoManager.Update();
-            this.ChangeShip();
-            //this.Effect();
             console.log(managers.Game.timer);
-            if(managers.Game.timer >= 598 && managers.Game.timer <= 600){
-                if(this.player.y > 550)
-                this.player.y -= 1;
-            }
-            if(managers.Game.timer >= 597 && managers.Game.timer <= 598){
-                if(this.player.y < 675)
-                this.player.y += 1;
-            }
-            if(managers.Game.timer <= 596){
-                this.addChild(this.stageName)
-            }
-            if(managers.Game.timer <= 590){
-                this.removeChild(this.stageName)
-                /*this.addChild(this.eType2);
-                    if(!this.eType2.isDead){
-                        this.eType2.FindPlayer(this.player);
-                        this.eType2.Update();
-
+                this.background.Update();
+                this.player.Update();
+                this.ChangeShip();
+                this.CheckCollisions()
+            
+                if(managers.Game.timer >= 598 && managers.Game.timer <= 600){
+                    if(this.player.y > 550)
+                    this.player.y -= 1;
+                }
+                if(managers.Game.timer >= 597 && managers.Game.timer <= 598){
+                    if(this.player.y < 675)
+                    this.player.y += 1;
+                }
+                if(managers.Game.timer <= 596){
+                    this.addChild(this.stageName)
+                }
+                if(managers.Game.timer <= 591){
+                    this.removeChild(this.stageName)
+                    //this.addChild(this.eType2);
+                    //if(!this.eType2.isDead){
+                    //    this.eType2.Update();
+                    //    this.eType2.FindPlayer(this.player);
                         //managers.Collision.CheckAABB(this.player, e)
-                    }*/
-                this.eType3.forEach(e =>{
-                    if(!e.isDead){
-                        e.Update();
-                        e.FindPlayer(this.player);
-                    }
-                })
-                
-                this.eType4.forEach(e =>{
-                    if(!e.isDead){
-                        e.Update();
-                        e.FindPlayer(this.player);
-                    }
-                })
-                this.eType5.forEach(e =>{
-                    if(!e.isDead){
-                        e.Update();
-                        e.FindPlayer(this.player);
-                    }
-                })
-            }
-
-            this.ammoManager.Ammo.forEach(ammo =>{
-                this.eType3.forEach(e =>{
-                    managers.Collision.CheckAABB(ammo, e);
-                })
-                this.eType4.forEach(e =>{
-                    managers.Collision.CheckAABB(ammo, e);
-                })
-                this.eType5.forEach(e =>{
-                    managers.Collision.CheckAABB(ammo, e);
-                })
-            })
-
+                    //}
+                        
+                    this.eType3.forEach(e =>{
+                        if(!e.isDead){
+                            e.Update();
+                            e.FindPlayer(this.player);
+                        }
+                    })
+                    
+                    this.eType4.forEach(e =>{
+                        if(!e.isDead){
+                            e.Update();
+                            e.FindPlayer(this.player);
+                        }
+                    })
+                    this.eType5.forEach(e =>{
+                        if(!e.isDead){
+                            e.Update();
+                            e.FindPlayer(this.player);
+                        }
+                    })
+                }
         }
 
         public Main(): void {
             // Order matters when adding game objects.
             this.addChild(this.background);
-
+            this.SpawnTimer()
+            
             this.eType3.forEach(e =>{
                 this.addChild(e);
             })
@@ -153,20 +159,24 @@ module scenes {
                 this.addChild(ammo);
             })
 
-            this.SpawnTimer();
-            
             this.addChild(this.hudImage);
             this.addChild(this.hud);
-
         }
 
-        public IsPaused():void{
-            if(managers.Game.keyboardManager.pause){
-                managers.Game.currentScene = config.Scene.START;
-                console.log("Switching to start menu...");
-            }
+        public CheckCollisions():void{
+            this.ammoManager.Ammo.forEach(ammo =>{
+                this.eType3.forEach(e =>{
+                    managers.Collision.CheckAABB(ammo, e);
+                })
+                this.eType4.forEach(e =>{
+                    managers.Collision.CheckAABB(ammo, e);
+                })
+                this.eType5.forEach(e =>{
+                    managers.Collision.CheckAABB(ammo, e);
+                })
+            })
         }
-
+        
         public ChangeShip():void{
             let ticker:number = createjs.Ticker.getTicks();
     
@@ -220,7 +230,6 @@ module scenes {
         }
 
         public SpawnTimer():void{
-            managers.Game.timer = 600;
 
             let interval = setInterval(() =>{
                 managers.Game.timer--;
@@ -228,6 +237,7 @@ module scenes {
                     clearInterval(interval);
                 }
             }, 1000)
+            
         }
     }
 }

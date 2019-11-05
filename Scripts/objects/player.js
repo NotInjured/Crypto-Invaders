@@ -63,6 +63,11 @@ var objects;
                     this.RespawnTimer();
                 }
             }
+            if (managers.Game.hud.Lives == 0 && this.isDead) {
+                this.RespawnTimer();
+                managers.Game.over = true;
+                managers.Game.currentScene = config.Scene.OVER;
+            }
         };
         Player.prototype.Reset = function () {
             this.isDead = true;
@@ -72,19 +77,19 @@ var objects;
         };
         Player.prototype.Move = function () {
             if (managers.Game.keyboardManager.moveLeft)
-                this.x -= 3;
+                this.x -= 4;
             if (!managers.Game.keyboardManager.moveLeft)
                 this.x += 0;
             if (managers.Game.keyboardManager.moveRight)
-                this.x += 3;
+                this.x += 4;
             if (!managers.Game.keyboardManager.moveRight)
                 this.x += 0;
             if (managers.Game.keyboardManager.moveUp)
-                this.y -= 3;
+                this.y -= 4;
             if (!managers.Game.keyboardManager.moveUp)
                 this.y += 0;
             if (managers.Game.keyboardManager.moveDown)
-                this.y += 3;
+                this.y += 4;
             if (!managers.Game.keyboardManager.moveDown)
                 this.y += 0;
         };

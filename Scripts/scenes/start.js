@@ -22,31 +22,24 @@ var scenes;
             return _this;
         }
         StartScene.prototype.Start = function () {
-            this.bCoins = new Array();
-            this.eCoins = new Array();
-            this.lCoins = new Array();
-            for (var i = 0; i < 35; i++) {
-                this.bCoins[i] = new objects.Coins("B_coin", "B");
-                this.eCoins[i] = new objects.Coins("E_coin", "E");
-                this.lCoins[i] = new objects.Coins("L_coin", "L");
-            }
             this.gameLabel = new objects.Label("Crypto Invaders", "36px", "OptimusPrinceps", "#000000", 530, 240, true);
             this.startButton = new objects.Button("buttonStart", 630, 375);
             this.optionButton = new objects.Button("buttonOptions", 630, 455);
             this.hud = new managers.HUD;
             managers.Game.hud = this.hud;
+            /*if(managers.Game.normal){
+                managers.Game.difficulty = config.Difficulty.NORMAL;
+            }
+            if(managers.Game.hard){
+                managers.Game.difficulty = config.Difficulty.HARD;
+            }
+            if(managers.Game.hell){
+                managers.Game.difficulty = config.Difficulty.Hell;
+            }*/
             this.Main();
         };
         StartScene.prototype.Update = function () {
-            this.bCoins.forEach(function (c) {
-                c.Update();
-            });
-            this.eCoins.forEach(function (c) {
-                c.Update();
-            });
-            this.lCoins.forEach(function (c) {
-                c.Update();
-            });
+            this.hud.Update();
         };
         StartScene.prototype.startButtonClick = function () {
             // Change our game state from START to GAME
@@ -57,26 +50,11 @@ var scenes;
         };
         StartScene.prototype.Main = function () {
             // Add items to our scene
-            var _this = this;
-            this.bCoins.forEach(function (c) {
-                c.scaleX = 0.75;
-                c.scaleY = 0.75;
-                _this.addChild(c);
-            });
-            this.eCoins.forEach(function (c) {
-                c.scaleX = 0.75;
-                c.scaleY = 0.75;
-                _this.addChild(c);
-            });
-            this.lCoins.forEach(function (c) {
-                c.scaleX = 0.75;
-                c.scaleY = 0.75;
-                _this.addChild(c);
-            });
             this.addChild(this.hud);
             this.addChild(this.gameLabel);
             this.addChild(this.startButton);
             this.addChild(this.optionButton);
+            this.optionButton.on("click", this.optionButtonClick);
             this.startButton.on("click", this.startButtonClick);
         };
         return StartScene;

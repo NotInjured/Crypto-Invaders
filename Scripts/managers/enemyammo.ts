@@ -20,7 +20,7 @@ module managers {
         public GetAmmo(): objects.EnemyAmmo {
             let ammo:objects.EnemyAmmo = this.Ammo[this.CurrentAmmo];
             this.CurrentAmmo++;
-            if(managers.Game.enemyAmmoManager.CurrentAmmo > 49) {
+            if(managers.Game.enemyAmmoManager.CurrentAmmo > 4) {
                 managers.Game.enemyAmmoManager.CurrentAmmo = 0;
              }
 
@@ -28,7 +28,7 @@ module managers {
         }
 
         public Start():void {
-            this.ammoCount = 50;
+            this.ammoCount = 5;
             this.Ammo = new Array<objects.EnemyAmmo>();
             this.CurrentAmmo = 0;
             this.buildAmmoPool();

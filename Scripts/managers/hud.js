@@ -77,7 +77,27 @@ var managers;
             configurable: true
         });
         // Methods
+        HUD.prototype.Update = function () {
+            this.bCoins.forEach(function (c) {
+                c.Update();
+            });
+            this.eCoins.forEach(function (c) {
+                c.Update();
+            });
+            this.lCoins.forEach(function (c) {
+                c.Update();
+            });
+        };
         HUD.prototype.Initialize = function () {
+            var _this = this;
+            this.bCoins = new Array();
+            this.eCoins = new Array();
+            this.lCoins = new Array();
+            for (var i = 0; i < 35; i++) {
+                this.bCoins[i] = new objects.Coins("B_coin", "B");
+                this.eCoins[i] = new objects.Coins("E_coin", "E");
+                this.lCoins[i] = new objects.Coins("L_coin", "L");
+            }
             this.playerLivesLabel = new objects.Label("", "18px", "OptimusPrinceps", "#000000", 380, 668, false);
             this.playerBombsLabel = new objects.Label("", "18px", "OptimusPrinceps", "#000000", 345, 690, false);
             this.playerScoreLabel = new objects.Label("", "20px", "OptimusPrinceps", "#000000", 565, 15, false);
@@ -110,6 +130,21 @@ var managers;
                 this.addChild(this.eBackground);
                 this.addChild(this.lBackground);
                 this.addChild(this.bBackground);
+                this.bCoins.forEach(function (c) {
+                    c.scaleX = 0.75;
+                    c.scaleY = 0.75;
+                    _this.addChild(c);
+                });
+                this.eCoins.forEach(function (c) {
+                    c.scaleX = 0.75;
+                    c.scaleY = 0.75;
+                    _this.addChild(c);
+                });
+                this.lCoins.forEach(function (c) {
+                    c.scaleX = 0.75;
+                    c.scaleY = 0.75;
+                    _this.addChild(c);
+                });
                 this.addChild(this.controlPanel);
                 this.addChild(this.infoPanel);
                 this.addChild(this.info1);
@@ -118,6 +153,16 @@ var managers;
             if (managers.Game.currentScene == config.Scene.GAME) {
                 this.addChild(this.eBackground);
                 this.addChild(this.lBackground);
+                this.eCoins.forEach(function (c) {
+                    c.scaleX = 0.75;
+                    c.scaleY = 0.75;
+                    _this.addChild(c);
+                });
+                this.lCoins.forEach(function (c) {
+                    c.scaleX = 0.75;
+                    c.scaleY = 0.75;
+                    _this.addChild(c);
+                });
                 this.addChild(this.controlPanel);
                 this.addChild(this.infoPanel);
                 this.addChild(this.info1);
@@ -128,8 +173,60 @@ var managers;
                 this.addChild(this.scoreMultLabel);
                 this.addChild(this.playerLivesSprite);
             }
-            this.Lives = 3;
-            this.Bombs = 1;
+            if (managers.Game.currentScene == config.Scene.OVER) {
+                this.addChild(this.eBackground);
+                this.addChild(this.lBackground);
+                this.addChild(this.bBackground);
+                this.eCoins.forEach(function (c) {
+                    c.scaleX = 0.75;
+                    c.scaleY = 0.75;
+                    _this.addChild(c);
+                });
+                this.lCoins.forEach(function (c) {
+                    c.scaleX = 0.75;
+                    c.scaleY = 0.75;
+                    _this.addChild(c);
+                });
+                this.addChild(this.controlPanel);
+                this.addChild(this.infoPanel);
+                this.addChild(this.info1);
+                this.addChild(this.controls);
+                this.playerScoreLabel = new objects.Label("" + this.score, "30px", "OptimusPrinceps", "#000000", 400, 300, false);
+                this.addChild(this.playerScoreLabel);
+            }
+            if (managers.Game.currentScene == config.Scene.OPTIONS) {
+                this.addChild(this.eBackground);
+                this.addChild(this.lBackground);
+                this.addChild(this.bBackground);
+                this.eCoins.forEach(function (c) {
+                    c.scaleX = 0.75;
+                    c.scaleY = 0.75;
+                    _this.addChild(c);
+                });
+                this.lCoins.forEach(function (c) {
+                    c.scaleX = 0.75;
+                    c.scaleY = 0.75;
+                    _this.addChild(c);
+                });
+                this.addChild(this.controlPanel);
+                this.addChild(this.infoPanel);
+                this.addChild(this.info1);
+                this.addChild(this.controls);
+            }
+            switch (managers.Game.difficulty) {
+                case 0:
+                    this.Lives = 3;
+                    this.Bombs = 1;
+                    break;
+                case 1:
+                    this.Lives = 2;
+                    this.Bombs = 1;
+                    break;
+                case 2:
+                    this.Lives = 1;
+                    this.Bombs = 1;
+                    break;
+            }
             this.Power = 0;
             this.Score = 0;
             this.ScoreMult = 0;

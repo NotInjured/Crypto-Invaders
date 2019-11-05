@@ -6,6 +6,10 @@ module managers {
         private lBackground: objects.Image;
         private eBackground: objects.Image;
 
+        private bCoins: objects.Coins[];
+        private eCoins: objects.Coins[];
+        private lCoins: objects.Coins[];
+
         public playerLivesSprite: objects.Sprite;
         public playerLivesLabel: objects.Label;
         public playerBombsImage: objects.Image;
@@ -14,6 +18,7 @@ module managers {
         public playerPowerImage: objects.Image;
         public playerPowerLabel: objects.Label;
         public scoreMultLabel: objects.Label;
+        public gameOverLabel: objects.Label;
 
         private controlPanel: objects.Image;
         private infoPanel: objects.Image;
@@ -74,7 +79,29 @@ module managers {
         }
         // Methods
 
+        public Update():void{
+            this.bCoins.forEach(c =>{
+                c.Update();
+            })
+            this.eCoins.forEach(c =>{
+                c.Update();
+            })
+            this.lCoins.forEach(c =>{
+                c.Update();
+            })
+        }
+
         public Initialize():void{
+            this.bCoins = new Array<objects.Coins>();
+            this.eCoins = new Array<objects.Coins>();
+            this.lCoins = new Array<objects.Coins>();
+
+            for(let i = 0; i < 35; i++){
+                this.bCoins[i] = new objects.Coins("B_coin", "B");
+                this.eCoins[i] = new objects.Coins("E_coin", "E");
+                this.lCoins[i] = new objects.Coins("L_coin", "L");
+            }
+
             this.playerLivesLabel = new objects.Label("", "18px", "OptimusPrinceps","#000000", 380, 668, false );
             this.playerBombsLabel = new objects.Label("", "18px", "OptimusPrinceps","#000000", 345, 690, false );       
             this.playerScoreLabel = new objects.Label("", "20px", "OptimusPrinceps","#000000", 565, 15, false );
@@ -116,6 +143,21 @@ module managers {
                 this.addChild(this.eBackground);
                 this.addChild(this.lBackground);
                 this.addChild(this.bBackground);
+                this.bCoins.forEach(c =>{
+                    c.scaleX = 0.75;
+                    c.scaleY = 0.75;
+                    this.addChild(c)
+                })
+                this.eCoins.forEach(c =>{
+                    c.scaleX = 0.75;
+                    c.scaleY = 0.75;
+                    this.addChild(c)
+                })
+                this.lCoins.forEach(c =>{
+                    c.scaleX = 0.75;
+                    c.scaleY = 0.75;
+                    this.addChild(c)
+                })
                 this.addChild(this.controlPanel);
                 this.addChild(this.infoPanel);
                 this.addChild(this.info1);
@@ -124,6 +166,16 @@ module managers {
             if(managers.Game.currentScene == config.Scene.GAME){
                 this.addChild(this.eBackground);
                 this.addChild(this.lBackground);
+                this.eCoins.forEach(c =>{
+                    c.scaleX = 0.75;
+                    c.scaleY = 0.75;
+                    this.addChild(c)
+                })
+                this.lCoins.forEach(c =>{
+                    c.scaleX = 0.75;
+                    c.scaleY = 0.75;
+                    this.addChild(c)
+                })
                 this.addChild(this.controlPanel);
                 this.addChild(this.infoPanel);
                 this.addChild(this.info1);
@@ -134,10 +186,62 @@ module managers {
                 this.addChild(this.scoreMultLabel);
                 this.addChild(this.playerLivesSprite);
             }
+            if(managers.Game.currentScene == config.Scene.OVER){
+                this.addChild(this.eBackground);
+                this.addChild(this.lBackground);
+                this.addChild(this.bBackground);
+                this.eCoins.forEach(c =>{
+                    c.scaleX = 0.75;
+                    c.scaleY = 0.75;
+                    this.addChild(c)
+                })
+                this.lCoins.forEach(c =>{
+                    c.scaleX = 0.75;
+                    c.scaleY = 0.75;
+                    this.addChild(c)
+                })
+                this.addChild(this.controlPanel);
+                this.addChild(this.infoPanel);
+                this.addChild(this.info1);
+                this.addChild(this.controls);
+                this.playerScoreLabel = new objects.Label("" + this.score, "30px", "OptimusPrinceps","#000000", 400, 300, false );
+                this.addChild(this.playerScoreLabel);
+            }
+            if(managers.Game.currentScene == config.Scene.OPTIONS){
+                this.addChild(this.eBackground);
+                this.addChild(this.lBackground);
+                this.addChild(this.bBackground);
+                this.eCoins.forEach(c =>{
+                    c.scaleX = 0.75;
+                    c.scaleY = 0.75;
+                    this.addChild(c)
+                })
+                this.lCoins.forEach(c =>{
+                    c.scaleX = 0.75;
+                    c.scaleY = 0.75;
+                    this.addChild(c)
+                })
+                this.addChild(this.controlPanel);
+                this.addChild(this.infoPanel);
+                this.addChild(this.info1);
+                this.addChild(this.controls);
+            }
             
-
-            this.Lives = 3;
-            this.Bombs = 1;
+            switch(managers.Game.difficulty){
+                case 0:
+                    this.Lives = 3;
+                    this.Bombs = 1;
+                break;
+                case 1:
+                    this.Lives = 2;
+                    this.Bombs = 1;
+                break;
+                case 2:
+                    this.Lives = 1;
+                    this.Bombs = 1;
+                break;
+            }
+            
             this.Power = 0;
             this.Score = 0;
             this.ScoreMult = 0;

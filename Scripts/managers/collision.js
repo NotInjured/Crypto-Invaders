@@ -110,7 +110,7 @@ var managers;
                     case "Enemy_Shot":
                         console.log("Player Hit");
                         managers.Game.currentSceneObject.removeChild(object2);
-                        managers.Game.hud.Lives--;
+                        managers.Game.hud.Lives -= 1;
                         managers.Game.hud.ScoreMult = 0;
                         object1.Reset();
                         break;

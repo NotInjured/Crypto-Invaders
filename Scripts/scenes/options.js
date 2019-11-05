@@ -15,9 +15,95 @@ var scenes;
 (function (scenes) {
     var OptionsScene = /** @class */ (function (_super) {
         __extends(OptionsScene, _super);
+        // Constructor
         function OptionsScene() {
-            return _super !== null && _super.apply(this, arguments) || this;
+            var _this = _super.call(this) || this;
+            _this.Start();
+            return _this;
         }
+        // Method
+        OptionsScene.prototype.Start = function () {
+            console.log(managers.Game.difficulty);
+            this.dLabel = new objects.Label("Difficulty", "36px", "OptimusPrinceps", "#000000", 535, 250, true);
+            switch (managers.Game.difficulty) {
+                case 0:
+                    this.diffLabel = new objects.Label("Normal", "28px", "OptimusPrinceps", "#000000", 535, 300, true);
+                    break;
+                case 1:
+                    this.diffLabel = new objects.Label("Hard", "28px", "OptimusPrinceps", "#000000", 535, 300, true);
+                    break;
+                case 2:
+                    this.diffLabel = new objects.Label("Hell", "28px", "OptimusPrinceps", "#000000", 535, 300, true);
+                    break;
+            }
+            this.backButton = new objects.Button("buttonBack", 630, 555);
+            this.increaseButton = new objects.Button("buttonIncrease", 630, 375);
+            this.decreaseButton = new objects.Button("buttonDecrease", 630, 435);
+            this.hud = new managers.HUD;
+            managers.Game.hud = this.hud;
+            this.Main();
+        };
+        OptionsScene.prototype.Update = function () {
+            this.hud.Update();
+            switch (managers.Game.difficulty) {
+                case 0:
+                    this.diffLabel = new objects.Label("Normal", "28px", "OptimusPrinceps", "#000000", 535, 300, true);
+                    break;
+                case 1:
+                    this.diffLabel = new objects.Label("Hard", "28px", "OptimusPrinceps", "#000000", 535, 300, true);
+                    break;
+                case 2:
+                    this.diffLabel = new objects.Label("Hell", "28px", "OptimusPrinceps", "#000000", 535, 300, true);
+                    break;
+            }
+        };
+        OptionsScene.prototype.backButtonClick = function () {
+            managers.Game.currentScene = config.Scene.START;
+        };
+        OptionsScene.prototype.increaseButtonClick = function () {
+            switch (managers.Game.difficulty) {
+                case 0:
+                    managers.Game.difficulty = config.Difficulty.HARD;
+                    managers.Game.normal = false;
+                    managers.Game.hard = true;
+                    managers.Game.hell = false;
+                    break;
+                case 1:
+                    managers.Game.difficulty = config.Difficulty.Hell;
+                    managers.Game.normal = false;
+                    managers.Game.hard = false;
+                    managers.Game.hell = true;
+                    break;
+            }
+        };
+        OptionsScene.prototype.decreaseButtonClick = function () {
+            console.log(managers.Game.difficulty);
+            switch (managers.Game.difficulty) {
+                case 1:
+                    managers.Game.difficulty = config.Difficulty.NORMAL;
+                    managers.Game.normal = true;
+                    managers.Game.hard = false;
+                    managers.Game.hell = false;
+                    break;
+                case 2:
+                    managers.Game.difficulty = config.Difficulty.HARD;
+                    managers.Game.normal = false;
+                    managers.Game.hard = true;
+                    managers.Game.hell = false;
+                    break;
+            }
+        };
+        OptionsScene.prototype.Main = function () {
+            this.addChild(this.hud);
+            this.addChild(this.dLabel);
+            this.addChild(this.diffLabel);
+            this.addChild(this.backButton);
+            this.addChild(this.increaseButton);
+            this.addChild(this.decreaseButton);
+            this.increaseButton.on("click", this.increaseButtonClick);
+            this.decreaseButton.on("click", this.decreaseButtonClick);
+            this.backButton.on("click", this.backButtonClick);
+        };
         return OptionsScene;
     }(objects.Scene));
     scenes.OptionsScene = OptionsScene;

@@ -15,13 +15,13 @@ var managers;
         EnemyAmmo.prototype.GetAmmo = function () {
             var ammo = this.Ammo[this.CurrentAmmo];
             this.CurrentAmmo++;
-            if (managers.Game.enemyAmmoManager.CurrentAmmo > 49) {
+            if (managers.Game.enemyAmmoManager.CurrentAmmo > 4) {
                 managers.Game.enemyAmmoManager.CurrentAmmo = 0;
             }
             return ammo;
         };
         EnemyAmmo.prototype.Start = function () {
-            this.ammoCount = 50;
+            this.ammoCount = 5;
             this.Ammo = new Array();
             this.CurrentAmmo = 0;
             this.buildAmmoPool();

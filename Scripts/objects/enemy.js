@@ -25,6 +25,13 @@ var objects;
             _this.Start();
             return _this;
         }
+        Object.defineProperty(Enemy.prototype, "Angle", {
+            get: function () {
+                return this.angle;
+            },
+            enumerable: true,
+            configurable: true
+        });
         Object.defineProperty(Enemy.prototype, "Shoot", {
             get: function () {
                 return this.shoot;
@@ -44,6 +51,8 @@ var objects;
         });
         // Methods
         Enemy.prototype.Start = function () {
+            this.enemyAmmoManager = new managers.EnemyAmmo();
+            managers.Game.enemyAmmoManager = this.enemyAmmoManager;
             switch (this.sprite) {
                 case "Enemy2":
                     this.x = 550;
@@ -89,11 +98,11 @@ var objects;
             if (!this.isDead) {
                 this.Move();
                 this.CheckBounds();
+                if (this.ammo != undefined)
+                    this.ammo.Update();
                 if (this.shoot && !this.player.isInvincible && managers.Game.hud.Lives > 0)
                     managers.Collision.CheckAABB(this.player, this.ammo);
             }
-            if (this.ammo != undefined)
-                this.ammo.Update();
         };
         Enemy.prototype.Reset = function () {
             this.isDead = false;
@@ -209,9 +218,9 @@ var objects;
                         if (this.y > 350 && this.y < 400 && !this.shoot) {
                             this.ShootPlayer();
                         }
-                        if (this.y < 740)
+                        if (this.y < 730)
                             this.y += 3;
-                        if (this.y > 740)
+                        if (this.y > 720)
                             this.Reset();
                     }
                     break;
@@ -223,53 +232,39 @@ var objects;
         };
         Enemy.prototype.CheckBounds = function () {
             // Check the bottom boundary
-            if (this.y >= 720 + this.height) {
+            if (this.y >= 740 + this.height) {
                 this.y = -50;
             }
         };
         Enemy.prototype.FindPlayer = function (player) {
             this.angle = Math.atan2(player.y - this.y, player.x - this.x);
             this.angle = this.angle * (180 / Math.PI);
-            this.rotation = -90 + this.angle;
+            //this.rotation = -90  + this.angle;
             this.playerPos = new math.Vec2(player.x, player.y);
             this.player = player;
         };
         Enemy.prototype.ShootPlayer = function () {
-            switch (this.sprite) {
-                case "Enemy2":
-                    //this.shoot = false
-                    var ticker = createjs.Ticker.getTicks();
-                    if (!this.isDead && !this.shoot && ticker % 35 == 0) {
-                        this.randomNum = Math.floor(Math.random() * (2 - 1 + 1) + 1);
+            if (!this.isDead && !this.shoot) {
+                switch (this.sprite) {
+                    case "Enemy2":
+                        var ticker = createjs.Ticker.getTicks();
+                        if (ticker % 10 == 0) {
+                            this.ammoSpawn = new math.Vec2(this.x - 19, this.y - 15);
+                            this.position = new math.Vec2(this.x, this.y);
+                            this.ammo = managers.Game.enemyAmmoManager.GetAmmo();
+                            this.ammo.rotation = 90 + this.angle;
+                            this.ammo.Dir = new math.Vec2((this.playerPos.x - this.position.x) * this.ammo.Speed, (this.playerPos.y - this.position.y) * this.ammo.Speed);
+                            this.ammo.x = this.ammoSpawn.x;
+                            this.ammo.y = this.ammoSpawn.y;
+                            managers.Game.currentSceneObject.addChild(this.ammo);
+                        }
+                        break;
+                    case "Enemy3":
+                    case "Enemy4":
+                    case "Enemy5":
                         this.ammoSpawn = new math.Vec2(this.x - 19, this.y - 15);
                         this.position = new math.Vec2(this.x, this.y);
-                        this.ammo = new objects.EnemyAmmo("Enemy_Shot");
-                        this.ammo.rotation = 90 + this.angle;
-                        this.ammo.Dir = new math.Vec2((this.playerPos.x - this.position.x) * this.ammo.Speed, (this.playerPos.y - this.position.y) * this.ammo.Speed);
-                        this.ammo.x = this.ammoSpawn.x;
-                        this.ammo.y = this.ammoSpawn.y;
-                        managers.Game.currentSceneObject.addChild(this.ammo);
-                        //this.shoot = true;  
-                    }
-                    break;
-                case "Enemy3":
-                    if (!this.isDead && !this.shoot) {
-                        this.ammoSpawn = new math.Vec2(this.x - 19, this.y - 15);
-                        this.position = new math.Vec2(this.x, this.y);
-                        this.ammo = new objects.EnemyAmmo("Enemy_Shot");
-                        this.ammo.rotation = 90 + this.angle;
-                        this.ammo.Dir = new math.Vec2((this.playerPos.x - this.position.x) * this.ammo.Speed, (this.playerPos.y - this.position.y) * this.ammo.Speed);
-                        this.ammo.x = this.ammoSpawn.x;
-                        this.ammo.y = this.ammoSpawn.y;
-                        managers.Game.currentSceneObject.addChild(this.ammo);
-                        this.shoot = true;
-                    }
-                    break;
-                case "Enemy4":
-                    if (!this.isDead && !this.shoot) {
-                        this.ammoSpawn = new math.Vec2(this.x - 19, this.y - 15);
-                        this.position = new math.Vec2(this.x, this.y);
-                        this.ammo = new objects.EnemyAmmo("Enemy_Shot");
+                        this.ammo = managers.Game.enemyAmmoManager.GetAmmo();
                         this.ammo.rotation = 90 + this.angle;
                         this.ammo.Dir = new math.Vec2((this.playerPos.x - this.position.x) * this.ammo.Speed, (this.playerPos.y - this.position.y) * this.ammo.Speed);
                         this.ammo.x = this.ammoSpawn.x;
@@ -277,22 +272,8 @@ var objects;
                         //ammo.VelY = 25;
                         managers.Game.currentSceneObject.addChild(this.ammo);
                         this.shoot = true;
-                    }
-                    break;
-                case "Enemy5":
-                    if (!this.isDead && !this.shoot) {
-                        this.ammoSpawn = new math.Vec2(this.x - 19, this.y - 15);
-                        this.position = new math.Vec2(this.x, this.y);
-                        this.ammo = new objects.EnemyAmmo("Enemy_Shot");
-                        this.ammo.rotation = 90 + this.angle;
-                        this.ammo.Dir = new math.Vec2((this.playerPos.x - this.position.x) * this.ammo.Speed, (this.playerPos.y - this.position.y) * this.ammo.Speed);
-                        this.ammo.x = this.ammoSpawn.x;
-                        this.ammo.y = this.ammoSpawn.y;
-                        //ammo.VelY = 25;
-                        managers.Game.currentSceneObject.addChild(this.ammo);
-                        this.shoot = true;
-                    }
-                    break;
+                        break;
+                }
             }
         };
         return Enemy;

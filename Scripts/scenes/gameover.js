@@ -23,18 +23,32 @@ var scenes;
         }
         // Method
         GameOverScene.prototype.Start = function () {
-            this.gameOverLabel = new objects.Label("Game Over!", "40px", "Consolas", "#000000", 320, 240, true);
-            this.backButton = new objects.Button("BackButton", 320, 340);
+            this.gameOverLabel = new objects.Label("     Game Over!" + "\n" + "Ran out of lives.", "36px", "OptimusPrinceps", "#000000", 650, 240, true);
+            this.tryAgainLabel = new objects.Label("Try Again?", "20px", "OptimusPrinceps", "#000000", 535, 400, true);
+            this.diffLabel = new objects.Label("Maybe turn down the difficulty if its too hard.", "12px", "OptimusPrinceps", "#000000", 535, 690, true);
+            this.startButton = new objects.Button("buttonStart", 630, 475);
+            this.backButton = new objects.Button("buttonBack", 630, 555);
+            this.hud = new managers.HUD;
+            managers.Game.hud = this.hud;
             this.Main();
         };
         GameOverScene.prototype.Update = function () { };
         GameOverScene.prototype.backButtonClick = function () {
-            objects.Game.currentScene = config.Scene.GAME;
+            managers.Game.currentScene = config.Scene.START;
+        };
+        GameOverScene.prototype.startButtonClick = function () {
+            // Change our game state from START to GAME
+            managers.Game.currentScene = config.Scene.GAME;
         };
         GameOverScene.prototype.Main = function () {
+            this.addChild(this.hud);
             this.addChild(this.gameOverLabel);
+            this.addChild(this.tryAgainLabel);
+            this.addChild(this.diffLabel);
             this.addChild(this.backButton);
+            this.addChild(this.startButton);
             this.backButton.on("click", this.backButtonClick);
+            this.startButton.on("click", this.startButtonClick);
         };
         return GameOverScene;
     }(objects.Scene));

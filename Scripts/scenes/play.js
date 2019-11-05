@@ -30,16 +30,35 @@ var scenes;
             this.aircraft = new objects.Image("aircraft", 418, 450);
             this.ammoManager = new managers.Ammo();
             managers.Game.ammoManager = this.ammoManager;
-            this.enemyAmmoManager = new managers.EnemyAmmo();
-            managers.Game.enemyAmmoManager = this.enemyAmmoManager;
+            managers.Game.player = this.player;
+            managers.Game.timer = 600;
             this.eType2 = new objects.Enemy("Enemy2");
             this.eType3 = new Array();
             this.eType4 = new Array();
             this.eType5 = new Array();
-            for (var i = 0; i < 1; i++) {
-                this.eType3[i] = new objects.Enemy("Enemy3");
-                this.eType4[i] = new objects.Enemy("Enemy4");
-                this.eType5[i] = new objects.Enemy("Enemy5");
+            managers.Game.eType2 = this.eType2;
+            switch (managers.Game.difficulty) {
+                case 0:
+                    for (var i = 0; i < 2; i++) {
+                        this.eType3[i] = new objects.Enemy("Enemy3");
+                        this.eType4[i] = new objects.Enemy("Enemy4");
+                        this.eType5[i] = new objects.Enemy("Enemy5");
+                    }
+                    break;
+                case 1:
+                    for (var i = 0; i < 4; i++) {
+                        this.eType3[i] = new objects.Enemy("Enemy3");
+                        this.eType4[i] = new objects.Enemy("Enemy4");
+                        this.eType5[i] = new objects.Enemy("Enemy5");
+                    }
+                    break;
+                case 2:
+                    for (var i = 0; i < 6; i++) {
+                        this.eType3[i] = new objects.Enemy("Enemy3");
+                        this.eType4[i] = new objects.Enemy("Enemy4");
+                        this.eType5[i] = new objects.Enemy("Enemy5");
+                    }
+                    break;
             }
             this.hudImage = new objects.Image("HUD", 342, 0);
             this.hud = new managers.HUD;
@@ -50,17 +69,16 @@ var scenes;
         };
         PlayScene.prototype.Update = function () {
             var _this = this;
-            this.background.Update();
             this.aircraft.y += 3;
             if (this.aircraft.y > 720) {
                 this.removeChild(this.aircraft);
             }
-            this.player.Update();
-            this.IsPaused();
             this.ammoManager.Update();
-            this.ChangeShip();
-            //this.Effect();
             console.log(managers.Game.timer);
+            this.background.Update();
+            this.player.Update();
+            this.ChangeShip();
+            this.CheckCollisions();
             if (managers.Game.timer >= 598 && managers.Game.timer <= 600) {
                 if (this.player.y > 550)
                     this.player.y -= 1;
@@ -72,15 +90,14 @@ var scenes;
             if (managers.Game.timer <= 596) {
                 this.addChild(this.stageName);
             }
-            if (managers.Game.timer <= 590) {
+            if (managers.Game.timer <= 591) {
                 this.removeChild(this.stageName);
-                /*this.addChild(this.eType2);
-                    if(!this.eType2.isDead){
-                        this.eType2.FindPlayer(this.player);
-                        this.eType2.Update();
-
-                        //managers.Collision.CheckAABB(this.player, e)
-                    }*/
+                //this.addChild(this.eType2);
+                //if(!this.eType2.isDead){
+                //    this.eType2.Update();
+                //    this.eType2.FindPlayer(this.player);
+                //managers.Collision.CheckAABB(this.player, e)
+                //}
                 this.eType3.forEach(function (e) {
                     if (!e.isDead) {
                         e.Update();
@@ -100,22 +117,12 @@ var scenes;
                     }
                 });
             }
-            this.ammoManager.Ammo.forEach(function (ammo) {
-                _this.eType3.forEach(function (e) {
-                    managers.Collision.CheckAABB(ammo, e);
-                });
-                _this.eType4.forEach(function (e) {
-                    managers.Collision.CheckAABB(ammo, e);
-                });
-                _this.eType5.forEach(function (e) {
-                    managers.Collision.CheckAABB(ammo, e);
-                });
-            });
         };
         PlayScene.prototype.Main = function () {
             var _this = this;
             // Order matters when adding game objects.
             this.addChild(this.background);
+            this.SpawnTimer();
             this.eType3.forEach(function (e) {
                 _this.addChild(e);
             });
@@ -130,15 +137,22 @@ var scenes;
             this.ammoManager.Ammo.forEach(function (ammo) {
                 _this.addChild(ammo);
             });
-            this.SpawnTimer();
             this.addChild(this.hudImage);
             this.addChild(this.hud);
         };
-        PlayScene.prototype.IsPaused = function () {
-            if (managers.Game.keyboardManager.pause) {
-                managers.Game.currentScene = config.Scene.START;
-                console.log("Switching to start menu...");
-            }
+        PlayScene.prototype.CheckCollisions = function () {
+            var _this = this;
+            this.ammoManager.Ammo.forEach(function (ammo) {
+                _this.eType3.forEach(function (e) {
+                    managers.Collision.CheckAABB(ammo, e);
+                });
+                _this.eType4.forEach(function (e) {
+                    managers.Collision.CheckAABB(ammo, e);
+                });
+                _this.eType5.forEach(function (e) {
+                    managers.Collision.CheckAABB(ammo, e);
+                });
+            });
         };
         PlayScene.prototype.ChangeShip = function () {
             var _this = this;
@@ -185,7 +199,6 @@ var scenes;
             }
         };
         PlayScene.prototype.SpawnTimer = function () {
-            managers.Game.timer = 600;
             var interval = setInterval(function () {
                 managers.Game.timer--;
                 if (managers.Game.timer < 0) {

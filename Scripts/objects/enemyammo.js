@@ -19,7 +19,7 @@ var objects;
         function EnemyAmmo(ammo) {
             var _this = _super.call(this, ammo) || this;
             // Variables
-            _this.speed = 12;
+            _this.speed = 7;
             _this.Start();
             return _this;
         }
@@ -48,19 +48,23 @@ var objects;
         };
         EnemyAmmo.prototype.Update = function () {
             this.Move();
-            if (this.x > 710 || this.x < 380 ||
-                this.y > 720) {
-                managers.Game.currentSceneObject.removeChild(this);
-            }
+            this.CheckBound();
         };
         EnemyAmmo.prototype.Reset = function () {
         };
         EnemyAmmo.prototype.Main = function () { };
         EnemyAmmo.prototype.Move = function () {
-            this.y += this.dir.y * (60 / 20000);
-            this.x += this.dir.x * (60 / 20000);
+            if (this.dir != undefined) {
+                this.y += this.dir.y * (60 / 20000);
+                this.x += this.dir.x * (60 / 20000);
+            }
         };
-        EnemyAmmo.prototype.CheckBounds = function () { };
+        EnemyAmmo.prototype.CheckBounds = function () {
+            if (this.x > 710 || this.x < 340 ||
+                this.y > 720) {
+                managers.Game.currentSceneObject.removeChild(this);
+            }
+        };
         return EnemyAmmo;
     }(objects.GameObject));
     objects.EnemyAmmo = EnemyAmmo;
