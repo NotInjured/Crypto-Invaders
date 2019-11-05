@@ -32,31 +32,32 @@ var scenes;
             managers.Game.ammoManager = this.ammoManager;
             managers.Game.player = this.player;
             managers.Game.timer = 600;
-            this.eType2 = new objects.Enemy("Enemy2");
+            //this.eType2 = new objects.Enemy("Enemy2");
+            this.eType1 = new Array();
+            this.eType2 = new Array();
             this.eType3 = new Array();
-            this.eType4 = new Array();
-            this.eType5 = new Array();
-            managers.Game.eType2 = this.eType2;
+            //managers.Game.eType2 =this.eType2;
+            console.log(managers.Game.difficulty);
             switch (managers.Game.difficulty) {
                 case 0:
                     for (var i = 0; i < 2; i++) {
+                        this.eType1[i] = new objects.Enemy("Enemy1");
+                        this.eType2[i] = new objects.Enemy("Enemy2");
                         this.eType3[i] = new objects.Enemy("Enemy3");
-                        this.eType4[i] = new objects.Enemy("Enemy4");
-                        this.eType5[i] = new objects.Enemy("Enemy5");
                     }
                     break;
                 case 1:
                     for (var i = 0; i < 4; i++) {
+                        this.eType1[i] = new objects.Enemy("Enemy1");
+                        this.eType2[i] = new objects.Enemy("Enemy2");
                         this.eType3[i] = new objects.Enemy("Enemy3");
-                        this.eType4[i] = new objects.Enemy("Enemy4");
-                        this.eType5[i] = new objects.Enemy("Enemy5");
                     }
                     break;
                 case 2:
                     for (var i = 0; i < 6; i++) {
+                        this.eType1[i] = new objects.Enemy("Enemy1");
+                        this.eType2[i] = new objects.Enemy("Enemy2");
                         this.eType3[i] = new objects.Enemy("Enemy3");
-                        this.eType4[i] = new objects.Enemy("Enemy4");
-                        this.eType5[i] = new objects.Enemy("Enemy5");
                     }
                     break;
             }
@@ -77,7 +78,7 @@ var scenes;
             console.log(managers.Game.timer);
             this.background.Update();
             this.player.Update();
-            this.ChangeShip();
+            //this.ChangeShip();
             this.CheckCollisions();
             if (managers.Game.timer >= 598 && managers.Game.timer <= 600) {
                 if (this.player.y > 550)
@@ -92,25 +93,19 @@ var scenes;
             }
             if (managers.Game.timer <= 591) {
                 this.removeChild(this.stageName);
-                //this.addChild(this.eType2);
-                //if(!this.eType2.isDead){
-                //    this.eType2.Update();
-                //    this.eType2.FindPlayer(this.player);
-                //managers.Collision.CheckAABB(this.player, e)
-                //}
+                this.eType1.forEach(function (e) {
+                    if (!e.isDead) {
+                        e.Update();
+                        e.FindPlayer(_this.player);
+                    }
+                });
+                this.eType2.forEach(function (e) {
+                    if (!e.isDead) {
+                        e.Update();
+                        e.FindPlayer(_this.player);
+                    }
+                });
                 this.eType3.forEach(function (e) {
-                    if (!e.isDead) {
-                        e.Update();
-                        e.FindPlayer(_this.player);
-                    }
-                });
-                this.eType4.forEach(function (e) {
-                    if (!e.isDead) {
-                        e.Update();
-                        e.FindPlayer(_this.player);
-                    }
-                });
-                this.eType5.forEach(function (e) {
                     if (!e.isDead) {
                         e.Update();
                         e.FindPlayer(_this.player);
@@ -123,13 +118,13 @@ var scenes;
             // Order matters when adding game objects.
             this.addChild(this.background);
             this.SpawnTimer();
+            this.eType1.forEach(function (e) {
+                _this.addChild(e);
+            });
+            this.eType2.forEach(function (e) {
+                _this.addChild(e);
+            });
             this.eType3.forEach(function (e) {
-                _this.addChild(e);
-            });
-            this.eType4.forEach(function (e) {
-                _this.addChild(e);
-            });
-            this.eType5.forEach(function (e) {
                 _this.addChild(e);
             });
             this.addChild(this.aircraft);
@@ -143,13 +138,13 @@ var scenes;
         PlayScene.prototype.CheckCollisions = function () {
             var _this = this;
             this.ammoManager.Ammo.forEach(function (ammo) {
+                _this.eType1.forEach(function (e) {
+                    managers.Collision.CheckAABB(ammo, e);
+                });
+                _this.eType2.forEach(function (e) {
+                    managers.Collision.CheckAABB(ammo, e);
+                });
                 _this.eType3.forEach(function (e) {
-                    managers.Collision.CheckAABB(ammo, e);
-                });
-                _this.eType4.forEach(function (e) {
-                    managers.Collision.CheckAABB(ammo, e);
-                });
-                _this.eType5.forEach(function (e) {
                     managers.Collision.CheckAABB(ammo, e);
                 });
             });

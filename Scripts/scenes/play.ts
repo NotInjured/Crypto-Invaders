@@ -12,10 +12,10 @@ module scenes {
         private hudImage: objects.Image;
         private hud:managers.HUD;
 
-        private eType2: objects.Enemy;
+        //private eType2: objects.Enemy;
+        private eType1: objects.Enemy[];
+        private eType2: objects.Enemy[];
         private eType3: objects.Enemy[];
-        private eType4: objects.Enemy[];
-        private eType5: objects.Enemy[];
 
         private ammoManager:managers.Ammo;
         private enemyAmmoManager:managers.EnemyAmmo;
@@ -43,36 +43,36 @@ module scenes {
             managers.Game.player = this.player;
             managers.Game.timer = 600;
 
-            this.eType2 = new objects.Enemy("Enemy2");
+            //this.eType2 = new objects.Enemy("Enemy2");
+            this.eType1 = new Array<objects.Enemy>();
+            this.eType2 = new Array<objects.Enemy>();
             this.eType3 = new Array<objects.Enemy>();
-            this.eType4 = new Array<objects.Enemy>();
-            this.eType5 = new Array<objects.Enemy>();
-            managers.Game.eType2 =this.eType2;
+            //managers.Game.eType2 =this.eType2;
 
+            console.log(managers.Game.difficulty)
             switch(managers.Game.difficulty){
                 case 0:
                     for(let i = 0; i < 2; i++){
+                        this.eType1[i] = new objects.Enemy("Enemy1");
+                        this.eType2[i] = new objects.Enemy("Enemy2");
                         this.eType3[i] = new objects.Enemy("Enemy3");
-                        this.eType4[i] = new objects.Enemy("Enemy4");
-                        this.eType5[i] = new objects.Enemy("Enemy5");
                     }
                 break;
                 case 1:
                     for(let i = 0; i < 4; i++){
+                        this.eType1[i] = new objects.Enemy("Enemy1");
+                        this.eType2[i] = new objects.Enemy("Enemy2");
                         this.eType3[i] = new objects.Enemy("Enemy3");
-                        this.eType4[i] = new objects.Enemy("Enemy4");
-                        this.eType5[i] = new objects.Enemy("Enemy5");
                     }
                 break;
                 case 2:
                     for(let i = 0; i < 6; i++){
+                        this.eType1[i] = new objects.Enemy("Enemy1");
+                        this.eType2[i] = new objects.Enemy("Enemy2");
                         this.eType3[i] = new objects.Enemy("Enemy3");
-                        this.eType4[i] = new objects.Enemy("Enemy4");
-                        this.eType5[i] = new objects.Enemy("Enemy5");
                     }
                 break;
             }
-            
 
             this.hudImage = new objects.Image("HUD", 342, 0);  
 
@@ -93,7 +93,7 @@ module scenes {
             console.log(managers.Game.timer);
                 this.background.Update();
                 this.player.Update();
-                this.ChangeShip();
+                //this.ChangeShip();
                 this.CheckCollisions()
             
                 if(managers.Game.timer >= 598 && managers.Game.timer <= 600){
@@ -109,27 +109,20 @@ module scenes {
                 }
                 if(managers.Game.timer <= 591){
                     this.removeChild(this.stageName)
-                    //this.addChild(this.eType2);
-                    //if(!this.eType2.isDead){
-                    //    this.eType2.Update();
-                    //    this.eType2.FindPlayer(this.player);
-                        //managers.Collision.CheckAABB(this.player, e)
-                    //}
-                        
-                    this.eType3.forEach(e =>{
+                    this.eType1.forEach(e =>{
                         if(!e.isDead){
                             e.Update();
                             e.FindPlayer(this.player);
                         }
                     })
                     
-                    this.eType4.forEach(e =>{
+                    this.eType2.forEach(e =>{
                         if(!e.isDead){
                             e.Update();
                             e.FindPlayer(this.player);
                         }
                     })
-                    this.eType5.forEach(e =>{
+                    this.eType3.forEach(e =>{
                         if(!e.isDead){
                             e.Update();
                             e.FindPlayer(this.player);
@@ -143,13 +136,13 @@ module scenes {
             this.addChild(this.background);
             this.SpawnTimer()
             
+            this.eType1.forEach(e =>{
+                this.addChild(e);
+            })
+            this.eType2.forEach(e =>{
+                this.addChild(e);
+            })
             this.eType3.forEach(e =>{
-                this.addChild(e);
-            })
-            this.eType4.forEach(e =>{
-                this.addChild(e);
-            })
-            this.eType5.forEach(e =>{
                 this.addChild(e);
             })
             this.addChild(this.aircraft);
@@ -165,13 +158,13 @@ module scenes {
 
         public CheckCollisions():void{
             this.ammoManager.Ammo.forEach(ammo =>{
+                this.eType1.forEach(e =>{
+                    managers.Collision.CheckAABB(ammo, e);
+                })
+                this.eType2.forEach(e =>{
+                    managers.Collision.CheckAABB(ammo, e);
+                })
                 this.eType3.forEach(e =>{
-                    managers.Collision.CheckAABB(ammo, e);
-                })
-                this.eType4.forEach(e =>{
-                    managers.Collision.CheckAABB(ammo, e);
-                })
-                this.eType5.forEach(e =>{
                     managers.Collision.CheckAABB(ammo, e);
                 })
             })

@@ -117,7 +117,7 @@ var managers;
                 "Score multiplier is gained upon destroying enemies" + "\n" +
                 "and is lost when dead", "14px", "OptimusPrimus", "#000000", 740, 235, false);
             this.controls = new objects.Label("Arrow Keys - Movement" + "\n\n" + "           X - Shoot"
-                + "\n\n" + "Z - Bombs (Not Working)" + "\n\n" + "    Space - Swap Ships", "24px", "OptimusPrimus", "#000000", 50, 285, false);
+                + "\n\n" + "   Z - Bombs (Disabled)" + "\n\n" + "    Space - Swap Ships" + "\n" + "            (Disabled)", "24px", "OptimusPrimus", "#000000", 50, 285, false);
             this.controlPanel = new objects.Image("panelUI", 5, 175);
             this.infoPanel = new objects.Image("panelInfo", 710, 175);
             this.playerLivesSprite = new objects.Sprite("Ship1", 370, 688);

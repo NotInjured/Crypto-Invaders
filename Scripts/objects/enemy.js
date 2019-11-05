@@ -51,18 +51,12 @@ var objects;
         });
         // Methods
         Enemy.prototype.Start = function () {
-            this.enemyAmmoManager = new managers.EnemyAmmo();
-            managers.Game.enemyAmmoManager = this.enemyAmmoManager;
             switch (this.sprite) {
-                case "Enemy2":
-                    this.x = 550;
-                    this.y = 200;
-                    break;
-                case "Enemy3":
+                case "Enemy1":
                     this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
                     this.y = Math.floor(Math.random() * -720) + -50;
                     break;
-                case "Enemy4":
+                case "Enemy2":
                     this.randomNum = Math.floor(Math.random() * (2 - 1 + 1) + 1);
                     switch (this.randomNum) {
                         case 1:
@@ -75,7 +69,7 @@ var objects;
                             break;
                     }
                     break;
-                case "Enemy5":
+                case "Enemy3":
                     this.randomNum = Math.floor(Math.random() * (2 - 1 + 1) + 1);
                     switch (this.randomNum) {
                         case 1:
@@ -88,7 +82,7 @@ var objects;
                             break;
                     }
                     break;
-                case "Enemy6":
+                case "Enemy4":
                     this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
                     this.y = Math.floor(Math.random() * -720) + -50;
                     break;
@@ -100,7 +94,7 @@ var objects;
                 this.CheckBounds();
                 if (this.ammo != undefined)
                     this.ammo.Update();
-                if (this.shoot && !this.player.isInvincible && managers.Game.hud.Lives > 0)
+                if (this.shoot && !this.player.isInvincible && managers.Game.hud.Lives >= 0)
                     managers.Collision.CheckAABB(this.player, this.ammo);
             }
         };
@@ -109,11 +103,11 @@ var objects;
             this.back = false;
             this.shoot = false;
             switch (this.sprite) {
-                case "Enemy3":
+                case "Enemy1":
                     this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
                     this.y = Math.floor(Math.random() * -720) + -50;
                     break;
-                case "Enemy4":
+                case "Enemy2":
                     this.randomNum = Math.floor(Math.random() * (2 - 1 + 1) + 1);
                     switch (this.randomNum) {
                         case 1:
@@ -126,7 +120,7 @@ var objects;
                             break;
                     }
                     break;
-                case "Enemy5":
+                case "Enemy3":
                     this.randomNum = Math.floor(Math.random() * (2 - 1 + 1) + 1);
                     switch (this.randomNum) {
                         case 1:
@@ -139,7 +133,7 @@ var objects;
                             break;
                     }
                     break;
-                case "Enemy6":
+                case "Enemy4":
                     this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
                     this.y = Math.floor(Math.random() * -720) + -50;
                     break;
@@ -148,30 +142,23 @@ var objects;
         Enemy.prototype.Move = function () {
             switch (this.sprite) {
                 case "Enemy1":
-                    break;
-                case "Enemy2":
-                    this.ShootPlayer();
-                    break;
-                case "Enemy3":
                     if (this.y >= 300 && !this.back) {
                         this.ShootPlayer();
                         this.shootNum += 1;
                         this.back = true;
                     }
-                    else if (this.y < 300 && !this.back) {
+                    else if (this.y < 300 && !this.back)
                         this.y += 5;
-                    }
                     else if (this.back && this.y > -200) {
                         this.y -= 2;
                         this.shoot = false;
                         if (this.y < 100 && !this.shoot && this.shootNum == 1)
                             this.ShootPlayer();
                     }
-                    else if (this.back && this.y < -190) {
+                    else if (this.back && this.y < -190)
                         this.Reset();
-                    }
                     break;
-                case "Enemy4":
+                case "Enemy2":
                     switch (this.randomNum) {
                         case 1:
                             if (this.x < 1000 && !this.back) {
@@ -213,16 +200,17 @@ var objects;
                             break;
                     }
                     break;
+                case "Enemy3":
+                    if (this.y > 350 && this.y < 400 && !this.shoot)
+                        this.ShootPlayer();
+                    if (this.y < 730)
+                        this.y += 3;
+                    if (this.y > 720)
+                        this.Reset();
+                    break;
+                case "Enemy4":
+                    break;
                 case "Enemy5":
-                    {
-                        if (this.y > 350 && this.y < 400 && !this.shoot) {
-                            this.ShootPlayer();
-                        }
-                        if (this.y < 730)
-                            this.y += 3;
-                        if (this.y > 720)
-                            this.Reset();
-                    }
                     break;
                 case "Enemy6":
                     break;
@@ -246,32 +234,42 @@ var objects;
         Enemy.prototype.ShootPlayer = function () {
             if (!this.isDead && !this.shoot) {
                 switch (this.sprite) {
+                    case "Enemy1":
                     case "Enemy2":
+                    case "Enemy3":
+                    case "Enemy4":
+                    case "Enemy5":
+                    case "Enemy6":
+                    case "Enemy7":
+                    case "Enemy8":
+                    case "Enemy9":
+                    case "Enemy10":
+                    case "Enemy11":
+                        this.ammoSpawn = new math.Vec2(this.x - 19, this.y - 15);
+                        this.position = new math.Vec2(this.x, this.y);
+                        this.ammo = new objects.EnemyAmmo("Enemy1_Shot");
+                        this.ammo.scaleX = 1.5;
+                        this.ammo.scaleY = 1.5;
+                        //this.ammo.rotation = 90 + this.angle;
+                        this.ammo.Dir = new math.Vec2((this.playerPos.x - this.position.x) * this.ammo.Speed, (this.playerPos.y - this.position.y) * this.ammo.Speed);
+                        this.ammo.x = this.ammoSpawn.x;
+                        this.ammo.y = this.ammoSpawn.y;
+                        managers.Game.currentSceneObject.addChild(this.ammo);
+                        this.shoot = true;
+                        break;
+                    case "Enemy12":
+                    case "Enemy13":
                         var ticker = createjs.Ticker.getTicks();
                         if (ticker % 10 == 0) {
                             this.ammoSpawn = new math.Vec2(this.x - 19, this.y - 15);
                             this.position = new math.Vec2(this.x, this.y);
-                            this.ammo = managers.Game.enemyAmmoManager.GetAmmo();
-                            this.ammo.rotation = 90 + this.angle;
+                            this.ammo = new objects.EnemyAmmo("Enemy1_Shot");
+                            //this.ammo.rotation = 90 + this.angle;
                             this.ammo.Dir = new math.Vec2((this.playerPos.x - this.position.x) * this.ammo.Speed, (this.playerPos.y - this.position.y) * this.ammo.Speed);
                             this.ammo.x = this.ammoSpawn.x;
                             this.ammo.y = this.ammoSpawn.y;
                             managers.Game.currentSceneObject.addChild(this.ammo);
                         }
-                        break;
-                    case "Enemy3":
-                    case "Enemy4":
-                    case "Enemy5":
-                        this.ammoSpawn = new math.Vec2(this.x - 19, this.y - 15);
-                        this.position = new math.Vec2(this.x, this.y);
-                        this.ammo = managers.Game.enemyAmmoManager.GetAmmo();
-                        this.ammo.rotation = 90 + this.angle;
-                        this.ammo.Dir = new math.Vec2((this.playerPos.x - this.position.x) * this.ammo.Speed, (this.playerPos.y - this.position.y) * this.ammo.Speed);
-                        this.ammo.x = this.ammoSpawn.x;
-                        this.ammo.y = this.ammoSpawn.y;
-                        //ammo.VelY = 25;
-                        managers.Game.currentSceneObject.addChild(this.ammo);
-                        this.shoot = true;
                         break;
                 }
             }

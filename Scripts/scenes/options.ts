@@ -49,21 +49,25 @@ module scenes {
 
         public Update():void {
             this.hud.Update()
-
-            switch(managers.Game.difficulty){
-                case 0:
-                    this.diffLabel = new objects.Label(
-                        "Normal", "28px", "OptimusPrinceps", "#000000", 535, 300, true);
-                break;
-                case 1:
-                    this.diffLabel = new objects.Label(
-                        "Hard", "28px", "OptimusPrinceps", "#000000", 535, 300, true);
-                break;
-                case 2:
-                    this.diffLabel = new objects.Label(
-                        "Hell", "28px", "OptimusPrinceps", "#000000", 535, 300, true);
-                break;
+            if(managers.Game.normal){
+                this.removeChild(this.diffLabel)
+                this.diffLabel = new objects.Label(
+                    "Normal", "28px", "OptimusPrinceps", "#000000", 535, 300, true);
+                this.addChild(this.diffLabel)
             }
+            if(managers.Game.hard){
+                this.removeChild(this.diffLabel)
+                this.diffLabel = new objects.Label(
+                    "Hard", "28px", "OptimusPrinceps", "#000000", 535, 300, true);
+                this.addChild(this.diffLabel)
+            }
+            if(managers.Game.hell){
+                this.removeChild(this.diffLabel)
+                this.diffLabel = new objects.Label(
+                    "Hell", "28px", "OptimusPrinceps", "#000000", 535, 300, true);
+                this.addChild(this.diffLabel)
+            }
+            
         }
 
         private backButtonClick():void {
@@ -71,6 +75,7 @@ module scenes {
         }
         
         private increaseButtonClick():void {
+            console.log(managers.Game.difficulty)
             switch(managers.Game.difficulty){
                 case 0:
                     managers.Game.difficulty = config.Difficulty.HARD

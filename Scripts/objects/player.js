@@ -63,8 +63,8 @@ var objects;
                     this.RespawnTimer();
                 }
             }
-            if (managers.Game.hud.Lives == 0 && this.isDead) {
-                this.RespawnTimer();
+            if (managers.Game.hud.Lives <= 0 && this.isDead) {
+                //this.RespawnTimer();
                 managers.Game.over = true;
                 managers.Game.currentScene = config.Scene.OVER;
             }
