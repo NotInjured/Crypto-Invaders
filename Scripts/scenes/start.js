@@ -27,15 +27,15 @@ var scenes;
             this.optionButton = new objects.Button("buttonOptions", 630, 455);
             this.hud = new managers.HUD;
             managers.Game.hud = this.hud;
-            /*if(managers.Game.normal){
+            if (managers.Game.normal) {
                 managers.Game.difficulty = config.Difficulty.NORMAL;
             }
-            if(managers.Game.hard){
+            if (managers.Game.hard) {
                 managers.Game.difficulty = config.Difficulty.HARD;
             }
-            if(managers.Game.hell){
+            if (managers.Game.hell) {
                 managers.Game.difficulty = config.Difficulty.Hell;
-            }*/
+            }
             this.Main();
         };
         StartScene.prototype.Update = function () {

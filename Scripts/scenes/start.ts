@@ -25,7 +25,7 @@ module scenes {
             this.hud = new managers.HUD;
             managers.Game.hud = this.hud;
             
-            /*if(managers.Game.normal){
+            if(managers.Game.normal){
                 managers.Game.difficulty = config.Difficulty.NORMAL;
             }
             if(managers.Game.hard){
@@ -33,7 +33,7 @@ module scenes {
             }
             if(managers.Game.hell){
                 managers.Game.difficulty = config.Difficulty.Hell;
-            }*/
+            }
 
             this.Main();
         }
