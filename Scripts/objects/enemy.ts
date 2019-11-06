@@ -4,6 +4,7 @@ module objects {
         public isDead:boolean = false;
         private back:boolean;
         private shoot:boolean = false;
+        public isInvincible: boolean = false;
 
         private angle:number;
         private shootNum:number;

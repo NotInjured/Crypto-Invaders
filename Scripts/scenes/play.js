@@ -111,6 +111,7 @@ var scenes;
                 }
                 this.eType1.forEach(function (e) {
                     if (!e.isDead) {
+                        e.isInvincible = false;
                         e.Update();
                         e.FindPlayer(_this.player);
                     }
@@ -119,6 +120,7 @@ var scenes;
             if (managers.Game.timer <= 581) {
                 this.eType2.forEach(function (e) {
                     if (!e.isDead) {
+                        e.isInvincible = false;
                         e.Update();
                         e.FindPlayer(_this.player);
                     }
@@ -127,6 +129,7 @@ var scenes;
             if (managers.Game.timer <= 576) {
                 this.eType3.forEach(function (e) {
                     if (!e.isDead) {
+                        e.isInvincible = false;
                         e.Update();
                         e.FindPlayer(_this.player);
                     }
@@ -155,12 +158,15 @@ var scenes;
             this.SpawnTimer();
             this.eType1.forEach(function (e) {
                 _this.addChild(e);
+                e.isInvincible = true;
             });
             this.eType2.forEach(function (e) {
                 _this.addChild(e);
+                e.isInvincible = true;
             });
             this.eType3.forEach(function (e) {
                 _this.addChild(e);
+                e.isInvincible = true;
             });
             this.addChild(this.aircraft);
             this.addChild(this.player);
@@ -174,13 +180,16 @@ var scenes;
             var _this = this;
             this.ammoManager.Ammo.forEach(function (ammo) {
                 _this.eType1.forEach(function (e) {
-                    managers.Collision.CheckAABB(ammo, e);
+                    if (!e.isInvincible)
+                        managers.Collision.CheckAABB(ammo, e);
                 });
                 _this.eType2.forEach(function (e) {
-                    managers.Collision.CheckAABB(ammo, e);
+                    if (!e.isInvincible)
+                        managers.Collision.CheckAABB(ammo, e);
                 });
                 _this.eType3.forEach(function (e) {
-                    managers.Collision.CheckAABB(ammo, e);
+                    if (!e.isInvincible)
+                        managers.Collision.CheckAABB(ammo, e);
                 });
                 managers.Collision.CheckAABB(ammo, _this.eBoss1);
             });

@@ -218,6 +218,7 @@
         {id: "aircraft", src:"./Assets/Aircraft.png"},
         {id: "panelInfo", src:"./Assets/panelInfo.png"},
         {id: "panelUI", src:"./Assets/panelUI.png"},
+        {id: "logo", src:"./Assets/Logo.png"}
         {id: "HUD", src:"./Assets/HUD.png"},
         {id: "backgroundB", src:"./Assets/B_background.png"},
         {id: "backgroundL", src:"./Assets/L_background.png"},

@@ -5,6 +5,7 @@ module managers {
         private bBackground: objects.Image;
         private lBackground: objects.Image;
         private eBackground: objects.Image;
+        private logo:objects.Image;
 
         private bCoins: objects.Coins[];
         private eCoins: objects.Coins[];
@@ -138,6 +139,9 @@ module managers {
             this.bBackground = new objects.Image("backgroundB", 343, 0);
             this.eBackground = new objects.Image("backgroundE", 712, 0);
             this.lBackground = new objects.Image("backgroundL", 0, 0);
+            this.logo = new objects.Image("logo", 490, 600)
+            this.logo.scaleX = 0.25
+            this.logo.scaleY = 0.25
 
             if(managers.Game.currentScene == config.Scene.START){
                 this.addChild(this.eBackground);
@@ -158,6 +162,7 @@ module managers {
                     c.scaleY = 0.75;
                     this.addChild(c)
                 })
+                this.addChild(this.logo)
                 this.addChild(this.controlPanel);
                 this.addChild(this.infoPanel);
                 this.addChild(this.info1);
@@ -190,6 +195,11 @@ module managers {
                 this.addChild(this.eBackground);
                 this.addChild(this.lBackground);
                 this.addChild(this.bBackground);
+                this.bCoins.forEach(c =>{
+                    c.scaleX = 0.75;
+                    c.scaleY = 0.75;
+                    this.addChild(c)
+                })
                 this.eCoins.forEach(c =>{
                     c.scaleX = 0.75;
                     c.scaleY = 0.75;
@@ -209,6 +219,11 @@ module managers {
                 this.addChild(this.eBackground);
                 this.addChild(this.lBackground);
                 this.addChild(this.bBackground);
+                this.bCoins.forEach(c =>{
+                    c.scaleX = 0.75;
+                    c.scaleY = 0.75;
+                    this.addChild(c)
+                })
                 this.eCoins.forEach(c =>{
                     c.scaleX = 0.75;
                     c.scaleY = 0.75;

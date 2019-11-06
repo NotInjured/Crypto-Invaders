@@ -21,6 +21,7 @@ var objects;
             // Variables
             _this.isDead = false;
             _this.shoot = false;
+            _this.isInvincible = false;
             _this.sprite = sprite;
             _this.Start();
             return _this;

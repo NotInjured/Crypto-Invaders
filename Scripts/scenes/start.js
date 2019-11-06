@@ -22,6 +22,7 @@ var scenes;
             return _this;
         }
         StartScene.prototype.Start = function () {
+            createjs.Sound.stop();
             this.bgm = createjs.Sound.play("mainMenu");
             this.bgm.loop = -1;
             this.bgm.volume = 0.1;

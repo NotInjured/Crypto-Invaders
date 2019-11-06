@@ -130,6 +130,7 @@ module scenes {
                 }
                 this.eType1.forEach(e =>{
                     if(!e.isDead){
+                        e.isInvincible = false;
                         e.Update();
                         e.FindPlayer(this.player);
                     }
@@ -138,6 +139,7 @@ module scenes {
             if(managers.Game.timer <= 581){
                 this.eType2.forEach(e =>{
                     if(!e.isDead){
+                        e.isInvincible = false;
                         e.Update();
                         e.FindPlayer(this.player);
                     }
@@ -146,6 +148,7 @@ module scenes {
             if(managers.Game.timer <= 576){
                 this.eType3.forEach(e =>{
                     if(!e.isDead){
+                        e.isInvincible = false;
                         e.Update();
                         e.FindPlayer(this.player);
                     }
@@ -176,12 +179,15 @@ module scenes {
             
             this.eType1.forEach(e =>{
                 this.addChild(e);
+                e.isInvincible = true;
             })
             this.eType2.forEach(e =>{
                 this.addChild(e);
+                e.isInvincible = true;
             })
             this.eType3.forEach(e =>{
                 this.addChild(e);
+                e.isInvincible = true;
             })
             this.addChild(this.aircraft);
             this.addChild(this.player);
@@ -197,13 +203,16 @@ module scenes {
         public CheckCollisions():void{
             this.ammoManager.Ammo.forEach(ammo =>{
                 this.eType1.forEach(e =>{
-                    managers.Collision.CheckAABB(ammo, e);
+                    if(!e.isInvincible)
+                        managers.Collision.CheckAABB(ammo, e);
                 })
                 this.eType2.forEach(e =>{
-                    managers.Collision.CheckAABB(ammo, e);
+                    if(!e.isInvincible)
+                        managers.Collision.CheckAABB(ammo, e);
                 })
                 this.eType3.forEach(e =>{
-                    managers.Collision.CheckAABB(ammo, e);
+                    if(!e.isInvincible)
+                        managers.Collision.CheckAABB(ammo, e);
                 })
                 
                 managers.Collision.CheckAABB(ammo, this.eBoss1);

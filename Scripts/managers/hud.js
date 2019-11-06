@@ -126,6 +126,9 @@ var managers;
             this.bBackground = new objects.Image("backgroundB", 343, 0);
             this.eBackground = new objects.Image("backgroundE", 712, 0);
             this.lBackground = new objects.Image("backgroundL", 0, 0);
+            this.logo = new objects.Image("logo", 490, 600);
+            this.logo.scaleX = 0.25;
+            this.logo.scaleY = 0.25;
             if (managers.Game.currentScene == config.Scene.START) {
                 this.addChild(this.eBackground);
                 this.addChild(this.lBackground);
@@ -145,6 +148,7 @@ var managers;
                     c.scaleY = 0.75;
                     _this.addChild(c);
                 });
+                this.addChild(this.logo);
                 this.addChild(this.controlPanel);
                 this.addChild(this.infoPanel);
                 this.addChild(this.info1);
@@ -177,6 +181,11 @@ var managers;
                 this.addChild(this.eBackground);
                 this.addChild(this.lBackground);
                 this.addChild(this.bBackground);
+                this.bCoins.forEach(function (c) {
+                    c.scaleX = 0.75;
+                    c.scaleY = 0.75;
+                    _this.addChild(c);
+                });
                 this.eCoins.forEach(function (c) {
                     c.scaleX = 0.75;
                     c.scaleY = 0.75;
@@ -196,6 +205,11 @@ var managers;
                 this.addChild(this.eBackground);
                 this.addChild(this.lBackground);
                 this.addChild(this.bBackground);
+                this.bCoins.forEach(function (c) {
+                    c.scaleX = 0.75;
+                    c.scaleY = 0.75;
+                    _this.addChild(c);
+                });
                 this.eCoins.forEach(function (c) {
                     c.scaleX = 0.75;
                     c.scaleY = 0.75;

@@ -37,7 +37,9 @@ var scenes;
             this.backButton = new objects.Button("buttonBack", 630, 555);
             this.Main();
         };
-        GameOverScene.prototype.Update = function () { };
+        GameOverScene.prototype.Update = function () {
+            this.hud.Update();
+        };
         GameOverScene.prototype.backButtonClick = function () {
             managers.Game.currentScene = config.Scene.START;
         };

@@ -43,7 +43,9 @@ module scenes {
             this.Main();
         }
 
-        public Update():void {}
+        public Update():void {
+            this.hud.Update()
+        }
 
         private backButtonClick():void {
             managers.Game.currentScene = config.Scene.START;
