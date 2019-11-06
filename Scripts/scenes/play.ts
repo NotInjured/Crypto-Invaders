@@ -17,7 +17,7 @@ module scenes {
         private eType3: objects.Enemy[];
         private eBoss1: objects.Enemy;
 
-        private ammoManager:managers.Ammo;
+        private bulletManager:managers.Bullet;
 
         private bgm:createjs.AbstractSoundInstance;
 
@@ -44,8 +44,8 @@ module scenes {
 
             this.aircraft = new objects.Image("aircraft", 418, 450);
             
-            this.ammoManager = new managers.Ammo();
-            managers.Game.ammoManager = this.ammoManager;
+            this.bulletManager = new managers.Bullet();
+            managers.Game.bulletManager = this.bulletManager;
 
             managers.Game.player = this.player;
             managers.Game.timer = 600;
@@ -105,7 +105,7 @@ module scenes {
             if(this.aircraft.y > 720){
                 this.removeChild(this.aircraft);
             }
-            this.ammoManager.Update();
+            this.bulletManager.Update();
             console.log(managers.Game.timer);
             this.background.Update();
             this.player.Update();
@@ -192,8 +192,8 @@ module scenes {
             this.addChild(this.aircraft);
             this.addChild(this.player);
 
-            this.ammoManager.Ammo.forEach(ammo =>{
-                this.addChild(ammo);
+            this.bulletManager.Bullet.forEach(bullet =>{
+                this.addChild(bullet);
             })
 
             this.addChild(this.hudImage);
@@ -201,21 +201,21 @@ module scenes {
         }
 
         public CheckCollisions():void{
-            this.ammoManager.Ammo.forEach(ammo =>{
+            this.bulletManager.Bullet.forEach(bullet =>{
                 this.eType1.forEach(e =>{
                     if(!e.isInvincible)
-                        managers.Collision.CheckAABB(ammo, e);
+                        managers.Collision.CheckAABB(bullet, e);
                 })
                 this.eType2.forEach(e =>{
                     if(!e.isInvincible)
-                        managers.Collision.CheckAABB(ammo, e);
+                        managers.Collision.CheckAABB(bullet, e);
                 })
                 this.eType3.forEach(e =>{
                     if(!e.isInvincible)
-                        managers.Collision.CheckAABB(ammo, e);
+                        managers.Collision.CheckAABB(bullet, e);
                 })
                 
-                managers.Collision.CheckAABB(ammo, this.eBoss1);
+                managers.Collision.CheckAABB(bullet, this.eBoss1);
             })
         }
         
@@ -226,7 +226,7 @@ module scenes {
                     let playerPosX = this.player.x;
                     let playerPosY = this.player.y;
                     this.removeChild(this.player);
-                    this.ammoManager.Ammo.forEach(ammo =>{
+                    this.bulletManager.Bullet.forEach(ammo =>{
                         this.removeChild(ammo);
                     });
                     
@@ -237,9 +237,9 @@ module scenes {
                             console.log("Changing to Lightcoin Ship"); 
                             console.log(this.player.ShipType);
                                                     
-                            this.ammoManager.buildAmmoPool(this.player.ShipType, this.player.POWER);
-                            this.ammoManager.Ammo.forEach(ammo =>{
-                                this.addChild(ammo);
+                            this.bulletManager.buildBulletPool(this.player.ShipType, this.player.POWER);
+                            this.bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
                             });
                         break;       
                         case config.Ship.Lightcoin:
@@ -250,9 +250,9 @@ module scenes {
                             console.log(this.player.ShipType);
     
                             
-                            this.ammoManager.buildAmmoPool(this.player.ShipType, this.player.POWER);
-                            this.ammoManager.Ammo.forEach(ammo =>{
-                                this.addChild(ammo);
+                            this.bulletManager.buildBulletPool(this.player.ShipType, this.player.POWER);
+                            this.bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
                             });
                         break;
                         case config.Ship.Enderium:
@@ -262,9 +262,9 @@ module scenes {
                             console.log("Changing to Botcoin Ship");
                             console.log(this.player.ShipType); 
                             
-                            this.ammoManager.buildAmmoPool(this.player.ShipType, this.player.POWER);
-                            this.ammoManager.Ammo.forEach(ammo =>{
-                                this.addChild(ammo);
+                            this.bulletManager.buildBulletPool(this.player.ShipType, this.player.POWER);
+                            this.bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
                             });
                         break;
                     }

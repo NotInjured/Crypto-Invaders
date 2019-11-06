@@ -13,36 +13,36 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var objects;
 (function (objects) {
-    var Ammo = /** @class */ (function (_super) {
-        __extends(Ammo, _super);
+    var Bullet = /** @class */ (function (_super) {
+        __extends(Bullet, _super);
         // Constructor
-        function Ammo(ammo) {
-            var _this = _super.call(this, ammo) || this;
+        function Bullet(bullet) {
+            var _this = _super.call(this, bullet) || this;
             // Variables
             _this.speed = -10;
             _this.Start();
             return _this;
         }
         // Methods
-        Ammo.prototype.Start = function () {
+        Bullet.prototype.Start = function () {
             this.speedY = this.speed;
             this.Reset();
         };
-        Ammo.prototype.Update = function () {
+        Bullet.prototype.Update = function () {
             this.Move();
         };
-        Ammo.prototype.Reset = function () {
+        Bullet.prototype.Reset = function () {
         };
-        Ammo.prototype.Main = function () { };
-        Ammo.prototype.Move = function () {
+        Bullet.prototype.Main = function () { };
+        Bullet.prototype.Move = function () {
             this.y += this.speedY;
         };
-        Ammo.prototype.CheckBounds = function () {
+        Bullet.prototype.CheckBounds = function () {
             if (this.y < -10)
                 managers.Game.currentSceneObject.removeChild(this);
         };
-        return Ammo;
+        return Bullet;
     }(objects.GameObject));
-    objects.Ammo = Ammo;
+    objects.Bullet = Bullet;
 })(objects || (objects = {}));
-//# sourceMappingURL=ammo.js.map
+//# sourceMappingURL=bullet.js.map

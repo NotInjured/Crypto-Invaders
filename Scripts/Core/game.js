@@ -283,16 +283,6 @@
                 currentScene = new scenes.OptionsScene();
                 stage.addChild(currentScene);
                 break;
-            case config.Scene.HELP:
-                stage.removeAllChildren();
-                currentScene = new scenes.HelpScene();
-                stage.addChild(currentScene);
-                break;
-            case config.Scene.INFO:
-                stage.removeAllChildren();
-                currentScene = new scenes.InfoScene();
-                stage.addChild(currentScene);
-                break;
             case config.Scene.GAME:
                 stage.removeAllChildren();
                 currentScene = new scenes.PlayScene();

@@ -306,6 +306,18 @@
                 <false/>
             </struct>
             <key type="filename">Arc_Shoot.png</key>
+            <key type="filename">Enemy10_Shot.png</key>
+            <key type="filename">Enemy12_Shot.png</key>
+            <key type="filename">Enemy13_Shot.png</key>
+            <key type="filename">Enemy1_Shot.png</key>
+            <key type="filename">Enemy2_Shot.png</key>
+            <key type="filename">Enemy3_Shot.png</key>
+            <key type="filename">Enemy4_Shot.png</key>
+            <key type="filename">Enemy5_Shot.png</key>
+            <key type="filename">Enemy6_Shot.png</key>
+            <key type="filename">Enemy7_Shot.png</key>
+            <key type="filename">Enemy8_Shot.png</key>
+            <key type="filename">Enemy9_Shot.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -358,8 +370,12 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">Enemy.png</key>
+            <key type="filename">Enemy1.png</key>
+            <key type="filename">Enemy11.png</key>
             <key type="filename">Enemy2.png</key>
+            <key type="filename">Enemy4.png</key>
+            <key type="filename">Enemy6.png</key>
+            <key type="filename">Enemy9.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -368,9 +384,9 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>7,7,14,15</rect>
+                <rect>8,8,15,15</rect>
                 <key>scale9Paddings</key>
-                <rect>7,7,14,15</rect>
+                <rect>8,8,15,15</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -384,74 +400,14 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>8,8,16,15</rect>
+                <rect>8,8,15,16</rect>
                 <key>scale9Paddings</key>
-                <rect>8,8,16,15</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">Enemy10_Shot.png</key>
-            <key type="filename">Enemy3_Shot.png</key>
-            <key type="filename">Enemy4_Shot.png</key>
-            <key type="filename">Enemy5_Shot.png</key>
-            <key type="filename">Enemy6_Shot.png</key>
-            <key type="filename">Enemy7_Shot.png</key>
-            <key type="filename">Enemy8_Shot.png</key>
-            <key type="filename">Enemy9_Shot.png</key>
-            <key type="filename">Laser_Shoot_1.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>spriteScale</key>
-                <double>1</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>2,4,5,7</rect>
-                <key>scale9Paddings</key>
-                <rect>2,4,5,7</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">Enemy11.png</key>
-            <key type="filename">Enemy13.png</key>
-            <key type="filename">Enemy4.png</key>
-            <key type="filename">Enemy5.png</key>
-            <key type="filename">Enemy6.png</key>
-            <key type="filename">Enemy8.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>spriteScale</key>
-                <double>1</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>8,8,15,15</rect>
-                <key>scale9Paddings</key>
-                <rect>8,8,15,15</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">Enemy11_Shot.png</key>
-            <key type="filename">Enemy13_Shot.png</key>
-            <key type="filename">Enemy2_Shot.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>spriteScale</key>
-                <double>1</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>3,4,5,7</rect>
-                <key>scale9Paddings</key>
-                <rect>3,4,5,7</rect>
+                <rect>8,8,15,16</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
             <key type="filename">Enemy12.png</key>
-            <key type="filename">Enemy9.png</key>
+            <key type="filename">Enemy13.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -460,9 +416,9 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>8,8,15,16</rect>
+                <rect>7,7,14,15</rect>
                 <key>scale9Paddings</key>
-                <rect>8,8,15,16</rect>
+                <rect>7,7,14,15</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -481,7 +437,8 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">Enemy_Shot.png</key>
+            <key type="filename">Enemy5.png</key>
+            <key type="filename">Enemy8.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -490,9 +447,9 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>2,3,4,7</rect>
+                <rect>8,8,16,15</rect>
                 <key>scale9Paddings</key>
-                <rect>2,3,4,7</rect>
+                <rect>8,8,16,15</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -805,6 +762,21 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">Laser_Shoot_1.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>2,4,5,7</rect>
+                <key>scale9Paddings</key>
+                <rect>2,4,5,7</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">Laser_Shoot_2.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
@@ -857,7 +829,9 @@
                 <false/>
             </struct>
             <key type="filename">buttonBack.png</key>
+            <key type="filename">buttonDecrease.png</key>
             <key type="filename">buttonHelp.png</key>
+            <key type="filename">buttonIncrease.png</key>
             <key type="filename">buttonNext.png</key>
             <key type="filename">buttonOptions.png</key>
             <key type="filename">buttonStart.png</key>
@@ -890,8 +864,6 @@
             <filename>Arc3.png</filename>
             <filename>Arc4.png</filename>
             <filename>Arc5.png</filename>
-            <filename>Enemy.png</filename>
-            <filename>Enemy2.png</filename>
             <filename>Thrusters_1.png</filename>
             <filename>Thrusters_2.png</filename>
             <filename>Laser1_Hit_2.png</filename>
@@ -939,29 +911,6 @@
             <filename>Arc2_Shoot.png</filename>
             <filename>Arc4_Shoot.png</filename>
             <filename>Arc5_Shoot.png</filename>
-            <filename>Enemy_Shot.png</filename>
-            <filename>Enemy2_Shot.png</filename>
-            <filename>Enemy3.png</filename>
-            <filename>Enemy3_Shot.png</filename>
-            <filename>Enemy4.png</filename>
-            <filename>Enemy4_Shot.png</filename>
-            <filename>Enemy5.png</filename>
-            <filename>Enemy5_Shot.png</filename>
-            <filename>Enemy6.png</filename>
-            <filename>Enemy6_Shot.png</filename>
-            <filename>Enemy7.png</filename>
-            <filename>Enemy7_Shot.png</filename>
-            <filename>Enemy8.png</filename>
-            <filename>Enemy8_Shot.png</filename>
-            <filename>Enemy9.png</filename>
-            <filename>Enemy9_Shot.png</filename>
-            <filename>Enemy10.png</filename>
-            <filename>Enemy10_Shot.png</filename>
-            <filename>Enemy11.png</filename>
-            <filename>Enemy11_Shot.png</filename>
-            <filename>Enemy12.png</filename>
-            <filename>Enemy13.png</filename>
-            <filename>Enemy13_Shot.png</filename>
             <filename>B_coin_01.png</filename>
             <filename>B_coin_02.png</filename>
             <filename>B_coin_03.png</filename>
@@ -986,6 +935,33 @@
             <filename>L_coin_06.png</filename>
             <filename>L_coin_07.png</filename>
             <filename>L_coin_08.png</filename>
+            <filename>buttonDecrease.png</filename>
+            <filename>buttonIncrease.png</filename>
+            <filename>Enemy1.png</filename>
+            <filename>Enemy1_Shot.png</filename>
+            <filename>Enemy2.png</filename>
+            <filename>Enemy2_Shot.png</filename>
+            <filename>Enemy3.png</filename>
+            <filename>Enemy3_Shot.png</filename>
+            <filename>Enemy4.png</filename>
+            <filename>Enemy4_Shot.png</filename>
+            <filename>Enemy5.png</filename>
+            <filename>Enemy5_Shot.png</filename>
+            <filename>Enemy6.png</filename>
+            <filename>Enemy6_Shot.png</filename>
+            <filename>Enemy7.png</filename>
+            <filename>Enemy7_Shot.png</filename>
+            <filename>Enemy8.png</filename>
+            <filename>Enemy8_Shot.png</filename>
+            <filename>Enemy9.png</filename>
+            <filename>Enemy9_Shot.png</filename>
+            <filename>Enemy10.png</filename>
+            <filename>Enemy10_Shot.png</filename>
+            <filename>Enemy11.png</filename>
+            <filename>Enemy12.png</filename>
+            <filename>Enemy13.png</filename>
+            <filename>Enemy13_Shot.png</filename>
+            <filename>Enemy12_Shot.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

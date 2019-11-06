@@ -8,8 +8,8 @@ module managers {        // Access to globally-required items
         public static highscore: number;
         public static timer:number;
         public static textureSprite: createjs.SpriteSheet;
-        public static ammoManager: managers.Ammo;
-        public static enemyAmmoManager :managers.EnemyAmmo;
+        public static bulletManager: managers.Bullet;
+        public static enemyBulletManager :managers.EnemyBullet;
         public static currentSceneObject: objects.Scene;
         public static player:objects.Player;
         public static eType2:objects.Enemy;

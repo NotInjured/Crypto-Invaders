@@ -1,10 +1,10 @@
 module objects {
-    export class Ammo extends objects.GameObject {
+    export class Bullet extends objects.GameObject {
         // Variables
         private speed:number = -10;
         // Constructor
-        constructor(ammo:string) {
-            super(ammo);
+        constructor(bullet:string) {
+            super(bullet);
             this.Start();
         }
         // Methods

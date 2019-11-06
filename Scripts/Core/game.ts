@@ -218,7 +218,7 @@
         {id: "aircraft", src:"./Assets/Aircraft.png"},
         {id: "panelInfo", src:"./Assets/panelInfo.png"},
         {id: "panelUI", src:"./Assets/panelUI.png"},
-        {id: "logo", src:"./Assets/Logo.png"}
+        {id: "logo", src:"./Assets/Logo.png"},
         {id: "HUD", src:"./Assets/HUD.png"},
         {id: "backgroundB", src:"./Assets/B_background.png"},
         {id: "backgroundL", src:"./Assets/L_background.png"},
@@ -308,16 +308,6 @@
                 currentScene = new scenes.OptionsScene();
                 stage.addChild(currentScene);
             break;
-            case config.Scene.HELP:
-                stage.removeAllChildren();
-                currentScene = new scenes.HelpScene();
-                stage.addChild(currentScene);
-            break;
-            case config.Scene.INFO:
-                stage.removeAllChildren();
-                currentScene = new scenes.InfoScene();
-                stage.addChild(currentScene);
-                break;
             case config.Scene.GAME:
                 stage.removeAllChildren();
                 currentScene = new scenes.PlayScene();

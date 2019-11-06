@@ -3,7 +3,7 @@ module objects {
         // Variables
         public isDead:boolean = false;
         private shipType:config.Ship;
-        private ammoSpawn:math.Vec2;
+        private bulletSpawn:math.Vec2;
         public swapped:boolean;
         private power:number;
         private effect:objects.Effect;
@@ -107,16 +107,16 @@ module objects {
                     switch(this.ShipType){
                         case config.Ship.Botcoin:
                                 if(this.POWER >= 1 && this.POWER <= 3){
-                                    this.ammoSpawn = new math.Vec2(this.x - 15.35, this.y - 40);
+                                    this.bulletSpawn = new math.Vec2(this.x - 15.35, this.y - 40);
                                     
                                     this.effect = new objects.Effect("Laser_Shoot", this.x - 13, this.y -43);
                                     
-                                    let ammo = managers.Game.ammoManager.GetAmmo();
+                                    let bullet = managers.Game.bulletManager.GetBullet();
 
-                                    console.log(ammo);
+                                    console.log(bullet);
                         
-                                    ammo.x = this.ammoSpawn.x;
-                                    ammo.y = this.ammoSpawn.y;
+                                    bullet.x = this.bulletSpawn.x;
+                                    bullet.y = this.bulletSpawn.y;
 
                                     let laser = createjs.Sound.play("laser");
                                     laser.volume = 0.1;
@@ -124,146 +124,146 @@ module objects {
                                     managers.Game.currentSceneObject.addChild(this.effect);
                                 }
                                 else if(this.POWER >= 4 && this.POWER <= 5){
-                                    this.ammoSpawn = new math.Vec2(this.x - 11, this.y - 25);
+                                    this.bulletSpawn = new math.Vec2(this.x - 11, this.y - 25);
 
                                     this.effect = new objects.Effect("Laser_Shoot", this.x - 13, this.y -43);
                                     
-                                    let ammo = managers.Game.ammoManager.GetAmmo();
+                                    let ammo = managers.Game.bulletManager.GetBullet();
 
                                     console.log(ammo);
                         
-                                    ammo.x = this.ammoSpawn.x;
-                                    ammo.y = this.ammoSpawn.y;
+                                    ammo.x = this.bulletSpawn.x;
+                                    ammo.y = this.bulletSpawn.y;
 
                                     managers.Game.currentSceneObject.addChild(this.effect);
                                 }
                                 else if(this.POWER >= 6 && this.POWER <= 7){
-                                    this.ammoSpawn = new math.Vec2(this.x - 12.5, this.y - 25);
+                                    this.bulletSpawn = new math.Vec2(this.x - 12.5, this.y - 25);
             
                                     this.effect = new objects.Effect("Laser_Shoot", this.x - 13, this.y -43);
                                     
-                                    let ammo = managers.Game.ammoManager.GetAmmo();
+                                    let ammo = managers.Game.bulletManager.GetBullet();
 
                                     console.log(ammo);
                         
-                                    ammo.x = this.ammoSpawn.x;
-                                    ammo.y = this.ammoSpawn.y;
+                                    ammo.x = this.bulletSpawn.x;
+                                    ammo.y = this.bulletSpawn.y;
 
                                     managers.Game.currentSceneObject.addChild(this.effect);
                                 }
                                 else if(this.POWER >= 8 && this.POWER <= 9){
-                                    this.ammoSpawn = new math.Vec2(this.x - 11, this.y - 25);
+                                    this.bulletSpawn = new math.Vec2(this.x - 11, this.y - 25);
             
                                     this.effect = new objects.Effect("Laser_Shoot", this.x - 13, this.y -43);
                                     
-                                    let ammo = managers.Game.ammoManager.GetAmmo();
+                                    let ammo = managers.Game.bulletManager.GetBullet();
 
                                     console.log(ammo);
                         
-                                    ammo.x = this.ammoSpawn.x;
-                                    ammo.y = this.ammoSpawn.y;
+                                    ammo.x = this.bulletSpawn.x;
+                                    ammo.y = this.bulletSpawn.y;
 
                                     managers.Game.currentSceneObject.addChild(this.effect);
                                 }
                                 else if(this.POWER == 10){
-                                    this.ammoSpawn = new math.Vec2(this.x - 7.5, this.y - 25);
+                                    this.bulletSpawn = new math.Vec2(this.x - 7.5, this.y - 25);
             
                                     this.effect = new objects.Effect("Laser_Shoot", this.x - 13, this.y -43);
                                     
-                                    let ammo = managers.Game.ammoManager.GetAmmo();
+                                    let ammo = managers.Game.bulletManager.GetBullet();
 
                                     console.log(ammo);
                         
-                                    ammo.x = this.ammoSpawn.x;
-                                    ammo.y = this.ammoSpawn.y;
+                                    ammo.x = this.bulletSpawn.x;
+                                    ammo.y = this.bulletSpawn.y;
 
                                     managers.Game.currentSceneObject.addChild(this.effect); 
                                 }
                         break;
                         case config.Ship.Lightcoin:
                                 if(this.POWER >=1 && this.POWER <= 10){
-                                    this.ammoSpawn = new math.Vec2(this.x - 11, this.y - 25);
+                                    this.bulletSpawn = new math.Vec2(this.x - 11, this.y - 25);
             
                                     this.effect = new objects.Effect("Laser1_Shoot", this.x - 7, this.y -30);
                                     
-                                    let ammo = managers.Game.ammoManager.GetAmmo();
+                                    let ammo = managers.Game.bulletManager.GetBullet();
 
                                     console.log(ammo);
                         
-                                    ammo.x = this.ammoSpawn.x;
-                                    ammo.y = this.ammoSpawn.y;
+                                    ammo.x = this.bulletSpawn.x;
+                                    ammo.y = this.bulletSpawn.y;
 
                                     managers.Game.currentSceneObject.addChild(this.effect); 
                                 }
                         break;
                         case config.Ship.Enderium:
                                 if(this.POWER >= 1 && this.POWER <= 3){
-                                    this.ammoSpawn = new math.Vec2(this.x - 10.5, this.y - 45);
+                                    this.bulletSpawn = new math.Vec2(this.x - 10.5, this.y - 45);
             
                                     this.effect = new objects.Effect("Arc_Shoot", this.x - 13, this.y -41);
 
-                                    let ammo = managers.Game.ammoManager.GetAmmo();
+                                    let ammo = managers.Game.bulletManager.GetBullet();
 
                                     console.log(ammo);
                         
-                                    ammo.x = this.ammoSpawn.x;
-                                    ammo.y = this.ammoSpawn.y;
+                                    ammo.x = this.bulletSpawn.x;
+                                    ammo.y = this.bulletSpawn.y;
 
                                     managers.Game.currentSceneObject.addChild(this.effect);
                                 }
                                 else if(this.POWER >= 4 && this.POWER <= 5){
-                                    this.ammoSpawn = new math.Vec2(this.x - 10, this.y - 45);
+                                    this.bulletSpawn = new math.Vec2(this.x - 10, this.y - 45);
             
                                     this.effect = new objects.Effect("Arc_Shoot", this.x - 13, this.y -41);
                                     
-                                    let ammo = managers.Game.ammoManager.GetAmmo();
+                                    let ammo = managers.Game.bulletManager.GetBullet();
 
                                     console.log(ammo);
                         
-                                    ammo.x = this.ammoSpawn.x;
-                                    ammo.y = this.ammoSpawn.y;
+                                    ammo.x = this.bulletSpawn.x;
+                                    ammo.y = this.bulletSpawn.y;
 
                                     managers.Game.currentSceneObject.addChild(this.effect);
                                 }
                                 else if(this.POWER >= 6 && this.POWER <= 7){
-                                    this.ammoSpawn = new math.Vec2(this.x - 10, this.y - 35);
+                                    this.bulletSpawn = new math.Vec2(this.x - 10, this.y - 35);
             
                                     this.effect = new objects.Effect("Arc2_Shoot", this.x - 6.5, this.y -28);
                                     
-                                    let ammo = managers.Game.ammoManager.GetAmmo();
+                                    let ammo = managers.Game.bulletManager.GetBullet();
 
                                     console.log(ammo);
                         
-                                    ammo.x = this.ammoSpawn.x;
-                                    ammo.y = this.ammoSpawn.y;
+                                    ammo.x = this.bulletSpawn.x;
+                                    ammo.y = this.bulletSpawn.y;
 
                                     managers.Game.currentSceneObject.addChild(this.effect);
                                 }
                                 else if(this.POWER >= 8 && this.POWER <= 9){
-                                    this.ammoSpawn = new math.Vec2(this.x - 7, this.y - 45);
+                                    this.bulletSpawn = new math.Vec2(this.x - 7, this.y - 45);
             
                                     this.effect = new objects.Effect("Arc4_Shoot", this.x - 7, this.y -29);
                                     
-                                    let ammo = managers.Game.ammoManager.GetAmmo();
+                                    let ammo = managers.Game.bulletManager.GetBullet();
 
                                     console.log(ammo);
                         
-                                    ammo.x = this.ammoSpawn.x;
-                                    ammo.y = this.ammoSpawn.y;
+                                    ammo.x = this.bulletSpawn.x;
+                                    ammo.y = this.bulletSpawn.y;
 
                                     managers.Game.currentSceneObject.addChild(this.effect);
                                 }
                                 else if(this.POWER == 10){
-                                    this.ammoSpawn = new math.Vec2(this.x + 4, this.y - 40);
+                                    this.bulletSpawn = new math.Vec2(this.x + 4, this.y - 40);
             
                                     this.effect = new objects.Effect("Arc5_Shoot", this.x, this.y -21);
                                     
-                                    let ammo = managers.Game.ammoManager.GetAmmo();
+                                    let ammo = managers.Game.bulletManager.GetBullet();
 
                                     console.log(ammo);
                         
-                                    ammo.x = this.ammoSpawn.x;
-                                    ammo.y = this.ammoSpawn.y;
+                                    ammo.x = this.bulletSpawn.x;
+                                    ammo.y = this.bulletSpawn.y;
 
                                     managers.Game.currentSceneObject.addChild(this.effect);
                                 }

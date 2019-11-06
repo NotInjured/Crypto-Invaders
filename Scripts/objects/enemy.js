@@ -43,9 +43,9 @@ var objects;
             enumerable: true,
             configurable: true
         });
-        Object.defineProperty(Enemy.prototype, "Ammo", {
+        Object.defineProperty(Enemy.prototype, "Bullet", {
             get: function () {
-                return this.ammo;
+                return this.bullet;
             },
             enumerable: true,
             configurable: true
@@ -95,10 +95,10 @@ var objects;
             if (!this.isDead) {
                 this.Move();
                 this.CheckBounds();
-                if (this.ammo != undefined)
-                    this.ammo.Update();
+                if (this.bullet != undefined)
+                    this.bullet.Update();
                 if (this.shoot && !this.player.isInvincible && managers.Game.hud.Lives >= 0)
-                    managers.Collision.CheckAABB(this.ammo, this.player);
+                    managers.Collision.CheckAABB(this.bullet, this.player);
             }
         };
         Enemy.prototype.Reset = function () {
@@ -250,34 +250,34 @@ var objects;
                     case "Enemy9":
                     case "Enemy10":
                     case "Enemy11":
-                        this.ammoSpawn = new math.Vec2(this.x - 10, this.y - 15);
+                        this.bulletSpawn = new math.Vec2(this.x - 10, this.y - 15);
                         this.position = new math.Vec2(this.x, this.y);
-                        this.ammo = new objects.EnemyAmmo("Enemy1_Shot");
-                        this.ammo.scaleX = 1.5;
-                        this.ammo.scaleY = 1.5;
-                        this.ammo.Dir = new math.Vec2((this.playerPos.x - this.position.x) * this.ammo.Speed, (this.playerPos.y - this.position.y) * this.ammo.Speed);
-                        this.ammo.x = this.ammoSpawn.x;
-                        this.ammo.y = this.ammoSpawn.y;
+                        this.bullet = new objects.EnemyBullet("Enemy1_Shot");
+                        this.bullet.scaleX = 1.5;
+                        this.bullet.scaleY = 1.5;
+                        this.bullet.Dir = new math.Vec2((this.playerPos.x - this.position.x) * this.bullet.Speed, (this.playerPos.y - this.position.y) * this.bullet.Speed);
+                        this.bullet.x = this.bulletSpawn.x;
+                        this.bullet.y = this.bulletSpawn.y;
                         var laser = createjs.Sound.play("laser");
                         laser.volume = 0.2;
-                        managers.Game.currentSceneObject.addChild(this.ammo);
+                        managers.Game.currentSceneObject.addChild(this.bullet);
                         this.shoot = true;
                         break;
                     case "Enemy12":
                     case "Enemy13":
                         var ticker = createjs.Ticker.getTicks();
                         if (ticker % 100 == 0) {
-                            this.ammoSpawn = new math.Vec2(this.x - 16, this.y - 15);
+                            this.bulletSpawn = new math.Vec2(this.x - 10, this.y - 15);
                             this.position = new math.Vec2(this.x, this.y);
-                            this.ammo = new objects.EnemyAmmo("Enemy1_Shot");
-                            this.ammo.scaleX = 1.5;
-                            this.ammo.scaleY = 1.5;
-                            this.ammo.Dir = new math.Vec2((this.playerPos.x - this.position.x) * this.ammo.Speed, (this.playerPos.y - this.position.y) * this.ammo.Speed);
-                            this.ammo.x = this.ammoSpawn.x;
-                            this.ammo.y = this.ammoSpawn.y;
+                            this.bullet = new objects.EnemyBullet("Enemy1_Shot");
+                            this.bullet.scaleX = 1.5;
+                            this.bullet.scaleY = 1.5;
+                            this.bullet.Dir = new math.Vec2((this.playerPos.x - this.position.x) * this.bullet.Speed, (this.playerPos.y - this.position.y) * this.bullet.Speed);
+                            this.bullet.x = this.bulletSpawn.x;
+                            this.bullet.y = this.bulletSpawn.y;
                             var laser_1 = createjs.Sound.play("laser");
-                            laser_1.volume = 0.1;
-                            managers.Game.currentSceneObject.addChild(this.ammo);
+                            laser_1.volume = 0.2;
+                            managers.Game.currentSceneObject.addChild(this.bullet);
                             this.shoot = true;
                         }
                         break;

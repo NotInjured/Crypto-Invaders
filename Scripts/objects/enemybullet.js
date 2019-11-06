@@ -13,17 +13,17 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var objects;
 (function (objects) {
-    var EnemyAmmo = /** @class */ (function (_super) {
-        __extends(EnemyAmmo, _super);
+    var EnemyBullet = /** @class */ (function (_super) {
+        __extends(EnemyBullet, _super);
         // Constructor
-        function EnemyAmmo(ammo) {
+        function EnemyBullet(ammo) {
             var _this = _super.call(this, ammo) || this;
             // Variables
             _this.speed = 7;
             _this.Start();
             return _this;
         }
-        Object.defineProperty(EnemyAmmo.prototype, "Dir", {
+        Object.defineProperty(EnemyBullet.prototype, "Dir", {
             get: function () {
                 return this.dir;
             },
@@ -33,7 +33,7 @@ var objects;
             enumerable: true,
             configurable: true
         });
-        Object.defineProperty(EnemyAmmo.prototype, "Speed", {
+        Object.defineProperty(EnemyBullet.prototype, "Speed", {
             get: function () {
                 return this.speed;
             },
@@ -41,12 +41,12 @@ var objects;
             configurable: true
         });
         // Methods
-        EnemyAmmo.prototype.Start = function () {
+        EnemyBullet.prototype.Start = function () {
             this.speedX = this.speed;
             this.speedY = this.speed;
             this.Reset();
         };
-        EnemyAmmo.prototype.Update = function () {
+        EnemyBullet.prototype.Update = function () {
             this.Move();
             this.CheckBound();
             if (this.x > 710 || this.x < 340 ||
@@ -54,23 +54,23 @@ var objects;
                 managers.Game.currentSceneObject.removeChild(this);
             }
         };
-        EnemyAmmo.prototype.Reset = function () {
+        EnemyBullet.prototype.Reset = function () {
         };
-        EnemyAmmo.prototype.Main = function () { };
-        EnemyAmmo.prototype.Move = function () {
+        EnemyBullet.prototype.Main = function () { };
+        EnemyBullet.prototype.Move = function () {
             if (this.dir != undefined) {
                 this.y += this.dir.y * (60 / 20000);
                 this.x += this.dir.x * (60 / 20000);
             }
         };
-        EnemyAmmo.prototype.CheckBounds = function () {
+        EnemyBullet.prototype.CheckBounds = function () {
             if (this.x > 710 || this.x < 340 ||
                 this.y > 720) {
                 managers.Game.currentSceneObject.removeChild(this);
             }
         };
-        return EnemyAmmo;
+        return EnemyBullet;
     }(objects.GameObject));
-    objects.EnemyAmmo = EnemyAmmo;
+    objects.EnemyBullet = EnemyBullet;
 })(objects || (objects = {}));
-//# sourceMappingURL=enemyammo.js.map
+//# sourceMappingURL=enemybullet.js.map
