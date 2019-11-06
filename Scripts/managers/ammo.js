@@ -114,13 +114,13 @@ var managers;
         Ammo.prototype.GetAmmo = function () {
             var ammo = this.Ammo[this.CurrentAmmo];
             this.CurrentAmmo++;
-            if (managers.Game.ammoManager.CurrentAmmo > 49) {
+            if (managers.Game.ammoManager.CurrentAmmo > 24) {
                 managers.Game.ammoManager.CurrentAmmo = 0;
             }
             return ammo;
         };
         Ammo.prototype.Start = function () {
-            this.ammoCount = 100;
+            this.ammoCount = 25;
             this.Ammo = new Array();
             this.CurrentAmmo = 0;
             this.buildAmmoPool(config.Ship.Botcoin, 1);

@@ -36,12 +36,10 @@ var scenes;
             managers.Game.ammoManager = this.ammoManager;
             managers.Game.player = this.player;
             managers.Game.timer = 600;
-            //this.eType2 = new objects.Enemy("Enemy2");
             this.eType1 = new Array();
             this.eType2 = new Array();
             this.eType3 = new Array();
-            //managers.Game.eType2 =this.eType2;
-            console.log(managers.Game.difficulty);
+            this.eBoss1 = new objects.Enemy("Enemy4");
             switch (managers.Game.difficulty) {
                 case 0:
                     for (var i = 0; i < 2; i++) {
@@ -108,24 +106,46 @@ var scenes;
             }
             if (managers.Game.timer <= 591) {
                 this.removeChild(this.stageName);
+                if (managers.Game.boss1IsDead) {
+                    this.removeChild(this.eBoss1);
+                }
                 this.eType1.forEach(function (e) {
                     if (!e.isDead) {
                         e.Update();
                         e.FindPlayer(_this.player);
                     }
                 });
+            }
+            if (managers.Game.timer <= 581) {
                 this.eType2.forEach(function (e) {
                     if (!e.isDead) {
                         e.Update();
                         e.FindPlayer(_this.player);
                     }
                 });
+            }
+            if (managers.Game.timer <= 576) {
                 this.eType3.forEach(function (e) {
                     if (!e.isDead) {
                         e.Update();
                         e.FindPlayer(_this.player);
                     }
                 });
+            }
+            if (managers.Game.timer <= 480) {
+                createjs.Sound.stop();
+                this.bgm = createjs.Sound.play("bossMusic");
+                this.bgm.loop = -1;
+                this.bgm.volume = 0.05;
+                this.addChild(this.eBoss1);
+                this.background.y += 0;
+                if (!this.eBoss1.isDead) {
+                    this.eBoss1.FindPlayer(this.player);
+                    this.eBoss1.Update();
+                }
+            }
+            if (managers.Game.hud.Lives < 0) {
+                managers.Game.currentScene = config.Scene.OVER;
             }
         };
         PlayScene.prototype.Main = function () {
@@ -162,6 +182,7 @@ var scenes;
                 _this.eType3.forEach(function (e) {
                     managers.Collision.CheckAABB(ammo, e);
                 });
+                managers.Collision.CheckAABB(ammo, _this.eBoss1);
             });
         };
         PlayScene.prototype.ChangeShip = function () {

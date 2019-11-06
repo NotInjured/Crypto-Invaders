@@ -214,7 +214,6 @@
     }
 
     assetManifest = [
-        {id: "background", src:"./Assets/background.png"},
         {id: "bg1", src:"./Assets/9999.png"},
         {id: "aircraft", src:"./Assets/Aircraft.png"},
         {id: "panelInfo", src:"./Assets/panelInfo.png"},
@@ -227,9 +226,10 @@
         {id: "bgm2", src:"./Assets/Sounds/RFN - III.ogg"},
         {id: "bgm3", src:"./Assets/Sounds/The Truth Never Spoken.mp3"},
         {id: "playerDeath", src:"./Assets/Sounds/1516.mp3"},
-        {id: "laser", src:"./Assets/Sounds/167.mp3"},
+        {id: "laser", src:"./Assets/Sounds/laser.mp3"},
         {id: "bossMusic", src:"./Assets/Sounds/Sudden Death.ogg"},
-        {id: "mainMenu", src:"./Assets/Sounds/cyberspace.exe.ogg"}
+        {id: "mainMenu", src:"./Assets/Sounds/cyberspace.exe.ogg"},
+        {id: "hit", src:"./Assets/Sounds/hit.wav"}
     ];
 
     function Init() {

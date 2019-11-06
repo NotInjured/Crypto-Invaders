@@ -59,13 +59,7 @@ var objects;
                 this.Shoot();
                 this.Swapped();
             }
-            if (managers.Game.hud.Lives > 0 && this.isDead) {
-                this.isInvincible = true;
-                if (this.isInvincible) {
-                    this.RespawnTimer();
-                }
-            }
-            if (managers.Game.hud.Lives < 0 && this.isDead) {
+            if (managers.Game.hud.Lives >= 0 && this.isDead) {
                 this.isInvincible = true;
                 if (this.isInvincible) {
                     this.RespawnTimer();
@@ -122,7 +116,7 @@ var objects;
                                 ammo.x = this.ammoSpawn.x;
                                 ammo.y = this.ammoSpawn.y;
                                 var laser = createjs.Sound.play("laser");
-                                laser.volume = 0.2;
+                                laser.volume = 0.1;
                                 managers.Game.currentSceneObject.addChild(this.effect);
                             }
                             else if (this.POWER >= 4 && this.POWER <= 5) {
@@ -235,7 +229,6 @@ var objects;
                 counter--;
                 if (counter < 0) {
                     clearInterval(interval);
-                    counter = 2;
                     _this.isDead = false;
                     _this.alpha = 1;
                     _this.isInvincible = false;
@@ -244,7 +237,7 @@ var objects;
                         managers.Game.currentScene = config.Scene.OVER;
                     }
                 }
-            }, 1000);
+            }, 750);
         };
         return Player;
     }(objects.GameObject));

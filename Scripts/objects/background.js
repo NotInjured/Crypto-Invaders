@@ -26,7 +26,7 @@ var objects;
         Background.prototype.Start = function () {
             this.speedY = 0.5;
             //this.y = 1;
-            this.y = -3122;
+            this.y = -8250;
             this.x = 297;
             //this.Reset();
         };

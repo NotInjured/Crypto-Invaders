@@ -204,9 +204,6 @@ module managers {
                 this.addChild(this.infoPanel);
                 this.addChild(this.info1);
                 this.addChild(this.controls);
-                this.Score = managers.Game.highscore;
-                this.playerScoreLabel = new objects.Label("" + this.Score, "30px", "OptimusPrinceps","#000000", 400, 300, false );
-                this.addChild(this.playerScoreLabel);
             }
             if(managers.Game.currentScene == config.Scene.OPTIONS){
                 this.addChild(this.eBackground);

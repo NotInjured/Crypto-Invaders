@@ -19,5 +19,11 @@ module managers {        // Access to globally-required items
         public static normal:boolean = true;
         public static hard:boolean = false;
         public static hell:boolean = false;
+        public static boss1Hp:number = 500;
+        public static boss2Hp:number = 1000;
+        public static boss3Hp:number = 1500;
+        public static boss1IsDead:boolean = false;
+        public static boss2IsDead:boolean = false;
+        public static boss3IsDead:boolean = false;
     }
 }

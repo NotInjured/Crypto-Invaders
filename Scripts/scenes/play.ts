@@ -12,13 +12,12 @@ module scenes {
         private hudImage: objects.Image;
         private hud:managers.HUD;
 
-        //private eType2: objects.Enemy;
         private eType1: objects.Enemy[];
         private eType2: objects.Enemy[];
         private eType3: objects.Enemy[];
+        private eBoss1: objects.Enemy;
 
         private ammoManager:managers.Ammo;
-        private enemyAmmoManager:managers.EnemyAmmo;
 
         private bgm:createjs.AbstractSoundInstance;
 
@@ -47,16 +46,15 @@ module scenes {
             
             this.ammoManager = new managers.Ammo();
             managers.Game.ammoManager = this.ammoManager;
+
             managers.Game.player = this.player;
             managers.Game.timer = 600;
 
-            //this.eType2 = new objects.Enemy("Enemy2");
             this.eType1 = new Array<objects.Enemy>();
             this.eType2 = new Array<objects.Enemy>();
             this.eType3 = new Array<objects.Enemy>();
-            //managers.Game.eType2 =this.eType2;
+            this.eBoss1 = new objects.Enemy("Enemy4");
 
-            console.log(managers.Game.difficulty)
             switch(managers.Game.difficulty){
                 case 0:
                     for(let i = 0; i < 2; i++){
@@ -109,44 +107,66 @@ module scenes {
             }
             this.ammoManager.Update();
             console.log(managers.Game.timer);
-                this.background.Update();
-                this.player.Update();
-                //this.ChangeShip();
-                this.CheckCollisions()
+            this.background.Update();
+            this.player.Update();
+            //this.ChangeShip();
+            this.CheckCollisions()
             
-                if(managers.Game.timer >= 598 && managers.Game.timer <= 600){
-                    if(this.player.y > 550)
-                    this.player.y -= 1;
+            if(managers.Game.timer >= 598 && managers.Game.timer <= 600){
+                if(this.player.y > 550)
+                this.player.y -= 1;
+            }
+            if(managers.Game.timer >= 597 && managers.Game.timer <= 598){
+                if(this.player.y < 675)
+                this.player.y += 1;
+            }
+            if(managers.Game.timer <= 596){
+                this.addChild(this.stageName)
+            }
+            if(managers.Game.timer <= 591){
+                this.removeChild(this.stageName)
+                if(managers.Game.boss1IsDead){
+                    this.removeChild(this.eBoss1)
                 }
-                if(managers.Game.timer >= 597 && managers.Game.timer <= 598){
-                    if(this.player.y < 675)
-                    this.player.y += 1;
+                this.eType1.forEach(e =>{
+                    if(!e.isDead){
+                        e.Update();
+                        e.FindPlayer(this.player);
+                    }
+                })
+            }
+            if(managers.Game.timer <= 581){
+                this.eType2.forEach(e =>{
+                    if(!e.isDead){
+                        e.Update();
+                        e.FindPlayer(this.player);
+                    }
+                })
+            }
+            if(managers.Game.timer <= 576){
+                this.eType3.forEach(e =>{
+                    if(!e.isDead){
+                        e.Update();
+                        e.FindPlayer(this.player);
+                    }
+                })
+            }
+            if(managers.Game.timer <= 480){
+                createjs.Sound.stop();
+                this.bgm = createjs.Sound.play("bossMusic");
+                this.bgm.loop = -1;
+                this.bgm.volume = 0.05;
+
+                this.addChild(this.eBoss1)
+                this.background.y += 0;
+                if(!this.eBoss1.isDead){
+                    this.eBoss1.FindPlayer(this.player)
+                    this.eBoss1.Update();
                 }
-                if(managers.Game.timer <= 596){
-                    this.addChild(this.stageName)
-                }
-                if(managers.Game.timer <= 591){
-                    this.removeChild(this.stageName)
-                    this.eType1.forEach(e =>{
-                        if(!e.isDead){
-                            e.Update();
-                            e.FindPlayer(this.player);
-                        }
-                    })
-                    
-                    this.eType2.forEach(e =>{
-                        if(!e.isDead){
-                            e.Update();
-                            e.FindPlayer(this.player);
-                        }
-                    })
-                    this.eType3.forEach(e =>{
-                        if(!e.isDead){
-                            e.Update();
-                            e.FindPlayer(this.player);
-                        }
-                    })
-                }
+            }
+            if(managers.Game.hud.Lives < 0){
+                managers.Game.currentScene = config.Scene.OVER;
+            }
         }
 
         public Main(): void {
@@ -185,6 +205,8 @@ module scenes {
                 this.eType3.forEach(e =>{
                     managers.Collision.CheckAABB(ammo, e);
                 })
+                
+                managers.Collision.CheckAABB(ammo, this.eBoss1);
             })
         }
         
@@ -241,7 +263,6 @@ module scenes {
         }
 
         public SpawnTimer():void{
-
             let interval = setInterval(() =>{
                 managers.Game.timer--;
                 if(managers.Game.timer < 0){

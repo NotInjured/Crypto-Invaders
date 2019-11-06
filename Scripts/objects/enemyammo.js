@@ -49,6 +49,10 @@ var objects;
         EnemyAmmo.prototype.Update = function () {
             this.Move();
             this.CheckBound();
+            if (this.x > 710 || this.x < 340 ||
+                this.y > 720) {
+                managers.Game.currentSceneObject.removeChild(this);
+            }
         };
         EnemyAmmo.prototype.Reset = function () {
         };

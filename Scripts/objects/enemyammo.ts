@@ -31,6 +31,11 @@ module objects {
         public Update():void {
             this.Move();
             this.CheckBound();
+            
+            if(this.x > 710 || this.x < 340 ||
+                this.y > 720){
+                managers.Game.currentSceneObject.removeChild(this);
+            }
         }
         public Reset():void {
             

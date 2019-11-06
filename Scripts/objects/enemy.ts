@@ -19,8 +19,6 @@ module objects {
 
         private randomNum;
 
-        private enemyAmmoManager:managers.EnemyAmmo;
-
         get Angle():number{
             return this.angle;
         }
@@ -77,8 +75,10 @@ module objects {
                     }
                 break;
                 case "Enemy4":
-                    this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
-                    this.y = Math.floor(Math.random() * -720) + -50;
+                    this.x = 560
+                    this.y = -50
+                    //this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
+                    //this.y = Math.floor(Math.random() * -720) + -50;
                 break;
             }
             
@@ -131,8 +131,6 @@ module objects {
                     }
                 break;
                 case "Enemy4":
-                    this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
-                    this.y = Math.floor(Math.random() * -720) + -50;
                 break;
             }
         }
@@ -208,6 +206,10 @@ module objects {
                         this.Reset();
                 break;
                 case "Enemy4":
+                    if(this.y < 110){
+                        this.y += 2;
+                    }
+                    this.TimedShot()
                 break;
                 case "Enemy5":
                 break;
@@ -251,50 +253,67 @@ module objects {
                     case "Enemy9":
                     case "Enemy10":
                     case "Enemy11":
-                    this.ammoSpawn = new math.Vec2(this.x - 19, this.y - 15);      
+                        this.ammoSpawn = new math.Vec2(this.x - 10, this.y - 15);      
 
-                    this.position = new math.Vec2(this.x, this.y);
+                        this.position = new math.Vec2(this.x, this.y);
     
-                    this.ammo = new objects.EnemyAmmo("Enemy1_Shot")
-                    this.ammo.scaleX = 1.5;
-                    this.ammo.scaleY = 1.5;
-                    //this.ammo.rotation = 90 + this.angle;
+                        this.ammo = new objects.EnemyAmmo("Enemy1_Shot")
+                        this.ammo.scaleX = 1.5;
+                        this.ammo.scaleY = 1.5;
     
-                    this.ammo.Dir = new math.Vec2(
-                        (this.playerPos.x - this.position.x) * this.ammo.Speed, 
-                        (this.playerPos.y - this.position.y) * this.ammo.Speed);
+                        this.ammo.Dir = new math.Vec2(
+                            (this.playerPos.x - this.position.x) * this.ammo.Speed, 
+                            (this.playerPos.y - this.position.y) * this.ammo.Speed);
     
+                        this.ammo.x = this.ammoSpawn.x;
+                        this.ammo.y = this.ammoSpawn.y;
     
-                    this.ammo.x = this.ammoSpawn.x;
-                    this.ammo.y = this.ammoSpawn.y;
-    
-                    managers.Game.currentSceneObject.addChild(this.ammo);
-                    this.shoot = true;  
+                        let laser = createjs.Sound.play("laser");
+                        laser.volume = 0.2;
+
+                        managers.Game.currentSceneObject.addChild(this.ammo);
+                        this.shoot = true;  
                     break;
                     case "Enemy12":
                     case "Enemy13":
                     let ticker:number = createjs.Ticker.getTicks();
-                        if(ticker % 10 == 0){
-                            this.ammoSpawn = new math.Vec2(this.x - 19, this.y - 15);      
+                        if(ticker % 100 == 0){
+                            this.ammoSpawn = new math.Vec2(this.x - 16, this.y - 15);      
 
                             this.position = new math.Vec2(this.x, this.y);
 
                             this.ammo = new objects.EnemyAmmo("Enemy1_Shot")
-                            //this.ammo.rotation = 90 + this.angle;
+                            this.ammo.scaleX = 1.5;
+                            this.ammo.scaleY = 1.5;
 
                             this.ammo.Dir = new math.Vec2(
                                 (this.playerPos.x - this.position.x) * this.ammo.Speed, 
                                 (this.playerPos.y - this.position.y) * this.ammo.Speed);
 
-
                             this.ammo.x = this.ammoSpawn.x;
                             this.ammo.y = this.ammoSpawn.y;
 
+                            let laser = createjs.Sound.play("laser");
+                                laser.volume = 0.1;
+
                             managers.Game.currentSceneObject.addChild(this.ammo);
+                            this.shoot = true;
                         }
                     break;
                 }
             }
+        }
+
+        public TimedShot():void{
+            let counter = 1;
+            this.ShootPlayer
+            let interval = setInterval(() =>{
+               counter--;
+                if(counter < 0){
+                    clearInterval(interval);
+                    this.shoot = false;
+                }
+            }, 1000)
         }
     }
 }

@@ -8,7 +8,7 @@ module objects {
         private power:number;
         private effect:objects.Effect;
         public isInvincible:boolean = false;
-        
+
         get ShipType():config.Ship{
             return this.shipType;
         }
@@ -46,13 +46,7 @@ module objects {
                 this.Swapped();
             }
 
-            if(managers.Game.hud.Lives > 0 && this.isDead){
-                this.isInvincible = true;
-                if(this.isInvincible){
-                    this.RespawnTimer();
-                }
-            }
-            if(managers.Game.hud.Lives < 0 && this.isDead){
+            if(managers.Game.hud.Lives >= 0 && this.isDead){
                 this.isInvincible = true;
                 if(this.isInvincible){
                     this.RespawnTimer();
@@ -125,7 +119,7 @@ module objects {
                                     ammo.y = this.ammoSpawn.y;
 
                                     let laser = createjs.Sound.play("laser");
-                                    laser.volume = 0.2;
+                                    laser.volume = 0.1;
 
                                     managers.Game.currentSceneObject.addChild(this.effect);
                                 }
@@ -292,7 +286,6 @@ module objects {
                counter--;
                 if(counter < 0){
                     clearInterval(interval);
-                    counter = 2;
                     this.isDead = false;
                     this.alpha = 1;
                     this.isInvincible = false;
@@ -301,7 +294,7 @@ module objects {
                         managers.Game.currentScene = config.Scene.OVER;
                     }
                 }
-            }, 1000)
+            }, 750)
         }
     }
 }

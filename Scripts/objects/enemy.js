@@ -83,8 +83,10 @@ var objects;
                     }
                     break;
                 case "Enemy4":
-                    this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
-                    this.y = Math.floor(Math.random() * -720) + -50;
+                    this.x = 560;
+                    this.y = -50;
+                    //this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
+                    //this.y = Math.floor(Math.random() * -720) + -50;
                     break;
             }
         };
@@ -134,8 +136,6 @@ var objects;
                     }
                     break;
                 case "Enemy4":
-                    this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
-                    this.y = Math.floor(Math.random() * -720) + -50;
                     break;
             }
         };
@@ -209,6 +209,10 @@ var objects;
                         this.Reset();
                     break;
                 case "Enemy4":
+                    if (this.y < 110) {
+                        this.y += 2;
+                    }
+                    this.TimedShot();
                     break;
                 case "Enemy5":
                     break;
@@ -245,34 +249,51 @@ var objects;
                     case "Enemy9":
                     case "Enemy10":
                     case "Enemy11":
-                        this.ammoSpawn = new math.Vec2(this.x - 19, this.y - 15);
+                        this.ammoSpawn = new math.Vec2(this.x - 10, this.y - 15);
                         this.position = new math.Vec2(this.x, this.y);
                         this.ammo = new objects.EnemyAmmo("Enemy1_Shot");
                         this.ammo.scaleX = 1.5;
                         this.ammo.scaleY = 1.5;
-                        //this.ammo.rotation = 90 + this.angle;
                         this.ammo.Dir = new math.Vec2((this.playerPos.x - this.position.x) * this.ammo.Speed, (this.playerPos.y - this.position.y) * this.ammo.Speed);
                         this.ammo.x = this.ammoSpawn.x;
                         this.ammo.y = this.ammoSpawn.y;
+                        var laser = createjs.Sound.play("laser");
+                        laser.volume = 0.2;
                         managers.Game.currentSceneObject.addChild(this.ammo);
                         this.shoot = true;
                         break;
                     case "Enemy12":
                     case "Enemy13":
                         var ticker = createjs.Ticker.getTicks();
-                        if (ticker % 10 == 0) {
-                            this.ammoSpawn = new math.Vec2(this.x - 19, this.y - 15);
+                        if (ticker % 100 == 0) {
+                            this.ammoSpawn = new math.Vec2(this.x - 16, this.y - 15);
                             this.position = new math.Vec2(this.x, this.y);
                             this.ammo = new objects.EnemyAmmo("Enemy1_Shot");
-                            //this.ammo.rotation = 90 + this.angle;
+                            this.ammo.scaleX = 1.5;
+                            this.ammo.scaleY = 1.5;
                             this.ammo.Dir = new math.Vec2((this.playerPos.x - this.position.x) * this.ammo.Speed, (this.playerPos.y - this.position.y) * this.ammo.Speed);
                             this.ammo.x = this.ammoSpawn.x;
                             this.ammo.y = this.ammoSpawn.y;
+                            var laser_1 = createjs.Sound.play("laser");
+                            laser_1.volume = 0.1;
                             managers.Game.currentSceneObject.addChild(this.ammo);
+                            this.shoot = true;
                         }
                         break;
                 }
             }
+        };
+        Enemy.prototype.TimedShot = function () {
+            var _this = this;
+            var counter = 1;
+            this.ShootPlayer;
+            var interval = setInterval(function () {
+                counter--;
+                if (counter < 0) {
+                    clearInterval(interval);
+                    _this.shoot = false;
+                }
+            }, 1000);
         };
         return Enemy;
     }(objects.GameObject));
