@@ -167,8 +167,8 @@ module scenes {
                 })*/
             }
             if(managers.Game.timer == 480)
-                createjs.Sound.stop();
-            if(managers.Game.timer < 480){
+                //createjs.Sound.stop();
+            if(managers.Game.timer < 479){
                 this.bgm = createjs.Sound.play("bossMusic");
                 this.bgm.loop = -1;
                 this.bgm.volume = 0.05;

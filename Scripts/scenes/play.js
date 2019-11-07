@@ -145,19 +145,19 @@ var scenes;
                 })*/
             }
             if (managers.Game.timer == 480)
-                createjs.Sound.stop();
-            if (managers.Game.timer < 480) {
-                this.bgm = createjs.Sound.play("bossMusic");
-                this.bgm.loop = -1;
-                this.bgm.volume = 0.05;
-                /*
-                this.addChild(this.eBoss1)
-                this.background.y += 0;
-                if(!this.eBoss1.isDead){
-                    this.eBoss1.FindPlayer(this.player)
-                    this.eBoss1.Update();
-                }*/
-            }
+                //createjs.Sound.stop();
+                if (managers.Game.timer < 479) {
+                    this.bgm = createjs.Sound.play("bossMusic");
+                    this.bgm.loop = -1;
+                    this.bgm.volume = 0.05;
+                    /*
+                    this.addChild(this.eBoss1)
+                    this.background.y += 0;
+                    if(!this.eBoss1.isDead){
+                        this.eBoss1.FindPlayer(this.player)
+                        this.eBoss1.Update();
+                    }*/
+                }
             if (managers.Game.hud.Lives < 0) {
                 managers.Game.currentScene = config.Scene.OVER;
             }

@@ -113,7 +113,7 @@ module objects {
                                     
                                     let bullet = managers.Game.bulletManager.GetBullet();
 
-                                    console.log(bullet);
+                                    //console.log(bullet);
                         
                                     bullet.x = this.bulletSpawn.x;
                                     bullet.y = this.bulletSpawn.y;
