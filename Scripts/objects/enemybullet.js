@@ -116,6 +116,9 @@ var objects;
                         this.y += this.dir.y + (90 * Math.sin(this.angle)); //* this.speed
                         break;
                     case 5:
+                        this.angle += this.angleStep;
+                        this.x += this.dir.x; //* (90*Math.cos(this.angle))
+                        this.y += this.dir.y; //* (90*Math.sin(this.angle))
                         break;
                     case 6:
                         break;

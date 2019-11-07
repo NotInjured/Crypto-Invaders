@@ -222,7 +222,7 @@ module objects {
                         this.y += 2;
                     if(this.y > 100){
                         //if(!this.pattern1)
-                            this.ShootPattern(4)
+                            this.ShootPattern(5)
                         //if(this.pattern1 && !this.pattern2)
                             //this.ShootPattern(2)
                     }
@@ -478,7 +478,45 @@ module objects {
                                 //this.Timer();
                             }
                             break;
-                            case 5:
+                            case 5: // Spiral?
+                            if(this.shootNum < 30){
+                                if(ticker % 5 == 0){
+                                    this.shootNum++;
+                                    this.bulletSpawn = new math.Vec2(this.x, this.y);   
+                                    this.position = new math.Vec2(this.x, this.y);
+                                    this.distance = math.Vec2.Distance(this.playerPos, this.position);   
+                    
+                                    this.bullet = managers.Game.enemyBulletManager.GetBullet()
+                                    this.bullet.pattern = 5;
+    
+                                    this.bullet.Speed = 0.05;
+                                    this.bullet.Radius = 1
+                                    this.bullet.Angle = 0;
+                                    this.bullet.AngleStep = (360/this.shootNum);
+                                    this.bullet.Angle += this.bullet.AngleStep
+
+                                    this.bullet.Dir = new math.Vec2(
+                                        (90*Math.cos(this.bullet.Angle)) * this.bullet.Speed, 
+                                        (90*Math.sin(this.bullet.Angle)) * this.bullet.Speed
+                                    );
+
+                                    this.bullet.x = this.bulletSpawn.x 
+                                    this.bullet.y = this.bulletSpawn.y
+
+                                    console.log(this.bullet.Angle)
+                                    console.log(this.bullet)
+                                    
+                                    //let laser = createjs.Sound.play("laser");
+                                    //laser.volume = 0.2;
+                                }
+                            }
+                            if(this.shootNum > 29){
+                                this.bullet.Reset()
+                                this.shoot = true;
+                                this.pattern1 = true;
+                                this.pattern2 = false;
+                                //this.Timer();
+                            }
                             break;
                             case 6:
                             break;
