@@ -9,8 +9,9 @@ var managers;
         EnemyBullet.prototype.buildBulletPool = function (pattern) {
             // Initialize a pool of ammo assets
             for (var i = 0; i < this.bulletCount; i++) {
-                if (pattern)
+                if (pattern) {
                     this.Bullet[i] = new objects.EnemyBullet("Enemy1_Shot", true);
+                }
                 if (!pattern)
                     this.Bullet[i] = new objects.EnemyBullet("Enemy1_Shot", false);
             }
@@ -27,7 +28,7 @@ var managers;
             this.bulletCount = 50;
             this.Bullet = new Array();
             this.CurrentBullet = 0;
-            this.buildBulletPool(false);
+            this.buildBulletPool(true);
         };
         EnemyBullet.prototype.Update = function () {
             this.Bullet.forEach(function (bullet) {

@@ -42,6 +42,7 @@ var scenes;
             this.eType2 = new Array();
             this.eType3 = new Array();
             this.eBoss1 = new objects.Enemy("Enemy4");
+            managers.Game.eType2 = this.eBoss1;
             switch (managers.Game.difficulty) {
                 case 0:
                     for (var i = 0; i < 2; i++) {
@@ -90,7 +91,7 @@ var scenes;
             }
             this.bulletManager.Update();
             this.enemyBulletManager.Update();
-            console.log(managers.Game.timer);
+            //console.log(managers.Game.timer);
             this.background.Update();
             this.player.Update();
             //this.ChangeShip();
@@ -143,8 +144,9 @@ var scenes;
                     }
                 })*/
             }
-            if (managers.Game.timer <= 480) {
+            if (managers.Game.timer == 480)
                 createjs.Sound.stop();
+            if (managers.Game.timer < 480) {
                 this.bgm = createjs.Sound.play("bossMusic");
                 this.bgm.loop = -1;
                 this.bgm.volume = 0.05;
@@ -177,16 +179,16 @@ var scenes;
                 _this.addChild(e);
                 e.isInvincible = true;
             });
-            this.addChild(this.hudImage);
-            this.addChild(this.hud);
-            this.addChild(this.aircraft);
-            this.addChild(this.player);
             this.bulletManager.Bullet.forEach(function (bullet) {
                 _this.addChild(bullet);
             });
             this.enemyBulletManager.Bullet.forEach(function (bullet) {
                 _this.addChild(bullet);
             });
+            this.addChild(this.hudImage);
+            this.addChild(this.hud);
+            this.addChild(this.aircraft);
+            this.addChild(this.player);
         };
         PlayScene.prototype.CheckCollisions = function () {
             var _this = this;

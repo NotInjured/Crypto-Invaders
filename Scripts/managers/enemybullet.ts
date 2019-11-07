@@ -13,8 +13,10 @@ module managers {
         public buildBulletPool(pattern:Boolean):void {
             // Initialize a pool of ammo assets
             for(let i = 0; i < this.bulletCount; i++) {
-                if(pattern)
+                if(pattern){
                     this.Bullet[i] = new objects.EnemyBullet("Enemy1_Shot", true);
+
+                }
                 if(!pattern)
                     this.Bullet[i] = new objects.EnemyBullet("Enemy1_Shot", false);
             }
@@ -34,7 +36,7 @@ module managers {
             this.bulletCount = 50;
             this.Bullet = new Array<objects.EnemyBullet>();
             this.CurrentBullet = 0;
-            this.buildBulletPool(false);
+            this.buildBulletPool(true);
         }
         public Update():void {
             this.Bullet.forEach(bullet => {

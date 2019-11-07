@@ -4,11 +4,13 @@ module objects {
         private speed:number = 10;
         private dir:math.Vec2;
         private angle:number;
+        private angleStep:number;
         private radius:number;
         private spread:number;
 
-        private pattern:boolean;
-        
+        private isPattern:boolean;
+        public pattern:number;
+
         get Dir():math.Vec2{
             return this.dir;
         }
@@ -32,11 +34,32 @@ module objects {
         set Spread(s:number){
             this.spread = s;
         }
+        get Angle():number{
+            return this.angle;
+        }
+
+        set Angle(a:number){
+            this.angle = a;
+        }
+        get AngleStep():number{
+            return this.angleStep;
+        }
+
+        set AngleStep(as:number){
+            this.angleStep = as;
+        }
+        get Radius():number{
+            return this.radius;
+        }
+
+        set Radius(r:number){
+            this.radius = r;
+        }
 
         // Constructor
-        constructor(ammo:string, pattern:boolean) {
+        constructor(ammo:string, isPattern:boolean) {
             super(ammo);
-            this.pattern = pattern;
+            this.isPattern = isPattern;
             this.Start();
         }
         // Methods
@@ -53,24 +76,49 @@ module objects {
             this.CheckBound();
         }
         public Reset():void {
-            this.x = -1000; 
-            this.y = -1000;
+            this.x = 10000; 
+            this.y = 10000;
         }
         public Main():void{}
         public Move():void {
-            if(this.dir != undefined && this.pattern){
-                this.y += this.dir.y
-                this.x += this.dir.x
+            if(this.dir != undefined && this.isPattern){
+                switch(this.pattern){
+                    case 1:
+                    case 2:
+                    case 3:
+                        this.x += this.dir.x
+                        this.y += this.dir.y
+                    break;
+                    case 4:
+                        this.angle += this.angleStep
+                        this.x += this.dir.x + (90*Math.cos(this.angle)) //* this.speed
+                        this.y += this.dir.y + (90*Math.sin(this.angle)) //* this.speed
+                    break;
+                    case 5:
+                    break;
+                    case 6:
+                    break;
+                    case 7:
+                    break;
+                    case 8:
+                    break;
+                    case 9:
+                    break;
+                    case 10:
+                    break;
+                }
+                
             }
-            else if(this.dir == undefined && this.pattern){
-                this.y += this.speedY;
-                this.x += 0 
-            }
-            else if(this.dir != undefined && !this.pattern){
-                this.y += this.dir.y
+            //else if(this.dir == undefined && this.pattern){
+            //    this.y += this.speedY;
+            //    this.x += 0 
+            //}
+            else if(this.dir != undefined && !this.isPattern){
                 this.x += this.dir.x
+                this.y += this.dir.y
             }
         }
+
         public CheckBounds():void {
             if(this.x > 710 || this.x < 340 ||
                 this.y > 720){
