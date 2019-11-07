@@ -6,25 +6,28 @@ var managers;
             this.Start();
         }
         // Methods
-        EnemyBullet.prototype.buildBulletPool = function () {
+        EnemyBullet.prototype.buildBulletPool = function (pattern) {
             // Initialize a pool of ammo assets
             for (var i = 0; i < this.bulletCount; i++) {
-                this.Bullet[i] = new objects.EnemyBullet("Enemy_Shot");
+                if (pattern)
+                    this.Bullet[i] = new objects.EnemyBullet("Enemy1_Shot", true);
+                if (!pattern)
+                    this.Bullet[i] = new objects.EnemyBullet("Enemy1_Shot", false);
             }
         };
         EnemyBullet.prototype.GetBullet = function () {
-            var ammo = this.Bullet[this.CurrentBullet];
+            var bullet = this.Bullet[this.CurrentBullet];
             this.CurrentBullet++;
-            if (managers.Game.enemyBulletManager.CurrentBullet > 4) {
+            if (managers.Game.enemyBulletManager.CurrentBullet > 49) {
                 managers.Game.enemyBulletManager.CurrentBullet = 0;
             }
-            return ammo;
+            return bullet;
         };
         EnemyBullet.prototype.Start = function () {
-            this.bulletCount = 5;
+            this.bulletCount = 50;
             this.Bullet = new Array();
             this.CurrentBullet = 0;
-            this.buildBulletPool();
+            this.buildBulletPool(false);
         };
         EnemyBullet.prototype.Update = function () {
             this.Bullet.forEach(function (bullet) {

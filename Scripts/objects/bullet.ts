@@ -17,7 +17,8 @@ module objects {
             this.Move();
         }
         public Reset():void {
-            
+            this.x = -1000; 
+            this.y = -1000;
         }
         public Main():void{}
         public Move():void {

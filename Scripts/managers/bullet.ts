@@ -123,13 +123,13 @@ module managers {
         }
 
         public GetBullet(): objects.Bullet {
-            let ammo:objects.Bullet = this.Bullet[this.CurrentBullet];
+            let bullet:objects.Bullet = this.Bullet[this.CurrentBullet];
             this.CurrentBullet++;
             if(managers.Game.bulletManager.CurrentBullet > 24) {
                 managers.Game.bulletManager.CurrentBullet = 0;
             }
 
-            return ammo;
+            return bullet;
         }
 
         public Start():void {

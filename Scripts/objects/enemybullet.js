@@ -16,10 +16,11 @@ var objects;
     var EnemyBullet = /** @class */ (function (_super) {
         __extends(EnemyBullet, _super);
         // Constructor
-        function EnemyBullet(ammo) {
+        function EnemyBullet(ammo, pattern) {
             var _this = _super.call(this, ammo) || this;
             // Variables
-            _this.speed = 7;
+            _this.speed = 10;
+            _this.pattern = pattern;
             _this.Start();
             return _this;
         }
@@ -37,6 +38,19 @@ var objects;
             get: function () {
                 return this.speed;
             },
+            set: function (s) {
+                this.speed = s;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(EnemyBullet.prototype, "Spread", {
+            get: function () {
+                return this.spread;
+            },
+            set: function (s) {
+                this.spread = s;
+            },
             enumerable: true,
             configurable: true
         });
@@ -44,29 +58,37 @@ var objects;
         EnemyBullet.prototype.Start = function () {
             this.speedX = this.speed;
             this.speedY = this.speed;
+            this.scaleX = 1.5;
+            this.scaleY = 1.5;
             this.Reset();
         };
         EnemyBullet.prototype.Update = function () {
             this.Move();
             this.CheckBound();
-            if (this.x > 710 || this.x < 340 ||
-                this.y > 720) {
-                managers.Game.currentSceneObject.removeChild(this);
-            }
         };
         EnemyBullet.prototype.Reset = function () {
+            this.x = -1000;
+            this.y = -1000;
         };
         EnemyBullet.prototype.Main = function () { };
         EnemyBullet.prototype.Move = function () {
-            if (this.dir != undefined) {
-                this.y += this.dir.y * (60 / 20000);
-                this.x += this.dir.x * (60 / 20000);
+            if (this.dir != undefined && this.pattern) {
+                this.y += this.dir.y;
+                this.x += this.dir.x;
+            }
+            else if (this.dir == undefined && this.pattern) {
+                this.y += this.speedY;
+                this.x += 0;
+            }
+            else if (this.dir != undefined && !this.pattern) {
+                this.y += this.dir.y;
+                this.x += this.dir.x;
             }
         };
         EnemyBullet.prototype.CheckBounds = function () {
             if (this.x > 710 || this.x < 340 ||
                 this.y > 720) {
-                managers.Game.currentSceneObject.removeChild(this);
+                this.Reset();
             }
         };
         return EnemyBullet;

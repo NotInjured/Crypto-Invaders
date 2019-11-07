@@ -18,6 +18,7 @@ module scenes {
         private eBoss1: objects.Enemy;
 
         private bulletManager:managers.Bullet;
+        private enemyBulletManager:managers.EnemyBullet;
 
         private bgm:createjs.AbstractSoundInstance;
 
@@ -34,7 +35,7 @@ module scenes {
             this.background = new objects.Background();
             
             createjs.Sound.stop();
-            this.bgm = createjs.Sound.play("bgm");
+            this.bgm = createjs.Sound.play("bgm2");
             this.bgm.loop = -1;
             this.bgm.volume = 0.05;
 
@@ -46,6 +47,9 @@ module scenes {
             
             this.bulletManager = new managers.Bullet();
             managers.Game.bulletManager = this.bulletManager;
+
+            this.enemyBulletManager = new managers.EnemyBullet();
+            managers.Game.enemyBulletManager = this.enemyBulletManager;
 
             managers.Game.player = this.player;
             managers.Game.timer = 600;
@@ -106,6 +110,7 @@ module scenes {
                 this.removeChild(this.aircraft);
             }
             this.bulletManager.Update();
+            this.enemyBulletManager.Update()
             console.log(managers.Game.timer);
             this.background.Update();
             this.player.Update();
@@ -128,6 +133,12 @@ module scenes {
                 if(managers.Game.boss1IsDead){
                     this.removeChild(this.eBoss1)
                 }
+                this.addChild(this.eBoss1)
+                this.background.y += 0;
+                if(!this.eBoss1.isDead){
+                    this.eBoss1.FindPlayer(this.player)
+                    this.eBoss1.Update();
+                }/*
                 this.eType1.forEach(e =>{
                     if(!e.isDead){
                         e.isInvincible = false;
@@ -152,7 +163,7 @@ module scenes {
                         e.Update();
                         e.FindPlayer(this.player);
                     }
-                })
+                })*/
             }
             if(managers.Game.timer <= 480){
                 createjs.Sound.stop();
@@ -160,12 +171,13 @@ module scenes {
                 this.bgm.loop = -1;
                 this.bgm.volume = 0.05;
 
+                /*
                 this.addChild(this.eBoss1)
                 this.background.y += 0;
                 if(!this.eBoss1.isDead){
                     this.eBoss1.FindPlayer(this.player)
                     this.eBoss1.Update();
-                }
+                }*/
             }
             if(managers.Game.hud.Lives < 0){
                 managers.Game.currentScene = config.Scene.OVER;
@@ -175,6 +187,7 @@ module scenes {
         public Main(): void {
             // Order matters when adding game objects.
             this.addChild(this.background);
+            
             this.SpawnTimer()
             
             this.eType1.forEach(e =>{
@@ -189,6 +202,8 @@ module scenes {
                 this.addChild(e);
                 e.isInvincible = true;
             })
+            this.addChild(this.hudImage);
+            this.addChild(this.hud);
             this.addChild(this.aircraft);
             this.addChild(this.player);
 
@@ -196,8 +211,9 @@ module scenes {
                 this.addChild(bullet);
             })
 
-            this.addChild(this.hudImage);
-            this.addChild(this.hud);
+            this.enemyBulletManager.Bullet.forEach(bullet =>{
+                this.addChild(bullet);
+            })
         }
 
         public CheckCollisions():void{
@@ -216,6 +232,10 @@ module scenes {
                 })
                 
                 managers.Collision.CheckAABB(bullet, this.eBoss1);
+            })
+
+            this.enemyBulletManager.Bullet.forEach(b =>{
+                managers.Collision.CheckAABB(b, this.player);
             })
         }
         

@@ -7,8 +7,9 @@ module objects {
         public isInvincible: boolean = false;
 
         private angle:number;
-        private shootNum:number;
+        private shootNum:number = 0;
         private sprite:string;
+        private distance:number;
         
         private bullet:objects.EnemyBullet;
 
@@ -17,6 +18,8 @@ module objects {
         private position:math.Vec2;
 
         private player:objects.Player;
+
+        private timerInterval:number;
 
         private randomNum;
 
@@ -88,11 +91,14 @@ module objects {
             if(!this.isDead){
                 this.Move();
                 this.CheckBounds();
-                if(this.bullet != undefined)
+                if(this.bullet != undefined){
                     this.bullet.Update();
+
+                    //if(this.shoot && !this.player.isInvincible && managers.Game.hud.Lives >= 0)
+                        //managers.Collision.CheckAABB(this.bullet, this.player);
+                }
                 
-                if(this.shoot && !this.player.isInvincible && managers.Game.hud.Lives >= 0)
-                    managers.Collision.CheckAABB(this.bullet, this.player);
+                
             }   
         }
 
@@ -207,10 +213,10 @@ module objects {
                         this.Reset();
                 break;
                 case "Enemy4":
-                    if(this.y < 110){
+                    if(this.y < 110)
                         this.y += 2;
-                    }
-                    this.TimedShot()
+                    if(this.y > 100)
+                        this.ShootPattern(2)
                 break;
                 case "Enemy5":
                 break;
@@ -246,7 +252,6 @@ module objects {
                     case "Enemy1":
                     case "Enemy2":
                     case "Enemy3":
-                    case "Enemy4":
                     case "Enemy5":
                     case "Enemy6":
                     case "Enemy7":
@@ -257,14 +262,16 @@ module objects {
                         this.bulletSpawn = new math.Vec2(this.x - 10, this.y - 15);      
 
                         this.position = new math.Vec2(this.x, this.y);
+                        this.distance = math.Vec2.Distance(this.playerPos, this.position);
     
-                        this.bullet = new objects.EnemyBullet("Enemy1_Shot")
-                        this.bullet.scaleX = 1.5;
-                        this.bullet.scaleY = 1.5;
+                        this.bullet = new objects.EnemyBullet("Enemy1_Shot", false)
     
                         this.bullet.Dir = new math.Vec2(
-                            (this.playerPos.x - this.position.x) * this.bullet.Speed, 
-                            (this.playerPos.y - this.position.y) * this.bullet.Speed);
+                            //((this.playerPos.x - this.position.x)) * this.bullet.Speed, 
+                            //((this.playerPos.y - this.position.y)) * this.bullet.Speed)
+                            ((this.playerPos.x - this.position.x) / this.distance) * this.bullet.Speed, 
+                            ((this.playerPos.y - this.position.y) / this.distance) * this.bullet.Speed);
+                            
     
                         this.bullet.x = this.bulletSpawn.x;
                         this.bullet.y = this.bulletSpawn.y;
@@ -273,48 +280,129 @@ module objects {
                         laser.volume = 0.2;
 
                         managers.Game.currentSceneObject.addChild(this.bullet);
+                        console.log(this.bullet)
                         this.shoot = true;  
                     break;
+                    case "Enemy4":
                     case "Enemy12":
                     case "Enemy13":
-                    let ticker:number = createjs.Ticker.getTicks();
-                        if(ticker % 100 == 0){
+                        let ticker:number = createjs.Ticker.getTicks();
+                        if(ticker % 10 == 0){
                             this.bulletSpawn = new math.Vec2(this.x - 10, this.y - 15);      
-
+            
                             this.position = new math.Vec2(this.x, this.y);
-        
-                            this.bullet = new objects.EnemyBullet("Enemy1_Shot")
-                            this.bullet.scaleX = 1.5;
-                            this.bullet.scaleY = 1.5;
-        
+                            this.distance = math.Vec2.Distance(this.playerPos, this.position);
+
+                            this.bullet = managers.Game.enemyBulletManager.GetBullet()
+            
                             this.bullet.Dir = new math.Vec2(
-                                (this.playerPos.x - this.position.x) * this.bullet.Speed, 
-                                (this.playerPos.y - this.position.y) * this.bullet.Speed);
-        
-                            this.bullet.x = this.bulletSpawn.x;
-                            this.bullet.y = this.bulletSpawn.y;
-        
+                                ((this.playerPos.x - this.position.x) / this.distance) * this.bullet.Speed, 
+                                ((this.playerPos.y - this.position.y) / this.distance) * this.bullet.Speed);
+                            console.log(this.bullet)
+
+                                this.bullet.x = this.bulletSpawn.x;
+                                this.bullet.y = this.bulletSpawn.y;
+                            
+                            //this.bullet.x = this.bulletSpawn.x;
+                            //this.bullet.y = this.bulletSpawn.y;
+            
                             let laser = createjs.Sound.play("laser");
                             laser.volume = 0.2;
-    
+            
                             managers.Game.currentSceneObject.addChild(this.bullet);
-                            this.shoot = true;
                         }
                     break;
                 }
             }
         }
+        
+        public ShootPattern(pattern:number):void{
+            if(!this.isDead && !this.shoot){
+                let ticker:number = createjs.Ticker.getTicks();
+                this.bulletSpawn = new math.Vec2(this.x - 10, this.y - 15);      
+                        
+                this.position = new math.Vec2(this.x, this.y);
+                this.distance = math.Vec2.Distance(this.playerPos, this.position);
 
-        public TimedShot():void{
-            let counter = 1;
-            this.ShootPlayer
-            let interval = setInterval(() =>{
-               counter--;
-                if(counter < 0){
-                    clearInterval(interval);
-                    this.shoot = false;
+                this.bullet = managers.Game.enemyBulletManager.GetBullet()
+
+                this.bullet.x = this.bulletSpawn.x;
+                this.bullet.y = this.bulletSpawn.y;
+
+                switch(this.sprite){
+                    case "Enemy4":
+                        switch(pattern){
+                            case 1: // Repeater x10
+                                if(this.shootNum < 10){
+                                    if(ticker % 5 == 0){
+        
+                                        this.bullet.Speed = 5;
+
+                                        this.bullet.Dir = new math.Vec2(
+                                            ((this.playerPos.x - this.position.x) / this.distance) * this.bullet.Speed, 
+                                            ((this.playerPos.y - this.position.y) / this.distance) * this.bullet.Speed);
+                                        console.log(this.bullet)
+        
+                                        
+                    
+                                        //let laser = createjs.Sound.play("laser");
+                                        //laser.volume = 0.2;
+                    
+                                        managers.Game.currentSceneObject.addChild(this.bullet);
+                                        this.shootNum++;
+                                    }
+                                }
+                                if(this.shootNum >= 9){
+                                    this.shoot = true;
+                                    this.Timer();
+                                }
+                            break;
+                            case 2: // Spread 3
+                                this.bullet.Spread = 3;
+                                for(let i = 0; i < this.bullet.Spread; i++){
+                                    if(this.shootNum < 10){
+                                        if(ticker % 5 == 0){
+            
+                                            this.bullet.Speed = 5;
+                                            
+                                            this.bullet.Dir = new math.Vec2(
+                                                (((this.playerPos.x - this.position.x) -25 +(25 * i))/ this.distance) * this.bullet.Speed, 
+                                                (((this.playerPos.y - this.position.y) -25 +(25 * i))/ this.distance)* this.bullet.Speed);
+                                            console.log(this.bullet)
+                        
+                                            //let laser = createjs.Sound.play("laser");
+                                            //laser.volume = 0.2;
+                        
+                                            managers.Game.currentSceneObject.addChild(this.bullet);
+                                            this.shootNum++;
+                                        }
+                                    }
+                                    if(this.shootNum >= 9){
+                                        this.shoot = true;
+                                        this.Timer();
+                                    }
+                                }
+                            break;
+                        }
+                    case "Enemy12":
+                    case "Enemy13":
+                    break;
                 }
-            }, 1000)
+            }
+        }
+
+        public Timer():void{
+            let counter = 1;
+
+            this.timerInterval = setInterval(() =>{
+                counter--;
+                 if(counter < 0){
+                    counter = 1;
+                    clearInterval(this.timerInterval);
+                    this.shootNum = 0;
+                    this.shoot = false;
+                 }
+             }, 1000)
         }
     }
 }

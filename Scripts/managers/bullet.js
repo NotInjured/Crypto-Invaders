@@ -112,12 +112,12 @@ var managers;
             }
         };
         Bullet.prototype.GetBullet = function () {
-            var ammo = this.Bullet[this.CurrentBullet];
+            var bullet = this.Bullet[this.CurrentBullet];
             this.CurrentBullet++;
             if (managers.Game.bulletManager.CurrentBullet > 24) {
                 managers.Game.bulletManager.CurrentBullet = 0;
             }
-            return ammo;
+            return bullet;
         };
         Bullet.prototype.Start = function () {
             this.bulletCount = 25;

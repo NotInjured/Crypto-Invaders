@@ -30,8 +30,8 @@ var managers;
                         managers.Game.hud.ScoreMult += 1;
                         var hit1 = createjs.Sound.play("hit");
                         hit1.volume = 0.2;
-                        managers.Game.currentSceneObject.addChild(effect);
                         managers.Game.currentSceneObject.removeChild(object1);
+                        managers.Game.currentSceneObject.addChild(effect);
                         object2.Reset();
                         break;
                     case "Enemy4":
@@ -43,7 +43,7 @@ var managers;
                         managers.Game.boss1Hp -= 1;
                         var hit2 = createjs.Sound.play("hit");
                         hit2.volume = 0.2;
-                        managers.Game.currentSceneObject.removeChild(object1);
+                        object1.Reset();
                         console.log(managers.Game.boss1Hp);
                         if (managers.Game.boss1Hp <= 0) {
                             managers.Game.boss1IsDead = true;
@@ -53,13 +53,13 @@ var managers;
                     case "Ship1":
                     case "Ship2":
                     case "Ship3":
-                        console.log("Player Hit");
-                        var death = createjs.Sound.play("playerDeath");
-                        death.volume = 0.5;
-                        managers.Game.currentSceneObject.removeChild(object1);
-                        managers.Game.hud.Lives -= 1;
-                        managers.Game.hud.ScoreMult = 0;
-                        object2.Reset();
+                        //console.log("Player Hit");
+                        //let death = createjs.Sound.play("playerDeath");
+                        //death.volume = 0.5;
+                        //object1.Reset();
+                        //managers.Game.hud.Lives -= 1
+                        //managers.Game.hud.ScoreMult = 0;
+                        //object2.Reset();
                         break;
                 }
             }

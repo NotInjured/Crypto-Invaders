@@ -103,7 +103,7 @@ module objects {
             if(!this.isDead || this.swapped) {
                 let ticker:number = createjs.Ticker.getTicks();
 
-                if((managers.Game.keyboardManager.shoot) && (ticker % 15 == 0)) {
+                if((managers.Game.keyboardManager.shoot) && (ticker % 10 == 0)) {
                     switch(this.ShipType){
                         case config.Ship.Botcoin:
                                 if(this.POWER >= 1 && this.POWER <= 3){
@@ -285,7 +285,6 @@ module objects {
             let interval = setInterval(() =>{
                counter--;
                 if(counter < 0){
-                    clearInterval(interval);
                     this.isDead = false;
                     this.alpha = 1;
                     this.isInvincible = false;
@@ -293,6 +292,7 @@ module objects {
                         managers.Game.over = true;
                         managers.Game.currentScene = config.Scene.OVER;
                     }
+                    clearInterval(interval);
                 }
             }, 750)
         }

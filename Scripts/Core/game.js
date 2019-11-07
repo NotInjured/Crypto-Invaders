@@ -215,11 +215,11 @@
         { id: "backgroundL", src: "./Assets/L_background.png" },
         { id: "backgroundE", src: "./Assets/E_background.png" },
         { id: "bgm", src: "./Assets/Sounds/Mysterious_Mountain.mp3" },
-        { id: "bgm2", src: "./Assets/Sounds/RFN - III.ogg" },
-        { id: "bgm3", src: "./Assets/Sounds/The Truth Never Spoken.mp3" },
+        { id: "bgm2", src: "./Assets/Sounds/RFN_III.ogg" },
+        { id: "bgm3", src: "./Assets/Sounds/The_Truth_Never_Spoken.mp3" },
         { id: "playerDeath", src: "./Assets/Sounds/1516.mp3" },
         { id: "laser", src: "./Assets/Sounds/laser.mp3" },
-        { id: "bossMusic", src: "./Assets/Sounds/Sudden Death.ogg" },
+        { id: "bossMusic", src: "./Assets/Sounds/Sudden_Death.ogg" },
         { id: "mainMenu", src: "./Assets/Sounds/cyberspace.exe.ogg" },
         { id: "hit", src: "./Assets/Sounds/hit.wav" }
     ];

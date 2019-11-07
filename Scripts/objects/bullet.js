@@ -32,6 +32,8 @@ var objects;
             this.Move();
         };
         Bullet.prototype.Reset = function () {
+            this.x = -1000;
+            this.y = -1000;
         };
         Bullet.prototype.Main = function () { };
         Bullet.prototype.Move = function () {

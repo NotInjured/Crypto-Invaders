@@ -105,7 +105,7 @@ var objects;
         Player.prototype.Shoot = function () {
             if (!this.isDead || this.swapped) {
                 var ticker = createjs.Ticker.getTicks();
-                if ((managers.Game.keyboardManager.shoot) && (ticker % 15 == 0)) {
+                if ((managers.Game.keyboardManager.shoot) && (ticker % 10 == 0)) {
                     switch (this.ShipType) {
                         case config.Ship.Botcoin:
                             if (this.POWER >= 1 && this.POWER <= 3) {
@@ -228,7 +228,6 @@ var objects;
             var interval = setInterval(function () {
                 counter--;
                 if (counter < 0) {
-                    clearInterval(interval);
                     _this.isDead = false;
                     _this.alpha = 1;
                     _this.isInvincible = false;
@@ -236,6 +235,7 @@ var objects;
                         managers.Game.over = true;
                         managers.Game.currentScene = config.Scene.OVER;
                     }
+                    clearInterval(interval);
                 }
             }, 750);
         };

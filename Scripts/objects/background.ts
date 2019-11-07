@@ -11,7 +11,7 @@ module objects {
         // Functions 
         // Initializing our variables with default values
         public Start():void {
-            this.speedY = 0.5;
+            this.speedY = 1;
             //this.y = 1;
             this.y = -8250;
             this.x = 297;
