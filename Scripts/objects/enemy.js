@@ -397,11 +397,8 @@ var objects;
                                         this.bullet.Dir = new math.Vec2(((this.playerPos.x - this.position.x) / this.distance) * this.bullet.Speed, ((this.playerPos.y - this.position.y) / this.distance) * this.bullet.Speed);
                                         this.bullet.x = this.bulletSpawn.x;
                                         this.bullet.y = this.bulletSpawn.y;
-                                        console.log(this.bullet.Angle);
-                                        console.log(this.bullet);
                                         //let laser = createjs.Sound.play("laser");
                                         //laser.volume = 0.2;
-                                        //console.log(this.bullet)
                                     }
                                 }
                                 if (this.shootNum > 3) {
@@ -412,11 +409,11 @@ var objects;
                                     //this.Timer();
                                 }
                                 break;
-                            case 5: // Spiral?
-                                if (this.shootNum < 30) {
-                                    if (ticker % 5 == 0) {
+                            case 5: // Spiral
+                                if (this.shootNum < 500) {
+                                    if (ticker % 1 == 0) {
                                         this.shootNum++;
-                                        this.bulletSpawn = new math.Vec2(this.x, this.y);
+                                        this.bulletSpawn = new math.Vec2(this.x - 10, this.y);
                                         this.position = new math.Vec2(this.x, this.y);
                                         this.distance = math.Vec2.Distance(this.playerPos, this.position);
                                         this.bullet = managers.Game.enemyBulletManager.GetBullet();
@@ -424,7 +421,7 @@ var objects;
                                         this.bullet.Speed = 0.05;
                                         this.bullet.Radius = 1;
                                         this.bullet.Angle = 0;
-                                        this.bullet.AngleStep = (360 / this.shootNum);
+                                        this.bullet.AngleStep = (360 / 180) * this.shootNum;
                                         this.bullet.Angle += this.bullet.AngleStep;
                                         this.bullet.Dir = new math.Vec2((90 * Math.cos(this.bullet.Angle)) * this.bullet.Speed, (90 * Math.sin(this.bullet.Angle)) * this.bullet.Speed);
                                         this.bullet.x = this.bulletSpawn.x;
@@ -435,7 +432,7 @@ var objects;
                                         //laser.volume = 0.2;
                                     }
                                 }
-                                if (this.shootNum > 29) {
+                                if (this.shootNum > 499) {
                                     this.bullet.Reset();
                                     this.shoot = true;
                                     this.pattern1 = true;

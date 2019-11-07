@@ -94,7 +94,7 @@ var objects;
         };
         EnemyBullet.prototype.Update = function () {
             this.Move();
-            this.CheckBound();
+            //this.CheckBound();
         };
         EnemyBullet.prototype.Reset = function () {
             this.x = 10000;

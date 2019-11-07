@@ -73,7 +73,7 @@ module objects {
         }
         public Update():void {
             this.Move();
-            this.CheckBound();
+            //this.CheckBound();
         }
         public Reset():void {
             this.x = 10000; 
