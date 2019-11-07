@@ -104,29 +104,26 @@ var scenes;
                 if (this.player.y < 675)
                     this.player.y += 1;
             }
-            if (managers.Game.timer <= 596) {
+            if (managers.Game.timer > 591 && managers.Game.timer <= 596) {
                 this.addChild(this.stageName);
             }
             if (managers.Game.timer <= 591) {
                 this.removeChild(this.stageName);
-                if (managers.Game.boss1IsDead) {
-                    this.removeChild(this.eBoss1);
-                }
                 this.addChild(this.eBoss1);
                 this.background.y += 0;
                 if (!this.eBoss1.isDead) {
                     this.eBoss1.FindPlayer(this.player);
                     this.eBoss1.Update();
-                } /*
-                this.eType1.forEach(e =>{
+                }
+                /*this.eType1.forEach(e =>{
                     if(!e.isDead){
                         e.isInvincible = false;
                         e.Update();
                         e.FindPlayer(this.player);
                     }
-                })
-            }
-            if(managers.Game.timer <= 581){
+                })*/
+            } /*
+            if(managers.Game.timer > 481 && managers.Game.timer <= 581){
                 this.eType2.forEach(e =>{
                     if(!e.isDead){
                         e.isInvincible = false;
@@ -135,29 +132,45 @@ var scenes;
                     }
                 })
             }
-            if(managers.Game.timer <= 576){
+            if(managers.Game.timer > 481 && managers.Game.timer <= 576){
                 this.eType3.forEach(e =>{
                     if(!e.isDead){
                         e.isInvincible = false;
                         e.Update();
                         e.FindPlayer(this.player);
                     }
-                })*/
-            }
-            if (managers.Game.timer == 480)
-                //createjs.Sound.stop();
-                if (managers.Game.timer < 479) {
-                    this.bgm = createjs.Sound.play("bossMusic");
-                    this.bgm.loop = -1;
-                    this.bgm.volume = 0.05;
-                    /*
-                    this.addChild(this.eBoss1)
-                    this.background.y += 0;
-                    if(!this.eBoss1.isDead){
-                        this.eBoss1.FindPlayer(this.player)
-                        this.eBoss1.Update();
-                    }*/
+                })
+            }*/
+            /*
+            if(managers.Game.timer < 481){
+                this.eType1.forEach(e =>{
+                    e.Reset()
+                })
+                this.eType2.forEach(e =>{
+                    e.Reset()
+                })
+                this.eType3.forEach(e =>{
+                    e.Reset()
+                })
+            }*/
+            /*
+            if(managers.Game.timer < 479){
+                
+                createjs.Sound.stop();
+                this.bossBgm = createjs.Sound.play("bossMusic");
+                this.bossBgm.loop = -1;
+                this.bossBgm.volume = 0.05;
+
+                if(managers.Game.boss1IsDead){
+                    this.removeChild(this.eBoss1)
                 }
+                this.addChild(this.eBoss1)
+                this.background.y += 0;
+                if(!this.eBoss1.isDead){
+                    this.eBoss1.FindPlayer(this.player)
+                    this.eBoss1.Update();
+                }
+            }*/
             if (managers.Game.hud.Lives < 0) {
                 managers.Game.currentScene = config.Scene.OVER;
             }
@@ -194,16 +207,22 @@ var scenes;
             var _this = this;
             this.bulletManager.Bullet.forEach(function (bullet) {
                 _this.eType1.forEach(function (e) {
-                    if (!e.isInvincible)
+                    if (!e.isInvincible) {
                         managers.Collision.CheckAABB(bullet, e);
+                        managers.Collision.CheckAABB(e, _this.player);
+                    }
                 });
                 _this.eType2.forEach(function (e) {
-                    if (!e.isInvincible)
+                    if (!e.isInvincible) {
                         managers.Collision.CheckAABB(bullet, e);
+                        managers.Collision.CheckAABB(e, _this.player);
+                    }
                 });
                 _this.eType3.forEach(function (e) {
-                    if (!e.isInvincible)
+                    if (!e.isInvincible) {
                         managers.Collision.CheckAABB(bullet, e);
+                        managers.Collision.CheckAABB(e, _this.player);
+                    }
                 });
                 managers.Collision.CheckAABB(bullet, _this.eBoss1);
             });
