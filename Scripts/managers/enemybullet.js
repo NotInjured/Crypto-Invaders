@@ -19,13 +19,13 @@ var managers;
         EnemyBullet.prototype.GetBullet = function () {
             var bullet = this.Bullet[this.CurrentBullet];
             this.CurrentBullet++;
-            if (managers.Game.enemyBulletManager.CurrentBullet > 499) {
+            if (managers.Game.enemyBulletManager.CurrentBullet > 1999) {
                 managers.Game.enemyBulletManager.CurrentBullet = 0;
             }
             return bullet;
         };
         EnemyBullet.prototype.Start = function () {
-            this.bulletCount = 500;
+            this.bulletCount = 2000;
             this.Bullet = new Array();
             this.CurrentBullet = 0;
             this.buildBulletPool(true);

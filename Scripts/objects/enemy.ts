@@ -222,7 +222,8 @@ module objects {
                         this.y += 2;
                     if(this.y > 100){
                         //if(!this.pattern1)
-                            this.ShootPattern(5)
+                            this.ShootPattern(7)
+                            this.ShootPattern(9)
                         //if(this.pattern1 && !this.pattern2)
                             //this.ShootPattern(2)
                     }
@@ -473,13 +474,11 @@ module objects {
                                     //this.Timer();
                                 }
                             break;
-                            case 5: // Spiral
-                                if(this.shootNum < 500){
-                                    if(ticker % 1 == 0){
+                            case 5: // Spiral Normal
+                                if(this.shootNum < 100){
+                                    if(ticker % 5 == 0){
                                         this.shootNum++;
-                                        this.bulletSpawn = new math.Vec2(this.x - 10, this.y);   
-                                        this.position = new math.Vec2(this.x, this.y);
-                                        this.distance = math.Vec2.Distance(this.playerPos, this.position);   
+                                        this.bulletSpawn = new math.Vec2(this.x - 10, this.y); 
                     
                                         this.bullet = managers.Game.enemyBulletManager.GetBullet()
                                         this.bullet.pattern = 5;
@@ -487,7 +486,7 @@ module objects {
                                         this.bullet.Speed = 0.05;
                                         this.bullet.Radius = 1
                                         this.bullet.Angle = 0;
-                                        this.bullet.AngleStep = (360/180) * this.shootNum;
+                                        this.bullet.AngleStep = (360/36) * this.shootNum;
                                         this.bullet.Angle += this.bullet.AngleStep
 
                                         this.bullet.Dir = new math.Vec2(
@@ -504,8 +503,46 @@ module objects {
                                         //let laser = createjs.Sound.play("laser");
                                         //laser.volume = 0.2;
                                     }
+                                }
+                                if(this.shootNum > 99){
+                                    this.bullet.Reset()
+                                    this.shoot = true;
+                                    this.pattern1 = true;
+                                    this.pattern2 = false;
+                                    //this.Timer();
+                                }
+                            break;
+                            case 6:// Spiral Hard
+                            if(this.shootNum < 300){
+                                if(ticker % 3 == 0){
+                                    this.shootNum++;
+                                    this.bulletSpawn = new math.Vec2(this.x - 10, this.y); 
+                
+                                    this.bullet = managers.Game.enemyBulletManager.GetBullet()
+                                    this.bullet.pattern = 5;
+
+                                    this.bullet.Speed = 0.05;
+                                    this.bullet.Radius = 1
+                                    this.bullet.Angle = 0;
+                                    this.bullet.AngleStep = (360/180) * this.shootNum;
+                                    this.bullet.Angle += this.bullet.AngleStep
+
+                                    this.bullet.Dir = new math.Vec2(
+                                        (90*Math.cos(this.bullet.Angle)) * this.bullet.Speed, 
+                                        (90*Math.sin(this.bullet.Angle)) * this.bullet.Speed
+                                    );
+
+                                    this.bullet.x = this.bulletSpawn.x 
+                                    this.bullet.y = this.bulletSpawn.y
+
+                                    console.log(this.bullet.Angle)
+                                    console.log(this.bullet)
+                                
+                                    //let laser = createjs.Sound.play("laser");
+                                    //laser.volume = 0.2;
+                                }
                             }
-                            if(this.shootNum > 499){
+                            if(this.shootNum > 299){
                                 this.bullet.Reset()
                                 this.shoot = true;
                                 this.pattern1 = true;
@@ -513,13 +550,119 @@ module objects {
                                 //this.Timer();
                             }
                             break;
-                            case 6:
+                            case 7:// Spiral Hell
+                            if(this.shootNum < 1000){
+                                if(ticker % 0.5 == 0){
+                                    this.shootNum++;
+                                    this.bulletSpawn = new math.Vec2(this.x - 10, this.y); 
+                
+                                    this.bullet = managers.Game.enemyBulletManager.GetBullet()
+                                    this.bullet.pattern = 5;
+
+                                    this.bullet.Speed = 0.05;
+                                    this.bullet.Radius = 1
+                                    this.bullet.Angle = 0;
+                                    this.bullet.AngleStep = (360/360) * this.shootNum;
+                                    this.bullet.Angle += this.bullet.AngleStep
+
+                                    this.bullet.Dir = new math.Vec2(
+                                        (90*Math.cos(this.bullet.Angle)) * this.bullet.Speed, 
+                                        (90*Math.sin(this.bullet.Angle)) * this.bullet.Speed
+                                    );
+
+                                    this.bullet.x = this.bulletSpawn.x 
+                                    this.bullet.y = this.bulletSpawn.y
+
+                                    console.log(this.bullet.Angle)
+                                    console.log(this.bullet)
+                                
+                                    //let laser = createjs.Sound.play("laser");
+                                    //laser.volume = 0.2;
+                                }
+                            }
+                            if(this.shootNum > 999){
+                                this.bullet.Reset()
+                                this.shoot = true;
+                                this.pattern1 = true;
+                                this.pattern2 = false;
+                                //this.Timer();
+                            }
                             break;
-                            case 7:
+                            case 8:// Spiral Hard Reverse
+                            if(this.shootNum < 300){
+                                if(ticker % 1 == 0){
+                                    this.shootNum++;
+                                    this.bulletSpawn = new math.Vec2(this.x - 10, this.y); 
+                
+                                    this.bullet = managers.Game.enemyBulletManager.GetBullet()
+                                    this.bullet.pattern = 5;
+
+                                    this.bullet.Speed = 0.05;
+                                    this.bullet.Radius = 1
+                                    this.bullet.Angle = 0;
+                                    this.bullet.AngleStep = (360/180) * this.shootNum;
+                                    this.bullet.Angle += this.bullet.AngleStep
+
+                                    this.bullet.Dir = new math.Vec2(
+                                        (90*Math.sin(this.bullet.Angle)) * this.bullet.Speed, 
+                                        (90*Math.cos(this.bullet.Angle)) * this.bullet.Speed
+                                    );
+
+                                    this.bullet.x = this.bulletSpawn.x 
+                                    this.bullet.y = this.bulletSpawn.y
+
+                                    console.log(this.bullet.Angle)
+                                    console.log(this.bullet)
+                                
+                                    //let laser = createjs.Sound.play("laser");
+                                    //laser.volume = 0.2;
+                                }
+                            }
+                            if(this.shootNum > 299){
+                                this.bullet.Reset()
+                                this.shoot = true;
+                                this.pattern1 = true;
+                                this.pattern2 = false;
+                                //this.Timer();
+                            }
                             break;
-                            case 8:
-                            break;
-                            case 9:
+                            case 9:// Spiral Hell Reverse
+                            if(this.shootNum < 1000){
+                                if(ticker % 0.5 == 0){
+                                    this.shootNum++;
+                                    this.bulletSpawn = new math.Vec2(this.x - 10, this.y); 
+                
+                                    this.bullet = managers.Game.enemyBulletManager.GetBullet()
+                                    this.bullet.pattern = 5;
+
+                                    this.bullet.Speed = 0.05;
+                                    this.bullet.Radius = 1
+                                    this.bullet.Angle = 0;
+                                    this.bullet.AngleStep = (360/360) * this.shootNum;
+                                    this.bullet.Angle += this.bullet.AngleStep
+
+                                    this.bullet.Dir = new math.Vec2(
+                                        (90*Math.sin(this.bullet.Angle)) * this.bullet.Speed, 
+                                        (90*Math.cos(this.bullet.Angle)) * this.bullet.Speed
+                                    );
+
+                                    this.bullet.x = this.bulletSpawn.x 
+                                    this.bullet.y = this.bulletSpawn.y
+
+                                    console.log(this.bullet.Angle)
+                                    console.log(this.bullet)
+                                
+                                    //let laser = createjs.Sound.play("laser");
+                                    //laser.volume = 0.2;
+                                }
+                            }
+                            if(this.shootNum > 999){
+                                this.bullet.Reset()
+                                this.shoot = true;
+                                this.pattern1 = true;
+                                this.pattern2 = false;
+                                //this.Timer();
+                            }
                             break;
                         }
                     case "Enemy12":

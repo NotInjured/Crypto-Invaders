@@ -25,7 +25,7 @@ module managers {
         public GetBullet(): objects.EnemyBullet {
             let bullet:objects.EnemyBullet = this.Bullet[this.CurrentBullet];
             this.CurrentBullet++;
-            if(managers.Game.enemyBulletManager.CurrentBullet > 499) {
+            if(managers.Game.enemyBulletManager.CurrentBullet > 1999) {
                 managers.Game.enemyBulletManager.CurrentBullet = 0;
              }
 
@@ -33,7 +33,7 @@ module managers {
         }
 
         public Start():void {
-            this.bulletCount = 500;
+            this.bulletCount = 2000;
             this.Bullet = new Array<objects.EnemyBullet>();
             this.CurrentBullet = 0;
             this.buildBulletPool(true);
