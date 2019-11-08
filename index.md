@@ -1,1 +1,63 @@
-yeet
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Crypto Invaders</title>
+    <!--CSS Section-->
+    <link rel="stylesheet" href="./Content/game.css">
+</head>
+<body><!--1060-->
+    <canvas id="canvas" width="1055" height="720"></canvas>
+    <!-- Dependencies -->
+    <script src="./node_modules/easeljs/lib/easeljs.min.js"></script>
+    <script src="./node_modules/soundjs/lib/soundjs.min.js"></script>
+    <script src="./node_modules/preloadjs/lib/preloadjs.min.js"></script>
+
+    <!--GAME SCRIPTS-->
+    <!--Configuration Files-->
+    <script src="./Scripts/config/scene.js"></script>
+    <script src="./Scripts/config/ship.js"></script>
+    <script src="./Scripts/config/difficulty.js"></script>
+    <script src="./Scripts/config/keys.js"></script>
+
+    <!--Math Files-->
+    <script src="./Scripts/math/vec2.js"></script>
+
+    <!-- Object Scripts -->
+    <script src="./Scripts/objects/game.js"></script>
+    <script src="./Scripts/objects/label.js"></script>
+    <script src="./Scripts/objects/scene.js"></script>
+    <script src="./Scripts/objects/image.js"></script>
+
+    <!-- Game Object -->
+    <script src="./Scripts/objects/gameobject.js"></script>
+    <script src="./Scripts/objects/background.js"></script>
+    <script src="./Scripts/objects/player.js"></script>
+    <script src="./Scripts/objects/enemy.js"></script>
+    <script src="./Scripts/objects/bullet.js"></script>
+    <script src="./Scripts/objects/button.js"></script>
+    <script src="./Scripts/objects/effect.js"></script>
+    <script src="./Scripts/objects/enemybullet.js"></script>
+    <script src="./Scripts/objects/sprites.js"></script>
+    <script src="./Scripts/objects/coin.js"></script>
+
+    <!-- Game Managers -->
+    <script src="./Scripts/managers/collision.js"></script>
+    <script src="./Scripts/managers/hud.js"></script>
+    <script src="./Scripts/managers/game.js"></script>
+    <script src="./Scripts/managers/keyboard.js"></script>
+    <script src="./Scripts/managers/bullet.js"></script>
+    <script src="./Scripts/managers/enemybullet.js"></script>
+
+    <!-- Scene Scripts -->
+    <script src="./Scripts/scenes/gameover.js"></script>
+    <script src="./Scripts/scenes/play.js"></script>
+    <script src="./Scripts/scenes/start.js"></script>
+    <script src="./Scripts/scenes/options.js"></script>
+    <script src="./Scripts/scenes/intro.js"></script>
+
+    <script src="./Scripts/core/game.js"></script>
+</body>
+</html>
