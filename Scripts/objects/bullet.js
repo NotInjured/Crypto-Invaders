@@ -30,6 +30,7 @@ var objects;
         };
         Bullet.prototype.Update = function () {
             this.Move();
+            this.CheckBound();
         };
         Bullet.prototype.Reset = function () {
             this.x = -1000;
@@ -40,8 +41,8 @@ var objects;
             this.y += this.speedY;
         };
         Bullet.prototype.CheckBounds = function () {
-            if (this.y < -10)
-                managers.Game.currentSceneObject.removeChild(this);
+            if (this.y < 0)
+                this.Reset();
         };
         return Bullet;
     }(objects.GameObject));

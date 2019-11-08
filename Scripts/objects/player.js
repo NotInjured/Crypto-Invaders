@@ -59,18 +59,15 @@ var objects;
                 this.Shoot();
                 this.Swapped();
             }
-            if (managers.Game.hud.Lives >= 0 && this.isDead) {
-                this.isInvincible = true;
-                if (this.isInvincible) {
-                    this.RespawnTimer();
-                }
-            }
+            if (this.isInvincible)
+                this.RespawnTimer();
         };
         Player.prototype.Reset = function () {
             this.isDead = true;
             this.alpha = 0;
             this.x = 555;
             this.y = 675;
+            this.isInvincible = true;
         };
         Player.prototype.Move = function () {
             if (managers.Game.keyboardManager.moveLeft)
@@ -237,7 +234,7 @@ var objects;
                     }
                     clearInterval(interval);
                 }
-            }, 750);
+            }, 1000);
         };
         return Player;
     }(objects.GameObject));

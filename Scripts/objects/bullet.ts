@@ -15,6 +15,7 @@ module objects {
         }
         public Update():void {
             this.Move();
+            this.CheckBound()
         }
         public Reset():void {
             this.x = -1000; 
@@ -25,8 +26,8 @@ module objects {
             this.y += this.speedY;
         }
         public CheckBounds():void {
-            if(this.y < -10)
-                managers.Game.currentSceneObject.removeChild(this);
+            if(this.y < 0)
+                this.Reset()
         }
         
     }

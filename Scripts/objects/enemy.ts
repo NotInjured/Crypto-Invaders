@@ -238,13 +238,13 @@ module objects {
                     if(this.y > 190){
                         if(managers.Game.normal){
                             if(managers.Game.boss1Hp > 150){
-                                if(!this.pattern1 && !this.pattern2 && !this.pattern3 && !this.pattern4)
+                                if(!this.pattern1 && !this.pattern2 && !this.pattern3 && !this.pattern4 && !this.pattern7)
                                     this.ShootPattern(1)
-                                if(this.pattern1 && !this.pattern2 && !this.pattern3 && !this.pattern4)
+                                if(this.pattern1 && !this.pattern2 && !this.pattern3 && !this.pattern4 && !this.pattern7)
                                     this.ShootPattern(2)
-                                if(!this.pattern1 && this.pattern2 && !this.pattern3 && !this.pattern4)
+                                if(!this.pattern1 && this.pattern2 && !this.pattern3 && !this.pattern4 && !this.pattern7)
                                     this.ShootPattern(3)
-                                if(!this.pattern1 && !this.pattern2 && this.pattern3 && !this.pattern4)
+                                if(!this.pattern1 && !this.pattern2 && this.pattern3 && !this.pattern4 && !this.pattern7)
                                     this.ShootPattern(4)
                             }
                             if(managers.Game.boss1Hp > 100 && managers.Game.boss1Hp < 150){
@@ -259,17 +259,13 @@ module objects {
                                 if(!this.pattern1 && !this.pattern2 && !this.pattern3 && this.pattern4 && !this.pattern7)
                                     this.ShootPattern(7)
                             }
-                            if(managers.Game.boss1Hp < 100){
+                            if(managers.Game.boss1Hp <= 100){
                                 if(!this.pattern1 && !this.pattern2 && !this.pattern3 && !this.pattern4 && !this.pattern7)
                                     this.ShootPattern(1)
-                                if(this.pattern1 && !this.pattern2 && !this.pattern3 && !this.pattern4 && !this.pattern7){
-                                    //this.ShootPattern(1)
+                                if(this.pattern1 && !this.pattern2 && !this.pattern3 && !this.pattern4 && !this.pattern7)
                                     this.ShootPattern(2)
-                                }
-                                if(!this.pattern1 && this.pattern2 && !this.pattern3 && !this.pattern4 && !this.pattern7){
-                                    //this.ShootPattern(1)
+                                if(!this.pattern1 && this.pattern2 && !this.pattern3 && !this.pattern4 && !this.pattern7)
                                     this.ShootPattern(3)
-                                }
                                 if(!this.pattern1 && !this.pattern2 && this.pattern3 && !this.pattern4 && !this.pattern7){
                                     this.ShootPattern(4)
                                     this.ShootPattern(7)
@@ -307,7 +303,7 @@ module objects {
         }
 
         public ShootPlayer():void{
-            if(!this.isDead && !this.shoot){
+            if(!this.isDead && !this.shoot && !this.player.isDead){
                 switch(this.sprite){
                     case "Enemy1":
                     case "Enemy2":
@@ -346,7 +342,7 @@ module objects {
         }
         
         public ShootPattern(pattern:number):void{
-            if(!this.isDead && !this.shoot){
+            if(!this.isDead && !this.shoot && !this.player.isDead){
                 let ticker:number = createjs.Ticker.getTicks();
 
                 switch(this.sprite){
@@ -387,6 +383,7 @@ module objects {
                                         this.pattern2 = false;
                                         this.pattern3 = false;
                                         this.pattern4 = false
+                                        this.pattern7 = false;
                                     }
                                     if(managers.Game.boss1Hp > 100 && managers.Game.boss1Hp < 150){
                                         this.pattern1 = true;
@@ -441,6 +438,7 @@ module objects {
                                         this.pattern2 = true;
                                         this.pattern3 = false;
                                         this.pattern4 = false
+                                        this.pattern7 = false;
                                     }
                                     if(managers.Game.boss1Hp > 100 && managers.Game.boss1Hp < 150){
                                         this.pattern1 = false;
@@ -494,6 +492,7 @@ module objects {
                                         this.pattern2 = false;
                                         this.pattern3 = true;
                                         this.pattern4 = false
+                                        this.pattern7 = false;
                                     }
                                     if(managers.Game.boss1Hp > 100 && managers.Game.boss1Hp < 150){
                                         this.pattern1 = false;
@@ -550,6 +549,7 @@ module objects {
                                         this.pattern2 = false;
                                         this.pattern3 = false;
                                         this.pattern4 = false;
+                                        this.pattern7 = false;
                                     }
                                     if(managers.Game.boss1Hp > 100 && managers.Game.boss1Hp < 150){
                                         this.pattern1 = false;
@@ -675,6 +675,13 @@ module objects {
                             if(this.shootNum > 249){
                                 this.bullet.Reset()
                                 this.shoot = true;
+                                if(managers.Game.boss1Hp > 150){
+                                    this.pattern1 = false;
+                                    this.pattern2 = false;
+                                    this.pattern3 = false;
+                                    this.pattern4 = false;
+                                    this.pattern7 = false;
+                                }
                                 if(managers.Game.boss1Hp > 100 && managers.Game.boss1Hp < 150){
                                     this.pattern1 = false;
                                     this.pattern2 = false;

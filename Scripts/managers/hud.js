@@ -104,7 +104,7 @@ var managers;
             this.playerPowerLabel = new objects.Label("", "12px", "OptimusPrinceps", "#000000", 465, 20, false);
             this.scoreMultLabel = new objects.Label("", "18px", "OptimusPrinceps", "#000000", 650, 45, false);
             this.info1 = new objects.Label("Bottom Left: " + "\n" +
-                "Player starts with 3 lives " + "\n" +
+                "Player starts with 9/6/3 lives on Normal/Hard/Hell " + "\n" +
                 "- Gain more lives by completing stages (Max:10)" + "\n\n" +
                 "Player Starts with 1 bomb/special" + "\n" +
                 "- Gain more bombs dropped by enemies or bosses " + "\n" + "(Max:3)" + "\n\n" +

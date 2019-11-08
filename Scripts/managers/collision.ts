@@ -31,7 +31,7 @@ module managers {
                             managers.Game.hud.ScoreMult += 1;
                             let hit1 = createjs.Sound.play("hit");
                             hit1.volume = 0.2;
-                            managers.Game.currentSceneObject.removeChild(object1)
+                            object1.Reset()
                             managers.Game.currentSceneObject.addChild(effect);
                             object2.Reset();
                         break;
@@ -46,21 +46,23 @@ module managers {
                             hit2.volume = 0.2;
                             object1.Reset()
                             console.log(managers.Game.boss1Hp)
-                            if(managers.Game.boss1Hp <= 0){
+                            if(managers.Game.boss1Hp < 0){
                                 managers.Game.boss1IsDead = true;
-                                managers.Game.hud.Score += Math.round(100000 * Math.pow(1.01, managers.Game.hud.ScoreMult));
+                                managers.Game.currentSceneObject.removeChild(object2)
+                                managers.Game.hud.ScoreMult += 100;
+                                managers.Game.hud.Score += Math.round(10000 * Math.pow(1.01, managers.Game.hud.ScoreMult));
                             }
                         break;
                         case "Ship1":
                         case "Ship2":
                         case "Ship3":
-                            //console.log("Player Hit");
-                            //let death = createjs.Sound.play("playerDeath");
-                            //death.volume = 0.5;
-                            //object1.Reset();
-                            //managers.Game.hud.Lives -= 1
-                            //managers.Game.hud.ScoreMult = 0;
-                            //object2.Reset();
+                            console.log("Player Hit");
+                            let death = createjs.Sound.play("playerDeath");
+                            death.volume = 0.5;
+                            object1.Reset();
+                            managers.Game.hud.Lives -= 1
+                            managers.Game.hud.ScoreMult = 0;
+                            object2.Reset();
                         break;
                     }
                 }

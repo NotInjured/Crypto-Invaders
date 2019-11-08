@@ -45,19 +45,16 @@ module objects {
                 this.Shoot();
                 this.Swapped();
             }
-
-            if(managers.Game.hud.Lives >= 0 && this.isDead){
-                this.isInvincible = true;
-                if(this.isInvincible){
-                    this.RespawnTimer();
-                }
-            }
+            if(this.isInvincible)
+                this.RespawnTimer();
         }
+
         public Reset():void {
             this.isDead = true;
             this.alpha = 0;
             this.x = 555;
             this.y = 675;
+            this.isInvincible = true;
         }
 
         public Move():void {
@@ -293,8 +290,9 @@ module objects {
                         managers.Game.currentScene = config.Scene.OVER;
                     }
                     clearInterval(interval);
+
                 }
-            }, 750)
+            }, 1000)
         }
     }
 }
