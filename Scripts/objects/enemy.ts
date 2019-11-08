@@ -13,6 +13,7 @@ module objects {
         private distance:number;
         
         private bullet:objects.EnemyBullet;
+        private coins:objects.Coins;
 
         private bulletSpawn:math.Vec2;
         private playerPos:math.Vec2;
@@ -124,6 +125,7 @@ module objects {
             this.isDead = false;
             this.back = false;
             this.shoot = false;
+            this.DropCoin()
             switch(this.sprite){
                 case "Enemy1":
                     this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
@@ -818,6 +820,45 @@ module objects {
                     case "Enemy13":
                     break;
                 }
+            }
+        }
+
+        public DropCoin():void{
+            let randomNum = Math.floor(Math.random() * (3 - 1 + 1) + 1); 
+            switch(randomNum){
+                case 1:
+                    this.coins = new objects.Coins("B_coin")
+                    this.coins.scaleX = 0.25
+                    this.coins.scaleY = 0.25
+                    this.coins.x = this.x;
+                    this.coins.y = this.y;
+                    this.coins.Dir = new math.Vec2(this.player.x, this.player.y)
+                    this.coins.IsDropped = true;
+                    this.coins.Update()
+                    managers.Game.currentSceneObject.addChild(this.coins)
+                break;
+                case 2:
+                    this.coins = new objects.Coins("L_coin")
+                    this.coins.scaleX = 0.25
+                    this.coins.scaleY = 0.25
+                    this.coins.x = this.x;
+                    this.coins.y = this.y;
+                    this.coins.Dir = new math.Vec2(this.player.x, this.player.y)
+                    this.coins.IsDropped = true;
+                    this.coins.Update()
+                    managers.Game.currentSceneObject.addChild(this.coins)
+                break;
+                case 3:
+                    this.coins = new objects.Coins("E_coin")
+                    this.coins.scaleX = 0.25
+                    this.coins.scaleY = 0.25
+                    this.coins.x = this.x;
+                    this.coins.y = this.y;
+                    this.coins.Dir = new math.Vec2(this.player.x, this.player.y)
+                    this.coins.IsDropped = true;
+                    this.coins.Update()
+                    managers.Game.currentSceneObject.addChild(this.coins)
+                break;
             }
         }
 
