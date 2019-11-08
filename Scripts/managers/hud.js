@@ -94,9 +94,9 @@ var managers;
             this.eCoins = new Array();
             this.lCoins = new Array();
             for (var i = 0; i < 35; i++) {
-                this.bCoins[i] = new objects.Coins("B_coin", "B");
-                this.eCoins[i] = new objects.Coins("E_coin", "E");
-                this.lCoins[i] = new objects.Coins("L_coin", "L");
+                this.bCoins[i] = new objects.Coins("B_coin");
+                this.eCoins[i] = new objects.Coins("E_coin");
+                this.lCoins[i] = new objects.Coins("L_coin");
             }
             this.playerLivesLabel = new objects.Label("", "18px", "OptimusPrinceps", "#000000", 380, 668, false);
             this.playerBombsLabel = new objects.Label("", "18px", "OptimusPrinceps", "#000000", 345, 690, false);

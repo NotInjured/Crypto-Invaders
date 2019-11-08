@@ -98,9 +98,9 @@ module managers {
             this.lCoins = new Array<objects.Coins>();
 
             for(let i = 0; i < 35; i++){
-                this.bCoins[i] = new objects.Coins("B_coin", "B");
-                this.eCoins[i] = new objects.Coins("E_coin", "E");
-                this.lCoins[i] = new objects.Coins("L_coin", "L");
+                this.bCoins[i] = new objects.Coins("B_coin");
+                this.eCoins[i] = new objects.Coins("E_coin");
+                this.lCoins[i] = new objects.Coins("L_coin");
             }
 
             this.playerLivesLabel = new objects.Label("", "18px", "OptimusPrinceps","#000000", 380, 668, false );
