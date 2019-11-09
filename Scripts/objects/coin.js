@@ -17,6 +17,8 @@ var objects;
         __extends(Coins, _super);
         function Coins(sprite) {
             var _this = _super.call(this, sprite) || this;
+            _this.isDropped = false;
+            _this.enemyDropped = false;
             _this.coin = sprite;
             _this.Start();
             return _this;
@@ -51,10 +53,18 @@ var objects;
             enumerable: true,
             configurable: true
         });
+        Object.defineProperty(Coins.prototype, "EnemyDropped", {
+            get: function () {
+                return this.enemyDropped;
+            },
+            set: function (d) {
+                this.enemyDropped = d;
+            },
+            enumerable: true,
+            configurable: true
+        });
         Coins.prototype.Start = function () {
-            if (managers.Game.currentScene == config.Scene.OPTIONS ||
-                managers.Game.currentScene == config.Scene.START ||
-                managers.Game.currentScene == config.Scene.OVER) {
+            if (!this.isDropped) {
                 switch (this.coin) {
                     case "B_coin":
                         this.x = Math.floor(Math.random() * (712 - 370 + 1) + 370);
@@ -70,53 +80,52 @@ var objects;
                         break;
                 }
             }
-            if (managers.Game.currentScene == config.Scene.GAME)
-                this.Update();
+            if (this.isDropped) {
+                this.x = 5000;
+                this.y = 5000;
+            }
         };
         Coins.prototype.Update = function () {
-            if (this.isDropped) {
-                this.FindPlayer();
-                this.Move();
-            }
-            if (!this.isDropped) {
-                this.Move();
-                if (this.y > 740)
-                    this.Reset();
-            }
+            this.Move();
         };
-        Coins.prototype.Main = function () {
-        };
+        Coins.prototype.Main = function () { };
         Coins.prototype.Reset = function () {
-            if (managers.Game.currentScene == config.Scene.OPTIONS ||
-                managers.Game.currentScene == config.Scene.START ||
-                managers.Game.currentScene == config.Scene.OVER) {
+            if (!this.isDropped) {
                 switch (this.coin) {
-                    case "B":
+                    case "B_coin":
                         this.x = Math.floor(Math.random() * (712 - 370 + 1) + 370);
                         this.y = Math.floor(Math.random() * -720) + -20;
                         break;
-                    case "L":
+                    case "L_coin":
                         this.x = Math.floor(Math.random() * (343 - 5 + 1) + 5);
                         this.y = Math.floor(Math.random() * -720) + -50;
                         break;
-                    case "E":
+                    case "E_coin":
                         this.x = Math.floor(Math.random() * (1050 - 745 + 1) + 745);
                         this.y = Math.floor(Math.random() * -720) + -20;
                         break;
                 }
             }
+            if (this.isDropped) {
+                this.x = 5000;
+                this.y = 5000;
+                this.enemyDropped = false;
+            }
         };
         Coins.prototype.Move = function () {
-            if (!this.isDropped)
+            if (!this.isDropped) {
                 this.y += 3;
-            if (this.isDropped) {
+                if (this.y > 730)
+                    this.Reset();
+            }
+            if (this.isDropped && this.dir != undefined && this.enemyDropped) {
                 this.x += this.dir.x;
                 this.y += this.dir.y;
             }
         };
-        Coins.prototype.FindPlayer = function () {
-            var playerPos = new math.Vec2(managers.Game.player.x, managers.Game.player.y);
+        Coins.prototype.FindPlayer = function (player) {
             this.position = new math.Vec2(this.x, this.y);
+            var playerPos = new math.Vec2(player.x - 10, player.y - 10);
             this.distance = math.Vec2.Distance(playerPos, this.position);
             this.dir = new math.Vec2(((playerPos.x - this.position.x) / this.distance) * 5, ((playerPos.y - this.position.y) / this.distance) * 5);
         };

@@ -14,12 +14,12 @@ module objects {
             this.Reset();
         }
         public Update():void {
-            this.Move();
+            this.Move()
             this.CheckBound()
         }
         public Reset():void {
-            this.x = -1000; 
-            this.y = -1000;
+            this.x = -10000; 
+            this.y = -10000;
         }
         public Main():void{}
         public Move():void {

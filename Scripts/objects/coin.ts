@@ -5,7 +5,8 @@ module objects {
         private distance:number;
         private dir:math.Vec2;
         private position:math.Vec2;
-        private isDropped:boolean;
+        private isDropped:boolean = false;
+        private enemyDropped:boolean = false;
 
         get Dir():math.Vec2{
             return this.dir;
@@ -31,89 +32,90 @@ module objects {
             this.isDropped = d;
         }
 
+        get EnemyDropped():boolean{
+            return this.enemyDropped;
+        }
+
+        set EnemyDropped(d:boolean){
+            this.enemyDropped = d;
+        }
+
         constructor(sprite){
             super(sprite)
 
             this.coin = sprite;
-
             this.Start()
         }
 
 
         public Start():void{
-            if(managers.Game.currentScene == config.Scene.OPTIONS || 
-                managers.Game.currentScene == config.Scene.START || 
-                managers.Game.currentScene == config.Scene.OVER){
-                    switch(this.coin){
-                        case "B_coin":
-                            this.x = Math.floor(Math.random() * (712 - 370 + 1) + 370);
-                            this.y = Math.floor(Math.random() * -720) + -20;
-                        break;
-                        case "L_coin":
-                            this.x = Math.floor(Math.random() * (343 - 5 + 1) + 5);
-                            this.y = Math.floor(Math.random() * -720) + -50;
-                        break;
-                        case "E_coin":
-                            this.x = Math.floor(Math.random() * (1050 - 745 + 1) + 745);
-                            this.y = Math.floor(Math.random() * -720) + -20;
-                        break;
-                    }
+            if(!this.isDropped){
+                switch(this.coin){
+                    case "B_coin":
+                        this.x = Math.floor(Math.random() * (712 - 370 + 1) + 370);
+                        this.y = Math.floor(Math.random() * -720) + -20;
+                    break;
+                    case "L_coin":
+                        this.x = Math.floor(Math.random() * (343 - 5 + 1) + 5);
+                        this.y = Math.floor(Math.random() * -720) + -50;
+                    break;
+                    case "E_coin":
+                        this.x = Math.floor(Math.random() * (1050 - 745 + 1) + 745);
+                        this.y = Math.floor(Math.random() * -720) + -20;
+                    break;
                 }
-            if(managers.Game.currentScene == config.Scene.GAME)
-                this.Update()
+            }
+            if(this.isDropped){
+                this.x = 5000
+                this.y = 5000
+            }
         }
         public Update():void{
-            
-            if(this.isDropped){
-                this.FindPlayer();
-                this.Move();
-            }
-            
-            if(!this.isDropped){
-                this.Move();
-
-                if(this.y > 740)
-                    this.Reset();
-            }
-            
+            this.Move()
         }
-        public Main():void{
+        public Main():void{}
 
-        }
         public Reset():void{
-            if(managers.Game.currentScene == config.Scene.OPTIONS || 
-                managers.Game.currentScene == config.Scene.START || 
-                managers.Game.currentScene == config.Scene.OVER){
-                    switch(this.coin){
-                        case "B":
-                            this.x = Math.floor(Math.random() * (712 - 370 + 1) + 370);
-                            this.y = Math.floor(Math.random() * -720) + -20;
-                        break;
-                        case "L":
-                            this.x = Math.floor(Math.random() * (343 - 5 + 1) + 5);
-                            this.y = Math.floor(Math.random() * -720) + -50;
-                        break;
-                        case "E":
-                            this.x = Math.floor(Math.random() * (1050 - 745 + 1) + 745);
-                            this.y = Math.floor(Math.random() * -720) + -20;
-                        break;
-                    }
+            if(!this.isDropped){
+                switch(this.coin){
+                    case "B_coin":
+                        this.x = Math.floor(Math.random() * (712 - 370 + 1) + 370);
+                        this.y = Math.floor(Math.random() * -720) + -20;
+                    break;
+                    case "L_coin":
+                        this.x = Math.floor(Math.random() * (343 - 5 + 1) + 5);
+                        this.y = Math.floor(Math.random() * -720) + -50;
+                    break;
+                    case "E_coin":
+                        this.x = Math.floor(Math.random() * (1050 - 745 + 1) + 745);
+                        this.y = Math.floor(Math.random() * -720) + -20;
+                    break;
                 }
+            }
+            if(this.isDropped){
+                this.x = 5000
+                this.y = 5000
+                this.enemyDropped = false;
+            }
         }
 
         public Move():void{
-            if(!this.isDropped)
+            if(!this.isDropped){
                 this.y += 3;
-            if(this.isDropped){
+
+                if(this.y > 730)
+                    this.Reset()
+            }
+
+            if(this.isDropped && this.dir != undefined && this.enemyDropped){
                 this.x += this.dir.x
                 this.y += this.dir.y
             }
         }
 
-        public FindPlayer():void{
-            let playerPos = new math.Vec2(managers.Game.player.x, managers.Game.player.y)
+        public FindPlayer(player:objects.Player):void{
             this.position = new math.Vec2(this.x, this.y);
-
+            let playerPos = new math.Vec2(player.x-10, player.y-10)
             this.distance =  math.Vec2.Distance(playerPos,this.position)
             this.dir = new math.Vec2(
                 ((playerPos.x - this.position.x) / this.distance) * 5,

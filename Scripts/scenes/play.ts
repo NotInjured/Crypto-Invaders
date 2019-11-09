@@ -17,7 +17,11 @@ module scenes {
         private eType3: objects.Enemy[];
         private eBoss1: objects.Enemy;
 
+        private coinsManager: managers.Coins;
+        private testCoin: objects.Coins;
+
         private bulletManager:managers.Bullet;
+
         private enemyBulletManager:managers.EnemyBullet;
         private testEnemyBullet:objects.EnemyBullet;
 
@@ -52,6 +56,9 @@ module scenes {
             this.enemyBulletManager = new managers.EnemyBullet();
             managers.Game.enemyBulletManager = this.enemyBulletManager;
 
+            this.coinsManager = new managers.Coins();
+            managers.Game.coinsManager = this.coinsManager;
+
             //this.testEnemyBullet = new objects.EnemyBullet("Enemy1_Shot", false);
             //this.testEnemyBullet.x = this.player.x;
             //this.testEnemyBullet.y = this.player.y - 100;
@@ -64,6 +71,10 @@ module scenes {
             this.eType3 = new Array<objects.Enemy>();
             this.eBoss1 = new objects.Enemy("Enemy4");
             managers.Game.eType2 = this.eBoss1;
+
+            //this.testCoin = new objects.Coins("B_coin", true)
+            //this.testCoin.x = 550
+            //this.testCoin.y = 100
 
             switch(managers.Game.difficulty){
                 case 0:
@@ -117,11 +128,19 @@ module scenes {
             }
             this.bulletManager.Update();
             this.enemyBulletManager.Update()
+            this.coinsManager.Coin.forEach(coin =>{
+                if(coin.IsDropped){
+                    coin.FindPlayer(this.player)
+                    coin.Update()
+                }
+            })
             console.log(managers.Game.timer);
             this.background.Update();
             this.player.Update();
             //this.ChangeShip();
             this.CheckCollisions()
+            //this.testCoin.FindPlayer(this.player)
+            //this.testCoin.Update()
             
             if(managers.Game.timer >= 598 && managers.Game.timer <= 600){
                 if(this.player.y > 550)
@@ -151,7 +170,7 @@ module scenes {
                 })
             }
                 
-            
+            /*
             if(managers.Game.timer > 481 && managers.Game.timer <= 581){
                 this.eType2.forEach(e =>{
                     if(!e.isDead){
@@ -204,7 +223,7 @@ module scenes {
             }
             if(managers.Game.hud.Lives < 0){
                 managers.Game.currentScene = config.Scene.OVER;
-            }
+            }*/
         }
 
         public Main(): void {
@@ -214,62 +233,68 @@ module scenes {
             this.SpawnTimer()
             
             this.eType1.forEach(e =>{
-                this.addChild(e);
-                e.isInvincible = true;
+                this.addChild(e)
             })
 
             this.eType2.forEach(e =>{
-                this.addChild(e);
-                e.isInvincible = true;
+                this.addChild(e)
             })
 
             this.eType3.forEach(e =>{
-                this.addChild(e);
-                e.isInvincible = true;
+                this.addChild(e)
             })
 
             this.bulletManager.Bullet.forEach(bullet =>{
-                this.addChild(bullet);
+                this.addChild(bullet)
             })
 
             this.enemyBulletManager.Bullet.forEach(bullet =>{
-                this.addChild(bullet);
+                this.addChild(bullet)
             })
 
-            this.addChild(this.hudImage);
-            this.addChild(this.hud);
-            this.addChild(this.aircraft);
-            this.addChild(this.player);
+            //this.coinsManager.Coin.forEach(coin =>{
+            //    this.addChild(coin)
+            //})
+
+            this.addChild(this.hudImage)
+            this.addChild(this.hud)
+            this.addChild(this.aircraft)
+            this.addChild(this.player)
             //this.addChild(this.testEnemyBullet)
+            //this.addChild(this.testCoin)
         }
 
         public CheckCollisions():void{
             this.bulletManager.Bullet.forEach(bullet =>{
                 this.eType1.forEach(e =>{
                     if(!e.isInvincible){
-                        managers.Collision.CheckAABB(bullet, e);
+                        managers.Collision.CheckAABB(bullet, e)
                         managers.Collision.CheckAABB(e, this.player)
                     }
                 })
                 this.eType2.forEach(e =>{
                     if(!e.isInvincible){
-                        managers.Collision.CheckAABB(bullet, e);
+                        managers.Collision.CheckAABB(bullet, e)
                         managers.Collision.CheckAABB(e, this.player)
                     }
                 })
                 this.eType3.forEach(e =>{
                     if(!e.isInvincible){
-                        managers.Collision.CheckAABB(bullet, e);
+                        managers.Collision.CheckAABB(bullet, e)
                         managers.Collision.CheckAABB(e, this.player)
                     }
                 })
                 if(!this.eBoss1.isInvincible && !managers.Game.boss1IsDead)
-                    managers.Collision.CheckAABB(bullet, this.eBoss1);
+                    managers.Collision.CheckAABB(bullet, this.eBoss1)
             })
 
-            this.enemyBulletManager.Bullet.forEach(b =>{
-                managers.Collision.CheckAABB(b, this.player);
+            this.coinsManager.Coin.forEach(c =>{
+                managers.Collision.CheckAABB(this.player, c)
             })
+
+            //this.enemyBulletManager.Bullet.forEach(b =>{
+            //    managers.Collision.CheckAABB(b, this.player)
+            //})
 
             //managers.Collision.CheckAABB(this.testEnemyBullet, this.player)
         }

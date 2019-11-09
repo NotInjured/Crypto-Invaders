@@ -33,8 +33,8 @@ var objects;
             this.CheckBound();
         };
         Bullet.prototype.Reset = function () {
-            this.x = -1000;
-            this.y = -1000;
+            this.x = -10000;
+            this.y = -10000;
         };
         Bullet.prototype.Main = function () { };
         Bullet.prototype.Move = function () {

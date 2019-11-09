@@ -129,7 +129,7 @@ module managers {
             + "\n\n" + "   Z - Bombs (Disabled)" + "\n\n" + "    Space - Swap Ships" + "\n"+"            (Disabled)", "24px", "OptimusPrimus", 
             "#000000", 50, 285, false)
 
-            this.controlPanel = new objects.Image("panelUI", 5, 175);
+            this.controlPanel = new objects.Image("panelUI", 4, 175);
             this.infoPanel = new objects.Image("panelInfo", 710, 175);
 
             this.playerLivesSprite = new objects.Sprite("Ship1", 370, 688);
@@ -171,16 +171,6 @@ module managers {
             if(managers.Game.currentScene == config.Scene.GAME){
                 this.addChild(this.eBackground);
                 this.addChild(this.lBackground);
-                this.eCoins.forEach(c =>{
-                    c.scaleX = 0.75;
-                    c.scaleY = 0.75;
-                    this.addChild(c)
-                })
-                this.lCoins.forEach(c =>{
-                    c.scaleX = 0.75;
-                    c.scaleY = 0.75;
-                    this.addChild(c)
-                })
                 this.addChild(this.controlPanel);
                 this.addChild(this.infoPanel);
                 this.addChild(this.info1);

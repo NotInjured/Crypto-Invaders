@@ -10,6 +10,7 @@ module managers {        // Access to globally-required items
         public static textureSprite: createjs.SpriteSheet;
         public static bulletManager: managers.Bullet;
         public static enemyBulletManager :managers.EnemyBullet;
+        public static coinsManager: managers.Coins;
         public static currentSceneObject: objects.Scene;
         public static player:objects.Player;
         public static eType2:objects.Enemy;
@@ -25,5 +26,6 @@ module managers {        // Access to globally-required items
         public static boss1IsDead:boolean = false;
         public static boss2IsDead:boolean = false;
         public static boss3IsDead:boolean = false;
+        public static eType1HP:number = 1;
     }
 }

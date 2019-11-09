@@ -14,6 +14,7 @@ var managers;
         Game.boss1IsDead = false;
         Game.boss2IsDead = false;
         Game.boss3IsDead = false;
+        Game.eType1HP = 1;
         return Game;
     }());
     managers.Game = Game;

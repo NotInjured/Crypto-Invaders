@@ -21,7 +21,7 @@ var objects;
             // Variables
             _this.isDead = false;
             _this.shoot = false;
-            _this.isInvincible = false;
+            _this.isInvincible = true;
             _this.patternFinished = false;
             _this.shootNum = 0;
             _this.pattern1 = false;
@@ -68,7 +68,7 @@ var objects;
             switch (this.sprite) {
                 case "Enemy1":
                     this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
-                    this.y = Math.floor(Math.random() * -720) + -50;
+                    this.y = Math.floor(Math.random() * (-30 - (-15) + 1) + (-15));
                     break;
                 case "Enemy2":
                     this.randomNum = Math.floor(Math.random() * (2 - 1 + 1) + 1);
@@ -88,11 +88,11 @@ var objects;
                     switch (this.randomNum) {
                         case 1:
                             this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
-                            this.y = Math.floor(Math.random() * -720) + -20;
+                            this.y = Math.floor(Math.random() * (-30 - (-15) + 1) + (-15));
                             break;
                         case 2:
                             this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
-                            this.y = Math.floor(Math.random() * -720) + -20;
+                            this.y = Math.floor(Math.random() * (-30 - (-15) + 1) + (-15));
                             break;
                     }
                     break;
@@ -123,10 +123,13 @@ var objects;
             this.isDead = false;
             this.back = false;
             this.shoot = false;
+            if (this.isDead) {
+                this.DropCoin();
+            }
             switch (this.sprite) {
                 case "Enemy1":
                     this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
-                    this.y = Math.floor(Math.random() * -720) + -50;
+                    this.y = Math.floor(Math.random() * (-30 - (-15) + 1) + (-15));
                     break;
                 case "Enemy2":
                     this.randomNum = Math.floor(Math.random() * (2 - 1 + 1) + 1);
@@ -146,11 +149,11 @@ var objects;
                     switch (this.randomNum) {
                         case 1:
                             this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
-                            this.y = Math.floor(Math.random() * -720) + -20;
+                            this.y = Math.floor(Math.random() * (-30 - (-15) + 1) + (-15));
                             break;
                         case 2:
                             this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
-                            this.y = Math.floor(Math.random() * -720) + -20;
+                            this.y = Math.floor(Math.random() * (-30 - (-15) + 1) + (-15));
                             break;
                     }
                     break;
@@ -163,18 +166,18 @@ var objects;
                 case "Enemy1":
                     if (this.y >= 300 && !this.back) {
                         this.ShootPlayer();
-                        this.Timer();
                         this.back = true;
                     }
                     if (this.y < 300 && !this.back)
                         this.y += 5;
                     if (this.back && this.y > -200) {
                         this.y -= 2;
-                        if (this.y < 100 && !this.shoot) {
+                        this.shootNum += 1;
+                        if (this.y < 50 && !this.shoot && this.shootNum == 1) {
                             this.ShootPlayer();
                         }
                     }
-                    if (this.back && this.y < -190)
+                    if (this.back && this.y < -10)
                         this.Reset();
                     break;
                 case "Enemy2":
@@ -318,6 +321,7 @@ var objects;
                         managers.Game.currentSceneObject.addChild(this.bullet);
                         //console.log(this.bullet)
                         this.shoot = true;
+                        this.Timer();
                         break;
                 }
             }
@@ -710,42 +714,13 @@ var objects;
             }
         };
         Enemy.prototype.DropCoin = function () {
-            var randomNum = Math.floor(Math.random() * (3 - 1 + 1) + 1);
-            switch (randomNum) {
-                case 1:
-                    this.coins = new objects.Coins("B_coin");
-                    this.coins.scaleX = 0.25;
-                    this.coins.scaleY = 0.25;
-                    this.coins.x = this.x;
-                    this.coins.y = this.y;
-                    this.coins.Dir = new math.Vec2(this.player.x, this.player.y);
-                    this.coins.IsDropped = true;
-                    this.coins.Update();
-                    managers.Game.currentSceneObject.addChild(this.coins);
-                    break;
-                case 2:
-                    this.coins = new objects.Coins("L_coin");
-                    this.coins.scaleX = 0.25;
-                    this.coins.scaleY = 0.25;
-                    this.coins.x = this.x;
-                    this.coins.y = this.y;
-                    this.coins.Dir = new math.Vec2(this.player.x, this.player.y);
-                    this.coins.IsDropped = true;
-                    this.coins.Update();
-                    managers.Game.currentSceneObject.addChild(this.coins);
-                    break;
-                case 3:
-                    this.coins = new objects.Coins("E_coin");
-                    this.coins.scaleX = 0.25;
-                    this.coins.scaleY = 0.25;
-                    this.coins.x = this.x;
-                    this.coins.y = this.y;
-                    this.coins.Dir = new math.Vec2(this.player.x, this.player.y);
-                    this.coins.IsDropped = true;
-                    this.coins.Update();
-                    managers.Game.currentSceneObject.addChild(this.coins);
-                    break;
-            }
+            this.coins = managers.Game.coinsManager.GetCoin();
+            this.coins.IsDropped = true;
+            this.coins.scaleX = 0.25;
+            this.coins.scaleY = 0.25;
+            this.coins.x = this.x;
+            this.coins.y = this.y;
+            this.coins.IsDropped = true;
         };
         Enemy.prototype.Timer = function () {
             var _this = this;
