@@ -1,7 +1,7 @@
 module objects {
     export class EnemyBullet extends objects.GameObject {
         // Variables
-        private speed:number = 10;
+        private speed:number;
         private dir:math.Vec2;
         private angle:number;
         private angleStep:number;
@@ -73,7 +73,7 @@ module objects {
         }
         public Update():void {
             this.Move();
-            //this.CheckBound();
+            this.CheckBound();
         }
         public Reset():void {
             this.x = 10000; 
@@ -123,10 +123,18 @@ module objects {
         }
 
         public CheckBounds():void {
-            if(this.x > 710 || this.x < 340 ||
-                this.y > 720){
-                this.Reset()
+            if(this.pattern){
+                if(this.x > 710 || this.x < 340 ||
+                    this.y > 720){
+                    this.Reset()
+                }
             }
+            if(!this.pattern){
+                if(this.x > 710 || this.x < 340 ||
+                    this.y > 720){
+                    managers.Game.currentSceneObject.removeChild(this)
+                }
+            } 
         }   
     }
 }

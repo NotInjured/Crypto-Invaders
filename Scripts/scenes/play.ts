@@ -85,14 +85,14 @@ module scenes {
                     }
                 break;
                 case 1:
-                    for(let i = 0; i < 4; i++){
+                    for(let i = 0; i < 3; i++){
                         this.eType1[i] = new objects.Enemy("Enemy1");
                         this.eType2[i] = new objects.Enemy("Enemy2");
                         this.eType3[i] = new objects.Enemy("Enemy3");
                     }
                 break;
                 case 2:
-                    for(let i = 0; i < 6; i++){
+                    for(let i = 0; i < 5; i++){
                         this.eType1[i] = new objects.Enemy("Enemy1");
                         this.eType2[i] = new objects.Enemy("Enemy2");
                         this.eType3[i] = new objects.Enemy("Enemy3");
@@ -134,7 +134,7 @@ module scenes {
                     coin.Update()
                 }
             })
-            console.log(managers.Game.timer);
+            //console.log(managers.Game.timer);
             this.background.Update();
             this.player.Update();
             //this.ChangeShip();
@@ -153,25 +153,41 @@ module scenes {
             if(managers.Game.timer > 591 && managers.Game.timer <= 596){
                 this.addChild(this.stageName)
             }
-            if(managers.Game.timer <= 591){
+            if(managers.Game.timer >= 481 && managers.Game.timer <= 591){
                 this.removeChild(this.stageName)
                 /*
                 this.addChild(this.eBoss1)
                 if(!this.eBoss1.isDead){
+                    this.eBoss1.isInvincible = false
                     this.eBoss1.FindPlayer(this.player)
                     this.eBoss1.Update();
                 }*/
                 this.eType1.forEach(e =>{
+                    if(!e.isDead){
+                        e.Update();
+                        e.FindPlayer(this.player);
+                    }
+                })
+                /*
+                this.eType2.forEach(e =>{
                     if(!e.isDead){
                         e.isInvincible = false;
                         e.Update();
                         e.FindPlayer(this.player);
                     }
                 })
+
+                this.eType3.forEach(e =>{
+                    if(!e.isDead){
+                        e.isInvincible = false;
+                        e.Update();
+                        e.FindPlayer(this.player);
+                    }
+                })*/
             }
                 
-            /*
-            if(managers.Game.timer > 481 && managers.Game.timer <= 581){
+            
+            if(managers.Game.timer >= 481 && managers.Game.timer <= 581){
                 this.eType2.forEach(e =>{
                     if(!e.isDead){
                         e.isInvincible = false;
@@ -180,7 +196,7 @@ module scenes {
                     }
                 })
             }
-            if(managers.Game.timer > 481 && managers.Game.timer <= 576){
+            if(managers.Game.timer >= 481 && managers.Game.timer <= 576){
                 this.eType3.forEach(e =>{
                     if(!e.isDead){
                         e.isInvincible = false;
@@ -192,13 +208,13 @@ module scenes {
             
             if(managers.Game.timer < 481){
                 this.eType1.forEach(e =>{
-                    e.Reset()
+                    e.y -= 10;
                 })
                 this.eType2.forEach(e =>{
-                    e.Reset()
+                    e.x += 10;
                 })
                 this.eType3.forEach(e =>{
-                    e.Reset()
+                    e.y += 10;
                 })
             }
             if(managers.Game.timer == 480){
@@ -208,6 +224,7 @@ module scenes {
                 this.bgm.volume = 0.05;
             }
             if(managers.Game.timer < 479){
+                this.eBoss1.isInvincible = false
                 this.addChild(this.eBoss1)
                 this.background.y += 0;
                 if(!this.eBoss1.isDead){
@@ -223,7 +240,7 @@ module scenes {
             }
             if(managers.Game.hud.Lives < 0){
                 managers.Game.currentScene = config.Scene.OVER;
-            }*/
+            }
         }
 
         public Main(): void {
@@ -292,9 +309,9 @@ module scenes {
                 managers.Collision.CheckAABB(this.player, c)
             })
 
-            //this.enemyBulletManager.Bullet.forEach(b =>{
-            //    managers.Collision.CheckAABB(b, this.player)
-            //})
+            this.enemyBulletManager.Bullet.forEach(b =>{
+                managers.Collision.CheckAABB(b, this.player)
+            })
 
             //managers.Collision.CheckAABB(this.testEnemyBullet, this.player)
         }
@@ -361,7 +378,7 @@ module scenes {
         }
 
         public WaitTimer():void{
-            let counter = 2;
+            let counter = 20;
 
             let interval = setInterval(() =>{
                 counter--;

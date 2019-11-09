@@ -20,11 +20,12 @@ var objects;
             var _this = _super.call(this, sprite) || this;
             // Variables
             _this.isDead = false;
+            _this.back = false;
             _this.shoot = false;
             _this.isInvincible = true;
             _this.patternFinished = false;
             _this.shootNum = 0;
-            _this.pattern1 = false;
+            _this.pattern1 = true;
             _this.pattern2 = false;
             _this.pattern3 = false;
             _this.pattern4 = false;
@@ -68,7 +69,7 @@ var objects;
             switch (this.sprite) {
                 case "Enemy1":
                     this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
-                    this.y = Math.floor(Math.random() * (-30 - (-15) + 1) + (-15));
+                    this.y = Math.floor(Math.random() * (-75 - (-15) + 1) + (-15));
                     break;
                 case "Enemy2":
                     this.randomNum = Math.floor(Math.random() * (2 - 1 + 1) + 1);
@@ -76,10 +77,12 @@ var objects;
                         case 1:
                             this.x = 200;
                             this.y = Math.floor(Math.random() * (500 - 200 + 1) + 200);
+                            this.rotation = -90;
                             break;
                         case 2:
                             this.x = 900;
                             this.y = Math.floor(Math.random() * (500 - 200 + 1) + 200);
+                            this.rotation = 90;
                             break;
                     }
                     break;
@@ -99,8 +102,6 @@ var objects;
                 case "Enemy4":
                     this.x = 560;
                     this.y = -50;
-                    //this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
-                    //this.y = Math.floor(Math.random() * -720) + -50;
                     break;
             }
         };
@@ -110,26 +111,29 @@ var objects;
                 this.CheckBounds();
                 if (this.bullet != undefined) {
                     this.bullet.Update();
+                    if (this.bullet.Dir.x == 0 || this.bullet.Dir.y == 0)
+                        managers.Game.currentSceneObject.removeChild(this.bullet);
                     if (this.shoot && !this.player.isInvincible && managers.Game.hud.Lives >= 0)
                         managers.Collision.CheckAABB(this.bullet, this.player);
+                }
+                if (this.bullet == undefined) {
+                    console.log(this.bullet);
+                    managers.Game.currentSceneObject.removeChild(this.bullet);
                 }
             }
             if (this.isDead && managers.Game.boss1Hp < 0) {
                 managers.Game.currentSceneObject.removeChild(managers.Game.eType2);
             }
-            //if(this.isDead)
         };
         Enemy.prototype.Reset = function () {
             this.isDead = false;
             this.back = false;
             this.shoot = false;
-            if (this.isDead) {
-                this.DropCoin();
-            }
+            this.isInvincible = true;
             switch (this.sprite) {
                 case "Enemy1":
                     this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
-                    this.y = Math.floor(Math.random() * (-30 - (-15) + 1) + (-15));
+                    this.y = Math.floor(Math.random() * (-500 - (-350) + 1) + (-350));
                     break;
                 case "Enemy2":
                     this.randomNum = Math.floor(Math.random() * (2 - 1 + 1) + 1);
@@ -137,10 +141,12 @@ var objects;
                         case 1:
                             this.x = 200;
                             this.y = Math.floor(Math.random() * (500 - 200 + 1) + 200);
+                            this.rotation = -90;
                             break;
                         case 2:
                             this.x = 900;
                             this.y = Math.floor(Math.random() * (500 - 200 + 1) + 200);
+                            this.rotation = 90;
                             break;
                     }
                     break;
@@ -149,11 +155,11 @@ var objects;
                     switch (this.randomNum) {
                         case 1:
                             this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
-                            this.y = Math.floor(Math.random() * (-30 - (-15) + 1) + (-15));
+                            this.y = Math.floor(Math.random() * (-500 - (-350) + 1) + (-350));
                             break;
                         case 2:
                             this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
-                            this.y = Math.floor(Math.random() * (-30 - (-15) + 1) + (-15));
+                            this.y = Math.floor(Math.random() * (-500 - (-350) + 1) + (-350));
                             break;
                     }
                     break;
@@ -166,19 +172,23 @@ var objects;
                 case "Enemy1":
                     if (this.y >= 300 && !this.back) {
                         this.ShootPlayer();
+                        this.shoot = false;
                         this.back = true;
                     }
-                    if (this.y < 300 && !this.back)
+                    else if (this.y < 300 && !this.back)
                         this.y += 5;
-                    if (this.back && this.y > -200) {
-                        this.y -= 2;
-                        this.shootNum += 1;
-                        if (this.y < 50 && !this.shoot && this.shootNum == 1) {
+                    else if (this.back) {
+                        if (this.y > -200)
+                            this.y -= 2;
+                        if (this.y > 0 && this.y < 100)
                             this.ShootPlayer();
-                        }
+                        if (this.y < 0)
+                            this.isInvincible = true;
+                        if (this.y < -100)
+                            this.Reset();
                     }
-                    if (this.back && this.y < -10)
-                        this.Reset();
+                    if (this.y > 0)
+                        this.isInvincible = false;
                     break;
                 case "Enemy2":
                     switch (this.randomNum) {
@@ -193,10 +203,10 @@ var objects;
                                 this.shoot = false;
                             }
                             else if (this.x > 200 && this.back) {
+                                this.rotation = 90;
                                 this.x -= 5;
-                                if (this.x > 400 && this.x < 600) {
+                                if (this.x > 400 && this.x < 600)
                                     this.ShootPlayer();
-                                }
                                 if (this.x < 290)
                                     this.Reset();
                             }
@@ -209,13 +219,13 @@ var objects;
                             }
                             else if (this.x < 10 && !this.back) {
                                 this.back = true;
-                                this.shoot = false;
+                                //this.shoot = false;
                             }
                             else if (this.x < 800 && this.back) {
                                 this.x += 5;
-                                if (this.x > 400 && this.x < 600) {
-                                    this.ShootPlayer();
-                                }
+                                this.rotation = -90;
+                                //if(this.x > 400 && this.x < 600)
+                                //    this.ShootPlayer();
                                 if (this.x > 790)
                                     this.Reset();
                             }
@@ -223,13 +233,12 @@ var objects;
                     }
                     break;
                 case "Enemy3":
-                    if (this.y > 350 && this.y < 400 && !this.shoot) {
-                        this.ShootPlayer();
-                        this.shoot = true;
-                    }
-                    if (this.y < 730)
+                    if (this.y < 730) {
                         this.y += 3;
-                    if (this.y > 720)
+                        if (this.y > 350 && this.y < 400)
+                            this.ShootPlayer();
+                    }
+                    else if (this.y > 720)
                         this.Reset();
                     break;
                 case "Enemy4":
@@ -238,35 +247,35 @@ var objects;
                     if (this.y > 190) {
                         if (managers.Game.normal) {
                             if (managers.Game.boss1Hp > 150) {
-                                if (!this.pattern1 && !this.pattern2 && !this.pattern3 && !this.pattern4 && !this.pattern7)
+                                if (this.pattern1 && !this.pattern2 && !this.pattern3 && !this.pattern4)
                                     this.ShootPattern(1);
-                                if (this.pattern1 && !this.pattern2 && !this.pattern3 && !this.pattern4 && !this.pattern7)
+                                if (!this.pattern1 && this.pattern2 && !this.pattern3 && !this.pattern4)
                                     this.ShootPattern(2);
-                                if (!this.pattern1 && this.pattern2 && !this.pattern3 && !this.pattern4 && !this.pattern7)
+                                if (!this.pattern1 && !this.pattern2 && this.pattern3 && !this.pattern4)
                                     this.ShootPattern(3);
-                                if (!this.pattern1 && !this.pattern2 && this.pattern3 && !this.pattern4 && !this.pattern7)
+                                if (!this.pattern1 && !this.pattern2 && !this.pattern3 && this.pattern4)
                                     this.ShootPattern(4);
                             }
                             if (managers.Game.boss1Hp > 100 && managers.Game.boss1Hp < 150) {
-                                if (!this.pattern1 && !this.pattern2 && !this.pattern3 && !this.pattern4 && !this.pattern7)
-                                    this.ShootPattern(1);
                                 if (this.pattern1 && !this.pattern2 && !this.pattern3 && !this.pattern4 && !this.pattern7)
-                                    this.ShootPattern(2);
+                                    this.ShootPattern(1);
                                 if (!this.pattern1 && this.pattern2 && !this.pattern3 && !this.pattern4 && !this.pattern7)
-                                    this.ShootPattern(3);
+                                    this.ShootPattern(2);
                                 if (!this.pattern1 && !this.pattern2 && this.pattern3 && !this.pattern4 && !this.pattern7)
-                                    this.ShootPattern(4);
+                                    this.ShootPattern(3);
                                 if (!this.pattern1 && !this.pattern2 && !this.pattern3 && this.pattern4 && !this.pattern7)
+                                    this.ShootPattern(4);
+                                if (!this.pattern1 && !this.pattern2 && !this.pattern3 && !this.pattern4 && this.pattern7)
                                     this.ShootPattern(7);
                             }
-                            if (managers.Game.boss1Hp <= 100) {
-                                if (!this.pattern1 && !this.pattern2 && !this.pattern3 && !this.pattern4 && !this.pattern7)
-                                    this.ShootPattern(1);
+                            if (managers.Game.boss1Hp < 100) {
                                 if (this.pattern1 && !this.pattern2 && !this.pattern3 && !this.pattern4 && !this.pattern7)
-                                    this.ShootPattern(2);
+                                    this.ShootPattern(1);
                                 if (!this.pattern1 && this.pattern2 && !this.pattern3 && !this.pattern4 && !this.pattern7)
+                                    this.ShootPattern(2);
+                                if (!this.pattern1 && !this.pattern2 && this.pattern3 && !this.pattern4 && !this.pattern7)
                                     this.ShootPattern(3);
-                                if (!this.pattern1 && !this.pattern2 && this.pattern3 && !this.pattern4 && !this.pattern7) {
+                                if (!this.pattern1 && !this.pattern2 && !this.pattern3 && this.pattern4 && this.pattern7) {
                                     this.ShootPattern(4);
                                     this.ShootPattern(7);
                                 }
@@ -296,7 +305,7 @@ var objects;
             this.player = player;
         };
         Enemy.prototype.ShootPlayer = function () {
-            if (!this.isDead && !this.shoot && !this.player.isDead) {
+            if (!this.isDead && !this.shoot && !this.isInvincible) {
                 switch (this.sprite) {
                     case "Enemy1":
                     case "Enemy2":
@@ -308,20 +317,19 @@ var objects;
                     case "Enemy9":
                     case "Enemy10":
                     case "Enemy11":
+                        this.shoot = true;
                         this.bulletSpawn = new math.Vec2(this.x - 10, this.y - 15);
                         this.position = new math.Vec2(this.x, this.y);
                         this.distance = math.Vec2.Distance(this.playerPos, this.position);
                         this.bullet = new objects.EnemyBullet("Enemy1_Shot", false);
+                        this.bullet.Speed = 5;
                         this.bullet.Dir = new math.Vec2(((this.playerPos.x - this.position.x) / this.distance) * this.bullet.Speed, ((this.playerPos.y - this.position.y) / this.distance) * this.bullet.Speed);
-                        this.bullet.Speed = 7;
                         this.bullet.x = this.bulletSpawn.x;
                         this.bullet.y = this.bulletSpawn.y;
                         var laser = createjs.Sound.play("laser");
                         laser.volume = 0.2;
                         managers.Game.currentSceneObject.addChild(this.bullet);
-                        //console.log(this.bullet)
-                        this.shoot = true;
-                        this.Timer();
+                        console.log(this.bullet);
                         break;
                 }
             }
@@ -354,26 +362,22 @@ var objects;
                                     this.bullet.Reset();
                                     this.shoot = true;
                                     if (managers.Game.boss1Hp > 150) {
-                                        this.pattern1 = true;
-                                        this.pattern2 = false;
-                                        this.pattern3 = false;
-                                        this.pattern4 = false;
-                                        this.pattern7 = false;
+                                        this.pattern1 = false;
+                                        this.pattern2 = true;
                                     }
                                     if (managers.Game.boss1Hp > 100 && managers.Game.boss1Hp < 150) {
-                                        this.pattern1 = true;
-                                        this.pattern2 = false;
-                                        this.pattern3 = false;
-                                        this.pattern4 = false;
-                                        this.pattern7 = false;
+                                        this.pattern1 = false;
+                                        this.pattern2 = true;
                                     }
                                     if (managers.Game.boss1Hp < 100) {
-                                        this.pattern1 = true;
-                                        this.pattern2 = false;
-                                        this.pattern3 = false;
-                                        this.pattern4 = false;
-                                        this.pattern7 = false;
+                                        this.pattern1 = false;
+                                        this.pattern2 = true;
                                     }
+                                    console.log(this.pattern1);
+                                    console.log(this.pattern2);
+                                    console.log(this.pattern3);
+                                    console.log(this.pattern4);
+                                    console.log(this.pattern7);
                                     this.Timer();
                                 }
                                 break;
@@ -399,26 +403,22 @@ var objects;
                                     this.bullet.Reset();
                                     this.shoot = true;
                                     if (managers.Game.boss1Hp > 150) {
-                                        this.pattern1 = false;
-                                        this.pattern2 = true;
-                                        this.pattern3 = false;
-                                        this.pattern4 = false;
-                                        this.pattern7 = false;
+                                        this.pattern2 = false;
+                                        this.pattern3 = true;
                                     }
                                     if (managers.Game.boss1Hp > 100 && managers.Game.boss1Hp < 150) {
-                                        this.pattern1 = false;
-                                        this.pattern2 = true;
-                                        this.pattern3 = false;
-                                        this.pattern4 = false;
-                                        this.pattern7 = false;
+                                        this.pattern2 = false;
+                                        this.pattern3 = true;
                                     }
                                     if (managers.Game.boss1Hp < 100) {
-                                        this.pattern1 = false;
-                                        this.pattern2 = true;
-                                        this.pattern3 = false;
-                                        this.pattern4 = false;
-                                        this.pattern7 = false;
+                                        this.pattern2 = false;
+                                        this.pattern3 = true;
                                     }
+                                    console.log(this.pattern1);
+                                    console.log(this.pattern2);
+                                    console.log(this.pattern3);
+                                    console.log(this.pattern4);
+                                    console.log(this.pattern7);
                                     this.Timer();
                                 }
                                 break;
@@ -444,26 +444,23 @@ var objects;
                                     this.bullet.Reset();
                                     this.shoot = true;
                                     if (managers.Game.boss1Hp > 150) {
-                                        this.pattern1 = false;
-                                        this.pattern2 = false;
-                                        this.pattern3 = true;
-                                        this.pattern4 = false;
-                                        this.pattern7 = false;
+                                        this.pattern3 = false;
+                                        this.pattern4 = true;
                                     }
                                     if (managers.Game.boss1Hp > 100 && managers.Game.boss1Hp < 150) {
-                                        this.pattern1 = false;
-                                        this.pattern2 = false;
-                                        this.pattern3 = true;
-                                        this.pattern4 = false;
-                                        this.pattern7 = false;
+                                        this.pattern3 = false;
+                                        this.pattern4 = true;
                                     }
                                     if (managers.Game.boss1Hp < 100) {
-                                        this.pattern1 = false;
-                                        this.pattern2 = false;
-                                        this.pattern3 = true;
-                                        this.pattern4 = false;
-                                        this.pattern7 = false;
+                                        this.pattern3 = false;
+                                        this.pattern4 = true;
+                                        this.pattern7 = true;
                                     }
+                                    console.log(this.pattern1);
+                                    console.log(this.pattern2);
+                                    console.log(this.pattern3);
+                                    console.log(this.pattern4);
+                                    console.log(this.pattern7);
                                     this.Timer();
                                 }
                                 break;
@@ -482,8 +479,6 @@ var objects;
                                         this.bullet.Dir = new math.Vec2((60 * Math.cos(this.bullet.Angle)) * this.bullet.Speed, (60 * Math.sin(this.bullet.Angle)) * this.bullet.Speed);
                                         this.bullet.x = this.bulletSpawn.x;
                                         this.bullet.y = this.bulletSpawn.y;
-                                        //console.log(this.bullet.Angle)
-                                        //console.log(this.bullet)
                                         //let laser = createjs.Sound.play("laser");
                                         //laser.volume = 0.2;
                                     }
@@ -492,26 +487,23 @@ var objects;
                                     this.bullet.Reset();
                                     this.shoot = true;
                                     if (managers.Game.boss1Hp > 150) {
-                                        this.pattern1 = false;
-                                        this.pattern2 = false;
-                                        this.pattern3 = false;
+                                        this.pattern1 = true;
                                         this.pattern4 = false;
-                                        this.pattern7 = false;
                                     }
                                     if (managers.Game.boss1Hp > 100 && managers.Game.boss1Hp < 150) {
-                                        this.pattern1 = false;
-                                        this.pattern2 = false;
-                                        this.pattern3 = false;
-                                        this.pattern4 = true;
-                                        this.pattern7 = false;
+                                        this.pattern4 = false;
+                                        this.pattern7 = true;
                                     }
                                     if (managers.Game.boss1Hp < 100) {
-                                        this.pattern1 = false;
-                                        this.pattern2 = false;
-                                        this.pattern3 = false;
+                                        this.pattern1 = true;
                                         this.pattern4 = false;
                                         this.pattern7 = false;
                                     }
+                                    console.log(this.pattern1);
+                                    console.log(this.pattern2);
+                                    console.log(this.pattern3);
+                                    console.log(this.pattern4);
+                                    console.log(this.pattern7);
                                     this.Timer();
                                 }
                                 break;
@@ -539,7 +531,7 @@ var objects;
                                 if (this.shootNum > 499) {
                                     this.bullet.Reset();
                                     this.shoot = true;
-                                    //this.Timer();
+                                    this.Timer();
                                 }
                                 break;
                             case 6: // Spiral Hell
@@ -566,9 +558,7 @@ var objects;
                                 if (this.shootNum > 999) {
                                     this.bullet.Reset();
                                     this.shoot = true;
-                                    this.pattern1 = true;
-                                    this.pattern2 = false;
-                                    //this.Timer();
+                                    this.Timer();
                                 }
                                 break;
                             case 7: // Spiral Normal Reverse
@@ -586,8 +576,8 @@ var objects;
                                         this.bullet.Dir = new math.Vec2((90 * Math.sin(this.bullet.Angle)) * this.bullet.Speed, (90 * Math.cos(this.bullet.Angle)) * this.bullet.Speed);
                                         this.bullet.x = this.bulletSpawn.x;
                                         this.bullet.y = this.bulletSpawn.y;
-                                        console.log(this.bullet.Angle);
-                                        console.log(this.bullet);
+                                        //console.log(this.bullet.Angle)
+                                        //console.log(this.bullet)
                                         //let laser = createjs.Sound.play("laser");
                                         //laser.volume = 0.2;
                                     }
@@ -596,26 +586,23 @@ var objects;
                                     this.bullet.Reset();
                                     this.shoot = true;
                                     if (managers.Game.boss1Hp > 150) {
-                                        this.pattern1 = false;
-                                        this.pattern2 = false;
-                                        this.pattern3 = false;
-                                        this.pattern4 = false;
+                                        this.pattern1 = true;
                                         this.pattern7 = false;
                                     }
                                     if (managers.Game.boss1Hp > 100 && managers.Game.boss1Hp < 150) {
-                                        this.pattern1 = false;
-                                        this.pattern2 = false;
-                                        this.pattern3 = false;
-                                        this.pattern4 = false;
+                                        this.pattern1 = true;
                                         this.pattern7 = false;
                                     }
                                     if (managers.Game.boss1Hp < 100) {
-                                        this.pattern1 = false;
-                                        this.pattern2 = false;
-                                        this.pattern3 = false;
+                                        this.pattern1 = true;
                                         this.pattern4 = false;
                                         this.pattern7 = false;
                                     }
+                                    console.log(this.pattern1);
+                                    console.log(this.pattern2);
+                                    console.log(this.pattern3);
+                                    console.log(this.pattern4);
+                                    console.log(this.pattern7);
                                     this.Timer();
                                 }
                                 break;
@@ -713,25 +700,26 @@ var objects;
                 }
             }
         };
-        Enemy.prototype.DropCoin = function () {
-            this.coins = managers.Game.coinsManager.GetCoin();
-            this.coins.IsDropped = true;
-            this.coins.scaleX = 0.25;
-            this.coins.scaleY = 0.25;
-            this.coins.x = this.x;
-            this.coins.y = this.y;
-            this.coins.IsDropped = true;
-        };
         Enemy.prototype.Timer = function () {
             var _this = this;
-            var counter = 1;
+            var counter = 2;
             this.timerInterval = setInterval(function () {
                 counter--;
                 if (counter < 0) {
-                    counter = 1;
+                    counter = 2;
                     clearInterval(_this.timerInterval);
                     _this.shootNum = 0;
                     _this.shoot = false;
+                }
+            }, 1000);
+        };
+        Enemy.prototype.RespawnTimer = function () {
+            var _this = this;
+            var counter = 2;
+            this.timerInterval = setInterval(function () {
+                counter--;
+                if (counter < 0) {
+                    clearInterval(_this.timerInterval);
                 }
             }, 1000);
         };

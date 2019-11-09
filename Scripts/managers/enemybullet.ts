@@ -10,16 +10,15 @@ module managers {
             this.Start();
         }
         // Methods
-        public buildBulletPool(pattern:Boolean):void {
+        public buildBulletPool(pattern:boolean):void {
             // Initialize a pool of ammo assets
-            for(let i = 0; i < this.bulletCount; i++) {
-                if(pattern){
+            for(let i = 0; i < this.bulletCount; i++){
+                if(pattern)
                     this.Bullet[i] = new objects.EnemyBullet("Enemy1_Shot", true);
-
-                }
-                if(!pattern)
+                else
                     this.Bullet[i] = new objects.EnemyBullet("Enemy1_Shot", false);
             }
+            
         }
 
         public GetBullet(): objects.EnemyBullet {

@@ -18,8 +18,6 @@ var objects;
         // Constructor
         function EnemyBullet(ammo, isPattern) {
             var _this = _super.call(this, ammo) || this;
-            // Variables
-            _this.speed = 10;
             _this.isPattern = isPattern;
             _this.Start();
             return _this;
@@ -94,7 +92,7 @@ var objects;
         };
         EnemyBullet.prototype.Update = function () {
             this.Move();
-            //this.CheckBound();
+            this.CheckBound();
         };
         EnemyBullet.prototype.Reset = function () {
             this.x = 10000;
@@ -142,9 +140,17 @@ var objects;
             }
         };
         EnemyBullet.prototype.CheckBounds = function () {
-            if (this.x > 710 || this.x < 340 ||
-                this.y > 720) {
-                this.Reset();
+            if (this.pattern) {
+                if (this.x > 710 || this.x < 340 ||
+                    this.y > 720) {
+                    this.Reset();
+                }
+            }
+            if (!this.pattern) {
+                if (this.x > 710 || this.x < 340 ||
+                    this.y > 720) {
+                    managers.Game.currentSceneObject.removeChild(this);
+                }
             }
         };
         return EnemyBullet;

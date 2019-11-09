@@ -31,7 +31,7 @@ var managers;
                         (object1.x - object1.halfW) < ((object2.x - 10) + object2.halfW) &&
                         (object1.y + object1.halfH) > ((object2.y - 10) - object2.halfH) &&
                         (object1.y - object1.halfH) < ((object2.y - 10) + object2.halfH)) {
-                        managers.Game.hud.Score += Math.round(50 * Math.pow(1.05, managers.Game.hud.ScoreMult));
+                        managers.Game.hud.Score += Math.round(50 * Math.pow(1.01, managers.Game.hud.ScoreMult));
                         managers.Game.highscore = managers.Game.hud.Score;
                         managers.Game.hud.ScoreMult += 1;
                         var hit1 = createjs.Sound.play("hit");
@@ -42,7 +42,9 @@ var managers;
                         coin.y = object2.y;
                         coin.scaleX = 0.25;
                         coin.scaleY = 0.25;
-                        managers.Game.currentSceneObject.addChild(coin);
+                        var rand = Math.floor(Math.random() * (10 - 1 + 1) + 1);
+                        if (rand == 5)
+                            managers.Game.currentSceneObject.addChild(coin);
                         object1.Reset();
                         managers.Game.currentSceneObject.addChild(effect);
                         object2.Reset();
@@ -52,11 +54,11 @@ var managers;
                 case "Enemy8":
                 case "Enemy12":
                 case "Enemy13":
-                    if ((object1.x + object1.halfW) > (object2.x - object2.halfW) &&
-                        (object1.x - object1.halfW) < (object2.x + object2.halfW) &&
-                        (object1.y + object1.halfH) > (object2.y - object2.halfH) &&
-                        (object1.y - object1.halfH) < (object2.y + object2.halfH)) {
-                        managers.Game.hud.Score += Math.round(50 * Math.pow(1.05, managers.Game.hud.ScoreMult));
+                    if ((object1.x + object1.halfW) > ((object2.x - 10) - object2.halfW) &&
+                        (object1.x - object1.halfW) < ((object2.x - 10) + object2.halfW) &&
+                        (object1.y + object1.halfH) > ((object2.y - 5) - object2.halfH) &&
+                        (object1.y - object1.halfH) < ((object2.y - 5) + object2.halfH)) {
+                        managers.Game.hud.Score += Math.round(50 * Math.pow(1.01, managers.Game.hud.ScoreMult));
                         managers.Game.currentSceneObject.addChild(effect);
                         managers.Game.boss1Hp -= 1;
                         var hit2 = createjs.Sound.play("hit");
@@ -67,7 +69,7 @@ var managers;
                             managers.Game.boss1IsDead = true;
                             managers.Game.currentSceneObject.removeChild(object2);
                             managers.Game.hud.ScoreMult += 100;
-                            managers.Game.hud.Score += Math.round(10000 * Math.pow(1.05, managers.Game.hud.ScoreMult));
+                            managers.Game.hud.Score += Math.round(10000 * Math.pow(1.01, managers.Game.hud.ScoreMult));
                         }
                     }
                     break;
@@ -78,10 +80,10 @@ var managers;
                         (object1.x - object1.halfW) < ((object2.x - 10) + object2.halfW / 4) &&
                         (object1.y + object1.halfH) > ((object2.y - 10) - object2.halfH / 4) &&
                         (object1.y - object1.halfH) < ((object2.y - 10) + object2.halfH / 4)) {
-                        console.log("Player Hit");
+                        //console.log("Player Hit");
                         //let death = createjs.Sound.play("playerDeath");
                         //death.volume = 0.5;
-                        //object1.Reset();
+                        managers.Game.currentSceneObject.removeChild(object1);
                         //managers.Game.hud.Lives -= 1
                         //managers.Game.hud.ScoreMult = 0;
                         //object2.Reset();
@@ -94,7 +96,7 @@ var managers;
                         (object1.x - object1.halfW) < ((object2.x - 10) + object2.halfW / 4) &&
                         (object1.y + object1.halfH) > ((object2.y - 10) - object2.halfH / 4) &&
                         (object1.y - object1.halfH) < ((object2.y - 10) + object2.halfH / 4)) {
-                        managers.Game.hud.Score += Math.round(50 * Math.pow(1.05, managers.Game.hud.ScoreMult));
+                        managers.Game.hud.Score += Math.round(100 * Math.pow(1.01, managers.Game.hud.ScoreMult));
                         object2.Reset();
                     }
                     break;
