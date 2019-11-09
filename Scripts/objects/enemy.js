@@ -114,18 +114,15 @@ var objects;
                         managers.Collision.CheckAABB(this.bullet, this.player);
                 }
             }
-            if (managers.Game.boss1Hp < 0) {
-                this.isDead;
-            }
-            if (this.isDead) {
+            if (this.isDead && managers.Game.boss1Hp < 0) {
                 managers.Game.currentSceneObject.removeChild(managers.Game.eType2);
             }
+            //if(this.isDead)
         };
         Enemy.prototype.Reset = function () {
             this.isDead = false;
             this.back = false;
             this.shoot = false;
-            this.DropCoin();
             switch (this.sprite) {
                 case "Enemy1":
                     this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);

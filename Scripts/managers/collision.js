@@ -11,20 +11,25 @@ var managers;
             effect.scaleX *= 2;
             effect.scaleY *= 2;
             // CHECK ALL BOUNDS
-            if ((object1.x + object1.halfW) > (object2.x - object2.halfW) &&
-                (object1.x - object1.halfW) < (object2.x + object2.halfW) &&
-                (object1.y + object1.halfH) > (object2.y - object2.halfH) &&
-                (object1.y - object1.halfH) < (object2.y + object2.halfH)) {
-                switch (object2.name) {
-                    case "Enemy1":
-                    case "Enemy2":
-                    case "Enemy3":
-                    case "Enemy5":
-                    case "Enemy6":
-                    case "Enemy7":
-                    case "Enemy9":
-                    case "Enemy10":
-                    case "Enemy11":
+            //if((object1.x + object1.halfW) > (object2.x - object2.halfW) &&
+            //    (object1.x - object1.halfW) < (object2.x + object2.halfW) &&
+            //    (object1.y + object1.halfH) > (object2.y - object2.halfH) &&
+            //    (object1.y - object1.halfH) < (object2.y + object2.halfH))
+            //    {
+            switch (object2.name) {
+                case "Enemy1":
+                case "Enemy2":
+                case "Enemy3":
+                case "Enemy5":
+                case "Enemy6":
+                case "Enemy7":
+                case "Enemy9":
+                case "Enemy10":
+                case "Enemy11":
+                    if ((object1.x + object1.halfW) > (object2.x - object2.halfW) &&
+                        (object1.x - object1.halfW) < (object2.x + object2.halfW) &&
+                        (object1.y + object1.halfH) > (object2.y - object2.halfH) &&
+                        (object1.y - object1.halfH) < (object2.y + object2.halfH)) {
                         managers.Game.hud.Score += Math.round(50 * Math.pow(1.01, managers.Game.hud.ScoreMult));
                         managers.Game.highscore = managers.Game.hud.Score;
                         managers.Game.hud.ScoreMult += 1;
@@ -33,11 +38,16 @@ var managers;
                         object1.Reset();
                         managers.Game.currentSceneObject.addChild(effect);
                         object2.Reset();
-                        break;
-                    case "Enemy4":
-                    case "Enemy8":
-                    case "Enemy12":
-                    case "Enemy13":
+                    }
+                    break;
+                case "Enemy4":
+                case "Enemy8":
+                case "Enemy12":
+                case "Enemy13":
+                    if ((object1.x + object1.halfW) > (object2.x - object2.halfW) &&
+                        (object1.x - object1.halfW) < (object2.x + object2.halfW) &&
+                        (object1.y + object1.halfH) > (object2.y - object2.halfH) &&
+                        (object1.y - object1.halfH) < (object2.y + object2.halfH)) {
                         managers.Game.hud.Score += Math.round(50 * Math.pow(1.01, managers.Game.hud.ScoreMult));
                         managers.Game.currentSceneObject.addChild(effect);
                         managers.Game.boss1Hp -= 1;
@@ -51,20 +61,26 @@ var managers;
                             managers.Game.hud.ScoreMult += 100;
                             managers.Game.hud.Score += Math.round(10000 * Math.pow(1.01, managers.Game.hud.ScoreMult));
                         }
-                        break;
-                    case "Ship1":
-                    case "Ship2":
-                    case "Ship3":
+                    }
+                    break;
+                case "Ship1":
+                case "Ship2":
+                case "Ship3":
+                    if ((object1.x + object1.halfW) > ((object2.x - 10) - object2.halfW / 4) &&
+                        (object1.x - object1.halfW) < ((object2.x - 10) + object2.halfW / 4) &&
+                        (object1.y + object1.halfH) > ((object2.y - 10) - object2.halfH / 4) &&
+                        (object1.y - object1.halfH) < ((object2.y - 10) + object2.halfH / 4)) {
                         console.log("Player Hit");
-                        var death = createjs.Sound.play("playerDeath");
-                        death.volume = 0.5;
-                        object1.Reset();
-                        managers.Game.hud.Lives -= 1;
-                        managers.Game.hud.ScoreMult = 0;
-                        object2.Reset();
-                        break;
-                }
+                        //let death = createjs.Sound.play("playerDeath");
+                        //death.volume = 0.5;
+                        //object1.Reset();
+                        //managers.Game.hud.Lives -= 1
+                        //managers.Game.hud.ScoreMult = 0;
+                        //object2.Reset();
+                    }
+                    break;
             }
+            //}
         };
         return Collision;
     }());

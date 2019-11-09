@@ -19,6 +19,7 @@ module scenes {
 
         private bulletManager:managers.Bullet;
         private enemyBulletManager:managers.EnemyBullet;
+        private testEnemyBullet:objects.EnemyBullet;
 
         private bgm:createjs.AbstractSoundInstance;
 
@@ -50,6 +51,10 @@ module scenes {
 
             this.enemyBulletManager = new managers.EnemyBullet();
             managers.Game.enemyBulletManager = this.enemyBulletManager;
+
+            //this.testEnemyBullet = new objects.EnemyBullet("Enemy1_Shot", false);
+            //this.testEnemyBullet.x = this.player.x;
+            //this.testEnemyBullet.y = this.player.y - 100;
 
             managers.Game.player = this.player;
             managers.Game.timer = 600;
@@ -235,6 +240,7 @@ module scenes {
             this.addChild(this.hud);
             this.addChild(this.aircraft);
             this.addChild(this.player);
+            //this.addChild(this.testEnemyBullet)
         }
 
         public CheckCollisions():void{
@@ -264,6 +270,8 @@ module scenes {
             this.enemyBulletManager.Bullet.forEach(b =>{
                 managers.Collision.CheckAABB(b, this.player);
             })
+
+            //managers.Collision.CheckAABB(this.testEnemyBullet, this.player)
         }
         
         public ChangeShip():void{
