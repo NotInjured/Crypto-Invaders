@@ -48,7 +48,7 @@ var objects;
                 this.speedY = 0;
         };
         return Background;
-    }(createjs.Bitmap));
+    }(window.createjs.Bitmap));
     objects.Background = Background;
 })(objects || (objects = {}));
 //# sourceMappingURL=background.js.map

@@ -1,5 +1,5 @@
 module objects {
-    export abstract class GameObject extends createjs.Sprite {
+    export abstract class GameObject extends window.createjs.Sprite {
         // Variables
         protected speedX: number;
         protected speedY: number;

@@ -8,6 +8,7 @@ var managers;
             var P1 = new math.Vec2(object1.x, object1.y);
             var P2 = new math.Vec2(object2.x, object2.y);
             var effect = new objects.Effect("Laser_Hit", object1.x + 10, object1.y - object1.halfH);
+            var explosion = new objects.Effect("tile", object1.x + 10, object1.y - object1.halfH);
             effect.scaleX *= 2;
             effect.scaleY *= 2;
             var coin = managers.Game.coinsManager.GetCoin();
@@ -67,6 +68,7 @@ var managers;
                         console.log(managers.Game.boss1Hp);
                         if (managers.Game.boss1Hp < 0) {
                             managers.Game.boss1IsDead = true;
+                            managers.Game.currentSceneObject.addChild(explosion);
                             managers.Game.currentSceneObject.removeChild(object2);
                             managers.Game.hud.ScoreMult += 100;
                             managers.Game.hud.Score += Math.round(10000 * Math.pow(1.01, managers.Game.hud.ScoreMult));
@@ -80,13 +82,13 @@ var managers;
                         (object1.x - object1.halfW) < ((object2.x - 10) + object2.halfW / 4) &&
                         (object1.y + object1.halfH) > ((object2.y - 10) - object2.halfH / 4) &&
                         (object1.y - object1.halfH) < ((object2.y - 10) + object2.halfH / 4)) {
-                        //console.log("Player Hit");
-                        //let death = createjs.Sound.play("playerDeath");
-                        //death.volume = 0.5;
+                        console.log("Player Hit");
+                        var death = createjs.Sound.play("playerDeath");
+                        death.volume = 0.5;
                         managers.Game.currentSceneObject.removeChild(object1);
-                        //managers.Game.hud.Lives -= 1
-                        //managers.Game.hud.ScoreMult = 0;
-                        //object2.Reset();
+                        managers.Game.hud.Lives -= 1;
+                        managers.Game.hud.ScoreMult = 0;
+                        object2.Reset();
                     }
                     break;
                 case "B_coin":

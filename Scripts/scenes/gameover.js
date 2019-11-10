@@ -41,7 +41,7 @@ var scenes;
                 this.diffLabel = new objects.Label("Maybe turn down the difficulty if its too hard.", "12px", "OptimusPrinceps", "#000000", 535, 690, true);
             }
             if (managers.Game.boss1IsDead) {
-                this.gameOverLabel = new objects.Label("\t\t\t Stage Completed!" + "\n" + "\t Difficulty: " + this.diff, "36px", "OptimusPrinceps", "#000000", 675, 240, true);
+                this.gameOverLabel = new objects.Label("\t\t\t  Stage Completed!" + "\n" + "\t Difficulty: " + this.diff, "36px", "OptimusPrinceps", "#000000", 675, 240, true);
                 this.tryAgainLabel = new objects.Label("Try Again?", "20px", "OptimusPrinceps", "#000000", 535, 400, true);
             }
             this.scoreLabel = new objects.Label("Score:" + "\n" + managers.Game.highscore, "30px", "OptimusPrinceps", "#000000", 500, 300, false);

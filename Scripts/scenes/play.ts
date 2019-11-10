@@ -183,7 +183,7 @@ module scenes {
                         e.Update();
                         e.FindPlayer(this.player);
                     }
-                })*/
+                }) */
             }
                 
             
@@ -237,6 +237,7 @@ module scenes {
                 this.eBoss1.isInvincible = true;
                 this.eBoss1.isDead = true;
                 this.WaitTimer()
+                this.eBoss1.DropCoins()
             }
             if(managers.Game.hud.Lives < 0){
                 managers.Game.currentScene = config.Scene.OVER;
@@ -378,7 +379,7 @@ module scenes {
         }
 
         public WaitTimer():void{
-            let counter = 20;
+            let counter = 5;
 
             let interval = setInterval(() =>{
                 counter--;

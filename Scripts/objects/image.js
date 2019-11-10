@@ -25,7 +25,7 @@ var objects;
             return _this;
         }
         return Image;
-    }(createjs.Bitmap));
+    }(window.createjs.Bitmap));
     objects.Image = Image;
 })(objects || (objects = {}));
 //# sourceMappingURL=image.js.map

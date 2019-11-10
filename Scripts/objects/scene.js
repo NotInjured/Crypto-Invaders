@@ -26,7 +26,7 @@ var objects;
         Scene.prototype.Update = function () { };
         Scene.prototype.Main = function () { };
         return Scene;
-    }(createjs.Container));
+    }(window.createjs.Container));
     objects.Scene = Scene;
 })(objects || (objects = {}));
 //# sourceMappingURL=scene.js.map

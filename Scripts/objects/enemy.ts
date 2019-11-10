@@ -11,6 +11,7 @@ module objects {
         private shootNum:number = 0;
         private sprite:string;
         private distance:number;
+        private coinsCount:number = 0;
         
         private bullet:objects.EnemyBullet;
         private coins:objects.Coins;
@@ -36,7 +37,7 @@ module objects {
         private pattern9:boolean = false;
         private pattern10:boolean = false;
     
-        private randomPattern:number = Math.floor(Math.random() * (10 - 1 + 1) + 1)
+        private randomPattern:number = Math.floor(Math.random() * (5 - 1 + 1) + 1)
 
         get Angle():number{
             return this.angle;
@@ -102,6 +103,7 @@ module objects {
             }
             
         }
+
         public Update():void {
             if(!this.isDead){
                 this.Move();
@@ -124,6 +126,7 @@ module objects {
             if(this.isDead && managers.Game.boss1Hp < 0){
                 managers.Game.currentSceneObject.removeChild(managers.Game.eType2)
             }
+
         }
 
         public Reset():void {
@@ -173,20 +176,20 @@ module objects {
             switch(this.sprite){
                 case "Enemy1":
                     if(this.y >= 300 && !this.back){
-                        this.ShootPlayer();
+                        this.ShootPattern(1)
                         this.shoot = false
                         this.back = true;
                     }
-                    else if(this.y < 300 && !this.back)
+                    if(this.y < 300 && !this.back)
                         this.y += 5;
-                    else if(this.back){
+                    if(this.back){
                         if(this.y > -200)
                             this.y -= 2;
                         if(this.y > 0 && this.y < 100)
-                            this.ShootPlayer();
+                            this.ShootPattern(1)
                         if(this.y < 0)
                             this.isInvincible = true;
-                        if(this.y < -100)   
+                        if(this.y < -50)   
                             this.Reset()
                     }
                     if(this.y > 0)
@@ -198,7 +201,7 @@ module objects {
                             if(this.x < 1000 && !this.back){
                                     this.x += 3;
                                 if(this.x > 400 && this.x < 600)
-                                    this.ShootPlayer();
+                                this.ShootPattern(1)
                             }
                             else if(this.x > 995 && !this.back){
                                 this.back = true;
@@ -207,8 +210,9 @@ module objects {
                             else if(this.x > 200 && this.back){
                                 this.rotation = 90
                                 this.x -= 5;
+                                this.shoot = false
                                 if(this.x > 400 && this.x < 600)
-                                    this.ShootPlayer();
+                                    this.ShootPattern(1)
                                 if(this.x < 290)   
                                     this.Reset()
                             }
@@ -217,18 +221,18 @@ module objects {
                             if(this.x > 0 && !this.back){
                                 this.x -= 3;
                                 if(this.x > 400 && this.x < 600)
-                                    this.ShootPlayer();
+                                    this.ShootPattern(1)
                                         
                             }
                             else if(this.x < 10 && !this.back){
                                 this.back = true;
-                                //this.shoot = false;
+                                this.shoot = false;
                             }
                             else if(this.x < 800 && this.back){
                                 this.x += 5;
                                 this.rotation = -90
-                                //if(this.x > 400 && this.x < 600)
-                                //    this.ShootPlayer();
+                                if(this.x > 400 && this.x < 600)
+                                    this.ShootPattern(1)
                                 if(this.x > 790)   
                                     this.Reset()
                             }
@@ -240,9 +244,9 @@ module objects {
                         this.y += 3;
 
                         if(this.y > 350 && this.y < 400)
-                        this.ShootPlayer();
+                        this.ShootPattern(1)
                     }
-                    else if(this.y > 720)
+                    if(this.y > 720)
                         this.Reset()
                 break;
                 case "Enemy4":
@@ -251,37 +255,37 @@ module objects {
                     if(this.y > 190){
                         if(managers.Game.normal){
                             if(managers.Game.boss1Hp > 150){
-                                if(this.pattern1 && !this.pattern2 && !this.pattern3 && !this.pattern4)
+                                if(this.pattern1)
                                     this.ShootPattern(1)
-                                if(!this.pattern1 && this.pattern2 && !this.pattern3 && !this.pattern4)
+                                if(!this.pattern1 && this.pattern2)
                                     this.ShootPattern(2)
-                                if(!this.pattern1 && !this.pattern2 && this.pattern3 && !this.pattern4)
+                                if(!this.pattern2 && this.pattern3)
                                     this.ShootPattern(3)
-                                if(!this.pattern1 && !this.pattern2 && !this.pattern3 && this.pattern4)
+                                if(!this.pattern3 && this.pattern4)
                                     this.ShootPattern(4)
                             }
                             if(managers.Game.boss1Hp > 100 && managers.Game.boss1Hp < 150){
-                                if(this.pattern1 && !this.pattern2 && !this.pattern3 && !this.pattern4 && !this.pattern7)
+                                if(this.pattern1)
                                     this.ShootPattern(1)
-                                if(!this.pattern1 && this.pattern2 && !this.pattern3 && !this.pattern4 && !this.pattern7)
+                                if(!this.pattern1 && this.pattern2)
                                     this.ShootPattern(2)
-                                if(!this.pattern1 && !this.pattern2 && this.pattern3 && !this.pattern4 && !this.pattern7)
+                                if(!this.pattern2 && this.pattern3)
                                     this.ShootPattern(3)
-                                if(!this.pattern1 && !this.pattern2 && !this.pattern3 && this.pattern4 && !this.pattern7)
+                                if(!this.pattern3 && this.pattern4)
                                     this.ShootPattern(4)
-                                if(!this.pattern1 && !this.pattern2 && !this.pattern3 && !this.pattern4 && this.pattern7)
-                                    this.ShootPattern(7)
+                                if(!this.pattern4 && this.pattern5)
+                                    this.ShootPattern(5)
                             }
                             if(managers.Game.boss1Hp < 100){
-                                if(this.pattern1 && !this.pattern2 && !this.pattern3 && !this.pattern4 && !this.pattern7)
+                                if(this.pattern1)
                                     this.ShootPattern(1)
-                                if(!this.pattern1 && this.pattern2 && !this.pattern3 && !this.pattern4 && !this.pattern7)
+                                if(!this.pattern1 && this.pattern2)
                                     this.ShootPattern(2)
-                                if(!this.pattern1 && !this.pattern2 && this.pattern3 && !this.pattern4 && !this.pattern7)
+                                if(!this.pattern2 && this.pattern3)
                                     this.ShootPattern(3)
-                                if(!this.pattern1 && !this.pattern2 && !this.pattern3 && this.pattern4 && this.pattern7){
+                                if(!this.pattern3 && this.pattern4 || this.pattern5){
                                     this.ShootPattern(4)
-                                    this.ShootPattern(7)
+                                    this.ShootPattern(5)
                                 }
                             }
                         }
@@ -314,9 +318,11 @@ module objects {
 
             this.player = player;
         }
+        
+        public ShootPattern(pattern:number):void{
+            if(!this.isDead && !this.shoot && !this.player.isDead){
+                let ticker:number = createjs.Ticker.getTicks();
 
-        public ShootPlayer():void{
-            if(!this.isDead && !this.shoot && !this.isInvincible){
                 switch(this.sprite){
                     case "Enemy1":
                     case "Enemy2":
@@ -328,37 +334,32 @@ module objects {
                     case "Enemy9":
                     case "Enemy10":
                     case "Enemy11":
-                        this.shoot = true;
-                        this.bulletSpawn = new math.Vec2(this.x - 10, this.y - 15);      
+                        switch(pattern){
+                            case 1:
+                                this.bulletSpawn = new math.Vec2(this.x - 10, this.y - 15);      
 
-                        this.position = new math.Vec2(this.x, this.y);
-                        this.distance = math.Vec2.Distance(this.playerPos, this.position);
-                        
-                        this.bullet = new objects.EnemyBullet("Enemy1_Shot", false)
-                        this.bullet.Speed = 5
-    
-                        this.bullet.Dir = new math.Vec2(
-                            ((this.playerPos.x - this.position.x) / this.distance) * this.bullet.Speed, 
-                            ((this.playerPos.y - this.position.y) / this.distance) * this.bullet.Speed);
-    
-                        this.bullet.x = this.bulletSpawn.x;
-                        this.bullet.y = this.bulletSpawn.y;
-    
-                        let laser = createjs.Sound.play("laser");
-                        laser.volume = 0.2;
-
-                        managers.Game.currentSceneObject.addChild(this.bullet);
-                        console.log(this.bullet)
-                    break;
-                }
-            }
-        }
+                                this.position = new math.Vec2(this.x, this.y);
+                                this.distance = math.Vec2.Distance(this.playerPos, this.position);
+                            
+                                this.bullet = managers.Game.enemyBulletManager.GetBullet()
+                                this.bullet.pattern = 1;
+                                this.bullet.Speed = 5
         
-        public ShootPattern(pattern:number):void{
-            if(!this.isDead && !this.shoot && !this.player.isDead){
-                let ticker:number = createjs.Ticker.getTicks();
-
-                switch(this.sprite){
+                                this.bullet.Dir = new math.Vec2(
+                                    ((this.playerPos.x - this.position.x) / this.distance) * this.bullet.Speed, 
+                                    ((this.playerPos.y - this.position.y) / this.distance) * this.bullet.Speed);
+        
+                                this.bullet.x = this.bulletSpawn.x;
+                                this.bullet.y = this.bulletSpawn.y;
+        
+                                let laser = createjs.Sound.play("laser");
+                                laser.volume = 0.2;
+    
+                                //managers.Game.currentSceneObject.addChild(this.bullet);
+                                this.shoot = true;
+                            break;
+                        }
+                    break;
                     case "Enemy4":
                         switch(pattern){
                             case 1: // Repeater x10
@@ -407,7 +408,7 @@ module objects {
                                     console.log(this.pattern2)
                                     console.log(this.pattern3)
                                     console.log(this.pattern4)
-                                    console.log(this.pattern7)
+                                    console.log(this.pattern5)
                                     this.Timer();
                                 }
                             break;
@@ -428,8 +429,8 @@ module objects {
                                         this.bullet.Speed = 5;
                                             
                                         this.bullet.Dir = new math.Vec2(
-                                            (((this.playerPos.x - this.position.x) -60 +(20 * this.shootNum))/ this.distance) * this.bullet.Speed, 
-                                            (((this.playerPos.y - this.position.y) -60 +(20 * this.shootNum))/ this.distance) * this.bullet.Speed
+                                            (((this.playerPos.x - this.position.x) -90 +(30 * this.shootNum))/ this.distance) * this.bullet.Speed, 
+                                            (((this.playerPos.y - this.position.y) -90 +(30 * this.shootNum))/ this.distance) * this.bullet.Speed
                                             );
                                         //console.log(this.bullet)
                         
@@ -459,7 +460,7 @@ module objects {
                                     console.log(this.pattern2)
                                     console.log(this.pattern3)
                                     console.log(this.pattern4)
-                                    console.log(this.pattern7)
+                                    console.log(this.pattern5)
                                     this.Timer();
                                 }
                             break;
@@ -480,8 +481,8 @@ module objects {
                                         this.bullet.Speed = 5;
                                         
                                         this.bullet.Dir = new math.Vec2(
-                                            (((this.playerPos.x - this.position.x) -100 +(20 * this.shootNum))/ this.distance) * this.bullet.Speed, 
-                                            (((this.playerPos.y - this.position.y) -100 +(20 * this.shootNum))/ this.distance) * this.bullet.Speed);
+                                            (((this.playerPos.x - this.position.x) -180 +(30 * this.shootNum))/ this.distance) * this.bullet.Speed, 
+                                            (((this.playerPos.y - this.position.y) -180 +(30 * this.shootNum))/ this.distance) * this.bullet.Speed);
                                         //console.log(this.bullet)
                     
                                         //let laser = createjs.Sound.play("laser");
@@ -512,7 +513,7 @@ module objects {
                                     console.log(this.pattern2)
                                     console.log(this.pattern3)
                                     console.log(this.pattern4)
-                                    console.log(this.pattern7)
+                                    console.log(this.pattern5)
                                     this.Timer();
                                 }
                             break;
@@ -553,22 +554,66 @@ module objects {
                                     }
                                     if(managers.Game.boss1Hp > 100 && managers.Game.boss1Hp < 150){
                                         this.pattern4 = false
-                                        this.pattern7 = true
+                                        this.pattern5 = true
                                     }
                                     if(managers.Game.boss1Hp < 100){
                                         this.pattern1 = true
                                         this.pattern4 = false
-                                        this.pattern7 = false
+                                        this.pattern5 = false
                                     }
                                     console.log(this.pattern1)
                                     console.log(this.pattern2)
                                     console.log(this.pattern3)
                                     console.log(this.pattern4)
-                                    console.log(this.pattern7)
+                                    console.log(this.pattern5)
                                     this.Timer();
                                 }
                             break;
-                            case 5:// Spiral Hard
+                            case 5:// Spiral Normal Reverse
+                            if(this.shootNum < 250){
+                                if(ticker % 3 == 0){
+                                    this.shootNum++;
+                                    this.bulletSpawn = new math.Vec2(this.x - 10, this.y); 
+                
+                                    this.bullet = managers.Game.enemyBulletManager.GetBullet()
+                                    this.bullet.pattern = 5;
+
+                                    this.bullet.Speed = 0.05;
+                                    this.bullet.Radius = 1
+                                    this.bullet.Angle = 0;
+                                    this.bullet.AngleStep = (360/72) * this.shootNum;
+                                    this.bullet.Angle += this.bullet.AngleStep
+
+                                    this.bullet.Dir = new math.Vec2(
+                                        (90*Math.sin(this.bullet.Angle)) * this.bullet.Speed, 
+                                        (90*Math.cos(this.bullet.Angle)) * this.bullet.Speed
+                                    );
+
+                                    this.bullet.x = this.bulletSpawn.x 
+                                    this.bullet.y = this.bulletSpawn.y
+
+                                    //console.log(this.bullet.Angle)
+                                    //console.log(this.bullet)
+                                
+                                    //let laser = createjs.Sound.play("laser");
+                                    //laser.volume = 0.2;
+                                }
+                            }
+                            if(this.shootNum > 249){
+                                this.bullet.Reset()
+                                if(managers.Game.boss1Hp > 100 && managers.Game.boss1Hp < 150){
+                                    this.pattern1 = true
+                                    this.pattern5 = false
+                                }
+                                if(managers.Game.boss1Hp < 100){
+                                    this.pattern1 = true
+                                    this.pattern4 = false
+                                    this.pattern5 = false
+                                }
+                                this.Timer();
+                            }
+                            break;
+                            case 6: //Spiral Hard 
                             if(this.shootNum < 500){
                                 if(ticker % 3 == 0){
                                     this.shootNum++;
@@ -604,7 +649,7 @@ module objects {
                                 this.Timer();
                             }
                             break;
-                            case 6:// Spiral Hell
+                            case 7:// Spiral Hell
                             if(this.shootNum < 1000){
                                 if(ticker % 1 == 0){
                                     this.shootNum++;
@@ -640,7 +685,7 @@ module objects {
                                 this.Timer();
                             }
                             break;
-                            case 7:// Spiral Normal Reverse
+                            case 8:// Spiral Normal Reverse
                             if(this.shootNum < 250){
                                 if(ticker % 3 == 0){
                                     this.shootNum++;
@@ -694,7 +739,7 @@ module objects {
                                 this.Timer();
                             }
                             break;
-                            case 8:// Spiral Hard Reverse
+                            case 9:// Spiral Hard Reverse
                             if(this.shootNum < 500){
                                 if(ticker % 3 == 0){
                                     this.shootNum++;
@@ -725,44 +770,6 @@ module objects {
                                 }
                             }
                             if(this.shootNum > 499){
-                                this.bullet.Reset()
-                                this.shoot = true;
-                                this.pattern1 = true;
-                                this.pattern2 = false;
-                                //this.Timer();
-                            }
-                            break;
-                            case 9:// Spiral Hell Reverse
-                            if(this.shootNum < 1000){
-                                if(ticker % 1 == 0){
-                                    this.shootNum++;
-                                    this.bulletSpawn = new math.Vec2(this.x - 10, this.y); 
-                
-                                    this.bullet = managers.Game.enemyBulletManager.GetBullet()
-                                    this.bullet.pattern = 5;
-
-                                    this.bullet.Speed = 0.05;
-                                    this.bullet.Radius = 1
-                                    this.bullet.Angle = 0;
-                                    this.bullet.AngleStep = (360/1080) * this.shootNum;
-                                    this.bullet.Angle += this.bullet.AngleStep
-
-                                    this.bullet.Dir = new math.Vec2(
-                                        (90*Math.sin(this.bullet.Angle)) * this.bullet.Speed, 
-                                        (90*Math.cos(this.bullet.Angle)) * this.bullet.Speed
-                                    );
-
-                                    this.bullet.x = this.bulletSpawn.x 
-                                    this.bullet.y = this.bulletSpawn.y
-
-                                    console.log(this.bullet.Angle)
-                                    console.log(this.bullet)
-                                
-                                    //let laser = createjs.Sound.play("laser");
-                                    //laser.volume = 0.2;
-                                }
-                            }
-                            if(this.shootNum > 999){
                                 this.bullet.Reset()
                                 this.shoot = true;
                                 this.pattern1 = true;
@@ -829,6 +836,7 @@ module objects {
                  }
              }, 1000)
         }
+
         public RespawnTimer():void{
             let counter = 2;
 
@@ -838,6 +846,23 @@ module objects {
                     clearInterval(this.timerInterval);
                  }
              }, 1000)
+        }
+
+        public DropCoins():void{
+            let coin = managers.Game.coinsManager.GetCoin()
+
+            if(managers.Game.boss1IsDead){
+                if(this.coinsCount < 25){
+                    coin.IsDropped = true;
+                    coin.EnemyDropped = true;
+                    coin.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
+                    coin.y = Math.floor(Math.random() * (380 - 25 + 1) + 25);
+                    coin.scaleX = 0.25
+                    coin.scaleY = 0.25
+                    managers.Game.currentSceneObject.addChild(coin)
+                    this.coinsCount++;
+                }
+            }
         }
     }
 }

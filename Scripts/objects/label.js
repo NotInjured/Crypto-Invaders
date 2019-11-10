@@ -33,7 +33,7 @@ var objects;
             return _this;
         }
         return Label;
-    }(createjs.Text));
+    }(window.createjs.Text));
     objects.Label = Label;
 })(objects || (objects = {}));
 //# sourceMappingURL=label.js.map

@@ -27,7 +27,7 @@ var math;
             return Math.floor(Math.sqrt(Math.pow(P2.x - P1.x, 2) + Math.pow(P2.y - P1.y, 2)));
         };
         return Vec2;
-    }(createjs.Point));
+    }(window.createjs.Point));
     math.Vec2 = Vec2;
 })(math || (math = {}));
 //# sourceMappingURL=vec2.js.map

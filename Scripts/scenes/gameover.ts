@@ -47,7 +47,7 @@ module scenes {
             }
             if(managers.Game.boss1IsDead){
                 this.gameOverLabel = new objects.Label(
-                    "\t\t\t Stage Completed!" + "\n" + "\t Difficulty: " + this.diff, 
+                    "\t\t\t  Stage Completed!" + "\n" + "\t Difficulty: " + this.diff, 
                     "36px", "OptimusPrinceps", "#000000", 675, 240, true);
                 this.tryAgainLabel = new objects.Label(
                     "Try Again?", "20px", "OptimusPrinceps", "#000000", 535, 400, true);

@@ -1,5 +1,5 @@
 module objects {    // Module == Namespace
-    export class Label extends createjs.Text {    // export == public
+    export class Label extends window.createjs.Text {    // export == public
         // Variables
         // Constructor
         constructor(labelString:string, fontSize:string, fontFamily:string, 

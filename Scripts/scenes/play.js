@@ -154,7 +154,7 @@ var scenes;
                         e.Update();
                         e.FindPlayer(this.player);
                     }
-                })*/
+                }) */
             }
             if (managers.Game.timer >= 481 && managers.Game.timer <= 581) {
                 this.eType2.forEach(function (e) {
@@ -205,6 +205,7 @@ var scenes;
                 this.eBoss1.isInvincible = true;
                 this.eBoss1.isDead = true;
                 this.WaitTimer();
+                this.eBoss1.DropCoins();
             }
             if (managers.Game.hud.Lives < 0) {
                 managers.Game.currentScene = config.Scene.OVER;
@@ -325,7 +326,7 @@ var scenes;
             }, 1000);
         };
         PlayScene.prototype.WaitTimer = function () {
-            var counter = 20;
+            var counter = 5;
             var interval = setInterval(function () {
                 counter--;
                 if (counter < 0) {

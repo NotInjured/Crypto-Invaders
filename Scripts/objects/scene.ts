@@ -1,5 +1,5 @@
 module objects {
-    export class Scene extends createjs.Container {
+    export class Scene extends window.createjs.Container {
         // Variables
         public assetManager;
         // Constructor

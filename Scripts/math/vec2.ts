@@ -1,5 +1,5 @@
 module math {
-    export class Vec2 extends createjs.Point {
+    export class Vec2 extends window.createjs.Point {
         // Variables
         // Constructor
         constructor(x: number = 0, y: number = 0) {

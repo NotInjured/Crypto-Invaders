@@ -1,5 +1,5 @@
 module objects {
-    export class Background extends createjs.Bitmap {
+    export class Background extends window.createjs.Bitmap {
         // Variables
         private speedY:number;  // Speed of background scrolling on Y-axis
         // Constructor

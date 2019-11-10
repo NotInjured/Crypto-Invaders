@@ -40,7 +40,7 @@ var objects;
         GameObject.prototype.Move = function () { };
         GameObject.prototype.CheckBound = function () { };
         return GameObject;
-    }(createjs.Sprite));
+    }(window.createjs.Sprite));
     objects.GameObject = GameObject;
 })(objects || (objects = {}));
 //# sourceMappingURL=gameobject.js.map
