@@ -48,6 +48,16 @@ var objects;
             enumerable: true,
             configurable: true
         });
+        Object.defineProperty(Player.prototype, "IsInvincible", {
+            get: function () {
+                return this.isInvincible;
+            },
+            set: function (i) {
+                this.isInvincible = i;
+            },
+            enumerable: true,
+            configurable: true
+        });
         // Methods
         Player.prototype.Start = function () {
             this.Swapped();
@@ -59,15 +69,16 @@ var objects;
                 this.Shoot();
                 this.Swapped();
             }
-            if (this.isInvincible)
+            else if (this.isDead && this.isInvincible) {
                 this.RespawnTimer();
+            }
         };
         Player.prototype.Reset = function () {
             this.isDead = true;
+            this.isInvincible = true;
             this.alpha = 0;
             this.x = 555;
             this.y = 675;
-            this.isInvincible = true;
         };
         Player.prototype.Move = function () {
             if (managers.Game.keyboardManager.moveLeft)
@@ -225,8 +236,9 @@ var objects;
             var interval = setInterval(function () {
                 counter--;
                 if (counter < 0) {
-                    _this.isDead = false;
+                    counter = 2;
                     _this.alpha = 1;
+                    _this.isDead = false;
                     _this.isInvincible = false;
                     if (managers.Game.hud.Lives < 0) {
                         managers.Game.over = true;

@@ -82,13 +82,15 @@ var managers;
                         (object1.x - object1.halfW) < ((object2.x - 10) + object2.halfW / 4) &&
                         (object1.y + object1.halfH) > ((object2.y - 10) - object2.halfH / 4) &&
                         (object1.y - object1.halfH) < ((object2.y - 10) + object2.halfH / 4)) {
-                        console.log("Player Hit");
-                        var death = createjs.Sound.play("playerDeath");
-                        death.volume = 0.5;
-                        managers.Game.currentSceneObject.removeChild(object1);
-                        managers.Game.hud.Lives -= 1;
-                        managers.Game.hud.ScoreMult = 0;
-                        object2.Reset();
+                        if (!managers.Game.player.IsInvincible && !managers.Game.player.isDead) {
+                            console.log("Player Hit");
+                            //let death = createjs.Sound.play("playerDeath");
+                            //death.volume = 0.3;
+                            managers.Game.currentSceneObject.removeChild(object1);
+                            //managers.Game.hud.Lives -= 1
+                            //managers.Game.hud.ScoreMult = 0;
+                            object2.Reset();
+                        }
                     }
                     break;
                 case "B_coin":

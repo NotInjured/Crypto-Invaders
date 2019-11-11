@@ -7,7 +7,7 @@ module objects {
         public swapped:boolean;
         private power:number;
         private effect:objects.Effect;
-        public isInvincible:boolean = false;
+        private isInvincible:boolean = false;
 
         get ShipType():config.Ship{
             return this.shipType;
@@ -23,6 +23,14 @@ module objects {
 
         set POWER(num:number){
             this.power = num;
+        }
+
+        get IsInvincible():boolean{
+            return this.isInvincible;
+        }
+
+        set IsInvincible(i:boolean){
+            this.isInvincible = i;
         }
 
         // Constructor
@@ -45,16 +53,19 @@ module objects {
                 this.Shoot();
                 this.Swapped();
             }
-            if(this.isInvincible)
+            else if(this.isDead && this.isInvincible){
                 this.RespawnTimer();
+            }
+            
         }
 
         public Reset():void {
+            
             this.isDead = true;
+            this.isInvincible = true;
             this.alpha = 0;
             this.x = 555;
             this.y = 675;
-            this.isInvincible = true;
         }
 
         public Move():void {
@@ -282,15 +293,15 @@ module objects {
             let interval = setInterval(() =>{
                counter--;
                 if(counter < 0){
-                    this.isDead = false;
+                    counter = 2
                     this.alpha = 1;
-                    this.isInvincible = false;
+                    this.isDead = false
+                    this.isInvincible = false
                     if(managers.Game.hud.Lives < 0){
                         managers.Game.over = true;
                         managers.Game.currentScene = config.Scene.OVER;
                     }
                     clearInterval(interval);
-
                 }
             }, 1000)
         }

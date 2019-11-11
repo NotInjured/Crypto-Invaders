@@ -1,5 +1,5 @@
 {
-  "name": "comp397-f2019",
+  "name": "crypto-invaders",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wbalaniucCentennialCollege/COMP397-F2019.git"
+    "url": "git+https://github.com/NotInjured/Crypto-Invaders.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/wbalaniucCentennialCollege/COMP397-F2019/issues"
+    "url": "https://github.com/NotInjured/Crypto-Invaders/issues"
   },
-  "homepage": "https://github.com/wbalaniucCentennialCollege/COMP397-F2019#readme",
+  "homepage": "https://github.com/NotInjured/Crypto-Invaders#readme",
   "devDependencies": {
     "@types/easeljs": "^1.0.0",
     "@types/preloadjs": "^0.6.32",

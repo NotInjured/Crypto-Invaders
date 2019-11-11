@@ -7,12 +7,12 @@ var managers;
         Coins.prototype.buildCoinsPool = function () {
             // Initialize a pool of ammo assets
             for (var i = 0; i < this.coinsCount; i++) {
-                if (i % 2 == 0)
-                    this.Coin[i] = new objects.Coins("B_coin");
-                if (i % 3 == 0)
-                    this.Coin[i] = new objects.Coins("L_coin");
-                if (i % 2 == 1)
-                    this.Coin[i] = new objects.Coins("E_coin");
+                //if(i % 2 == 0)
+                this.Coin[i] = new objects.Coins("B_coin");
+                //if(i % 3 == 0)
+                //    this.Coin[i] = new objects.Coins("L_coin")
+                //if(i % 2 == 1)
+                //    this.Coin[i] = new objects.Coins("E_coin")
             }
         };
         Coins.prototype.GetCoin = function () {

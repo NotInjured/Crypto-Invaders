@@ -97,7 +97,7 @@ module objects {
                     }
                 break;
                 case "Enemy4":
-                    this.x = 560
+                    this.x = 555
                     this.y = -50
                 break;
             }
@@ -108,25 +108,11 @@ module objects {
             if(!this.isDead){
                 this.Move();
                 this.CheckBounds();
-
-                if(this.bullet != undefined){
+                if(this.bullet != undefined)
                     this.bullet.Update()
-                    if(this.bullet.Dir.x == 0 || this.bullet.Dir.y == 0)
-                        managers.Game.currentSceneObject.removeChild(this.bullet)
-    
-                    if(this.shoot && !this.player.isInvincible && managers.Game.hud.Lives >= 0)
-                        managers.Collision.CheckAABB(this.bullet, this.player);
-                }
-                if(this.bullet == undefined){
-                    console.log(this.bullet)
+                if(this.bullet == undefined)
                     managers.Game.currentSceneObject.removeChild(this.bullet)
-                }
             }
-
-            if(this.isDead && managers.Game.boss1Hp < 0){
-                managers.Game.currentSceneObject.removeChild(managers.Game.eType2)
-            }
-
         }
 
         public Reset():void {
@@ -199,18 +185,17 @@ module objects {
                     switch(this.randomNum){
                         case 1:
                             if(this.x < 1000 && !this.back){
-                                    this.x += 3;
+                                this.x += 3;
                                 if(this.x > 400 && this.x < 600)
-                                this.ShootPattern(1)
+                                    this.ShootPattern(1)
                             }
-                            else if(this.x > 995 && !this.back){
+                            if(this.x > 995 && !this.back){
                                 this.back = true;
-                                this.shoot = false;
+                                this.shoot = false
                             }
-                            else if(this.x > 200 && this.back){
+                            if(this.x > 200 && this.back){
                                 this.rotation = 90
                                 this.x -= 5;
-                                this.shoot = false
                                 if(this.x > 400 && this.x < 600)
                                     this.ShootPattern(1)
                                 if(this.x < 290)   
@@ -224,11 +209,11 @@ module objects {
                                     this.ShootPattern(1)
                                         
                             }
-                            else if(this.x < 10 && !this.back){
-                                this.back = true;
+                            if(this.x < 10 && !this.back){
                                 this.shoot = false;
+                                this.back = true;
                             }
-                            else if(this.x < 800 && this.back){
+                            if(this.x < 800 && this.back){
                                 this.x += 5;
                                 this.rotation = -90
                                 if(this.x > 400 && this.x < 600)
@@ -253,42 +238,115 @@ module objects {
                     if(this.y < 200)
                         this.y += 2;
                     if(this.y > 190){
-                        if(managers.Game.normal){
                             if(managers.Game.boss1Hp > 150){
-                                if(this.pattern1)
-                                    this.ShootPattern(1)
-                                if(!this.pattern1 && this.pattern2)
-                                    this.ShootPattern(2)
-                                if(!this.pattern2 && this.pattern3)
-                                    this.ShootPattern(3)
-                                if(!this.pattern3 && this.pattern4)
-                                    this.ShootPattern(4)
+                                if(managers.Game.normal){
+                                    if(this.pattern1)
+                                        this.ShootPattern(1)
+                                    if(!this.pattern1 && this.pattern2)
+                                        this.ShootPattern(2)
+                                    if(!this.pattern2 && this.pattern3)
+                                        this.ShootPattern(3)
+                                    if(!this.pattern3 && this.pattern4)
+                                        this.ShootPattern(4)
+                                }
+                                if(managers.Game.hard){
+                                    if(this.pattern1)
+                                        this.ShootPattern(1)
+                                    if(!this.pattern1 && this.pattern2)
+                                        this.ShootPattern(2)
+                                    if(!this.pattern2 && this.pattern3)
+                                        this.ShootPattern(3)
+                                    if(!this.pattern3 && this.pattern6)
+                                        this.ShootPattern(6)
+                                }
+                                if(managers.Game.hell){
+                                    if(this.pattern1)
+                                        this.ShootPattern(1)
+                                    if(!this.pattern1 && this.pattern2)
+                                        this.ShootPattern(2)
+                                    if(!this.pattern2 && this.pattern3)
+                                        this.ShootPattern(3)
+                                    if(!this.pattern3 && this.pattern7)
+                                        this.ShootPattern(7)
+                                }
+                                
                             }
                             if(managers.Game.boss1Hp > 100 && managers.Game.boss1Hp < 150){
-                                if(this.pattern1)
-                                    this.ShootPattern(1)
-                                if(!this.pattern1 && this.pattern2)
-                                    this.ShootPattern(2)
-                                if(!this.pattern2 && this.pattern3)
-                                    this.ShootPattern(3)
-                                if(!this.pattern3 && this.pattern4)
-                                    this.ShootPattern(4)
-                                if(!this.pattern4 && this.pattern5)
-                                    this.ShootPattern(5)
-                            }
-                            if(managers.Game.boss1Hp < 100){
-                                if(this.pattern1)
-                                    this.ShootPattern(1)
-                                if(!this.pattern1 && this.pattern2)
-                                    this.ShootPattern(2)
-                                if(!this.pattern2 && this.pattern3)
-                                    this.ShootPattern(3)
-                                if(!this.pattern3 && this.pattern4 || this.pattern5){
-                                    this.ShootPattern(4)
-                                    this.ShootPattern(5)
+                                if(managers.Game.normal){
+                                    if(this.pattern1)
+                                        this.ShootPattern(1)
+                                    if(!this.pattern1 && this.pattern2)
+                                        this.ShootPattern(2)
+                                    if(!this.pattern2 && this.pattern3)
+                                        this.ShootPattern(3)
+                                    if(!this.pattern3 && this.pattern4)
+                                        this.ShootPattern(4)
+                                    if(!this.pattern4 && this.pattern5)
+                                        this.ShootPattern(5)
+                                }
+                                if(managers.Game.hard){
+                                    if(this.pattern1)
+                                        this.ShootPattern(1)
+                                    if(!this.pattern1 && this.pattern2)
+                                        this.ShootPattern(2)
+                                    if(!this.pattern2 && this.pattern3)
+                                        this.ShootPattern(3)
+                                    if(!this.pattern3 && this.pattern6)
+                                        this.ShootPattern(6)
+                                    if(!this.pattern6 && this.pattern8)
+                                        this.ShootPattern(8)
+                                }
+                                if(managers.Game.hell){
+                                    if(this.pattern1)
+                                        this.ShootPattern(1)
+                                    if(!this.pattern1 && this.pattern2)
+                                        this.ShootPattern(2)
+                                    if(!this.pattern2 && this.pattern3)
+                                        this.ShootPattern(3)
+                                    if(!this.pattern3 && this.pattern7)
+                                        this.ShootPattern(7)
+                                    if(!this.pattern7 && this.pattern9)
+                                        this.ShootPattern(9)
                                 }
                             }
-                        }
+                            if(managers.Game.boss1Hp < 100){
+                                if(managers.Game.normal){
+                                    if(this.pattern1)
+                                        this.ShootPattern(1)
+                                    if(!this.pattern1 && this.pattern2)
+                                        this.ShootPattern(2)
+                                    if(!this.pattern2 && this.pattern3)
+                                        this.ShootPattern(3)
+                                    if(!this.pattern3 && this.pattern4 || this.pattern5){
+                                        this.ShootPattern(4)
+                                        this.ShootPattern(5)
+                                    }
+                                }
+                                if(managers.Game.hard){
+                                    if(this.pattern1)
+                                        this.ShootPattern(1)
+                                    if(!this.pattern1 && this.pattern2)
+                                        this.ShootPattern(2)
+                                    if(!this.pattern2 && this.pattern3)
+                                        this.ShootPattern(3)
+                                    if(!this.pattern3 && this.pattern6 || this.pattern8){
+                                        this.ShootPattern(6)
+                                        this.ShootPattern(8)
+                                    }
+                                }
+                                if(managers.Game.hell){
+                                    if(this.pattern1)
+                                        this.ShootPattern(1)
+                                    if(!this.pattern1 && this.pattern2)
+                                        this.ShootPattern(2)
+                                    if(!this.pattern2 && this.pattern3)
+                                        this.ShootPattern(3)
+                                    if(!this.pattern3 && this.pattern7 || this.pattern9){
+                                        this.ShootPattern(7)
+                                        this.ShootPattern(9)
+                                    }
+                                }
+                            }
                     }
                 break;
                 case "Enemy5":
@@ -320,7 +378,7 @@ module objects {
         }
         
         public ShootPattern(pattern:number):void{
-            if(!this.isDead && !this.shoot && !this.player.isDead){
+            if(!this.isDead && !this.shoot){
                 let ticker:number = createjs.Ticker.getTicks();
 
                 switch(this.sprite){
@@ -353,7 +411,7 @@ module objects {
                                 this.bullet.y = this.bulletSpawn.y;
         
                                 let laser = createjs.Sound.play("laser");
-                                laser.volume = 0.2;
+                                laser.volume = 0.1;
     
                                 //managers.Game.currentSceneObject.addChild(this.bullet);
                                 this.shoot = true;
@@ -382,8 +440,8 @@ module objects {
                                             ((this.playerPos.x - this.position.x) / this.distance) * this.bullet.Speed, 
                                             ((this.playerPos.y - this.position.y) / this.distance) * this.bullet.Speed);
                                         //console.log(this.bullet)
-                                        //let laser = createjs.Sound.play("laser");
-                                        //laser.volume = 0.2;
+                                        let laser = createjs.Sound.play("laser");
+                                        laser.volume = 0.1;
                     
                                         this.shootNum++;
                                     }
@@ -404,11 +462,6 @@ module objects {
                                         this.pattern1 = false
                                         this.pattern2 = true
                                     }
-                                    console.log(this.pattern1)
-                                    console.log(this.pattern2)
-                                    console.log(this.pattern3)
-                                    console.log(this.pattern4)
-                                    console.log(this.pattern5)
                                     this.Timer();
                                 }
                             break;
@@ -434,8 +487,8 @@ module objects {
                                             );
                                         //console.log(this.bullet)
                         
-                                        //let laser = createjs.Sound.play("laser");
-                                        //laser.volume = 0.2;
+                                        let laser = createjs.Sound.play("laser");
+                                        laser.volume = 0.1;
                         
                                         this.shootNum++;
                                     }
@@ -456,11 +509,6 @@ module objects {
                                         this.pattern2 = false
                                         this.pattern3 = true
                                     }
-                                    console.log(this.pattern1)
-                                    console.log(this.pattern2)
-                                    console.log(this.pattern3)
-                                    console.log(this.pattern4)
-                                    console.log(this.pattern5)
                                     this.Timer();
                                 }
                             break;
@@ -485,8 +533,8 @@ module objects {
                                             (((this.playerPos.y - this.position.y) -180 +(30 * this.shootNum))/ this.distance) * this.bullet.Speed);
                                         //console.log(this.bullet)
                     
-                                        //let laser = createjs.Sound.play("laser");
-                                        //laser.volume = 0.2;
+                                        let laser = createjs.Sound.play("laser");
+                                        laser.volume = 0.1;
                     
                                         this.shootNum++;
                                     }
@@ -500,20 +548,35 @@ module objects {
                                         this.pattern4 = true
                                     }
                                     if(managers.Game.boss1Hp > 100 && managers.Game.boss1Hp < 150){
-                                        this.pattern3 = false
-                                        this.pattern4 = true
+                                        if(managers.Game.normal){
+                                            this.pattern3 = false
+                                            this.pattern4 = true
+                                        }
+                                        if(managers.Game.hard){
+                                            this.pattern3 = false
+                                            this.pattern6 = true
+                                        }
+                                        if(managers.Game.hell){
+                                            this.pattern3 = false
+                                            this.pattern7 = true
+                                        }
                                     }
                                     if(managers.Game.boss1Hp < 100){
-                                        this.pattern3 = false
-                                        this.pattern4 = true
-                                        this.pattern7 = true
+                                        if(managers.Game.normal){
+                                            this.pattern3 = false
+                                            this.pattern4 = true
+                                        }
+                                        if(managers.Game.hard){
+                                            this.pattern3 = false
+                                            this.pattern6 = true
+                                            this.pattern8 = true
+                                        }
+                                        if(managers.Game.hell){
+                                            this.pattern3 = false
+                                            this.pattern7 = true
+                                            this.pattern9 = true
+                                        }
                                     }
-                                    
-                                    console.log(this.pattern1)
-                                    console.log(this.pattern2)
-                                    console.log(this.pattern3)
-                                    console.log(this.pattern4)
-                                    console.log(this.pattern5)
                                     this.Timer();
                                 }
                             break;
@@ -539,9 +602,9 @@ module objects {
 
                                         this.bullet.x = this.bulletSpawn.x 
                                         this.bullet.y = this.bulletSpawn.y
-                                    
-                                        //let laser = createjs.Sound.play("laser");
-                                        //laser.volume = 0.2;
+                                
+                                        let laser = createjs.Sound.play("laser");
+                                        laser.volume = 0.1;
                                     }
                                 }
                                 if(this.shootNum > 249){
@@ -561,11 +624,6 @@ module objects {
                                         this.pattern4 = false
                                         this.pattern5 = false
                                     }
-                                    console.log(this.pattern1)
-                                    console.log(this.pattern2)
-                                    console.log(this.pattern3)
-                                    console.log(this.pattern4)
-                                    console.log(this.pattern5)
                                     this.Timer();
                                 }
                             break;
@@ -595,8 +653,8 @@ module objects {
                                     //console.log(this.bullet.Angle)
                                     //console.log(this.bullet)
                                 
-                                    //let laser = createjs.Sound.play("laser");
-                                    //laser.volume = 0.2;
+                                    let laser = createjs.Sound.play("laser");
+                                    laser.volume = 0.1;
                                 }
                             }
                             if(this.shootNum > 249){
@@ -639,13 +697,27 @@ module objects {
                                     console.log(this.bullet.Angle)
                                     console.log(this.bullet)
                                 
-                                    //let laser = createjs.Sound.play("laser");
-                                    //laser.volume = 0.2;
+                                    let laser = createjs.Sound.play("laser");
+                                    laser.volume = 0.1;
                                 }
                             }
                             if(this.shootNum > 499){
                                 this.bullet.Reset()
+
                                 this.shoot = true;
+                                if(managers.Game.boss1Hp > 150){
+                                    this.pattern1 = true
+                                    this.pattern6 = false
+                                }
+                                if(managers.Game.boss1Hp > 100 && managers.Game.boss1Hp < 150){
+                                    this.pattern6 = false
+                                    this.pattern8 = true
+                                }
+                                if(managers.Game.boss1Hp < 100){
+                                    this.pattern1 = true
+                                    this.pattern6 = false
+                                    this.pattern8 = false
+                                }
                                 this.Timer();
                             }
                             break;
@@ -675,47 +747,11 @@ module objects {
                                     console.log(this.bullet.Angle)
                                     console.log(this.bullet)
                                 
-                                    //let laser = createjs.Sound.play("laser");
-                                    //laser.volume = 0.2;
+                                    let laser = createjs.Sound.play("laser");
+                                    laser.volume = 0.1;
                                 }
                             }
                             if(this.shootNum > 999){
-                                this.bullet.Reset()
-                                this.shoot = true;
-                                this.Timer();
-                            }
-                            break;
-                            case 8:// Spiral Normal Reverse
-                            if(this.shootNum < 250){
-                                if(ticker % 3 == 0){
-                                    this.shootNum++;
-                                    this.bulletSpawn = new math.Vec2(this.x - 10, this.y); 
-                
-                                    this.bullet = managers.Game.enemyBulletManager.GetBullet()
-                                    this.bullet.pattern = 5;
-
-                                    this.bullet.Speed = 0.05;
-                                    this.bullet.Radius = 1
-                                    this.bullet.Angle = 0;
-                                    this.bullet.AngleStep = (360/72) * this.shootNum;
-                                    this.bullet.Angle += this.bullet.AngleStep
-
-                                    this.bullet.Dir = new math.Vec2(
-                                        (90*Math.sin(this.bullet.Angle)) * this.bullet.Speed, 
-                                        (90*Math.cos(this.bullet.Angle)) * this.bullet.Speed
-                                    );
-
-                                    this.bullet.x = this.bulletSpawn.x 
-                                    this.bullet.y = this.bulletSpawn.y
-
-                                    //console.log(this.bullet.Angle)
-                                    //console.log(this.bullet)
-                                
-                                    //let laser = createjs.Sound.play("laser");
-                                    //laser.volume = 0.2;
-                                }
-                            }
-                            if(this.shootNum > 249){
                                 this.bullet.Reset()
                                 this.shoot = true;
                                 if(managers.Game.boss1Hp > 150){
@@ -723,23 +759,18 @@ module objects {
                                     this.pattern7 = false
                                 }
                                 if(managers.Game.boss1Hp > 100 && managers.Game.boss1Hp < 150){
-                                    this.pattern1 = true
                                     this.pattern7 = false
+                                    this.pattern9 = true
                                 }
                                 if(managers.Game.boss1Hp < 100){
                                     this.pattern1 = true
-                                    this.pattern4 = false
                                     this.pattern7 = false
+                                    this.pattern9 = false
                                 }
-                                console.log(this.pattern1)
-                                console.log(this.pattern2)
-                                console.log(this.pattern3)
-                                console.log(this.pattern4)
-                                console.log(this.pattern7)
                                 this.Timer();
                             }
                             break;
-                            case 9:// Spiral Hard Reverse
+                            case 8:// Spiral Hard Reverse
                             if(this.shootNum < 500){
                                 if(ticker % 3 == 0){
                                     this.shootNum++;
@@ -772,12 +803,19 @@ module objects {
                             if(this.shootNum > 499){
                                 this.bullet.Reset()
                                 this.shoot = true;
-                                this.pattern1 = true;
-                                this.pattern2 = false;
-                                //this.Timer();
+                                if(managers.Game.boss1Hp > 100 && managers.Game.boss1Hp < 150){
+                                    this.pattern8 = false
+                                    this.pattern1 = true
+                                }
+                                if(managers.Game.boss1Hp < 100){
+                                    this.pattern1 = true
+                                    this.pattern6 = false
+                                    this.pattern8 = false
+                                }
+                                this.Timer();
                             }
                             break;
-                            case 10:// Spiral Hell Reverse
+                            case 9:// Spiral Hell Reverse
                             if(this.shootNum < 1000){
                                 if(ticker % 1 == 0){
                                     this.shootNum++;
@@ -810,9 +848,16 @@ module objects {
                             if(this.shootNum > 999){
                                 this.bullet.Reset()
                                 this.shoot = true;
-                                this.pattern1 = true;
-                                this.pattern2 = false;
-                                //this.Timer();
+                                if(managers.Game.boss1Hp > 100 && managers.Game.boss1Hp < 150){
+                                    this.pattern9 = false
+                                    this.pattern1 = true
+                                }
+                                if(managers.Game.boss1Hp < 100){
+                                    this.pattern1 = true
+                                    this.pattern7 = false
+                                    this.pattern9 = false
+                                }
+                                this.Timer();
                             }
                             break;
                         }
@@ -824,17 +869,46 @@ module objects {
         }
 
         public Timer():void{
-            let counter = 2;
+            if(managers.Game.normal){
+                let counter = 3;
 
-            this.timerInterval = setInterval(() =>{
-                counter--;
-                 if(counter < 0){
-                    counter = 2;
-                    clearInterval(this.timerInterval);
-                    this.shootNum = 0;
-                    this.shoot = false;
-                 }
-             }, 1000)
+                this.timerInterval = setInterval(() =>{
+                    counter--;
+                     if(counter < 0){
+                        counter = 3;
+                        clearInterval(this.timerInterval);
+                        this.shootNum = 0;
+                        this.shoot = false;
+                     }
+                 }, 1000)
+            }
+            if(managers.Game.hard){
+                let counter = 1;
+
+                this.timerInterval = setInterval(() =>{
+                    counter--;
+                     if(counter < 0){
+                        counter = 2;
+                        clearInterval(this.timerInterval);
+                        this.shootNum = 0;
+                        this.shoot = false;
+                     }
+                 }, 1000)
+            }
+            if(managers.Game.hell){
+                let counter = 1;
+
+                this.timerInterval = setInterval(() =>{
+                    counter--;
+                     if(counter < 0){
+                        counter = 1;
+                        clearInterval(this.timerInterval);
+                        this.shootNum = 0;
+                        this.shoot = false;
+                     }
+                 }, 1000)
+            }
+            
         }
 
         public RespawnTimer():void{

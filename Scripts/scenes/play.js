@@ -43,6 +43,9 @@ var scenes;
             //this.testEnemyBullet.y = this.player.y - 100;
             managers.Game.player = this.player;
             managers.Game.timer = 600;
+            managers.Game.boss1Hp = 200;
+            managers.Game.boss2Hp = 350;
+            managers.Game.boss3Hp = 500;
             this.eType1 = new Array();
             this.eType2 = new Array();
             this.eType3 = new Array();
@@ -109,7 +112,7 @@ var scenes;
             //console.log(managers.Game.timer);
             this.background.Update();
             this.player.Update();
-            //this.ChangeShip();
+            this.ChangeShip();
             this.CheckCollisions();
             //this.testCoin.FindPlayer(this.player)
             //this.testCoin.Update()
@@ -135,6 +138,7 @@ var scenes;
                 }*/
                 this.eType1.forEach(function (e) {
                     if (!e.isDead) {
+                        _this.SpawnTimer();
                         e.Update();
                         e.FindPlayer(_this.player);
                     }
@@ -215,7 +219,7 @@ var scenes;
             var _this = this;
             // Order matters when adding game objects.
             this.addChild(this.background);
-            this.SpawnTimer();
+            this.GameTimer();
             this.eType1.forEach(function (e) {
                 _this.addChild(e);
             });
@@ -269,7 +273,8 @@ var scenes;
                 managers.Collision.CheckAABB(_this.player, c);
             });
             this.enemyBulletManager.Bullet.forEach(function (b) {
-                managers.Collision.CheckAABB(b, _this.player);
+                if (!_this.player.IsInvincible || !_this.player.isDead)
+                    managers.Collision.CheckAABB(b, _this.player);
             });
             //managers.Collision.CheckAABB(this.testEnemyBullet, this.player)
         };
@@ -317,10 +322,19 @@ var scenes;
                 }
             }
         };
-        PlayScene.prototype.SpawnTimer = function () {
+        PlayScene.prototype.GameTimer = function () {
             var interval = setInterval(function () {
                 managers.Game.timer--;
                 if (managers.Game.timer < 0) {
+                    clearInterval(interval);
+                }
+            }, 1000);
+        };
+        PlayScene.prototype.SpawnTimer = function () {
+            var counter = 1;
+            var interval = setInterval(function () {
+                counter--;
+                if (counter < 0) {
                     clearInterval(interval);
                 }
             }, 1000);

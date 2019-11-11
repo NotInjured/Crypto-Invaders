@@ -65,6 +65,9 @@ module scenes {
 
             managers.Game.player = this.player;
             managers.Game.timer = 600;
+            managers.Game.boss1Hp = 200;
+            managers.Game.boss2Hp = 350;
+            managers.Game.boss3Hp = 500;
 
             this.eType1 = new Array<objects.Enemy>();
             this.eType2 = new Array<objects.Enemy>();
@@ -137,7 +140,7 @@ module scenes {
             //console.log(managers.Game.timer);
             this.background.Update();
             this.player.Update();
-            //this.ChangeShip();
+            this.ChangeShip();
             this.CheckCollisions()
             //this.testCoin.FindPlayer(this.player)
             //this.testCoin.Update()
@@ -164,6 +167,7 @@ module scenes {
                 }*/
                 this.eType1.forEach(e =>{
                     if(!e.isDead){
+                        this.SpawnTimer()
                         e.Update();
                         e.FindPlayer(this.player);
                     }
@@ -248,7 +252,7 @@ module scenes {
             // Order matters when adding game objects.
             this.addChild(this.background);
             
-            this.SpawnTimer()
+            this.GameTimer()
             
             this.eType1.forEach(e =>{
                 this.addChild(e)
@@ -311,7 +315,8 @@ module scenes {
             })
 
             this.enemyBulletManager.Bullet.forEach(b =>{
-                managers.Collision.CheckAABB(b, this.player)
+                if(!this.player.IsInvincible || !this.player.isDead)
+                    managers.Collision.CheckAABB(b, this.player)
             })
 
             //managers.Collision.CheckAABB(this.testEnemyBullet, this.player)
@@ -369,10 +374,20 @@ module scenes {
                 }
         }
 
-        public SpawnTimer():void{
+        public GameTimer():void{
             let interval = setInterval(() =>{
                 managers.Game.timer--;
                 if(managers.Game.timer < 0){
+                    clearInterval(interval);
+                }
+            }, 1000)
+        }
+
+        public SpawnTimer():void{
+            let counter = 1;
+            let interval = setInterval(() =>{
+                counter--;
+                if(counter < 0){
                     clearInterval(interval);
                 }
             }, 1000)

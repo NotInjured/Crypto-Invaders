@@ -850,6 +850,34 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">tile_01.png</key>
+            <key type="filename">tile_02.png</key>
+            <key type="filename">tile_03.png</key>
+            <key type="filename">tile_04.png</key>
+            <key type="filename">tile_05.png</key>
+            <key type="filename">tile_06.png</key>
+            <key type="filename">tile_07.png</key>
+            <key type="filename">tile_08.png</key>
+            <key type="filename">tile_09.png</key>
+            <key type="filename">tile_10.png</key>
+            <key type="filename">tile_11.png</key>
+            <key type="filename">tile_12.png</key>
+            <key type="filename">tile_13.png</key>
+            <key type="filename">tile_14.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>48,48,96,96</rect>
+                <key>scale9Paddings</key>
+                <rect>48,48,96,96</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
         </map>
         <key>fileList</key>
         <array>
@@ -962,6 +990,20 @@
             <filename>Enemy13.png</filename>
             <filename>Enemy13_Shot.png</filename>
             <filename>Enemy12_Shot.png</filename>
+            <filename>tile_01.png</filename>
+            <filename>tile_02.png</filename>
+            <filename>tile_03.png</filename>
+            <filename>tile_04.png</filename>
+            <filename>tile_05.png</filename>
+            <filename>tile_06.png</filename>
+            <filename>tile_07.png</filename>
+            <filename>tile_08.png</filename>
+            <filename>tile_09.png</filename>
+            <filename>tile_10.png</filename>
+            <filename>tile_11.png</filename>
+            <filename>tile_12.png</filename>
+            <filename>tile_13.png</filename>
+            <filename>tile_14.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

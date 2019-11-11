@@ -10,12 +10,12 @@ module managers{
         public buildCoinsPool():void {
             // Initialize a pool of ammo assets
             for(let i = 0; i < this.coinsCount; i++){
-                if(i % 2 == 0)
+                //if(i % 2 == 0)
                     this.Coin[i] = new objects.Coins("B_coin")
-                if(i % 3 == 0)
-                    this.Coin[i] = new objects.Coins("L_coin")
-                if(i % 2 == 1)
-                    this.Coin[i] = new objects.Coins("E_coin")
+                //if(i % 3 == 0)
+                //    this.Coin[i] = new objects.Coins("L_coin")
+                //if(i % 2 == 1)
+                //    this.Coin[i] = new objects.Coins("E_coin")
             }
             
         }
