@@ -3,12 +3,11 @@ module managers {
 
         // Check collisions using AABB (Axis-aligned Bounding Box)
         public static CheckAABB(object1: objects.GameObject, object2: objects.GameObject) {
-            let P1: math.Vec2 = new math.Vec2(object1.x, object1.y);
-            let P2: math.Vec2 = new math.Vec2(object2.x, object2.y);
-            let effect = new objects.Effect("Laser_Hit", object1.x + 10, object1.y - object1.halfH);
-            let explosion  = new objects.Effect("tile", object1.x + 10, object1.y - object1.halfH);
-            effect.scaleX *= 2;
-            effect.scaleY *= 2;
+            let P1: math.Vec2 = new math.Vec2(object1.x, object1.y)
+            let P2: math.Vec2 = new math.Vec2(object2.x, object2.y)
+            let effect:objects.Effect;
+            let explosion  = new objects.Effect("tile", object2.x+15, object2.y +10);
+
             let coin = managers.Game.coinsManager.GetCoin()
 
             // CHECK ALL BOUNDS
@@ -48,6 +47,18 @@ module managers {
                                         managers.Game.currentSceneObject.addChild(coin)
 
                                     object1.Reset()
+                                    
+                                    if(managers.Game.player.ShipType == config.Ship.Botcoin)
+                                        effect = new objects.Effect("Laser_Hit", object1.x + 10, object1.y - object1.halfH);
+                                    else if(managers.Game.player.ShipType == config.Ship.Lightcoin)
+                                        effect = new objects.Effect("Laser1_Hit", object1.x + 10, object1.y - object1.halfH);
+
+                                    effect.scaleX *= 2;
+                                    effect.scaleY *= 2;
+                                    explosion.scaleX = 0.4
+                                    explosion.scaleY = 0.4
+
+                                    managers.Game.currentSceneObject.addChild(explosion)
                                     managers.Game.currentSceneObject.addChild(effect);
                                     object2.Reset();
                                 }
@@ -87,13 +98,29 @@ module managers {
                                 ){
                                 if(!managers.Game.player.IsInvincible && !managers.Game.player.isDead){
                                     console.log("Player Hit");
-                                    //let death = createjs.Sound.play("playerDeath");
-                                    //death.volume = 0.3;
-                                    managers.Game.currentSceneObject.removeChild(object1)
-                                    //managers.Game.hud.Lives -= 1
-                                    //managers.Game.hud.ScoreMult = 0;
+                                    let death = createjs.Sound.play("playerDeath");
+                                    death.volume = 0.3;
+                                    explosion.x = object2.x + 20
+                                    explosion.y = object2.y + 20
+                                    explosion.scaleY = 0.5
+                                    explosion.scaleX = 0.5
+                                    managers.Game.currentSceneObject.addChild(explosion)
+                                    managers.Game.hud.Lives -= 1
+                                    managers.Game.hud.ScoreMult = 0;
+                                    object1.Reset()
                                     object2.Reset();
                                 }
+                            }
+                        break;
+                        case "Shield":
+                            if(
+                                (object1.x + object1.halfW) > (object2.x - object2.halfW) &&
+                                (object1.x - object1.halfW) < (object2.x + object2.halfW) &&
+                                (object1.y + object1.halfH) > (object2.y - object2.halfH) &&
+                                (object1.y - object1.halfH) < (object2.y + object2.halfH)
+                                ){
+                                if(object2.alpha == 1)
+                                    object1.Reset()
                             }
                         break;
                         case "B_coin":

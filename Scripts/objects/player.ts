@@ -53,19 +53,10 @@ module objects {
                 this.Shoot();
                 this.Swapped();
             }
-            else if(this.isDead && this.isInvincible){
-                this.RespawnTimer();
-            }
-            
         }
 
         public Reset():void {
-            
-            this.isDead = true;
-            this.isInvincible = true;
-            this.alpha = 0;
-            this.x = 555;
-            this.y = 675;
+            this.RespawnTimer()
         }
 
         public Move():void {
@@ -200,6 +191,9 @@ module objects {
                         
                                     ammo.x = this.bulletSpawn.x;
                                     ammo.y = this.bulletSpawn.y;
+                                    
+                                    let laser = createjs.Sound.play("laser");
+                                    laser.volume = 0.1;
 
                                     managers.Game.currentSceneObject.addChild(this.effect); 
                                 }
@@ -284,26 +278,50 @@ module objects {
 
         public Swapped():void{
             if(!this.swapped)
-                this.shipType = config.Ship.Botcoin;
+                this.shipType = config.Ship.Botcoin
         }
 
         public RespawnTimer():void{
-            let counter = 2;
+            let counter = 2
+            this.isDead = true
+            this.alpha = 0
+            this.x = 555
+            this.y = 675
 
             let interval = setInterval(() =>{
                counter--;
-                if(counter < 0){
+               console.log(counter)
+
+                if(counter == 0){
                     counter = 2
-                    this.alpha = 1;
-                    this.isDead = false
-                    this.isInvincible = false
                     if(managers.Game.hud.Lives < 0){
-                        managers.Game.over = true;
-                        managers.Game.currentScene = config.Scene.OVER;
+                        managers.Game.over = true
+                        managers.Game.currentScene = config.Scene.OVER
+                    }
+                    else{
+                        this.isDead = false
+                        this.alpha = 1;
+                        this.InvincibilityTimer()
                     }
                     clearInterval(interval);
                 }
-            }, 1000)
+            },1000)
+        }
+
+        public InvincibilityTimer():void{
+            this.isInvincible = true
+            let counter = 2
+            
+            let interval = setInterval(() =>{
+                counter--;
+                console.log(counter)
+ 
+                 if(counter == 0){
+                     counter = 2
+                     this.isInvincible = false
+                     clearInterval(interval);
+                 }
+             },1000)
         }
     }
 }

@@ -69,16 +69,9 @@ var objects;
                 this.Shoot();
                 this.Swapped();
             }
-            else if (this.isDead && this.isInvincible) {
-                this.RespawnTimer();
-            }
         };
         Player.prototype.Reset = function () {
-            this.isDead = true;
-            this.isInvincible = true;
-            this.alpha = 0;
-            this.x = 555;
-            this.y = 675;
+            this.RespawnTimer();
         };
         Player.prototype.Move = function () {
             if (managers.Game.keyboardManager.moveLeft)
@@ -172,6 +165,8 @@ var objects;
                                 console.log(ammo);
                                 ammo.x = this.bulletSpawn.x;
                                 ammo.y = this.bulletSpawn.y;
+                                var laser = createjs.Sound.play("laser");
+                                laser.volume = 0.1;
                                 managers.Game.currentSceneObject.addChild(this.effect);
                             }
                             break;
@@ -233,17 +228,38 @@ var objects;
         Player.prototype.RespawnTimer = function () {
             var _this = this;
             var counter = 2;
+            this.isDead = true;
+            this.alpha = 0;
+            this.x = 555;
+            this.y = 675;
             var interval = setInterval(function () {
                 counter--;
-                if (counter < 0) {
+                console.log(counter);
+                if (counter == 0) {
                     counter = 2;
-                    _this.alpha = 1;
-                    _this.isDead = false;
-                    _this.isInvincible = false;
                     if (managers.Game.hud.Lives < 0) {
                         managers.Game.over = true;
                         managers.Game.currentScene = config.Scene.OVER;
                     }
+                    else {
+                        _this.isDead = false;
+                        _this.alpha = 1;
+                        _this.InvincibilityTimer();
+                    }
+                    clearInterval(interval);
+                }
+            }, 1000);
+        };
+        Player.prototype.InvincibilityTimer = function () {
+            var _this = this;
+            this.isInvincible = true;
+            var counter = 2;
+            var interval = setInterval(function () {
+                counter--;
+                console.log(counter);
+                if (counter == 0) {
+                    counter = 2;
+                    _this.isInvincible = false;
                     clearInterval(interval);
                 }
             }, 1000);

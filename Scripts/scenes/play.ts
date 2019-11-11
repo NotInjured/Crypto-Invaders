@@ -7,6 +7,7 @@ module scenes {
         private stageName: objects.Label;
 
         private player:objects.Player;
+        private shield:objects.Sprite;
         private effect:objects.Effect;
 
         private hudImage: objects.Image;
@@ -49,6 +50,11 @@ module scenes {
             this.player = new objects.Player("Ship1", 555, 690, false, 1);
 
             this.aircraft = new objects.Image("aircraft", 418, 450);
+
+            this.shield = new objects.Sprite("Shield", this.player.x + 20, this.player.y-5);
+            this.shield.alpha = 0;
+            this.shield.scaleX = 0.6
+            this.shield.scaleY = 0.6
             
             this.bulletManager = new managers.Bullet();
             managers.Game.bulletManager = this.bulletManager;
@@ -140,6 +146,14 @@ module scenes {
             //console.log(managers.Game.timer);
             this.background.Update();
             this.player.Update();
+            if(this.player.IsInvincible){
+                this.shield.x = this.player.x +20
+                this.shield.y = this.player.y +10
+                this.shield.alpha = 1;
+            }
+            if(!this.player.IsInvincible)
+                this.shield.alpha = 0;
+
             this.ChangeShip();
             this.CheckCollisions()
             //this.testCoin.FindPlayer(this.player)
@@ -189,8 +203,6 @@ module scenes {
                     }
                 }) */
             }
-                
-            
             if(managers.Game.timer >= 481 && managers.Game.timer <= 581){
                 this.eType2.forEach(e =>{
                     if(!e.isDead){
@@ -209,7 +221,6 @@ module scenes {
                     }
                 })
             }
-            
             if(managers.Game.timer < 481){
                 this.eType1.forEach(e =>{
                     e.y -= 10;
@@ -282,6 +293,7 @@ module scenes {
             this.addChild(this.hud)
             this.addChild(this.aircraft)
             this.addChild(this.player)
+            this.addChild(this.shield)
             //this.addChild(this.testEnemyBullet)
             //this.addChild(this.testCoin)
         }
@@ -315,8 +327,10 @@ module scenes {
             })
 
             this.enemyBulletManager.Bullet.forEach(b =>{
-                if(!this.player.IsInvincible || !this.player.isDead)
+                if(!this.player.IsInvincible && !this.player.isDead)
                     managers.Collision.CheckAABB(b, this.player)
+                if(this.player.IsInvincible)
+                    managers.Collision.CheckAABB(b, this.shield)
             })
 
             //managers.Collision.CheckAABB(this.testEnemyBullet, this.player)

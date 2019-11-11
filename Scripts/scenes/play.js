@@ -32,6 +32,10 @@ var scenes;
             this.stageName = new objects.Label("Stage 1: Invasion", "36px", "OptimusPrinceps", "#FFFFFF", 530, 240, true);
             this.player = new objects.Player("Ship1", 555, 690, false, 1);
             this.aircraft = new objects.Image("aircraft", 418, 450);
+            this.shield = new objects.Sprite("Shield", this.player.x + 20, this.player.y - 5);
+            this.shield.alpha = 0;
+            this.shield.scaleX = 0.6;
+            this.shield.scaleY = 0.6;
             this.bulletManager = new managers.Bullet();
             managers.Game.bulletManager = this.bulletManager;
             this.enemyBulletManager = new managers.EnemyBullet();
@@ -112,6 +116,13 @@ var scenes;
             //console.log(managers.Game.timer);
             this.background.Update();
             this.player.Update();
+            if (this.player.IsInvincible) {
+                this.shield.x = this.player.x + 20;
+                this.shield.y = this.player.y + 10;
+                this.shield.alpha = 1;
+            }
+            if (!this.player.IsInvincible)
+                this.shield.alpha = 0;
             this.ChangeShip();
             this.CheckCollisions();
             //this.testCoin.FindPlayer(this.player)
@@ -242,6 +253,7 @@ var scenes;
             this.addChild(this.hud);
             this.addChild(this.aircraft);
             this.addChild(this.player);
+            this.addChild(this.shield);
             //this.addChild(this.testEnemyBullet)
             //this.addChild(this.testCoin)
         };
@@ -273,8 +285,10 @@ var scenes;
                 managers.Collision.CheckAABB(_this.player, c);
             });
             this.enemyBulletManager.Bullet.forEach(function (b) {
-                if (!_this.player.IsInvincible || !_this.player.isDead)
+                if (!_this.player.IsInvincible && !_this.player.isDead)
                     managers.Collision.CheckAABB(b, _this.player);
+                if (_this.player.IsInvincible)
+                    managers.Collision.CheckAABB(b, _this.shield);
             });
             //managers.Collision.CheckAABB(this.testEnemyBullet, this.player)
         };

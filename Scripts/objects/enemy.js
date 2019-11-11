@@ -388,7 +388,7 @@ var objects;
                                 this.distance = math.Vec2.Distance(this.playerPos, this.position);
                                 this.bullet = managers.Game.enemyBulletManager.GetBullet();
                                 this.bullet.pattern = 1;
-                                this.bullet.Speed = 5;
+                                this.bullet.Speed = 3;
                                 this.bullet.Dir = new math.Vec2(((this.playerPos.x - this.position.x) / this.distance) * this.bullet.Speed, ((this.playerPos.y - this.position.y) / this.distance) * this.bullet.Speed);
                                 this.bullet.x = this.bulletSpawn.x;
                                 this.bullet.y = this.bulletSpawn.y;
@@ -411,7 +411,7 @@ var objects;
                                         this.bullet.pattern = 1;
                                         this.bullet.x = this.bulletSpawn.x;
                                         this.bullet.y = this.bulletSpawn.y;
-                                        this.bullet.Speed = 5;
+                                        this.bullet.Speed = 4;
                                         this.bullet.Dir = new math.Vec2(((this.playerPos.x - this.position.x) / this.distance) * this.bullet.Speed, ((this.playerPos.y - this.position.y) / this.distance) * this.bullet.Speed);
                                         //console.log(this.bullet)
                                         var laser = createjs.Sound.play("laser");
@@ -447,7 +447,7 @@ var objects;
                                         this.bullet.pattern = 2;
                                         this.bullet.x = this.bulletSpawn.x;
                                         this.bullet.y = this.bulletSpawn.y;
-                                        this.bullet.Speed = 5;
+                                        this.bullet.Speed = 4;
                                         this.bullet.Dir = new math.Vec2((((this.playerPos.x - this.position.x) - 90 + (30 * this.shootNum)) / this.distance) * this.bullet.Speed, (((this.playerPos.y - this.position.y) - 90 + (30 * this.shootNum)) / this.distance) * this.bullet.Speed);
                                         //console.log(this.bullet)
                                         var laser = createjs.Sound.play("laser");
@@ -483,7 +483,7 @@ var objects;
                                         this.bullet.pattern = 2;
                                         this.bullet.x = this.bulletSpawn.x;
                                         this.bullet.y = this.bulletSpawn.y;
-                                        this.bullet.Speed = 5;
+                                        this.bullet.Speed = 4;
                                         this.bullet.Dir = new math.Vec2((((this.playerPos.x - this.position.x) - 180 + (30 * this.shootNum)) / this.distance) * this.bullet.Speed, (((this.playerPos.y - this.position.y) - 180 + (30 * this.shootNum)) / this.distance) * this.bullet.Speed);
                                         //console.log(this.bullet)
                                         var laser = createjs.Sound.play("laser");
