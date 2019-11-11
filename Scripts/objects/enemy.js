@@ -24,6 +24,7 @@ var objects;
             _this.shoot = false;
             _this.isInvincible = true;
             _this.patternFinished = false;
+            _this.angle = Math.floor(Math.random() * (360 - 0 + 1) + 0);
             _this.shootNum = 0;
             _this.shootNum2 = 0;
             _this.coinsCount = 0;
@@ -102,6 +103,7 @@ var objects;
                     }
                     break;
                 case "Enemy4":
+                    this.RandomMovement();
                     this.x = 555;
                     this.y = -50;
                     break;
@@ -234,10 +236,26 @@ var objects;
                         this.Reset();
                     break;
                 case "Enemy4":
-                    if (this.y < 200)
+                    if (this.y < 200 && !this.back)
                         this.y += 2;
-                    if (this.y > 190) {
-                        this.ShootPattern(10);
+                    if (this.y > 50) {
+                        this.back = true;
+                        this.ShootPattern(11);
+                        if (this.x != this.moveX &&
+                            this.y != this.moveY) {
+                            if (this.x > this.moveX)
+                                this.x -= 1;
+                            if (this.x < this.moveX)
+                                this.x += 1;
+                            if (this.y > this.moveY)
+                                this.y -= 1;
+                            if (this.y < this.moveY)
+                                this.y += 1;
+                            if (this.x == this.moveX &&
+                                this.y == this.moveY) {
+                                this.RandomMovement();
+                            }
+                        }
                         /*
                         if(managers.Game.boss1Hp > 150){
                             if(managers.Game.normal){
@@ -786,6 +804,34 @@ var objects;
                                     this.Timer();
                                 }
                                 break;
+                            case 11: // BoWaP - Border of Wave and Particle
+                                if (this.shootNum < 20000) {
+                                    for (var i = 0; i < 10; i++) {
+                                        if (ticker % 1 == 0) {
+                                            this.bulletSpawn = new math.Vec2(this.x - 10, this.y);
+                                            this.bullet = managers.Game.enemyBulletManager.GetBullet();
+                                            this.bullet.pattern = 5;
+                                            this.bullet.Speed = 0.03;
+                                            this.bullet.AngleStep = (360 / 6) * this.shootNum;
+                                            this.bullet.Angle = 180;
+                                            this.bullet.Angle += this.bullet.AngleStep;
+                                            this.bullet.Dir = new math.Vec2((90 * Math.sin(this.bullet.Angle)) * this.bullet.Speed, (90 * Math.cos(this.bullet.Angle)) * this.bullet.Speed);
+                                            this.bullet.x = this.bulletSpawn.x;
+                                            this.bullet.y = this.bulletSpawn.y;
+                                            console.log(this.bullet.Angle);
+                                        }
+                                        this.bullet.Angle += Math.sin(this.shootNum) * Math.cos(this.shootNum) * 6;
+                                        this.shootNum++;
+                                    }
+                                }
+                                if (this.shootNum > 19999) {
+                                    this.bullet.Reset();
+                                    this.shoot = true;
+                                    this.Timer();
+                                }
+                                break;
+                            case 12:
+                                break;
                         }
                     case "Enemy12":
                     case "Enemy13":
@@ -857,6 +903,12 @@ var objects;
                     this.coinsCount++;
                 }
             }
+        };
+        Enemy.prototype.RandomMovement = function () {
+            this.position1 = new math.Vec2(Math.floor(Math.random() * (710 - 380 + 1) + 380), Math.floor(Math.random() * (400 - 50 + 1) + 50));
+            this.position2 = new math.Vec2(Math.floor(Math.random() * (710 - 380 + 1) + 380), Math.floor(Math.random() * (400 - 50 + 1) + 50));
+            this.position3 = new math.Vec2(Math.floor(Math.random() * (710 - 380 + 1) + 380), Math.floor(Math.random() * (400 - 50 + 1) + 50));
+            this.position4 = new math.Vec2(Math.floor(Math.random() * (710 - 380 + 1) + 380), Math.floor(Math.random() * (400 - 50 + 1) + 50));
         };
         return Enemy;
     }(objects.GameObject));
