@@ -20,6 +20,7 @@ module managers {
         public playerPowerLabel: objects.Label;
         public scoreMultLabel: objects.Label;
         public gameOverLabel: objects.Label;
+        public versionLabel: objects.Label;
 
         private controlPanel: objects.Image;
         private infoPanel: objects.Image;
@@ -129,6 +130,9 @@ module managers {
             + "\n\n" + "   Z - Bombs (Disabled)" + "\n\n" + "    Space - Swap Ships" + "\n"+"            (Disabled)", "24px", "OptimusPrimus", 
             "#000000", 50, 285, false)
 
+            this.versionLabel = new objects.Label("Alpha Release 0.1", "12px", "OptimusPrimus", 
+            "#000000", 495, 550, false)
+
             this.controlPanel = new objects.Image("panelUI", 4, 175);
             this.infoPanel = new objects.Image("panelInfo", 710, 175);
 
@@ -167,6 +171,7 @@ module managers {
                 this.addChild(this.infoPanel);
                 this.addChild(this.info1);
                 this.addChild(this.controls);
+                this.addChild(this.versionLabel)
             }
             if(managers.Game.currentScene == config.Scene.GAME){
                 this.addChild(this.eBackground);

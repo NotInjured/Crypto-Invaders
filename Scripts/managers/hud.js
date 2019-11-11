@@ -118,6 +118,7 @@ var managers;
                 "and is lost when dead", "14px", "OptimusPrimus", "#000000", 740, 235, false);
             this.controls = new objects.Label("Arrow Keys - Movement" + "\n\n" + "           X - Shoot"
                 + "\n\n" + "   Z - Bombs (Disabled)" + "\n\n" + "    Space - Swap Ships" + "\n" + "            (Disabled)", "24px", "OptimusPrimus", "#000000", 50, 285, false);
+            this.versionLabel = new objects.Label("Alpha Release 0.1", "12px", "OptimusPrimus", "#000000", 495, 550, false);
             this.controlPanel = new objects.Image("panelUI", 4, 175);
             this.infoPanel = new objects.Image("panelInfo", 710, 175);
             this.playerLivesSprite = new objects.Sprite("Ship1", 370, 688);
@@ -153,6 +154,7 @@ var managers;
                 this.addChild(this.infoPanel);
                 this.addChild(this.info1);
                 this.addChild(this.controls);
+                this.addChild(this.versionLabel);
             }
             if (managers.Game.currentScene == config.Scene.GAME) {
                 this.addChild(this.eBackground);
