@@ -172,13 +172,13 @@ module scenes {
             }
             if(managers.Game.timer >= 481 && managers.Game.timer <= 591){
                 this.removeChild(this.stageName)
-                /*
+                
                 this.addChild(this.eBoss1)
                 if(!this.eBoss1.isDead){
                     this.eBoss1.isInvincible = false
                     this.eBoss1.FindPlayer(this.player)
                     this.eBoss1.Update();
-                }*/
+                }/*
                 this.eType1.forEach(e =>{
                     if(!e.isDead){
                         this.SpawnTimer()
@@ -186,7 +186,7 @@ module scenes {
                         e.FindPlayer(this.player);
                     }
                 })
-                /*
+                
                 this.eType2.forEach(e =>{
                     if(!e.isDead){
                         e.isInvincible = false;
@@ -201,8 +201,8 @@ module scenes {
                         e.Update();
                         e.FindPlayer(this.player);
                     }
-                }) */
-            }
+                })*/
+            }/*
             if(managers.Game.timer >= 481 && managers.Game.timer <= 581){
                 this.eType2.forEach(e =>{
                     if(!e.isDead){
@@ -253,7 +253,7 @@ module scenes {
                 this.eBoss1.isDead = true;
                 this.WaitTimer()
                 this.eBoss1.DropCoins()
-            }
+            }*/
             if(managers.Game.hud.Lives < 0){
                 managers.Game.currentScene = config.Scene.OVER;
             }

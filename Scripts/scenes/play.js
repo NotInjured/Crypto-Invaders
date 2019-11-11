@@ -140,21 +140,20 @@ var scenes;
             }
             if (managers.Game.timer >= 481 && managers.Game.timer <= 591) {
                 this.removeChild(this.stageName);
-                /*
-                this.addChild(this.eBoss1)
-                if(!this.eBoss1.isDead){
-                    this.eBoss1.isInvincible = false
-                    this.eBoss1.FindPlayer(this.player)
+                this.addChild(this.eBoss1);
+                if (!this.eBoss1.isDead) {
+                    this.eBoss1.isInvincible = false;
+                    this.eBoss1.FindPlayer(this.player);
                     this.eBoss1.Update();
-                }*/
-                this.eType1.forEach(function (e) {
-                    if (!e.isDead) {
-                        _this.SpawnTimer();
+                } /*
+                this.eType1.forEach(e =>{
+                    if(!e.isDead){
+                        this.SpawnTimer()
                         e.Update();
-                        e.FindPlayer(_this.player);
+                        e.FindPlayer(this.player);
                     }
-                });
-                /*
+                })
+                
                 this.eType2.forEach(e =>{
                     if(!e.isDead){
                         e.isInvincible = false;
@@ -169,59 +168,59 @@ var scenes;
                         e.Update();
                         e.FindPlayer(this.player);
                     }
-                }) */
-            }
-            if (managers.Game.timer >= 481 && managers.Game.timer <= 581) {
-                this.eType2.forEach(function (e) {
-                    if (!e.isDead) {
+                })*/
+            } /*
+            if(managers.Game.timer >= 481 && managers.Game.timer <= 581){
+                this.eType2.forEach(e =>{
+                    if(!e.isDead){
                         e.isInvincible = false;
                         e.Update();
-                        e.FindPlayer(_this.player);
+                        e.FindPlayer(this.player);
                     }
-                });
+                })
             }
-            if (managers.Game.timer >= 481 && managers.Game.timer <= 576) {
-                this.eType3.forEach(function (e) {
-                    if (!e.isDead) {
+            if(managers.Game.timer >= 481 && managers.Game.timer <= 576){
+                this.eType3.forEach(e =>{
+                    if(!e.isDead){
                         e.isInvincible = false;
                         e.Update();
-                        e.FindPlayer(_this.player);
+                        e.FindPlayer(this.player);
                     }
-                });
+                })
             }
-            if (managers.Game.timer < 481) {
-                this.eType1.forEach(function (e) {
+            if(managers.Game.timer < 481){
+                this.eType1.forEach(e =>{
                     e.y -= 10;
-                });
-                this.eType2.forEach(function (e) {
+                })
+                this.eType2.forEach(e =>{
                     e.x += 10;
-                });
-                this.eType3.forEach(function (e) {
+                })
+                this.eType3.forEach(e =>{
                     e.y += 10;
-                });
+                })
             }
-            if (managers.Game.timer == 480) {
+            if(managers.Game.timer == 480){
                 createjs.Sound.stop();
                 this.bgm = createjs.Sound.play("bossMusic");
                 this.bgm.loop = -1;
                 this.bgm.volume = 0.05;
             }
-            if (managers.Game.timer < 479) {
-                this.eBoss1.isInvincible = false;
-                this.addChild(this.eBoss1);
+            if(managers.Game.timer < 479){
+                this.eBoss1.isInvincible = false
+                this.addChild(this.eBoss1)
                 this.background.y += 0;
-                if (!this.eBoss1.isDead) {
-                    this.eBoss1.FindPlayer(this.player);
+                if(!this.eBoss1.isDead){
+                    this.eBoss1.FindPlayer(this.player)
                     this.eBoss1.Update();
                 }
             }
-            if (managers.Game.boss1Hp < 0) {
-                this.removeChild(this.eBoss1);
+            if(managers.Game.boss1Hp < 0){
+                this.removeChild(this.eBoss1)
                 this.eBoss1.isInvincible = true;
                 this.eBoss1.isDead = true;
-                this.WaitTimer();
-                this.eBoss1.DropCoins();
-            }
+                this.WaitTimer()
+                this.eBoss1.DropCoins()
+            }*/
             if (managers.Game.hud.Lives < 0) {
                 managers.Game.currentScene = config.Scene.OVER;
             }
