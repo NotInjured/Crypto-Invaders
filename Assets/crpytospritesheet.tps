@@ -163,7 +163,7 @@
             <key>scaleMode</key>
             <enum type="ScaleMode">Smooth</enum>
             <key>extrude</key>
-            <uint>1</uint>
+            <uint>0</uint>
             <key>trimThreshold</key>
             <uint>1</uint>
             <key>trimMargin</key>
@@ -367,6 +367,21 @@
                 <rect>11,12,23,24</rect>
                 <key>scale9Paddings</key>
                 <rect>11,12,23,24</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">BlueBox.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>10,9,19,18</rect>
+                <key>scale9Paddings</key>
+                <rect>10,9,19,18</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -1054,6 +1069,7 @@
             <filename>Shield_23.png</filename>
             <filename>Shield_24.png</filename>
             <filename>Shield_25.png</filename>
+            <filename>BlueBox.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

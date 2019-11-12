@@ -8,7 +8,7 @@ var managers;
             var P1 = new math.Vec2(object1.x, object1.y);
             var P2 = new math.Vec2(object2.x, object2.y);
             var effect;
-            var explosion = new objects.Effect("tile", object2.x + 15, object2.y + 10);
+            var explosion;
             var coin = managers.Game.coinsManager.GetCoin();
             // CHECK ALL BOUNDS
             //if((object1.x + object1.halfW) > (object2.x - object2.halfW) &&
@@ -45,6 +45,7 @@ var managers;
                         if (rand == 5)
                             managers.Game.currentSceneObject.addChild(coin);
                         object1.Reset();
+                        explosion = new objects.Effect("tile", object2.x + 15, object2.y + 10);
                         if (managers.Game.player.ShipType == config.Ship.Botcoin)
                             effect = new objects.Effect("Laser_Hit", object1.x + 10, object1.y - object1.halfH);
                         else if (managers.Game.player.ShipType == config.Ship.Lightcoin)
@@ -67,6 +68,9 @@ var managers;
                         (object1.y + object1.halfH) > ((object2.y - 5) - object2.halfH) &&
                         (object1.y - object1.halfH) < ((object2.y - 5) + object2.halfH)) {
                         managers.Game.hud.Score += Math.round(50 * Math.pow(1.01, managers.Game.hud.ScoreMult));
+                        effect = new objects.Effect("Laser_Hit", object1.x + 10, object1.y - object1.halfH);
+                        effect.scaleX *= 2;
+                        effect.scaleY *= 2;
                         managers.Game.currentSceneObject.addChild(effect);
                         managers.Game.boss1Hp -= 1;
                         var hit2 = createjs.Sound.play("hit");
@@ -75,6 +79,7 @@ var managers;
                         console.log(managers.Game.boss1Hp);
                         if (managers.Game.boss1Hp < 0) {
                             managers.Game.boss1IsDead = true;
+                            explosion = new objects.Effect("tile", object2.x + 65, object2.y + 65);
                             managers.Game.currentSceneObject.addChild(explosion);
                             managers.Game.currentSceneObject.removeChild(object2);
                             managers.Game.hud.ScoreMult += 100;
@@ -90,18 +95,19 @@ var managers;
                         (object1.y + object1.halfH) > ((object2.y - 10) - object2.halfH / 4) &&
                         (object1.y - object1.halfH) < ((object2.y - 10) + object2.halfH / 4)) {
                         if (!managers.Game.player.IsInvincible && !managers.Game.player.isDead) {
-                            //console.log("Player Hit");
-                            //let death = createjs.Sound.play("playerDeath");
-                            //death.volume = 0.3;
+                            explosion = new objects.Effect("tile", object2.x, object2.y);
+                            console.log("Player Hit");
+                            var death = createjs.Sound.play("playerDeath");
+                            death.volume = 0.3;
                             explosion.x = object2.x + 20;
                             explosion.y = object2.y + 20;
                             explosion.scaleY = 0.5;
                             explosion.scaleX = 0.5;
-                            //managers.Game.currentSceneObject.addChild(explosion)
-                            //managers.Game.hud.Lives -= 1
-                            //managers.Game.hud.ScoreMult = 0;
+                            managers.Game.currentSceneObject.addChild(explosion);
+                            managers.Game.hud.Lives -= 1;
+                            managers.Game.hud.ScoreMult = 0;
                             object1.Reset();
-                            //object2.Reset();
+                            object2.Reset();
                         }
                     }
                     break;

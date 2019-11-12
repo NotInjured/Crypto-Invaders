@@ -1,49 +1,50 @@
 module objects {
     export class Enemy extends objects.GameObject {
         // Variables
-        public isDead:boolean = false;
-        private back:boolean = false;
-        private shoot:boolean = false;
-        public isInvincible: boolean = true;
-        public patternFinished:boolean = false;
+        public isDead:boolean = false
+        private back:boolean = false
+        private shoot:boolean = false
+        public isInvincible: boolean = true
+        public patternFinished:boolean = false
+        private startPos: boolean = false
+        private position1: boolean = false
+        private position2: boolean = false
+        private position3: boolean = false
+        private position4: boolean = false
+        private position5: boolean = false
+        private position6: boolean = false
+
+        private boxPoisitions: objects.Sprite[]
 
         private angle:number = Math.floor(Math.random() * (360 - 0 + 1) + 0);
-        private shootNum:number = 0;
-        private shootNum2:number = 0;
-        private sprite:string;
-        private distance:number;
-        private coinsCount:number = 0;
-        private moveX:number
-        private moveY:number
-        private position1: math.Vec2;
-        private position2: math.Vec2;
-        private position3: math.Vec2;
-        private position4: math.Vec2;
-        private randomPosition:number;
+        private shootNum:number = 0
+        private shootNum2:number = 0
+        private sprite:string
+        private distance:number
+        private coinsCount:number = 0
+        private randomPosition:number
         
-        private bullet:objects.EnemyBullet;
-        private coins:objects.Coins;
+        private bullet:objects.EnemyBullet
+        private coins:objects.Coins
 
-        private bulletSpawn:math.Vec2;
-        private playerPos:math.Vec2;
-        private position:math.Vec2;
+        private bulletSpawn:math.Vec2
+        private playerPos:math.Vec2
+        private position:math.Vec2
 
-        private player:objects.Player;
+        private timerInterval:number
 
-        private timerInterval:number;
+        private randomNum
 
-        private randomNum;
-
-        private pattern1:boolean = true;
-        private pattern2:boolean = false;
-        private pattern3:boolean = false;
-        private pattern4:boolean = false;
-        private pattern5:boolean = false;
-        private pattern6:boolean = false;
-        private pattern7:boolean = false;
-        private pattern8:boolean = false;
-        private pattern9:boolean = false;
-        private pattern10:boolean = false;
+        private pattern1:boolean = true
+        private pattern2:boolean = false
+        private pattern3:boolean = false
+        private pattern4:boolean = false
+        private pattern5:boolean = false
+        private pattern6:boolean = false
+        private pattern7:boolean = false
+        private pattern8:boolean = false
+        private pattern9:boolean = false
+        private pattern10:boolean = false
     
         private randomPattern:number = Math.floor(Math.random() * (5 - 1 + 1) + 1)
 
@@ -105,9 +106,23 @@ module objects {
                     }
                 break;
                 case "Enemy4":
-                    this.RandomMovement()
                     this.x = 555
                     this.y = -50
+                    this.boxPoisitions = new Array<objects.Sprite>();
+                    for(let i = 0; i < 3; i++){
+                        this.boxPoisitions[i] = new objects.Sprite("BlueBox", 
+                        Math.floor(Math.random() * (525 - 360 + 1) + 360),
+                        Math.floor(Math.random() * (250 - 50 + 1) + 50)
+                        )
+                    }
+                    for(let i = 3; i < 6; i ++){
+                        this.boxPoisitions[i] = new objects.Sprite("BlueBox", 
+                        Math.floor(Math.random() * (690 - 525 + 1) + 525),
+                        Math.floor(Math.random() * (250 - 50 + 1) + 50)
+                        )
+                    }
+
+                    this.position1 = true;
                 break;
             }
             
@@ -116,7 +131,6 @@ module objects {
         public Update():void {
             if(!this.isDead){
                 this.Move();
-                this.CheckBounds();
                 if(this.bullet != undefined)
                     this.bullet.Update()
                 if(this.bullet == undefined)
@@ -125,10 +139,10 @@ module objects {
         }
 
         public Reset():void {
-            this.isDead = false;
-            this.back = false;
+            this.isDead = false
+            this.back = false
             this.shoot = false
-            this.isInvincible = true;
+            this.isInvincible = true
             switch(this.sprite){
                 case "Enemy1":
                     this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
@@ -244,137 +258,386 @@ module objects {
                         this.Reset()
                 break;
                 case "Enemy4":
-                    if(this.y < 200 && !this.back)
-                        this.y += 2;
-                    if(this.y > 50){
-                        this.back = true
-                        this.ShootPattern(11)
-                        if(this.x != this.moveX && 
-                        this.y != this.moveY){
-                            if(this.x > this.moveX)
-                                this.x -=1;
-                            if(this.x < this.moveX)
-                                this.x += 1;
-                            if(this.y > this.moveY)
-                                this.y -=1;
-                            if(this.y < this.moveY)
-                                this.y += 1;
-                            if(this.x == this.moveX && 
-                                this.y == this.moveY){
-                                    this.RandomMovement()
-                                }
-                        }
-                        
-                        /*
-                        if(managers.Game.boss1Hp > 150){
-                            if(managers.Game.normal){
-                                if(this.pattern1)
-                                    this.ShootPattern(1)
-                                if(!this.pattern1 && this.pattern2)
-                                    this.ShootPattern(2)
-                                if(!this.pattern2 && this.pattern3)
-                                    this.ShootPattern(3)
-                                if(!this.pattern3 && this.pattern4)
-                                    this.ShootPattern(4)
-                            }
-                            if(managers.Game.hard){
-                                if(this.pattern1)
-                                    this.ShootPattern(1)
-                                if(!this.pattern1 && this.pattern2)
-                                    this.ShootPattern(2)
-                                if(!this.pattern2 && this.pattern3)
-                                    this.ShootPattern(3)
-                                if(!this.pattern3 && this.pattern6)
-                                    this.ShootPattern(6)
-                            }
-                            if(managers.Game.hell){
-                                if(this.pattern1)
-                                    this.ShootPattern(1)
-                                if(!this.pattern1 && this.pattern2)
-                                    this.ShootPattern(2)
-                                if(!this.pattern2 && this.pattern3)
-                                    this.ShootPattern(3)
-                                if(!this.pattern3 && this.pattern7)
-                                    this.ShootPattern(7)
+                    if(this.y < 200 && !this.startPos){
+                            this.y += 2;
+                            if(this.y > 190){
+                                this.startPos = true;
                             } 
                         }
-                        if(managers.Game.boss1Hp > 100 && managers.Game.boss1Hp < 150){
-                            if(managers.Game.normal){
-                                if(this.pattern1)
-                                    this.ShootPattern(1)
-                                if(!this.pattern1 && this.pattern2)
-                                    this.ShootPattern(2)
-                                if(!this.pattern2 && this.pattern3)
-                                    this.ShootPattern(3)
-                                if(!this.pattern3 && this.pattern4)
-                                    this.ShootPattern(4)
-                                if(!this.pattern4 && this.pattern5)
-                                    this.ShootPattern(5)
+                        if(this.startPos){
+                            if(this.position1){
+                                if(this.x < this.boxPoisitions[0].x){
+                                    this.x += 1
+                                }
+                                if(this.x > this.boxPoisitions[0].x){
+                                    this.x -= 1
+                                }
+                                if(this.y < this.boxPoisitions[0].y){
+                                    this.y += 1
+                                }
+                                if(this.y > this.boxPoisitions[0].y){
+                                    this.y -= 1
+                                }
+                                
+                                if((this.x + this.halfW) > ((this.boxPoisitions[0].x) - this.boxPoisitions[0].halfW/4) && 
+                                (this.x - this.halfW) < ((this.boxPoisitions[0].x) + this.boxPoisitions[0].halfW/4) &&
+                                (this.y + this.halfH) > ((this.boxPoisitions[0].y) - this.boxPoisitions[0].halfH/4) &&
+                                (this.y - this.halfH) < ((this.boxPoisitions[0].y) + this.boxPoisitions[0].halfH/4)){
+                                    this.randomPosition = Math.floor(Math.random() * (5 - 1 + 1) + 1);
+                                    switch(this.randomPosition){
+                                        case 1:
+                                            this.position1 = false;
+                                            this.position2 = true;
+                                        break;
+                                        case 2:
+                                            this.position1 = false;
+                                            this.position3 = true;
+                                        break;
+                                        case 3:
+                                            this.position1 = false;
+                                            this.position4 = true;
+                                        break;
+                                        case 4:
+                                            this.position1 = false;
+                                            this.position5 = true;
+                                        break;
+                                        case 5:
+                                            this.position1 = false;
+                                            this.position6 = true;
+                                        break;
+                                    }
+                                }
                             }
-                            if(managers.Game.hard){
-                                if(this.pattern1)
-                                    this.ShootPattern(1)
-                                if(!this.pattern1 && this.pattern2)
-                                    this.ShootPattern(2)
-                                if(!this.pattern2 && this.pattern3)
-                                    this.ShootPattern(3)
-                                if(!this.pattern3 && this.pattern6)
-                                    this.ShootPattern(6)
-                                if(!this.pattern6 && this.pattern8)
-                                    this.ShootPattern(8)
+                            if(this.position2){
+                                if(this.x < this.boxPoisitions[1].x){
+                                    this.x += 1
+                                }
+                                if(this.x > this.boxPoisitions[1].x){
+                                    this.x -= 1
+                                }
+                                if(this.y < this.boxPoisitions[1].y){
+                                    this.y += 1
+                                }
+                                if(this.y > this.boxPoisitions[1].y){
+                                    this.y -= 1
+                                }
+                                
+                                if((this.x + this.halfW) > ((this.boxPoisitions[1].x) - this.boxPoisitions[1].halfW/4) && 
+                                (this.x - this.halfW) < ((this.boxPoisitions[1].x) + this.boxPoisitions[1].halfW/4) &&
+                                (this.y + this.halfH) > ((this.boxPoisitions[1].y) - this.boxPoisitions[1].halfH/4) &&
+                                (this.y - this.halfH) < ((this.boxPoisitions[1].y) + this.boxPoisitions[1].halfH/4)){
+                                    this.randomPosition = Math.floor(Math.random() * (5 - 1 + 1) + 1);
+                                    switch(this.randomPosition){
+                                        case 1:
+                                            this.position2 = false;
+                                            this.position1 = true;
+                                        break;
+                                        case 2:
+                                            this.position2 = false;
+                                            this.position3 = true;
+                                        break;
+                                        case 3:
+                                            this.position2 = false;
+                                            this.position4 = true;
+                                        break;
+                                        case 4:
+                                            this.position2 = false;
+                                            this.position5 = true;
+                                        break;
+                                        case 5:
+                                            this.position2 = false;
+                                            this.position6 = true;
+                                        break;
+                                    }
+                                }
                             }
-                            if(managers.Game.hell){
-                                if(this.pattern1)
-                                    this.ShootPattern(1)
-                                if(!this.pattern1 && this.pattern2)
-                                    this.ShootPattern(2)
-                                if(!this.pattern2 && this.pattern3)
-                                    this.ShootPattern(3)
-                                if(!this.pattern3 && this.pattern7)
-                                    this.ShootPattern(7)
-                                if(!this.pattern7 && this.pattern9)
-                                    this.ShootPattern(9)
+                            if(this.position3){
+                                if(this.x < this.boxPoisitions[2].x){
+                                    this.x += 1
+                                }
+                                if(this.x > this.boxPoisitions[2].x){
+                                    this.x -= 1
+                                }
+                                if(this.y < this.boxPoisitions[2].y){
+                                    this.y += 1
+                                }
+                                if(this.y > this.boxPoisitions[2].y){
+                                    this.y -= 1
+                                }
+
+                                if((this.x + this.halfW) > ((this.boxPoisitions[2].x) - this.boxPoisitions[2].halfW/4) && 
+                                (this.x - this.halfW) < ((this.boxPoisitions[2].x) + this.boxPoisitions[2].halfW/4) &&
+                                (this.y + this.halfH) > ((this.boxPoisitions[2].y) - this.boxPoisitions[2].halfH/4) &&
+                                (this.y - this.halfH) < ((this.boxPoisitions[2].y) + this.boxPoisitions[2].halfH/4)){
+                                    this.randomPosition = Math.floor(Math.random() * (5 - 1 + 1) + 1);
+                                    switch(this.randomPosition){
+                                        case 1:
+                                            this.position3 = false;
+                                            this.position1 = true;
+                                        break;
+                                        case 2:
+                                            this.position3 = false;
+                                            this.position2 = true;
+                                        break;
+                                        case 3:
+                                            this.position3= false;
+                                            this.position4 = true;
+                                        break;
+                                        case 4:
+                                            this.position3 = false;
+                                            this.position5 = true;
+                                        break;
+                                        case 5:
+                                            this.position3 = false;
+                                            this.position6 = true;
+                                        break;
+                                    }
+                                }
+                            }
+                            if(this.position4){
+                                if(this.x < this.boxPoisitions[3].x){
+                                    this.x += 1
+                                }
+                                if(this.x > this.boxPoisitions[3].x){
+                                    this.x -= 1
+                                }
+                                if(this.y < this.boxPoisitions[3].y){
+                                    this.y += 1
+                                }
+                                if(this.y > this.boxPoisitions[3].y){
+                                    this.y -= 1
+                                }
+                                
+                                if((this.x + this.halfW) > ((this.boxPoisitions[3].x) - this.boxPoisitions[3].halfW/4) && 
+                                (this.x - this.halfW) < ((this.boxPoisitions[3].x) + this.boxPoisitions[3].halfW/4) &&
+                                (this.y + this.halfH) > ((this.boxPoisitions[3].y) - this.boxPoisitions[3].halfH/4) &&
+                                (this.y - this.halfH) < ((this.boxPoisitions[3].y) + this.boxPoisitions[3].halfH/4)){
+                                    this.randomPosition = Math.floor(Math.random() * (5 - 1 + 1) + 1);
+                                    switch(this.randomPosition){
+                                        case 1:
+                                            this.position4 = false;
+                                            this.position1 = true;
+                                        break;
+                                        case 2:
+                                            this.position4 = false;
+                                            this.position2 = true;
+                                        break;
+                                        case 3:
+                                            this.position4 = false;
+                                            this.position3 = true;
+                                        break;
+                                        case 4:
+                                            this.position4 = false;
+                                            this.position5 = true;
+                                        break;
+                                        case 5:
+                                            this.position4 = false;
+                                            this.position6 = true;
+                                        break;
+                                    }
+                                }
+                            }
+                            if(this.position5){
+                                if(this.x < this.boxPoisitions[4].x){
+                                    this.x += 1
+                                }
+                                if(this.x > this.boxPoisitions[4].x){
+                                    this.x -= 1
+                                }
+                                if(this.y < this.boxPoisitions[4].y){
+                                    this.y += 1
+                                }
+                                if(this.y > this.boxPoisitions[4].y){
+                                    this.y -= 1
+                                }
+                                
+                                if((this.x + this.halfW) > ((this.boxPoisitions[4].x) - this.boxPoisitions[4].halfW/4) && 
+                                (this.x - this.halfW) < ((this.boxPoisitions[4].x) + this.boxPoisitions[4].halfW/4) &&
+                                (this.y + this.halfH) > ((this.boxPoisitions[4].y) - this.boxPoisitions[4].halfH/4) &&
+                                (this.y - this.halfH) < ((this.boxPoisitions[4].y) + this.boxPoisitions[4].halfH/4)){
+                                    this.randomPosition = Math.floor(Math.random() * (5 - 1 + 1) + 1);
+                                    switch(this.randomPosition){
+                                        case 1:
+                                            this.position5 = false;
+                                            this.position1 = true;
+                                        break;
+                                        case 2:
+                                            this.position5 = false;
+                                            this.position2 = true;
+                                        break;
+                                        case 3:
+                                            this.position5 = false;
+                                            this.position3 = true;
+                                        break;
+                                        case 4:
+                                            this.position5 = false;
+                                            this.position4 = true;
+                                        break;
+                                        case 5:
+                                            this.position5 = false;
+                                            this.position6 = true;
+                                        break;
+                                    }
+                                }
+                            }
+                            if(this.position6){
+                                if(this.x < this.boxPoisitions[5].x){
+                                    this.x += 1
+                                }
+                                if(this.x > this.boxPoisitions[5].x){
+                                    this.x -= 1
+                                }
+                                if(this.y < this.boxPoisitions[5].y){
+                                    this.y += 1
+                                }
+                                if(this.y > this.boxPoisitions[5].y){
+                                    this.y -= 1
+                                }
+
+                                if((this.x + this.halfW) > ((this.boxPoisitions[5].x) - this.boxPoisitions[5].halfW/4) && 
+                                (this.x - this.halfW) < ((this.boxPoisitions[5].x) + this.boxPoisitions[5].halfW/4) &&
+                                (this.y + this.halfH) > ((this.boxPoisitions[5].y) - this.boxPoisitions[5].halfH/4) &&
+                                (this.y - this.halfH) < ((this.boxPoisitions[5].y) + this.boxPoisitions[5].halfH/4)){
+                                    this.randomPosition = Math.floor(Math.random() * (5 - 1 + 1) + 1);
+                                    switch(this.randomPosition){
+                                        case 1:
+                                            this.position6 = false;
+                                            this.position1 = true;
+                                        break;
+                                        case 2:
+                                            this.position6 = false;
+                                            this.position2 = true;
+                                        break;
+                                        case 3:
+                                            this.position6 = false;
+                                            this.position3 = true;
+                                        break;
+                                        case 4:
+                                            this.position6 = false;
+                                            this.position4 = true;
+                                        break;
+                                        case 5:
+                                            this.position6 = false;
+                                            this.position5 = true;
+                                        break;
+                                    }
+                                }
+                            }
+
+                            if(managers.Game.boss1Hp > 150){
+                                if(managers.Game.normal){
+                                    if(this.pattern1)
+                                        this.ShootPattern(1)
+                                    if(!this.pattern1 && this.pattern2)
+                                        this.ShootPattern(2)
+                                    if(!this.pattern2 && this.pattern3)
+                                        this.ShootPattern(3)
+                                    if(!this.pattern3 && this.pattern4)
+                                        this.ShootPattern(4)
+                                }
+                                if(managers.Game.hard){
+                                    if(this.pattern1)
+                                        this.ShootPattern(1)
+                                    if(!this.pattern1 && this.pattern2)
+                                        this.ShootPattern(2)
+                                    if(!this.pattern2 && this.pattern3)
+                                        this.ShootPattern(3)
+                                    if(!this.pattern3 && this.pattern6)
+                                        this.ShootPattern(6)
+                                }
+                                if(managers.Game.hell){
+                                    if(this.pattern1)
+                                        this.ShootPattern(1)
+                                    if(!this.pattern1 && this.pattern2)
+                                        this.ShootPattern(2)
+                                    if(!this.pattern2 && this.pattern3)
+                                        this.ShootPattern(3)
+                                    if(!this.pattern3 && this.pattern7)
+                                        this.ShootPattern(7)
+                                } 
+                            }
+                            if(managers.Game.boss1Hp > 100 && managers.Game.boss1Hp < 150){
+                                if(managers.Game.normal){
+                                    if(this.pattern1)
+                                        this.ShootPattern(1)
+                                    if(!this.pattern1 && this.pattern2)
+                                        this.ShootPattern(2)
+                                    if(!this.pattern2 && this.pattern3)
+                                        this.ShootPattern(3)
+                                    if(!this.pattern3 && this.pattern4)
+                                        this.ShootPattern(4)
+                                    if(!this.pattern4 && this.pattern5)
+                                        this.ShootPattern(5)
+                                }
+                                if(managers.Game.hard){
+                                    if(this.pattern1)
+                                        this.ShootPattern(1)
+                                    if(!this.pattern1 && this.pattern2)
+                                        this.ShootPattern(2)
+                                    if(!this.pattern2 && this.pattern3)
+                                        this.ShootPattern(3)
+                                    if(!this.pattern3 && this.pattern6)
+                                        this.ShootPattern(6)
+                                    if(!this.pattern6 && this.pattern8)
+                                        this.ShootPattern(8)
+                                }
+                                if(managers.Game.hell){
+                                    if(this.pattern1)
+                                        this.ShootPattern(1)
+                                    if(!this.pattern1 && this.pattern2)
+                                        this.ShootPattern(2)
+                                    if(!this.pattern2 && this.pattern3)
+                                        this.ShootPattern(3)
+                                    if(!this.pattern3 && this.pattern7)
+                                        this.ShootPattern(7)
+                                    if(!this.pattern7 && this.pattern9)
+                                        this.ShootPattern(9)
+                                }
+                            }
+                            if(managers.Game.boss1Hp < 100){
+                                if(managers.Game.normal){
+                                    if(this.pattern1)
+                                        this.ShootPattern(1)
+                                    if(!this.pattern1 && this.pattern2)
+                                        this.ShootPattern(2)
+                                    if(!this.pattern2 && this.pattern3)
+                                        this.ShootPattern(3)
+                                    if(!this.pattern3 && this.pattern4 || this.pattern5){
+                                        this.ShootPattern(4)
+                                        this.ShootPattern(5)
+                                    }
+                                }
+                                if(managers.Game.hard){
+                                    if(this.pattern1)
+                                        this.ShootPattern(1)
+                                    if(!this.pattern1 && this.pattern2)
+                                        this.ShootPattern(2)
+                                    if(!this.pattern2 && this.pattern3)
+                                        this.ShootPattern(3)
+                                    if(!this.pattern3 && this.pattern6 || this.pattern8){
+                                        this.ShootPattern(6)
+                                        this.ShootPattern(8)
+                                    }
+                                }
+                                if(managers.Game.hell){
+                                    if(this.pattern1)
+                                        this.ShootPattern(1)
+                                    if(!this.pattern1 && this.pattern2)
+                                        this.ShootPattern(2)
+                                    if(!this.pattern2 && this.pattern3)
+                                        this.ShootPattern(3)
+                                    if(!this.pattern3 && this.pattern7 || this.pattern9){
+                                        this.ShootPattern(7)
+                                        this.ShootPattern(9)
+                                    }
+                                }
                             }
                         }
-                        if(managers.Game.boss1Hp < 100){
-                            if(managers.Game.normal){
-                                if(this.pattern1)
-                                    this.ShootPattern(1)
-                                if(!this.pattern1 && this.pattern2)
-                                    this.ShootPattern(2)
-                                if(!this.pattern2 && this.pattern3)
-                                    this.ShootPattern(3)
-                                if(!this.pattern3 && this.pattern4 || this.pattern5){
-                                    this.ShootPattern(4)
-                                    this.ShootPattern(5)
-                                }
-                            }
-                            if(managers.Game.hard){
-                                if(this.pattern1)
-                                    this.ShootPattern(1)
-                                if(!this.pattern1 && this.pattern2)
-                                    this.ShootPattern(2)
-                                if(!this.pattern2 && this.pattern3)
-                                    this.ShootPattern(3)
-                                if(!this.pattern3 && this.pattern6 || this.pattern8){
-                                    this.ShootPattern(6)
-                                    this.ShootPattern(8)
-                                }
-                            }
-                            if(managers.Game.hell){
-                                if(this.pattern1)
-                                    this.ShootPattern(1)
-                                if(!this.pattern1 && this.pattern2)
-                                    this.ShootPattern(2)
-                                if(!this.pattern2 && this.pattern3)
-                                    this.ShootPattern(3)
-                                if(!this.pattern3 && this.pattern7 || this.pattern9){
-                                    this.ShootPattern(7)
-                                    this.ShootPattern(9)
-                                }
-                            }
-                        }*/
-                    }
+
+                    
+                        /*
+                        */
+                    
                 break;
                 case "Enemy5":
                 break;
@@ -385,13 +648,6 @@ module objects {
             }
             
         }
-        
-        public CheckBounds():void {
-            // Check the bottom boundary
-            if(this.y >= 740 + this.height) {
-                this.y = -50;
-            }
-        }
 
         public FindPlayer(player:objects.Player):void{
             this.angle = Math.atan2(player.y - this.y, player.x - this.x );
@@ -400,8 +656,6 @@ module objects {
             //this.rotation = -90  + this.angle;
 
             this.playerPos = new math.Vec2(player.x, player.y);
-
-            this.player = player;
         }
         
         public ShootPattern(pattern:number):void{
@@ -900,7 +1154,7 @@ module objects {
         
                                         this.bullet.Speed = 0.01
                                         this.bullet.Radius = 1
-                                        this.bullet.AngleStep = (360/3);
+                                        this.bullet.AngleStep = (360/3) * this.shootNum;
         
                                         this.bullet.Dir = new math.Vec2(
                                             (90*Math.cos(angle * 5)) * this.bullet.Speed, 
@@ -922,33 +1176,55 @@ module objects {
                             }
                             break;
                             case 11: // BoWaP - Border of Wave and Particle
-                            if(this.shootNum < 20000){
-                                for(let i = 0; i < 10; i++){
+                            if(this.shootNum < 40000){
+                                for(let i = 0; i < 4; i++){
                                     if(ticker % 1 == 0){
                                         this.bulletSpawn = new math.Vec2(this.x - 10, this.y); 
                         
                                         this.bullet = managers.Game.enemyBulletManager.GetBullet()
                                         this.bullet.pattern = 5;
-        
                                         this.bullet.Speed = 0.03
                                         this.bullet.AngleStep = (360/6) * this.shootNum;
                                         this.bullet.Angle = 180
                                         this.bullet.Angle += this.bullet.AngleStep
-        
-                                        this.bullet.Dir = new math.Vec2(
-                                            (90*Math.sin(this.bullet.Angle)) * this.bullet.Speed, 
-                                            (90*Math.cos(this.bullet.Angle)) * this.bullet.Speed
-                                        );
+                                        if(this.shootNum < 2500 ||
+                                            this.shootNum > 5000 && this.shootNum < 7500 ||
+                                            this.shootNum > 10000 && this.shootNum < 12500 ||
+                                            this.shootNum > 15000 && this.shootNum < 17500 ||
+                                            this.shootNum > 20000 && this.shootNum < 22500 ||
+                                            this.shootNum > 25000 && this.shootNum < 27500 ||
+                                            this.shootNum > 30000 && this.shootNum < 32500 ||
+                                            this.shootNum > 35000 && this.shootNum < 37500){
+                                            //this.bullet.Speed = 0.03
+                                            this.bullet.Dir = new math.Vec2(
+                                                (90*Math.sin(this.bullet.Angle)) * this.bullet.Speed, 
+                                                (90*Math.cos(this.bullet.Angle)) * this.bullet.Speed
+                                            );
+                                        }
+                                        if(this.shootNum > 2500 && this.shootNum < 5000 ||
+                                            this.shootNum > 7500 && this.shootNum < 10000 ||
+                                            this.shootNum > 12500 && this.shootNum < 15000 ||
+                                            this.shootNum > 17500 && this.shootNum < 20000 ||
+                                            this.shootNum > 22500 && this.shootNum < 25000 ||
+                                            this.shootNum > 27500 && this.shootNum < 30000 ||
+                                            this.shootNum > 32500 && this.shootNum < 35000 ||
+                                            this.shootNum > 37500 && this.shootNum < 40000){
+                                            //this.bullet.Speed = 0.05
+                                                this.bullet.Dir = new math.Vec2(
+                                                (90*Math.cos(this.bullet.Angle)) * this.bullet.Speed, 
+                                                (90*Math.sin(this.bullet.Angle)) * this.bullet.Speed
+                                         );
+                                        }
+                                        
                                         this.bullet.x = this.bulletSpawn.x
                                         this.bullet.y = this.bulletSpawn.y
-                                        console.log(this.bullet.Angle)
                                     }
-                                    this.bullet.Angle += Math.sin(this.shootNum) * Math.cos(this.shootNum) * 6;
-                                    this.shootNum++
+                                        //console.log(this.bullet.Angle)
+                                        this.shootNum++
                                 }
 
                             }
-                            if(this.shootNum > 19999){
+                            if(this.shootNum > 39999){
                                 this.bullet.Reset()
                                 this.shoot = true;
                                 this.Timer();
@@ -1037,19 +1313,5 @@ module objects {
             }
         }
 
-        public RandomMovement():void{
-            this.position1 = new math.Vec2(Math.floor(Math.random() * (710 - 380 + 1) + 380),
-            Math.floor(Math.random() * (400 - 50 + 1) + 50));
-
-            this.position2= new math.Vec2(Math.floor(Math.random() * (710 - 380 + 1) + 380),
-            Math.floor(Math.random() * (400 - 50 + 1) + 50));
-
-            this.position3 = new math.Vec2(Math.floor(Math.random() * (710 - 380 + 1) + 380),
-            Math.floor(Math.random() * (400 - 50 + 1) + 50));
-
-            this.position4 = new math.Vec2(Math.floor(Math.random() * (710 - 380 + 1) + 380),
-            Math.floor(Math.random() * (400 - 50 + 1) + 50));
-
-        }
     }
 }
