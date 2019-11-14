@@ -617,8 +617,6 @@ var objects;
                             }
                         }
                     }
-                    /*
-                    */
                     break;
                 case "Enemy5":
                     break;

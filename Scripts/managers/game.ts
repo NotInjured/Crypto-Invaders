@@ -26,6 +26,12 @@ module managers {        // Access to globally-required items
         public static boss1IsDead:boolean = false;
         public static boss2IsDead:boolean = false;
         public static boss3IsDead:boolean = false;
-        public static eType1HP:number = 1;
+        public static level1:boolean = true
+        public static level2:boolean = false
+        public static level3:boolean = false
+        public static level1Completed:boolean = false
+        public static level2Completed:boolean = false
+        public static level3Completed:boolean = false
+
     }
 }

@@ -12,10 +12,9 @@ module objects {
         // Initializing our variables with default values
         public Start():void {
             this.speedY = 1;
-            //this.y = 1;
-            this.y = -8250;
+            this.y = -22500;
             this.x = 297;
-            //this.Reset();
+            // -8250 > -1 - Level 1
         }
         // Updated 60 times per second (60FPS)
         public Update():void {
@@ -27,7 +26,24 @@ module objects {
         }
         // Move the object
         public Move():void {
-            this.y += this.speedY;
+            if(managers.Game.level1){
+                this.y += this.speedY;
+
+                if(this.y > -8250)
+                    this.speedY = 0;
+            }
+            if(managers.Game.level2){
+                this.y += this.speedY;
+
+            }
+            if(managers.Game.level3){
+                this.y += this.speedY;
+
+            }
+
+            if(managers.Game.pause)
+                this.speedY = 0;
+
         }
         // Collision Detection 
         public CheckBound():void {
