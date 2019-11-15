@@ -2,12 +2,17 @@ module objects {
     export class Player extends objects.GameObject {
         // Variables
         public isDead:boolean = false;
-        private shipType:config.Ship;
-        private bulletSpawn:math.Vec2;
         public swapped:boolean;
-        private power:number;
-        private effect:objects.Effect;
         private isInvincible:boolean = false;
+        private power:number;
+        private shootnum:number = 0
+
+        private shipType:config.Ship;
+
+        private bulletSpawn:math.Vec2;
+
+        private effect:objects.Effect;
+        private missile:objects.Missile;
 
         get ShipType():config.Ship{
             return this.shipType;
@@ -44,6 +49,7 @@ module objects {
         }
         // Methods
         public Start():void {
+            
             this.Swapped();
         }
         public Update():void {
@@ -52,6 +58,10 @@ module objects {
                 this.CheckBound(); // <-- Check collisions
                 this.Shoot();
                 this.Swapped();
+                this.ShootMissiles();
+
+                if(this.missile != undefined)
+                    this.missile.Update()
             }
         }
 
@@ -272,6 +282,40 @@ module objects {
 
                         break;
                     }
+                }
+            }
+        }
+
+        public ShootMissiles():void{
+            if(!this.isDead){
+                let ticker:number = createjs.Ticker.getTicks();
+                if(managers.Game.keyboardManager.shoot && ticker % 10 == 0) {
+                    if(this.shootnum < 1){
+                        for(let i = 0; i < 2; i++){
+                            let position = new math.Vec2(this.x- 15, this.y - 10);
+
+                            //let enemyPos = new math.Vec2(enemy.x, enemy.y)
+                            //let distance =  math.Vec2.Distance(enemyPos, position)
+                
+                            this.missile = managers.Game.missileManager.GetMissile()
+                            this.missile.Angle = 0;
+                            this.missile.AngleStep = (240/4) * this.shootnum
+                            this.missile.Angle += this.missile.AngleStep
+                            this.missile.Speed = 0.1
+                            this.missile.FoundEnemy = false
+                            
+                            this.missile.Dir = new math.Vec2(
+                                (90*Math.sin(this.missile.Angle) * this.missile.Speed, 
+                                (90*Math.cos(this.missile.Angle) * this.missile.Speed)))
+                            
+
+                            this.missile.x = position.x
+                            this.missile.y = position.y
+                            this.shootnum++
+                        }
+                    }
+                    if(this.shootnum > 1)
+                        this.shootnum = 0;
                 }
             }
         }

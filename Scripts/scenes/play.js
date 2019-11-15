@@ -42,12 +42,14 @@ var scenes;
             managers.Game.enemyBulletManager = this.enemyBulletManager;
             this.coinsManager = new managers.Coins();
             managers.Game.coinsManager = this.coinsManager;
+            this.missileManager = new managers.Missile();
+            managers.Game.missileManager = this.missileManager;
             //this.testEnemyBullet = new objects.EnemyBullet("Enemy1_Shot", false);
             //this.testEnemyBullet.x = this.player.x;
             //this.testEnemyBullet.y = this.player.y - 100;
             managers.Game.player = this.player;
             managers.Game.timer = 600;
-            managers.Game.boss1Hp = 1;
+            managers.Game.boss1Hp = 200;
             managers.Game.boss2Hp = 300;
             managers.Game.boss3Hp = 400;
             this.eType1 = new Array();
@@ -107,6 +109,14 @@ var scenes;
                 this.removeChild(this.aircraft);
             }
             this.bulletManager.Update();
+            this.missileManager.Update();
+            this.missileManager.Missile.forEach(function (m) {
+                if (m.FoundEnemy) {
+                    m.FindEnemies(_this.eBoss1);
+                    m.FoundEnemy = true;
+                    m.Update();
+                }
+            });
             this.enemyBulletManager.Update();
             this.coinsManager.Coin.forEach(function (coin) {
                 if (coin.IsDropped) {
@@ -140,14 +150,16 @@ var scenes;
                 if (managers.Game.timer > 591 && managers.Game.timer <= 596) {
                     this.addChild(this.stageName);
                 }
-                if (managers.Game.timer >= 481 && managers.Game.timer <= 591) {
+                //if(managers.Game.timer >= 481 && managers.Game.timer <= 591)
+                if (managers.Game.timer <= 591) {
                     this.removeChild(this.stageName);
                     this.addChild(this.eBoss1);
                     if (!this.eBoss1.isDead) {
                         this.eBoss1.isInvincible = false;
                         this.eBoss1.FindPlayer(this.player);
                         this.eBoss1.Update();
-                    } /*
+                    }
+                    /*
                     this.eType1.forEach(e =>{
                         if(!e.isDead){
                             this.SpawnTimer()
@@ -246,11 +258,14 @@ var scenes;
             this.eType3.forEach(function (e) {
                 _this.addChild(e);
             });
-            this.addChild(this.player);
-            this.addChild(this.shield);
             this.bulletManager.Bullet.forEach(function (bullet) {
                 _this.addChild(bullet);
             });
+            this.missileManager.Missile.forEach(function (m) {
+                _this.addChild(m);
+            });
+            this.addChild(this.player);
+            this.addChild(this.shield);
             this.enemyBulletManager.Bullet.forEach(function (bullet) {
                 _this.addChild(bullet);
             });
@@ -285,6 +300,22 @@ var scenes;
                 });
                 if (!_this.eBoss1.isInvincible && !managers.Game.boss1IsDead)
                     managers.Collision.CheckAABB(bullet, _this.eBoss1);
+            });
+            this.missileManager.Missile.forEach(function (m) {
+                _this.eType1.forEach(function (e) {
+                    if (!e.isInvincible)
+                        managers.Collision.CheckAABB(m, e);
+                });
+                _this.eType2.forEach(function (e) {
+                    if (!e.isInvincible)
+                        managers.Collision.CheckAABB(m, e);
+                });
+                _this.eType3.forEach(function (e) {
+                    if (!e.isInvincible)
+                        managers.Collision.CheckAABB(m, e);
+                });
+                if (!_this.eBoss1.isInvincible && !managers.Game.boss1IsDead)
+                    managers.Collision.CheckAABB(m, _this.eBoss1);
             });
             this.coinsManager.Coin.forEach(function (c) {
                 managers.Collision.CheckAABB(_this.player, c);

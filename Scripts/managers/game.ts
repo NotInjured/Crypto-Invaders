@@ -10,6 +10,7 @@ module managers {        // Access to globally-required items
         public static textureSprite: createjs.SpriteSheet;
         public static bulletManager: managers.Bullet;
         public static enemyBulletManager :managers.EnemyBullet;
+        public static missileManager: managers.Missile;
         public static coinsManager: managers.Coins;
         public static currentSceneObject: objects.Scene;
         public static player:objects.Player;

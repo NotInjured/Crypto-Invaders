@@ -88,14 +88,6 @@ var managers;
                 c.Update();
             });
             if (managers.Game.level1Completed || managers.Game.level2Completed || managers.Game.level3Completed) {
-                if (managers.Game.normal)
-                    this.diff = "Normal";
-                if (managers.Game.hard)
-                    this.diff = "Hard";
-                if (managers.Game.hell)
-                    this.diff = "Hell";
-                this.gameOverLabel = new objects.Label("\t\t\t" + "   Level Completed!" + "\n" + "\t  Difficulty: " + this.diff, "36px", "OptimusPrinceps", "#000000", 675, 240, true);
-                this.scoreLabel = new objects.Label("Score:" + "\n" + managers.Game.highscore, "30px", "OptimusPrinceps", "#000000", 500, 300, false);
                 this.removeChild(this.playerLivesLabel);
                 this.removeChild(this.playerBombsLabel);
                 this.removeChild(this.playerScoreLabel);
@@ -118,6 +110,8 @@ var managers;
                 this.removeChild(this.bBackground);
                 this.removeChild(this.backButton);
                 this.removeChild(this.continueButton);
+                this.removeChild(this.gameOverLabel);
+                this.removeChild(this.scoreLabel);
             }
         };
         HUD.prototype.backButtonClick = function () {
@@ -126,10 +120,12 @@ var managers;
         HUD.prototype.continueButtonClick = function () {
             if (managers.Game.level1Completed && managers.Game.level1) {
                 managers.Game.level1 = false;
+                managers.Game.level1Completed = false;
                 managers.Game.level2 = true;
             }
             if (managers.Game.level2Completed && managers.Game.level2) {
                 managers.Game.level2 = false;
+                managers.Game.level2Completed = false;
                 managers.Game.level3 = true;
             }
         };
@@ -167,6 +163,14 @@ var managers;
             this.controls = new objects.Label("Arrow Keys - Movement" + "\n\n" + "           X - Shoot"
                 + "\n\n" + "   Z - Bombs (Disabled)" + "\n\n" + "    Space - Swap Ships", "24px", "OptimusPrimus", "#000000", 50, 285, false);
             this.versionLabel = new objects.Label("Alpha Release 0.1", "12px", "OptimusPrimus", "#000000", 495, 550, false);
+            if (managers.Game.normal)
+                this.diff = "Normal";
+            if (managers.Game.hard)
+                this.diff = "Hard";
+            if (managers.Game.hell)
+                this.diff = "Hell";
+            this.gameOverLabel = new objects.Label("\t\t\t" + "   Level Completed!" + "\n" + "\t  Difficulty: " + this.diff, "36px", "OptimusPrinceps", "#000000", 675, 240, true);
+            this.scoreLabel = new objects.Label("Score:" + "\n" + this.score, "30px", "OptimusPrinceps", "#000000", 500, 300, false);
             this.controlPanel = new objects.Image("panelUI", 4, 175);
             this.infoPanel = new objects.Image("panelInfo", 710, 175);
             this.playerLivesSprite = new objects.Sprite("Ship1", 370, 688);
