@@ -4,6 +4,8 @@ module objects {
         public isDead:boolean = false;
         public swapped:boolean;
         private isInvincible:boolean = false;
+        private hasMissiles:boolean =false
+
         private power:number;
         private shootnum:number = 0
 
@@ -58,7 +60,8 @@ module objects {
                 this.CheckBound(); // <-- Check collisions
                 this.Shoot();
                 this.Swapped();
-                this.ShootMissiles();
+                if(this.hasMissiles)
+                    this.ShootMissiles();
 
                 if(this.missile != undefined)
                     this.missile.Update()

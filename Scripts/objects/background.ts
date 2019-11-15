@@ -24,9 +24,9 @@ module objects {
             this.Move();
             this.CheckBound();
             
-            if(managers.Game.level2){
-                this.speedY = 1;
-            }
+            //if(managers.Game.level2){
+            //    this.speedY = 1;
+            //}
         }
         // Resets the position of the object
         public Reset():void {

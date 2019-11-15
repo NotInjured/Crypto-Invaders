@@ -14,6 +14,8 @@ module objects {
         private position5: boolean = false
         private position6: boolean = false
 
+        private eliteHP: number;
+
         private boxPoisitions: objects.Sprite[]
 
         private angle:number = Math.floor(Math.random() * (360 - 0 + 1) + 0);
@@ -48,8 +50,16 @@ module objects {
     
         private randomPattern:number = Math.floor(Math.random() * (5 - 1 + 1) + 1)
 
+        get EliteHP():number{
+            return this.eliteHP
+        }
+
         get Angle():number{
             return this.angle;
+        }
+
+        set Angle(n:number){
+            this.angle = n
         }
 
         get Shoot():boolean{
@@ -93,17 +103,8 @@ module objects {
                     }
                 break;
                 case "Enemy3":
-                    this.randomNum = Math.floor(Math.random() * (2 - 1 + 1) + 1);
-                    switch(this.randomNum){
-                        case 1:
-                            this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
-                            this.y = Math.floor(Math.random() * (-30 - (-15) + 1) + (-15));
-                        break;
-                        case 2:
-                            this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
-                            this.y = Math.floor(Math.random() * (-30 - (-15) + 1) + (-15));
-                        break;
-                    }
+                    this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
+                    this.y = Math.floor(Math.random() * (-30 - (-15) + 1) + (-15));
                 break;
                 case "Enemy4":
                     this.x = 555
@@ -124,6 +125,32 @@ module objects {
 
                     this.position1 = true;
                 break;
+                case "Enemy5":
+                    this.eliteHP = 25
+                    managers.Game.eEliteHp = this.eliteHP
+                    this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
+                    this.y = Math.floor(Math.random() * (-30 - (-15) + 1) + (-15));
+                break;
+                case "Enemy6":
+                break;
+                case "Enemy7":
+                break;
+                case "Enemy8":
+                break;
+                case "Enemy9":
+                break;
+                case "Enemy10":
+                break;
+                case "Enemy11":
+                break;
+                case "Enemy12":
+                break;
+                case "Enemy":
+                break;
+                case "Enemy":
+                break;
+                case "Enemy":
+                break;
             }
             
         }
@@ -139,7 +166,7 @@ module objects {
         }
 
         public Reset():void {
-            this.isDead = false
+            this.isDead = true
             this.back = false
             this.shoot = false
             this.isInvincible = true
@@ -164,21 +191,18 @@ module objects {
                     }
                 break;
                 case "Enemy3":
-                    this.randomNum = Math.floor(Math.random() * (2 - 1 + 1) + 1);
-                    switch(this.randomNum){
-                        case 1:
-                            this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
-                            this.y = Math.floor(Math.random() * (-500 - (-350) + 1) + (-350));
-                        break;
-                        case 2:
-                            this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
-                            this.y = Math.floor(Math.random() * (-500 - (-350) + 1) + (-350));
-                        break;
-                    }
+                    this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
+                    this.y = Math.floor(Math.random() * (-400 - (-350) + 1) + (-350));
                 break;
-                case "Enemy4":
+                case "Enemy5":
+                    this.eliteHP = 50
+                    managers.Game.eEliteHp = this.eliteHP
+                    this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
+                    this.y = Math.floor(Math.random() * (-300 - (-250) + 1) + (-250));
                 break;
             }
+
+            this.RespawnTimer()
         }
 
         public Move():void {
@@ -635,6 +659,11 @@ module objects {
                     }
                 break;
                 case "Enemy5":
+                    if(this.y < 270){
+                        this.y += 3;
+                    }
+                        this.ShootPattern(1)
+
                 break;
                 case "Enemy6":
                 break;
@@ -661,7 +690,6 @@ module objects {
                     case "Enemy1":
                     case "Enemy2":
                     case "Enemy3":
-                    case "Enemy5":
                     case "Enemy6":
                     case "Enemy7":
                     case "Enemy8":
@@ -691,6 +719,42 @@ module objects {
     
                                 //managers.Game.currentSceneObject.addChild(this.bullet);
                                 this.shoot = true;
+                            break;
+                        }
+                    break;
+                    case "Enemy5":
+                        switch(pattern){
+                            case 1:
+                                if(this.shootNum < 10){
+                                    if(ticker % 5 == 0){
+                                        this.bulletSpawn = new math.Vec2(this.x - 10, this.y - 15);      
+                                                
+                                        this.position = new math.Vec2(this.x, this.y);
+                                        this.distance = math.Vec2.Distance(this.playerPos, this.position);
+                        
+                                        this.bullet = managers.Game.enemyBulletManager.GetBullet()
+                                        this.bullet.pattern = 1;
+
+                                        this.bullet.x = this.bulletSpawn.x;
+                                        this.bullet.y = this.bulletSpawn.y;
+        
+                                        this.bullet.Speed = 4;
+
+                                        this.bullet.Dir = new math.Vec2(
+                                            ((this.playerPos.x - this.position.x) / this.distance) * this.bullet.Speed, 
+                                            ((this.playerPos.y - this.position.y) / this.distance) * this.bullet.Speed);
+                                        //console.log(this.bullet)
+                                        let laser = createjs.Sound.play("laser");
+                                        laser.volume = 0.1;
+                    
+                                        this.shootNum++;
+                                    }
+                                }
+                                if(this.shootNum > 9){
+                                    this.bullet.Reset()
+                                    this.shoot = true;
+                                    this.Timer();
+                                }
                             break;
                         }
                     break;
@@ -1287,15 +1351,16 @@ module objects {
                 counter--;
                  if(counter < 0){
                     clearInterval(this.timerInterval);
+                    this.isDead = false
                  }
              }, 1000)
         }
 
-        public DropCoins():void{
+        public DropCoins(coins:number):void{
             let coin = managers.Game.coinsManager.GetCoin()
 
             if(managers.Game.boss1IsDead){
-                if(this.coinsCount < 25){
+                if(this.coinsCount < coins){
                     coin.IsDropped = true;
                     coin.EnemyDropped = true;
                     coin.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);

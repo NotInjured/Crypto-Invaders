@@ -21,7 +21,6 @@ module managers {
                         case "Enemy1":
                         case "Enemy2":
                         case "Enemy3":
-                        case "Enemy5":
                         case "Enemy6":
                         case "Enemy7":
                         case "Enemy9":
@@ -63,6 +62,51 @@ module managers {
                                     object2.Reset();
                                 }
                         break;
+                        case "Enemy5":
+                            if((object1.x + object1.halfW) > ((object2.x - 10) - object2.halfW) &&
+                                (object1.x - object1.halfW) < ((object2.x - 10) + object2.halfW) &&
+                                (object1.y + object1.halfH) > ((object2.y - 10) - object2.halfH) &&
+                                (object1.y - object1.halfH) < ((object2.y - 10) + object2.halfH)){
+                                    managers.Game.hud.Score += 50
+                                    managers.Game.highscore = managers.Game.hud.Score
+                                    managers.Game.eEliteHp--;
+                                    
+                                    let hit1 = createjs.Sound.play("hit");
+                                    hit1.volume = 0.2;
+                                    coin.IsDropped = true;
+                                    coin.EnemyDropped = true;
+                                    coin.x = object2.x
+                                    coin.y = object2.y
+                                    coin.scaleX = 0.25
+                                    coin.scaleY = 0.25
+                                    let rand = Math.floor(Math.random() * (10 - 1 + 1) + 1);
+                                    if(rand == 5)
+                                        managers.Game.currentSceneObject.addChild(coin)
+
+                                    object1.Reset()
+
+                                    if(managers.Game.player.ShipType == config.Ship.Botcoin)
+                                        effect = new objects.Effect("Laser_Hit", object1.x + 10, object1.y - object1.halfH);
+                                    else if(managers.Game.player.ShipType == config.Ship.Lightcoin)
+                                        effect = new objects.Effect("Laser1_Hit", object1.x + 10, object1.y - object1.halfH);
+
+                                    effect.scaleX *= 2;
+                                    effect.scaleY *= 2;
+                                    managers.Game.currentSceneObject.addChild(effect);
+                                    
+                                    explosion = new objects.Effect("tile", object2.x+15, object2.y +10);
+                                    explosion.scaleX = 0.4
+                                    explosion.scaleY = 0.4
+
+                                    if(managers.Game.eEliteHp <= 0){
+                                        managers.Game.hud.ScoreMult += 5;
+                                        managers.Game.hud.Score += Math.round(2500 * Math.pow(1.01, managers.Game.hud.ScoreMult));
+                                        managers.Game.currentSceneObject.addChild(explosion)
+                                        object2.Reset();
+                                    }
+                                }
+
+                        break;
                         case "Enemy4":
                         case "Enemy8":
                         case "Enemy12":
@@ -71,7 +115,7 @@ module managers {
                                 (object1.x - object1.halfW) < ((object2.x - 10) + object2.halfW) &&
                                 (object1.y + object1.halfH) > ((object2.y - 5) - object2.halfH) &&
                                 (object1.y - object1.halfH) < ((object2.y - 5) + object2.halfH)){
-                                    managers.Game.hud.Score += Math.round(50 * Math.pow(1.01, managers.Game.hud.ScoreMult));
+                                    managers.Game.hud.Score += 50
                                     effect = new objects.Effect("Laser_Hit", object1.x + 10, object1.y - object1.halfH);
                                     effect.scaleX *= 2;
                                     effect.scaleY *= 2;
@@ -112,7 +156,7 @@ module managers {
                                     //managers.Game.currentSceneObject.addChild(explosion)
                                     //managers.Game.hud.Lives -= 1
                                     //managers.Game.hud.ScoreMult = 0;
-                                    //object1.Reset()
+                                    object1.Reset()
                                     //object2.Reset();
                                 }
                             }

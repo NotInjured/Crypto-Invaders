@@ -21,6 +21,7 @@ var objects;
             // Variables
             _this.isDead = false;
             _this.isInvincible = false;
+            _this.hasMissiles = false;
             _this.shootnum = 0;
             _this.y = yPos;
             _this.x = xPos;
@@ -69,7 +70,8 @@ var objects;
                 this.CheckBound(); // <-- Check collisions
                 this.Shoot();
                 this.Swapped();
-                this.ShootMissiles();
+                if (this.hasMissiles)
+                    this.ShootMissiles();
                 if (this.missile != undefined)
                     this.missile.Update();
             }

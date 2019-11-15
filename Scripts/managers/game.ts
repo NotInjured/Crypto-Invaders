@@ -21,6 +21,7 @@ module managers {        // Access to globally-required items
         public static normal:boolean = true;
         public static hard:boolean = false;
         public static hell:boolean = false;
+        public static eEliteHp:number;
         public static boss1Hp:number;
         public static boss2Hp:number;
         public static boss3Hp:number;
