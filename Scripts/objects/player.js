@@ -228,7 +228,7 @@ var objects;
         Player.prototype.ShootMissiles = function () {
             if (!this.isDead) {
                 var ticker = createjs.Ticker.getTicks();
-                if (managers.Game.keyboardManager.shoot && ticker % 10 == 0) {
+                if (managers.Game.keyboardManager.shoot && ticker % 20 == 0) {
                     if (this.shootnum < 1) {
                         for (var i = 0; i < 2; i++) {
                             var position = new math.Vec2(this.x - 15, this.y - 10);
@@ -239,7 +239,6 @@ var objects;
                             this.missile.AngleStep = (240 / 4) * this.shootnum;
                             this.missile.Angle += this.missile.AngleStep;
                             this.missile.Speed = 0.1;
-                            this.missile.FoundEnemy = false;
                             this.missile.Dir = new math.Vec2((90 * Math.sin(this.missile.Angle) * this.missile.Speed,
                                 (90 * Math.cos(this.missile.Angle) * this.missile.Speed)));
                             this.missile.x = position.x;

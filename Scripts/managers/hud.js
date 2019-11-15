@@ -170,7 +170,7 @@ var managers;
             if (managers.Game.hell)
                 this.diff = "Hell";
             this.gameOverLabel = new objects.Label("\t\t\t" + "   Level Completed!" + "\n" + "\t  Difficulty: " + this.diff, "36px", "OptimusPrinceps", "#000000", 675, 240, true);
-            this.scoreLabel = new objects.Label("Score:" + "\n" + this.score, "30px", "OptimusPrinceps", "#000000", 500, 300, false);
+            this.scoreLabel = new objects.Label("Score:" + "\n" + managers.Game.highscore, "30px", "OptimusPrinceps", "#000000", 500, 300, false);
             this.controlPanel = new objects.Image("panelUI", 4, 175);
             this.infoPanel = new objects.Image("panelInfo", 710, 175);
             this.playerLivesSprite = new objects.Sprite("Ship1", 370, 688);

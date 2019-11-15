@@ -15,13 +15,13 @@ var managers;
         Missile.prototype.GetMissile = function () {
             var missile = this.Missile[this.CurrentMissile];
             this.CurrentMissile++;
-            if (managers.Game.missileManager.CurrentMissile > 24) {
+            if (managers.Game.missileManager.CurrentMissile > 3) {
                 managers.Game.missileManager.CurrentMissile = 0;
             }
             return missile;
         };
         Missile.prototype.Start = function () {
-            this.missileCount = 25;
+            this.missileCount = 4;
             this.Missile = new Array();
             this.CurrentMissile = 0;
             this.buildMissilePool();

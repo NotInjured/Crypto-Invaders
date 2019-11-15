@@ -110,13 +110,6 @@ var scenes;
             }
             this.bulletManager.Update();
             this.missileManager.Update();
-            this.missileManager.Missile.forEach(function (m) {
-                if (m.FoundEnemy) {
-                    m.FindEnemies(_this.eBoss1);
-                    m.FoundEnemy = true;
-                    m.Update();
-                }
-            });
             this.enemyBulletManager.Update();
             this.coinsManager.Coin.forEach(function (coin) {
                 if (coin.IsDropped) {
@@ -153,36 +146,47 @@ var scenes;
                 //if(managers.Game.timer >= 481 && managers.Game.timer <= 591)
                 if (managers.Game.timer <= 591) {
                     this.removeChild(this.stageName);
-                    this.addChild(this.eBoss1);
-                    if (!this.eBoss1.isDead) {
-                        this.eBoss1.isInvincible = false;
-                        this.eBoss1.FindPlayer(this.player);
-                        this.eBoss1.Update();
-                    }
                     /*
-                    this.eType1.forEach(e =>{
-                        if(!e.isDead){
-                            this.SpawnTimer()
+                    this.addChild(this.eBoss1)
+                    if(!this.eBoss1.isDead){
+                        this.eBoss1.isInvincible = false
+                        this.eBoss1.FindPlayer(this.player)
+                        this.eBoss1.Update();
+
+                        this.missileManager.Missile.forEach( m => {
+                            m.FindEnemies(this.eBoss1)
+                        })
+                    }*/
+                    this.eType1.forEach(function (e) {
+                        if (!e.isDead) {
+                            _this.SpawnTimer();
                             e.Update();
-                            e.FindPlayer(this.player);
+                            e.FindPlayer(_this.player);
+                            _this.missileManager.Missile.forEach(function (m) {
+                                m.FindEnemies(e);
+                            });
                         }
-                    })
-                    
-                    this.eType2.forEach(e =>{
-                        if(!e.isDead){
+                    });
+                    this.eType2.forEach(function (e) {
+                        if (!e.isDead) {
                             e.isInvincible = false;
                             e.Update();
-                            e.FindPlayer(this.player);
+                            e.FindPlayer(_this.player);
+                            _this.missileManager.Missile.forEach(function (m) {
+                                m.FindEnemies(e);
+                            });
                         }
-                    })
-    
-                    this.eType3.forEach(e =>{
-                        if(!e.isDead){
+                    });
+                    this.eType3.forEach(function (e) {
+                        if (!e.isDead) {
                             e.isInvincible = false;
                             e.Update();
-                            e.FindPlayer(this.player);
+                            e.FindPlayer(_this.player);
+                            _this.missileManager.Missile.forEach(function (m) {
+                                m.FindEnemies(e);
+                            });
                         }
-                    })*/
+                    });
                 } /*
                 if(managers.Game.timer >= 481 && managers.Game.timer <= 581){
                     this.eType2.forEach(e =>{

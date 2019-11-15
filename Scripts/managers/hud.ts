@@ -200,7 +200,7 @@ module managers {
             this.gameOverLabel = new objects.Label(
                 "\t\t\t" + "   Level Completed!" + "\n" + "\t  Difficulty: " + this.diff, 
                 "36px", "OptimusPrinceps", "#000000", 675, 240, true);
-            this.scoreLabel = new objects.Label("Score:" +"\n" + this.score, "30px", "OptimusPrinceps","#000000", 500, 300, false );
+            this.scoreLabel = new objects.Label("Score:" +"\n" + managers.Game.highscore, "30px", "OptimusPrinceps","#000000", 500, 300, false );
 
 
             this.controlPanel = new objects.Image("panelUI", 4, 175);

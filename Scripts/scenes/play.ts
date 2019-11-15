@@ -143,14 +143,7 @@ module scenes {
 
             this.bulletManager.Update();
             this.missileManager.Update()
-            this.missileManager.Missile.forEach( m => {
-                if(m.FoundEnemy){
-                    m.FindEnemies(this.eBoss1)
-                    m.FoundEnemy = true;
-                    m.Update()
-                }
-            })
-
+            
             this.enemyBulletManager.Update()
             this.coinsManager.Coin.forEach(coin =>{
                 if(coin.IsDropped){
@@ -158,6 +151,7 @@ module scenes {
                     coin.Update()
                 }
             })
+
             //console.log(managers.Game.timer);
             this.background.Update();
             this.player.Update();
@@ -188,19 +182,27 @@ module scenes {
                 //if(managers.Game.timer >= 481 && managers.Game.timer <= 591)
                 if(managers.Game.timer <= 591){
                     this.removeChild(this.stageName)
-                    
+                    /*
                     this.addChild(this.eBoss1)
                     if(!this.eBoss1.isDead){
                         this.eBoss1.isInvincible = false
                         this.eBoss1.FindPlayer(this.player)
                         this.eBoss1.Update();
-                    }
-                    /*
+
+                        this.missileManager.Missile.forEach( m => {
+                            m.FindEnemies(this.eBoss1)
+                        })
+                    }*/
+        
+                    
                     this.eType1.forEach(e =>{
                         if(!e.isDead){
                             this.SpawnTimer()
                             e.Update();
                             e.FindPlayer(this.player);
+                            this.missileManager.Missile.forEach( m => {
+                                m.FindEnemies(e)
+                            })
                         }
                     })
                     
@@ -209,6 +211,9 @@ module scenes {
                             e.isInvincible = false;
                             e.Update();
                             e.FindPlayer(this.player);
+                            this.missileManager.Missile.forEach( m => {
+                                m.FindEnemies(e)
+                            })
                         }
                     })
     
@@ -217,8 +222,11 @@ module scenes {
                             e.isInvincible = false;
                             e.Update();
                             e.FindPlayer(this.player);
+                            this.missileManager.Missile.forEach( m => {
+                                m.FindEnemies(e)
+                            })
                         }
-                    })*/
+                    })
                 }/*
                 if(managers.Game.timer >= 481 && managers.Game.timer <= 581){
                     this.eType2.forEach(e =>{

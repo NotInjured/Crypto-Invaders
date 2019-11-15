@@ -21,7 +21,7 @@ module managers {
         public GetMissile(): objects.Missile {
             let missile:objects.Missile = this.Missile[this.CurrentMissile];
             this.CurrentMissile++;
-            if(managers.Game.missileManager.CurrentMissile > 24) {
+            if(managers.Game.missileManager.CurrentMissile > 3) {
                 managers.Game.missileManager.CurrentMissile = 0;
             }
 
@@ -29,7 +29,7 @@ module managers {
         }
 
         public Start():void {
-            this.missileCount =25;
+            this.missileCount = 4;
             this.Missile = new Array<objects.Missile>();
             this.CurrentMissile = 0;
             this.buildMissilePool();

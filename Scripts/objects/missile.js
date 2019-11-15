@@ -63,16 +63,6 @@ var objects;
             enumerable: true,
             configurable: true
         });
-        Object.defineProperty(Missile.prototype, "FoundEnemy", {
-            get: function () {
-                return this.foundEnemy;
-            },
-            set: function (s) {
-                this.foundEnemy = s;
-            },
-            enumerable: true,
-            configurable: true
-        });
         // Methods
         Missile.prototype.Start = function () {
             this.speedY = this.speed;
@@ -84,30 +74,26 @@ var objects;
             this.CheckBound();
         };
         Missile.prototype.Reset = function () {
-            this.x = -10000;
-            this.y = -10000;
+            this.x = -10000000;
+            this.y = -10000000;
         };
         Missile.prototype.Main = function () { };
         Missile.prototype.Move = function () {
-            if (this.dir != undefined && this.foundEnemy) {
-                this.x += this.dir.x;
-                this.y += this.dir.y;
-            }
-            else if (this.dir != undefined && !this.foundEnemy) {
+            if (this.dir != undefined) {
                 this.x += this.dir.x;
                 this.y += this.dir.y;
             }
         };
         Missile.prototype.CheckBounds = function () {
-            if (this.y < 0 || this.x < 350 || this.x > 715)
+            if (this.y < 0 || this.x < 340 || this.x > 715)
                 this.Reset();
         };
         Missile.prototype.FindEnemies = function (enemy) {
-            this.position = new math.Vec2(this.x, this.skewY);
+            this.position = new math.Vec2(this.x, this.y);
             var enemyPos = new math.Vec2(enemy.x, enemy.y);
             this.distance = math.Vec2.Distance(enemyPos, this.position);
-            if (!enemy.isInvincible && enemy.y > 0 && enemy.y < 720) {
-                this.Dir = new math.Vec2(((enemyPos.x - this.position.x) / this.distance) * -10, ((enemyPos.y - this.position.y) / this.distance) * -10);
+            if (!enemy.isInvincible && enemy.y > 0 && enemy.y < 720 && enemy.x > 340 && enemy.x < 715) {
+                this.Dir = new math.Vec2(((enemyPos.x - this.position.x) / this.distance) * 10, ((enemyPos.y - this.position.y) / this.distance) * 10);
             }
         };
         return Missile;
