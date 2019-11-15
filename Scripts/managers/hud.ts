@@ -22,8 +22,15 @@ module managers {
         public gameOverLabel: objects.Label;
         public versionLabel: objects.Label;
 
+        private tryAgainLabel: objects.Label;
+        private scoreLabel :objects.Label;
+
         private controlPanel: objects.Image;
         private infoPanel: objects.Image;
+
+        private backButton: objects.Button;
+        private startButton: objects.Button;
+        private continueButton: objects.Button;
 
         private info1: objects.Label;
         private controls: objects.Label;
@@ -33,6 +40,7 @@ module managers {
         private power:number;
         private score:number;
         private scoreMult:number;
+        private diff:string;
 
         get Lives():number{
             return this.lives;
@@ -91,6 +99,61 @@ module managers {
             this.lCoins.forEach(c =>{
                 c.Update();
             })
+
+            if(managers.Game.level1Completed || managers.Game.level2Completed || managers.Game.level3Completed){
+                if(managers.Game.normal)
+                    this.diff = "Normal"
+                if(managers.Game.hard)
+                    this.diff = "Hard"
+                if(managers.Game.hell)
+                    this.diff = "Hell"
+
+                this.gameOverLabel = new objects.Label(
+                    "\t\t\t" + "   Level Completed!" + "\n" + "\t  Difficulty: " + this.diff, 
+                    "36px", "OptimusPrinceps", "#000000", 675, 240, true);
+                this.scoreLabel = new objects.Label("Score:" +"\n" + managers.Game.highscore, "30px", "OptimusPrinceps","#000000", 500, 300, false );
+
+
+                this.removeChild(this.playerLivesLabel)
+                this.removeChild(this.playerBombsLabel)
+                this.removeChild(this.playerScoreLabel)
+                this.removeChild(this.scoreMultLabel)
+                this.removeChild(this.playerLivesSprite)
+                this.addChild(this.bBackground)
+                this.addChild(this.backButton)
+                this.addChild(this.continueButton)
+                this.addChild(this.gameOverLabel)
+                this.addChild(this.scoreLabel)
+
+                this.backButton.on("click", this.backButtonClick)
+                this.continueButton.on("click", this.continueButtonClick)
+            }
+
+            if(managers.Game.level2){
+                this.addChild(this.playerLivesLabel)
+                this.addChild(this.playerBombsLabel)
+                this.addChild(this.playerScoreLabel)
+                this.addChild(this.scoreMultLabel)
+                this.addChild(this.playerLivesSprite)
+                this.removeChild(this.bBackground)
+                this.removeChild(this.backButton)
+                this.removeChild(this.continueButton)
+            }
+        }
+
+        private backButtonClick():void {
+            managers.Game.currentScene = config.Scene.START;
+        }
+
+        private continueButtonClick():void {
+            if(managers.Game.level1Completed && managers.Game.level1){
+                managers.Game.level1 = false
+                managers.Game.level2 = true
+            }
+            if(managers.Game.level2Completed && managers.Game.level2){
+                managers.Game.level2 = false
+                managers.Game.level3 = true
+            }
         }
 
         public Initialize():void{
@@ -103,6 +166,10 @@ module managers {
                 this.eCoins[i] = new objects.Coins("E_coin");
                 this.lCoins[i] = new objects.Coins("L_coin");
             }
+
+            this.startButton = new objects.Button("buttonStart", 630, 475);
+            this.backButton = new objects.Button("buttonBack", 630, 555);
+            this.continueButton = new objects.Button("buttonContinue", 630, 475)
 
             this.playerLivesLabel = new objects.Label("", "18px", "OptimusPrinceps","#000000", 380, 668, false );
             this.playerBombsLabel = new objects.Label("", "18px", "OptimusPrinceps","#000000", 345, 690, false );       
@@ -127,7 +194,7 @@ module managers {
             "#000000", 740, 235, false);
 
             this.controls = new objects.Label("Arrow Keys - Movement"+ "\n\n" + "           X - Shoot"
-            + "\n\n" + "   Z - Bombs (Disabled)" + "\n\n" + "    Space - Swap Ships" + "\n"+"            (Disabled)", "24px", "OptimusPrimus", 
+            + "\n\n" + "   Z - Bombs (Disabled)" + "\n\n" + "    Space - Swap Ships", "24px", "OptimusPrimus", 
             "#000000", 50, 285, false)
 
             this.versionLabel = new objects.Label("Alpha Release 0.1", "12px", "OptimusPrimus", 

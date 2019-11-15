@@ -77,8 +77,7 @@ var managers;
                         hit2.volume = 0.2;
                         object1.Reset();
                         console.log(managers.Game.boss1Hp);
-                        if (managers.Game.boss1Hp < 0) {
-                            managers.Game.boss1IsDead = true;
+                        if (managers.Game.boss1Hp == 0) {
                             explosion = new objects.Effect("tile", object2.x + 65, object2.y + 65);
                             managers.Game.currentSceneObject.addChild(explosion);
                             managers.Game.currentSceneObject.removeChild(object2);
@@ -95,19 +94,19 @@ var managers;
                         (object1.y + object1.halfH) > ((object2.y - 10) - object2.halfH / 4) &&
                         (object1.y - object1.halfH) < ((object2.y - 10) + object2.halfH / 4)) {
                         if (!managers.Game.player.IsInvincible && !managers.Game.player.isDead) {
-                            explosion = new objects.Effect("tile", object2.x, object2.y);
-                            console.log("Player Hit");
-                            var death = createjs.Sound.play("playerDeath");
-                            death.volume = 0.3;
-                            explosion.x = object2.x + 20;
-                            explosion.y = object2.y + 20;
-                            explosion.scaleY = 0.5;
-                            explosion.scaleX = 0.5;
-                            managers.Game.currentSceneObject.addChild(explosion);
-                            managers.Game.hud.Lives -= 1;
-                            managers.Game.hud.ScoreMult = 0;
-                            object1.Reset();
-                            object2.Reset();
+                            //explosion = new objects.Effect("tile", object2.x, object2.y);
+                            //console.log("Player Hit");
+                            //let death = createjs.Sound.play("playerDeath");
+                            //death.volume = 0.3;
+                            //explosion.x = object2.x + 20
+                            //explosion.y = object2.y + 20
+                            //explosion.scaleY = 0.5
+                            //explosion.scaleX = 0.5
+                            //managers.Game.currentSceneObject.addChild(explosion)
+                            //managers.Game.hud.Lives -= 1
+                            //managers.Game.hud.ScoreMult = 0;
+                            //object1.Reset()
+                            //object2.Reset();
                         }
                     }
                     break;

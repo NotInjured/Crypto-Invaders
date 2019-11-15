@@ -41,12 +41,13 @@ var scenes;
                 this.diffLabel = new objects.Label("Maybe turn down the difficulty if its too hard.", "12px", "OptimusPrinceps", "#000000", 535, 690, true);
             }
             if (managers.Game.boss1IsDead) {
-                this.gameOverLabel = new objects.Label("\t\t\t  Stage Completed!" + "\n" + "\t Difficulty: " + this.diff, "36px", "OptimusPrinceps", "#000000", 675, 240, true);
+                this.gameOverLabel = new objects.Label("\t\t\t" + "Level 1 Completed!" + "\n" + "\t  Difficulty: " + this.diff, "36px", "OptimusPrinceps", "#000000", 675, 240, true);
                 this.tryAgainLabel = new objects.Label("Try Again?", "20px", "OptimusPrinceps", "#000000", 535, 400, true);
             }
             this.scoreLabel = new objects.Label("Score:" + "\n" + managers.Game.highscore, "30px", "OptimusPrinceps", "#000000", 500, 300, false);
             this.startButton = new objects.Button("buttonStart", 630, 475);
             this.backButton = new objects.Button("buttonBack", 630, 555);
+            this.continueButton = new objects.Button("buttonContinue", 630, 475);
             this.Main();
         };
         GameOverScene.prototype.Update = function () {
@@ -58,6 +59,18 @@ var scenes;
         GameOverScene.prototype.startButtonClick = function () {
             // Change our game state from START to GAME
             managers.Game.currentScene = config.Scene.GAME;
+        };
+        GameOverScene.prototype.continueButtonClick = function () {
+            if (managers.Game.level1Completed && managers.Game.level1) {
+                managers.Game.level1 = false;
+                managers.Game.level2 = true;
+                managers.Game.currentScene = config.Scene.GAME;
+            }
+            if (managers.Game.level2Completed && managers.Game.level2) {
+                managers.Game.level2 = false;
+                managers.Game.level3 = true;
+                managers.Game.currentScene = config.Scene.GAME;
+            }
         };
         GameOverScene.prototype.Main = function () {
             this.addChild(this.hud);
@@ -73,9 +86,11 @@ var scenes;
                 this.addChild(this.diffLabel);
             }
             this.addChild(this.backButton);
-            this.addChild(this.startButton);
+            this.addChild(this.continueButton);
+            //this.addChild(this.startButton)
             this.backButton.on("click", this.backButtonClick);
-            this.startButton.on("click", this.startButtonClick);
+            this.continueButton.on("click", this.continueButtonClick);
+            //this.startButton.on("click", this.startButtonClick)
         };
         return GameOverScene;
     }(objects.Scene));

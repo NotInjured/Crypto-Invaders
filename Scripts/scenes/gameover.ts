@@ -7,6 +7,7 @@ module scenes {
         private diffLabel: objects.Label;
         private backButton: objects.Button;
         private startButton: objects.Button;
+        private continueButton: objects.Button;
 
         private hud:managers.HUD;
         private bgm:createjs.AbstractSoundInstance;
@@ -47,7 +48,7 @@ module scenes {
             }
             if(managers.Game.boss1IsDead){
                 this.gameOverLabel = new objects.Label(
-                    "\t\t\t  Stage Completed!" + "\n" + "\t Difficulty: " + this.diff, 
+                    "\t\t\t" + "Level 1 Completed!" + "\n" + "\t  Difficulty: " + this.diff, 
                     "36px", "OptimusPrinceps", "#000000", 675, 240, true);
                 this.tryAgainLabel = new objects.Label(
                     "Try Again?", "20px", "OptimusPrinceps", "#000000", 535, 400, true);
@@ -57,6 +58,7 @@ module scenes {
 
             this.startButton = new objects.Button("buttonStart", 630, 475);
             this.backButton = new objects.Button("buttonBack", 630, 555);
+            this.continueButton = new objects.Button("buttonContinue", 630, 475)
 
            
             this.Main();
@@ -75,6 +77,19 @@ module scenes {
             managers.Game.currentScene = config.Scene.GAME;
         }
 
+        private continueButtonClick():void {
+            if(managers.Game.level1Completed && managers.Game.level1){
+                managers.Game.level1 = false
+                managers.Game.level2 = true
+                managers.Game.currentScene = config.Scene.GAME
+            }
+            if(managers.Game.level2Completed && managers.Game.level2){
+                managers.Game.level2 = false
+                managers.Game.level3 = true
+                managers.Game.currentScene = config.Scene.GAME
+            }
+        }
+
         public Main():void {
             this.addChild(this.hud);
             if(managers.Game.boss1IsDead){
@@ -89,10 +104,12 @@ module scenes {
                 this.addChild(this.diffLabel)
             }
             this.addChild(this.backButton)
-            this.addChild(this.startButton)
+            this.addChild(this.continueButton)
+            //this.addChild(this.startButton)
 
             this.backButton.on("click", this.backButtonClick)
-            this.startButton.on("click", this.startButtonClick)
+            this.continueButton.on("click", this.continueButtonClick)
+            //this.startButton.on("click", this.startButtonClick)
         }
     }
 }

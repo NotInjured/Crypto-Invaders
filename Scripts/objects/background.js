@@ -25,7 +25,10 @@ var objects;
         // Initializing our variables with default values
         Background.prototype.Start = function () {
             this.speedY = 1;
-            this.y = -22500;
+            if (managers.Game.level1)
+                this.y = -22500;
+            if (managers.Game.level2)
+                this.y = -14200;
             this.x = 297;
             // -8250 > -1 - Level 1
         };
@@ -33,6 +36,9 @@ var objects;
         Background.prototype.Update = function () {
             this.Move();
             this.CheckBound();
+            if (managers.Game.level2) {
+                this.speedY = 1;
+            }
         };
         // Resets the position of the object
         Background.prototype.Reset = function () {
@@ -41,11 +47,14 @@ var objects;
         Background.prototype.Move = function () {
             if (managers.Game.level1) {
                 this.y += this.speedY;
-                if (this.y > -8250)
+                if (this.y > -14200)
                     this.speedY = 0;
             }
             if (managers.Game.level2) {
+                this.speedY = 1;
                 this.y += this.speedY;
+                if (this.y > -1)
+                    this.speedY = 0;
             }
             if (managers.Game.level3) {
                 this.y += this.speedY;
