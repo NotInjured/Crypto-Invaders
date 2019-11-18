@@ -31,6 +31,7 @@ var objects;
             _this.position4 = false;
             _this.position5 = false;
             _this.position6 = false;
+            _this.eliteHP = 25;
             _this.angle = Math.floor(Math.random() * (360 - 0 + 1) + 0);
             _this.shootNum = 0;
             _this.shootNum2 = 0;
@@ -123,9 +124,7 @@ var objects;
                     this.position1 = true;
                     break;
                 case "Enemy5":
-                    this.eliteHP = 25;
-                    managers.Game.eEliteHp = this.eliteHP;
-                    this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
+                    this.x = Math.floor(Math.random() * (690 - 400 + 1) + 400);
                     this.y = Math.floor(Math.random() * (-30 - (-15) + 1) + (-15));
                     break;
                 case "Enemy6":
@@ -158,9 +157,11 @@ var objects;
                 if (this.bullet == undefined)
                     managers.Game.currentSceneObject.removeChild(this.bullet);
             }
+            if (this.isDead)
+                this.RespawnTimer();
         };
         Enemy.prototype.Reset = function () {
-            this.isDead = true;
+            this.isDead = false;
             this.back = false;
             this.shoot = false;
             this.isInvincible = true;
@@ -189,13 +190,14 @@ var objects;
                     this.y = Math.floor(Math.random() * (-400 - (-350) + 1) + (-350));
                     break;
                 case "Enemy5":
-                    this.eliteHP = 50;
-                    managers.Game.eEliteHp = this.eliteHP;
-                    this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
-                    this.y = Math.floor(Math.random() * (-300 - (-250) + 1) + (-250));
+                    this.isDead = true;
+                    this.isInvincible = true;
+                    break;
+                case "Enemy6":
+                    this.isDead = true;
+                    this.isInvincible = true;
                     break;
             }
-            this.RespawnTimer();
         };
         Enemy.prototype.Move = function () {
             switch (this.sprite) {
@@ -642,12 +644,20 @@ var objects;
                     }
                     break;
                 case "Enemy5":
-                    if (this.y < 270) {
+                    if (this.y < 240) {
                         this.y += 3;
                     }
-                    this.ShootPattern(1);
+                    if (this.y > 50)
+                        this.ShootPattern(1);
                     break;
                 case "Enemy6":
+                    if (this.y < 215 && !this.startPos) {
+                        this.y += 3;
+                        if (this.y > 210)
+                            this.startPos;
+                    }
+                    if (this.y > 50)
+                        this.ShootPattern(1);
                     break;
                 case "Enemy7":
                     break;
@@ -666,7 +676,6 @@ var objects;
                     case "Enemy1":
                     case "Enemy2":
                     case "Enemy3":
-                    case "Enemy6":
                     case "Enemy7":
                     case "Enemy8":
                     case "Enemy9":
@@ -690,6 +699,7 @@ var objects;
                                 break;
                         }
                         break;
+                    case "Enemy6":
                     case "Enemy5":
                         switch (pattern) {
                             case 1:
@@ -1199,29 +1209,33 @@ var objects;
         };
         Enemy.prototype.RespawnTimer = function () {
             var _this = this;
-            var counter = 2;
+            var counter = 60;
             this.timerInterval = setInterval(function () {
                 counter--;
                 if (counter < 0) {
+                    counter = 2;
                     clearInterval(_this.timerInterval);
-                    _this.isDead = false;
+                    _this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
+                    _this.y = Math.floor(Math.random() * (-300 - (-250) + 1) + (-250));
                 }
             }, 1000);
         };
         Enemy.prototype.DropCoins = function (coins) {
             var coin = managers.Game.coinsManager.GetCoin();
-            if (managers.Game.boss1IsDead) {
-                if (this.coinsCount < coins) {
-                    coin.IsDropped = true;
-                    coin.EnemyDropped = true;
-                    coin.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
-                    coin.y = Math.floor(Math.random() * (380 - 25 + 1) + 25);
-                    coin.scaleX = 0.25;
-                    coin.scaleY = 0.25;
-                    managers.Game.currentSceneObject.addChild(coin);
-                    this.coinsCount++;
-                }
+            //if(managers.Game.boss1IsDead){
+            if (this.coinsCount < coins) {
+                coin.IsDropped = true;
+                coin.EnemyDropped = true;
+                coin.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
+                coin.y = Math.floor(Math.random() * (380 - 25 + 1) + 25);
+                coin.scaleX = 0.25;
+                coin.scaleY = 0.25;
+                managers.Game.currentSceneObject.addChild(coin);
+                this.coinsCount++;
             }
+            //}
+        };
+        Enemy.prototype.DropPowerUp = function () {
         };
         return Enemy;
     }(objects.GameObject));

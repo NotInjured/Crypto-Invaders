@@ -385,6 +385,78 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">Buff_1.png</key>
+            <key type="filename">Buff_10.png</key>
+            <key type="filename">Buff_11.png</key>
+            <key type="filename">Buff_12.png</key>
+            <key type="filename">Buff_13.png</key>
+            <key type="filename">Buff_14.png</key>
+            <key type="filename">Buff_15.png</key>
+            <key type="filename">Buff_16.png</key>
+            <key type="filename">Buff_17.png</key>
+            <key type="filename">Buff_18.png</key>
+            <key type="filename">Buff_19.png</key>
+            <key type="filename">Buff_2.png</key>
+            <key type="filename">Buff_3.png</key>
+            <key type="filename">Buff_4.png</key>
+            <key type="filename">Buff_5.png</key>
+            <key type="filename">Buff_6.png</key>
+            <key type="filename">Buff_7.png</key>
+            <key type="filename">Buff_8.png</key>
+            <key type="filename">Buff_9.png</key>
+            <key type="filename">Explosion_1.png</key>
+            <key type="filename">Explosion_10.png</key>
+            <key type="filename">Explosion_11.png</key>
+            <key type="filename">Explosion_12.png</key>
+            <key type="filename">Explosion_13.png</key>
+            <key type="filename">Explosion_14.png</key>
+            <key type="filename">Explosion_2.png</key>
+            <key type="filename">Explosion_3.png</key>
+            <key type="filename">Explosion_4.png</key>
+            <key type="filename">Explosion_5.png</key>
+            <key type="filename">Explosion_6.png</key>
+            <key type="filename">Explosion_7.png</key>
+            <key type="filename">Explosion_8.png</key>
+            <key type="filename">Explosion_9.png</key>
+            <key type="filename">Shield_1.png</key>
+            <key type="filename">Shield_10.png</key>
+            <key type="filename">Shield_11.png</key>
+            <key type="filename">Shield_12.png</key>
+            <key type="filename">Shield_13.png</key>
+            <key type="filename">Shield_14.png</key>
+            <key type="filename">Shield_15.png</key>
+            <key type="filename">Shield_16.png</key>
+            <key type="filename">Shield_17.png</key>
+            <key type="filename">Shield_18.png</key>
+            <key type="filename">Shield_19.png</key>
+            <key type="filename">Shield_2.png</key>
+            <key type="filename">Shield_20.png</key>
+            <key type="filename">Shield_21.png</key>
+            <key type="filename">Shield_22.png</key>
+            <key type="filename">Shield_23.png</key>
+            <key type="filename">Shield_24.png</key>
+            <key type="filename">Shield_25.png</key>
+            <key type="filename">Shield_3.png</key>
+            <key type="filename">Shield_4.png</key>
+            <key type="filename">Shield_5.png</key>
+            <key type="filename">Shield_6.png</key>
+            <key type="filename">Shield_7.png</key>
+            <key type="filename">Shield_8.png</key>
+            <key type="filename">Shield_9.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>48,48,96,96</rect>
+                <key>scale9Paddings</key>
+                <rect>48,48,96,96</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">Enemy1.png</key>
             <key type="filename">Enemy11.png</key>
             <key type="filename">Enemy2.png</key>
@@ -807,59 +879,6 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">Shield_1.png</key>
-            <key type="filename">Shield_10.png</key>
-            <key type="filename">Shield_11.png</key>
-            <key type="filename">Shield_12.png</key>
-            <key type="filename">Shield_13.png</key>
-            <key type="filename">Shield_14.png</key>
-            <key type="filename">Shield_15.png</key>
-            <key type="filename">Shield_16.png</key>
-            <key type="filename">Shield_17.png</key>
-            <key type="filename">Shield_18.png</key>
-            <key type="filename">Shield_19.png</key>
-            <key type="filename">Shield_2.png</key>
-            <key type="filename">Shield_20.png</key>
-            <key type="filename">Shield_21.png</key>
-            <key type="filename">Shield_22.png</key>
-            <key type="filename">Shield_23.png</key>
-            <key type="filename">Shield_24.png</key>
-            <key type="filename">Shield_25.png</key>
-            <key type="filename">Shield_3.png</key>
-            <key type="filename">Shield_4.png</key>
-            <key type="filename">Shield_5.png</key>
-            <key type="filename">Shield_6.png</key>
-            <key type="filename">Shield_7.png</key>
-            <key type="filename">Shield_8.png</key>
-            <key type="filename">Shield_9.png</key>
-            <key type="filename">tile_01.png</key>
-            <key type="filename">tile_02.png</key>
-            <key type="filename">tile_03.png</key>
-            <key type="filename">tile_04.png</key>
-            <key type="filename">tile_05.png</key>
-            <key type="filename">tile_06.png</key>
-            <key type="filename">tile_07.png</key>
-            <key type="filename">tile_08.png</key>
-            <key type="filename">tile_09.png</key>
-            <key type="filename">tile_10.png</key>
-            <key type="filename">tile_11.png</key>
-            <key type="filename">tile_12.png</key>
-            <key type="filename">tile_13.png</key>
-            <key type="filename">tile_14.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>spriteScale</key>
-                <double>1</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>48,48,96,96</rect>
-                <key>scale9Paddings</key>
-                <rect>48,48,96,96</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
             <key type="filename">Ship1_1.png</key>
             <key type="filename">Ship1_2.png</key>
             <key type="filename">Ship2_1.png</key>
@@ -1031,20 +1050,6 @@
             <filename>Enemy13.png</filename>
             <filename>Enemy13_Shot.png</filename>
             <filename>Enemy12_Shot.png</filename>
-            <filename>tile_01.png</filename>
-            <filename>tile_02.png</filename>
-            <filename>tile_03.png</filename>
-            <filename>tile_04.png</filename>
-            <filename>tile_05.png</filename>
-            <filename>tile_06.png</filename>
-            <filename>tile_07.png</filename>
-            <filename>tile_08.png</filename>
-            <filename>tile_09.png</filename>
-            <filename>tile_10.png</filename>
-            <filename>tile_11.png</filename>
-            <filename>tile_12.png</filename>
-            <filename>tile_13.png</filename>
-            <filename>tile_14.png</filename>
             <filename>Shield_1.png</filename>
             <filename>Shield_2.png</filename>
             <filename>Shield_3.png</filename>
@@ -1072,6 +1077,39 @@
             <filename>Shield_25.png</filename>
             <filename>BlueBox.png</filename>
             <filename>buttonContinue.png</filename>
+            <filename>Explosion_1.png</filename>
+            <filename>Explosion_2.png</filename>
+            <filename>Explosion_3.png</filename>
+            <filename>Explosion_4.png</filename>
+            <filename>Explosion_5.png</filename>
+            <filename>Explosion_6.png</filename>
+            <filename>Explosion_7.png</filename>
+            <filename>Explosion_8.png</filename>
+            <filename>Explosion_9.png</filename>
+            <filename>Explosion_10.png</filename>
+            <filename>Explosion_11.png</filename>
+            <filename>Explosion_12.png</filename>
+            <filename>Explosion_13.png</filename>
+            <filename>Explosion_14.png</filename>
+            <filename>Buff_1.png</filename>
+            <filename>Buff_2.png</filename>
+            <filename>Buff_3.png</filename>
+            <filename>Buff_4.png</filename>
+            <filename>Buff_5.png</filename>
+            <filename>Buff_6.png</filename>
+            <filename>Buff_7.png</filename>
+            <filename>Buff_8.png</filename>
+            <filename>Buff_9.png</filename>
+            <filename>Buff_10.png</filename>
+            <filename>Buff_11.png</filename>
+            <filename>Buff_12.png</filename>
+            <filename>Buff_13.png</filename>
+            <filename>Buff_14.png</filename>
+            <filename>Buff_15.png</filename>
+            <filename>Buff_16.png</filename>
+            <filename>Buff_17.png</filename>
+            <filename>Buff_18.png</filename>
+            <filename>Buff_19.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

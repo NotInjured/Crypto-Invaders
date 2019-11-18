@@ -87,37 +87,48 @@ var managers;
             this.lCoins.forEach(function (c) {
                 c.Update();
             });
-            if (managers.Game.level1Completed || managers.Game.level2Completed || managers.Game.level3Completed) {
-                this.removeChild(this.playerLivesLabel);
-                this.removeChild(this.playerBombsLabel);
-                this.removeChild(this.playerScoreLabel);
-                this.removeChild(this.scoreMultLabel);
-                this.removeChild(this.playerLivesSprite);
-                this.addChild(this.bBackground);
-                this.addChild(this.backButton);
-                this.addChild(this.continueButton);
-                this.addChild(this.gameOverLabel);
-                this.addChild(this.scoreLabel);
-                this.backButton.on("click", this.backButtonClick);
-                this.continueButton.on("click", this.continueButtonClick);
-            }
-            if (managers.Game.level2) {
-                this.addChild(this.playerLivesLabel);
-                this.addChild(this.playerBombsLabel);
-                this.addChild(this.playerScoreLabel);
-                this.addChild(this.scoreMultLabel);
-                this.addChild(this.playerLivesSprite);
-                this.removeChild(this.bBackground);
-                this.removeChild(this.backButton);
-                this.removeChild(this.continueButton);
-                this.removeChild(this.gameOverLabel);
-                this.removeChild(this.scoreLabel);
+            if (managers.Game.currentScene == config.Scene.GAME) {
+                if (managers.Game.level1Completed) {
+                    //this.scoreLabel = new objects.Label("Score:" +"\n" + managers.Game.highscore, "30px", "OptimusPrinceps","#000000", 500, 300, false );
+                    this.removeChild(this.playerLivesLabel);
+                    this.removeChild(this.playerBombsLabel);
+                    this.removeChild(this.playerScoreLabel);
+                    this.removeChild(this.scoreMultLabel);
+                    this.removeChild(this.playerLivesSprite);
+                    this.addChild(this.bBackground);
+                    this.addChild(this.backButton);
+                    this.addChild(this.continueButton);
+                    this.addChild(this.gameOverLabel);
+                    this.addChild(this.playerScoreLabel);
+                    this.playerScoreLabel.scaleX = 1.75;
+                    this.playerScoreLabel.scaleY = 1.75;
+                    this.playerScoreLabel.x = 450;
+                    this.playerScoreLabel.y = 300;
+                    this.backButton.on("click", this.backButtonClick);
+                    this.continueButton.on("click", this.continueButtonClick);
+                }
+                if (managers.Game.level2) {
+                    this.playerScoreLabel.scaleX = 1;
+                    this.playerScoreLabel.scaleY = 1;
+                    this.playerScoreLabel.x = 565;
+                    this.playerScoreLabel.y = 15;
+                    this.addChild(this.playerLivesLabel);
+                    this.addChild(this.playerBombsLabel);
+                    this.addChild(this.playerScoreLabel);
+                    this.addChild(this.scoreMultLabel);
+                    this.addChild(this.playerLivesSprite);
+                    this.removeChild(this.bBackground);
+                    this.removeChild(this.backButton);
+                    this.removeChild(this.continueButton);
+                    this.removeChild(this.gameOverLabel);
+                }
             }
         };
         HUD.prototype.backButtonClick = function () {
             managers.Game.currentScene = config.Scene.START;
         };
         HUD.prototype.continueButtonClick = function () {
+            managers.Game.timer = 600;
             if (managers.Game.level1Completed && managers.Game.level1) {
                 managers.Game.level1 = false;
                 managers.Game.level1Completed = false;
@@ -170,7 +181,6 @@ var managers;
             if (managers.Game.hell)
                 this.diff = "Hell";
             this.gameOverLabel = new objects.Label("\t\t\t" + "   Level Completed!" + "\n" + "\t  Difficulty: " + this.diff, "36px", "OptimusPrinceps", "#000000", 675, 240, true);
-            this.scoreLabel = new objects.Label("Score:" + "\n" + managers.Game.highscore, "30px", "OptimusPrinceps", "#000000", 500, 300, false);
             this.controlPanel = new objects.Image("panelUI", 4, 175);
             this.infoPanel = new objects.Image("panelInfo", 710, 175);
             this.playerLivesSprite = new objects.Sprite("Ship1", 370, 688);

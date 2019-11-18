@@ -14,7 +14,7 @@ module objects {
         private position5: boolean = false
         private position6: boolean = false
 
-        private eliteHP: number;
+        private eliteHP: number = 25
 
         private boxPoisitions: objects.Sprite[]
 
@@ -126,9 +126,7 @@ module objects {
                     this.position1 = true;
                 break;
                 case "Enemy5":
-                    this.eliteHP = 25
-                    managers.Game.eEliteHp = this.eliteHP
-                    this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
+                    this.x = Math.floor(Math.random() * (690 - 400 + 1) + 400);
                     this.y = Math.floor(Math.random() * (-30 - (-15) + 1) + (-15));
                 break;
                 case "Enemy6":
@@ -163,10 +161,13 @@ module objects {
                 if(this.bullet == undefined)
                     managers.Game.currentSceneObject.removeChild(this.bullet)
             }
+
+            if(this.isDead)
+                this.RespawnTimer()
         }
 
         public Reset():void {
-            this.isDead = true
+            this.isDead = false
             this.back = false
             this.shoot = false
             this.isInvincible = true
@@ -195,14 +196,14 @@ module objects {
                     this.y = Math.floor(Math.random() * (-400 - (-350) + 1) + (-350));
                 break;
                 case "Enemy5":
-                    this.eliteHP = 50
-                    managers.Game.eEliteHp = this.eliteHP
-                    this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
-                    this.y = Math.floor(Math.random() * (-300 - (-250) + 1) + (-250));
+                    this.isDead = true
+                    this.isInvincible = true
+                break;
+                case "Enemy6":
+                    this.isDead = true
+                    this.isInvincible = true
                 break;
             }
-
-            this.RespawnTimer()
         }
 
         public Move():void {
@@ -659,13 +660,21 @@ module objects {
                     }
                 break;
                 case "Enemy5":
-                    if(this.y < 270){
+                    if(this.y < 240){
                         this.y += 3;
                     }
+                    if(this.y > 50)
                         this.ShootPattern(1)
 
                 break;
                 case "Enemy6":
+                    if(this.y < 215 && !this.startPos){
+                        this.y += 3;
+                        if(this.y > 210)
+                            this.startPos
+                    }
+                    if(this.y > 50)
+                        this.ShootPattern(1)
                 break;
                 case "Enemy7":
                 break;
@@ -690,7 +699,6 @@ module objects {
                     case "Enemy1":
                     case "Enemy2":
                     case "Enemy3":
-                    case "Enemy6":
                     case "Enemy7":
                     case "Enemy8":
                     case "Enemy9":
@@ -722,6 +730,7 @@ module objects {
                             break;
                         }
                     break;
+                    case "Enemy6":
                     case "Enemy5":
                         switch(pattern){
                             case 1:
@@ -1345,13 +1354,15 @@ module objects {
         }
 
         public RespawnTimer():void{
-            let counter = 2;
+            let counter = 60;
 
             this.timerInterval = setInterval(() =>{
                 counter--;
                  if(counter < 0){
+                    counter = 2
                     clearInterval(this.timerInterval);
-                    this.isDead = false
+                    this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
+                    this.y = Math.floor(Math.random() * (-300 - (-250) + 1) + (-250));
                  }
              }, 1000)
         }
@@ -1359,7 +1370,7 @@ module objects {
         public DropCoins(coins:number):void{
             let coin = managers.Game.coinsManager.GetCoin()
 
-            if(managers.Game.boss1IsDead){
+            //if(managers.Game.boss1IsDead){
                 if(this.coinsCount < coins){
                     coin.IsDropped = true;
                     coin.EnemyDropped = true;
@@ -1370,7 +1381,11 @@ module objects {
                     managers.Game.currentSceneObject.addChild(coin)
                     this.coinsCount++;
                 }
-            }
+            //}
+        }
+
+        public DropPowerUp():void{
+            
         }
 
     }

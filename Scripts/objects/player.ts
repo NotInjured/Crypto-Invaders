@@ -292,7 +292,7 @@ module objects {
         public ShootMissiles():void{
             if(!this.isDead){
                 let ticker:number = createjs.Ticker.getTicks();
-                if(managers.Game.keyboardManager.shoot && ticker % 20 == 0) {
+                if(managers.Game.keyboardManager.shoot && ticker % 100 == 0) {
                     if(this.shootnum < 1){
                         for(let i = 0; i < 2; i++){
                             let position = new math.Vec2(this.x- 15, this.y - 10);

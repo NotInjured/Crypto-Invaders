@@ -49,9 +49,11 @@ var scenes;
             //this.testEnemyBullet.y = this.player.y - 100;
             managers.Game.player = this.player;
             managers.Game.timer = 600;
-            managers.Game.boss1Hp = 200;
+            managers.Game.boss1Hp = 1;
             managers.Game.boss2Hp = 300;
             managers.Game.boss3Hp = 400;
+            managers.Game.eEliteHp = 25;
+            managers.Game.eMinionHp = 10;
             this.eType1 = new Array();
             this.eType2 = new Array();
             this.eType3 = new Array();
@@ -63,6 +65,7 @@ var scenes;
             this.eType10 = new Array();
             this.eType11 = new Array();
             this.eType12 = new Array();
+            this.eliteUnits = [];
             this.eBoss1 = new objects.Enemy("Enemy4");
             //this.testCoin = new objects.Coins("B_coin", true)
             //this.testCoin.x = 550
@@ -73,7 +76,6 @@ var scenes;
                         this.eType1[i] = new objects.Enemy("Enemy1");
                         this.eType2[i] = new objects.Enemy("Enemy2");
                         this.eType3[i] = new objects.Enemy("Enemy3");
-                        this.eType6[i] = new objects.Enemy("Enemy6");
                         this.eType7[i] = new objects.Enemy("Enemy7");
                         this.eType8[i] = new objects.Enemy("Enemy8");
                         this.eType9[i] = new objects.Enemy("Enemy9");
@@ -83,6 +85,19 @@ var scenes;
                     }
                     for (var i = 0; i < 1; i++) {
                         this.eType5[i] = new objects.Enemy("Enemy5");
+                    }
+                    for (var i = 0; i < 4; i++) {
+                        this.eType6[i] = new objects.Enemy("Enemy6");
+                    }
+                    for (var i = 0; i < 2; i++) {
+                        this.eliteUnits[i] = [];
+                        for (var j = 0; j < 3; j++) {
+                            this.eliteUnits[i][0] = new objects.Enemy("Enemy6");
+                            this.eliteUnits[i][1] = new objects.Enemy("Enemy5");
+                            this.eliteUnits[i][2] = new objects.Enemy("Enemy6");
+                            this.eliteUnits[i][0].x = this.eliteUnits[i][1].x - 25;
+                            this.eliteUnits[i][2].x = this.eliteUnits[i][1].x + 25;
+                        }
                     }
                     break;
                 case 1:
@@ -150,7 +165,7 @@ var scenes;
                     coin.Update();
                 }
             });
-            //console.log(managers.Game.timer);
+            console.log(managers.Game.timer);
             this.background.Update();
             this.player.Update();
             if (this.player.IsInvincible) {
@@ -179,31 +194,42 @@ var scenes;
                 //if(managers.Game.timer >= 481 && managers.Game.timer <= 591){
                 if (managers.Game.timer <= 591) {
                     this.removeChild(this.stageName);
-                    this.eType5.forEach(function (e) {
-                        if (!e.isDead) {
+                    /*
+                    this.eliteUnits[0].forEach(e =>{
+                        if(!e.isDead){
                             e.isInvincible = false;
                             e.Update();
-                            e.FindPlayer(_this.player);
-                            _this.missileManager.Missile.forEach(function (m) {
-                                m.FindEnemies(e);
-                            });
+                            e.FindPlayer(this.player);
+                            this.missileManager.Missile.forEach( m => {
+                                m.FindEnemies(e)
+                            })
                         }
-                        if (managers.Game.eEliteHp == 0)
-                            e.DropCoins(10);
-                    });
+                        if(managers.Game.eEliteHp == 0)
+                            e.DropCoins(10)
+                    })*/
                     /*
-                    this.addChild(this.eBoss1)
-                    if(!this.eBoss1.isDead){
-                        this.eBoss1.isInvincible = false
-                        this.eBoss1.FindPlayer(this.player)
+                    this.eType5.forEach(e =>{
+                        if(!e.isDead){
+                            e.isInvincible = false;
+                            e.Update();
+                            e.FindPlayer(this.player);
+                            this.missileManager.Missile.forEach( m => {
+                                m.FindEnemies(e)
+                            })
+                        }
+                        if(managers.Game.eEliteHp == 0)
+                            e.DropCoins(10)
+                    })*/
+                    this.addChild(this.eBoss1);
+                    if (!this.eBoss1.isDead) {
+                        this.eBoss1.isInvincible = false;
+                        this.eBoss1.FindPlayer(this.player);
                         this.eBoss1.Update();
-
-                        this.missileManager.Missile.forEach( m => {
-                            m.FindEnemies(this.eBoss1)
-                        })
+                        this.missileManager.Missile.forEach(function (m) {
+                            m.FindEnemies(_this.eBoss1);
+                        });
                     }
-        
-                    
+                    /*
                     this.eType1.forEach(e =>{
                         if(!e.isDead){
                             this.SpawnTimer()
@@ -289,15 +315,15 @@ var scenes;
                             m.FindEnemies(this.eBoss1)
                         })
                     }
-                }
-                if(managers.Game.boss1Hp == 0){
-                    this.removeChild(this.eBoss1)
+                }*/
+                if (managers.Game.boss1Hp == 0) {
+                    this.removeChild(this.eBoss1);
                     this.eBoss1.isInvincible = true;
                     this.eBoss1.isDead = true;
                     managers.Game.boss1IsDead = true;
-                    this.eBoss1.DropCoins(50)
-                    this.WaitTimer()
-                }*/
+                    this.eBoss1.DropCoins(50);
+                    this.WaitTimer();
+                }
             }
             if (managers.Game.level2) {
             }
@@ -320,8 +346,28 @@ var scenes;
             this.eType3.forEach(function (e) {
                 _this.addChild(e);
             });
-            this.eType5.forEach(function (e) {
+            this.eType7.forEach(function (e) {
                 _this.addChild(e);
+            });
+            this.eType8.forEach(function (e) {
+                _this.addChild(e);
+            });
+            this.eType9.forEach(function (e) {
+                _this.addChild(e);
+            });
+            this.eType10.forEach(function (e) {
+                _this.addChild(e);
+            });
+            this.eType11.forEach(function (e) {
+                _this.addChild(e);
+            });
+            this.eType12.forEach(function (e) {
+                _this.addChild(e);
+            });
+            this.eliteUnits.forEach(function (e) {
+                e.forEach(function (f) {
+                    _this.addChild(f);
+                });
             });
             this.bulletManager.Bullet.forEach(function (bullet) {
                 _this.addChild(bullet);
@@ -368,6 +414,14 @@ var scenes;
                         managers.Collision.CheckAABB(bullet, e);
                         managers.Collision.CheckAABB(e, _this.player);
                     }
+                });
+                _this.eliteUnits.forEach(function (e) {
+                    e.forEach(function (f) {
+                        if (!f.isInvincible) {
+                            managers.Collision.CheckAABB(bullet, f);
+                            managers.Collision.CheckAABB(f, _this.player);
+                        }
+                    });
                 });
                 if (!_this.eBoss1.isInvincible && !managers.Game.boss1IsDead)
                     managers.Collision.CheckAABB(bullet, _this.eBoss1);

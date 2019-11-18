@@ -13,9 +13,9 @@ module scenes {
         private hudImage: objects.Image;
         private hud:managers.HUD;
 
-        private eType1: objects.Enemy[];
-        private eType2: objects.Enemy[];
-        private eType3: objects.Enemy[];
+        private eType1: objects.Enemy[]
+        private eType2: objects.Enemy[]
+        private eType3: objects.Enemy[]
         private eType5: objects.Enemy[]
         private eType6: objects.Enemy[]
         private eType7: objects.Enemy[]
@@ -24,6 +24,7 @@ module scenes {
         private eType10: objects.Enemy[]
         private eType11: objects.Enemy[]
         private eType12: objects.Enemy[]
+        private eliteUnits: objects.Enemy[][]
         private eBoss1: objects.Enemy;
         private eBoss2: objects.Enemy;
         private eMinion1: objects.Enemy
@@ -86,11 +87,13 @@ module scenes {
             //this.testEnemyBullet.x = this.player.x;
             //this.testEnemyBullet.y = this.player.y - 100;
 
-            managers.Game.player = this.player;
-            managers.Game.timer = 600;
-            managers.Game.boss1Hp = 200;
-            managers.Game.boss2Hp = 300;
-            managers.Game.boss3Hp = 400;
+            managers.Game.player = this.player
+            managers.Game.timer = 600
+            managers.Game.boss1Hp = 1
+            managers.Game.boss2Hp = 300
+            managers.Game.boss3Hp = 400
+            managers.Game.eEliteHp = 25
+            managers.Game.eMinionHp = 10
 
             this.eType1 = new Array<objects.Enemy>();
             this.eType2 = new Array<objects.Enemy>();
@@ -103,6 +106,7 @@ module scenes {
             this.eType10 = new Array<objects.Enemy>();
             this.eType11 = new Array<objects.Enemy>();
             this.eType12 = new Array<objects.Enemy>();
+            this.eliteUnits = []
             this.eBoss1 = new objects.Enemy("Enemy4");
 
             //this.testCoin = new objects.Coins("B_coin", true)
@@ -115,7 +119,6 @@ module scenes {
                         this.eType1[i] = new objects.Enemy("Enemy1");
                         this.eType2[i] = new objects.Enemy("Enemy2");
                         this.eType3[i] = new objects.Enemy("Enemy3");
-                        this.eType6[i] = new objects.Enemy("Enemy6");
                         this.eType7[i] = new objects.Enemy("Enemy7");
                         this.eType8[i] = new objects.Enemy("Enemy8");
                         this.eType9[i] = new objects.Enemy("Enemy9");
@@ -125,6 +128,21 @@ module scenes {
                     }
                     for(let i = 0; i < 1; i++){
                         this.eType5[i] = new objects.Enemy("Enemy5");
+                    }
+                    for(let i = 0; i < 4; i++){
+                        this.eType6[i] = new objects.Enemy("Enemy6");
+                    }
+                    for(let i = 0; i <2; i++){
+                        this.eliteUnits[i] = []
+                        for(let j = 0; j < 3; j++){
+                            this.eliteUnits[i][0] = new objects.Enemy("Enemy6");
+                            this.eliteUnits[i][1] = new objects.Enemy("Enemy5");
+                            this.eliteUnits[i][2] = new objects.Enemy("Enemy6");
+
+                            this.eliteUnits[i][0].x = this.eliteUnits[i][1].x - 25
+                            this.eliteUnits[i][2].x = this.eliteUnits[i][1].x + 25
+
+                        }
                     }
                 break;
                 case 1:
@@ -198,7 +216,7 @@ module scenes {
                 }
             })
 
-            //console.log(managers.Game.timer);
+            console.log(managers.Game.timer);
             this.background.Update();
             this.player.Update();
             if(this.player.IsInvincible){
@@ -213,6 +231,7 @@ module scenes {
             this.CheckCollisions()
             //this.testCoin.FindPlayer(this.player)
             //this.testCoin.Update()
+
             if(managers.Game.level1){
                 if(managers.Game.timer >= 598 && managers.Game.timer <= 600){
                     if(this.player.y > 550)
@@ -229,6 +248,21 @@ module scenes {
                 if(managers.Game.timer <= 591){
                     this.removeChild(this.stageName)
 
+                    /*
+                    this.eliteUnits[0].forEach(e =>{
+                        if(!e.isDead){
+                            e.isInvincible = false;
+                            e.Update();
+                            e.FindPlayer(this.player);
+                            this.missileManager.Missile.forEach( m => {
+                                m.FindEnemies(e)
+                            })
+                        }
+                        if(managers.Game.eEliteHp == 0)
+                            e.DropCoins(10)
+                    })*/
+
+                    /*
                     this.eType5.forEach(e =>{
                         if(!e.isDead){
                             e.isInvincible = false;
@@ -240,10 +274,9 @@ module scenes {
                         }
                         if(managers.Game.eEliteHp == 0)
                             e.DropCoins(10)
-                    })
-                    
+                    })*/
 
-                    /*
+                    
                     this.addChild(this.eBoss1)
                     if(!this.eBoss1.isDead){
                         this.eBoss1.isInvincible = false
@@ -255,7 +288,7 @@ module scenes {
                         })
                     }
         
-                    
+                    /*
                     this.eType1.forEach(e =>{
                         if(!e.isDead){
                             this.SpawnTimer()
@@ -341,7 +374,7 @@ module scenes {
                             m.FindEnemies(this.eBoss1)
                         })
                     }
-                }
+                }*/
                 if(managers.Game.boss1Hp == 0){
                     this.removeChild(this.eBoss1)
                     this.eBoss1.isInvincible = true;
@@ -349,7 +382,7 @@ module scenes {
                     managers.Game.boss1IsDead = true;
                     this.eBoss1.DropCoins(50)
                     this.WaitTimer()
-                }*/
+                }
             }
 
             if(managers.Game.level2){
@@ -381,8 +414,34 @@ module scenes {
                 this.addChild(e)
             })
             
-            this.eType5.forEach(e =>{
+            this.eType7.forEach(e =>{
                 this.addChild(e)
+            })
+
+            this.eType8.forEach(e =>{
+                this.addChild(e)
+            })
+            
+            this.eType9.forEach(e =>{
+               this.addChild(e)
+            })
+
+            this.eType10.forEach(e =>{
+                this.addChild(e)
+            })
+
+            this.eType11.forEach(e =>{
+                this.addChild(e)
+            })
+            
+            this.eType12.forEach(e =>{
+               this.addChild(e)
+            })
+
+            this.eliteUnits.forEach( e =>{
+                e.forEach(f =>{
+                    this.addChild(f)
+                })
             })
 
             this.bulletManager.Bullet.forEach(bullet =>{
@@ -434,6 +493,16 @@ module scenes {
                         managers.Collision.CheckAABB(bullet, e)
                         managers.Collision.CheckAABB(e, this.player)
                     }
+                })
+
+                
+                this.eliteUnits.forEach(e => {
+                    e.forEach(f =>{
+                        if(!f.isInvincible){
+                            managers.Collision.CheckAABB(bullet, f)
+                            managers.Collision.CheckAABB(f, this.player)
+                        }
+                    })
                 })
 
 

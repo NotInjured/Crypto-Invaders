@@ -230,7 +230,7 @@ var objects;
         Player.prototype.ShootMissiles = function () {
             if (!this.isDead) {
                 var ticker = createjs.Ticker.getTicks();
-                if (managers.Game.keyboardManager.shoot && ticker % 20 == 0) {
+                if (managers.Game.keyboardManager.shoot && ticker % 100 == 0) {
                     if (this.shootnum < 1) {
                         for (var i = 0; i < 2; i++) {
                             var position = new math.Vec2(this.x - 15, this.y - 10);
