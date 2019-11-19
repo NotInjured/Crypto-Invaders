@@ -23,9 +23,11 @@ module managers {
                         case "Enemy2":
                         case "Enemy3":
                         case "Enemy7":
+                        case "Enemy8":
                         case "Enemy9":
                         case "Enemy10":
                         case "Enemy11":
+                        case "Enemy12":
                             if((object1.x + object1.halfW) > ((object2.x - 10) - object2.halfW) &&
                                 (object1.x - object1.halfW) < ((object2.x - 10) + object2.halfW) &&
                                 (object1.y + object1.halfH) > ((object2.y - 10) - object2.halfH) &&
@@ -116,9 +118,6 @@ module managers {
                                 }
                         break;
                         case "Enemy4":
-                        case "Enemy8":
-                        case "Enemy12":
-                        case "Enemy13":
                             if((object1.x + object1.halfW) > ((object2.x - 10) - object2.halfW) &&
                                 (object1.x - object1.halfW) < ((object2.x - 10) + object2.halfW) &&
                                 (object1.y + object1.halfH) > ((object2.y - 5) - object2.halfH) &&

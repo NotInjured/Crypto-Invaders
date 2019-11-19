@@ -89,10 +89,14 @@ var objects;
         Enemy.prototype.Start = function () {
             switch (this.sprite) {
                 case "Enemy1":
+                case "Enemy7":
+                case "Enemy10":
                     this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
                     this.y = Math.floor(Math.random() * (-75 - (-15) + 1) + (-15));
                     break;
                 case "Enemy2":
+                case "Enemy8":
+                case "Enemy11":
                     this.randomNum = Math.floor(Math.random() * (2 - 1 + 1) + 1);
                     switch (this.randomNum) {
                         case 1:
@@ -108,6 +112,8 @@ var objects;
                     }
                     break;
                 case "Enemy3":
+                case "Enemy9":
+                case "Enemy12":
                     this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
                     this.y = Math.floor(Math.random() * (-30 - (-15) + 1) + (-15));
                     break;
@@ -129,24 +135,6 @@ var objects;
                     break;
                 case "Enemy6":
                     break;
-                case "Enemy7":
-                    break;
-                case "Enemy8":
-                    break;
-                case "Enemy9":
-                    break;
-                case "Enemy10":
-                    break;
-                case "Enemy11":
-                    break;
-                case "Enemy12":
-                    break;
-                case "Enemy":
-                    break;
-                case "Enemy":
-                    break;
-                case "Enemy":
-                    break;
             }
         };
         Enemy.prototype.Update = function () {
@@ -167,10 +155,14 @@ var objects;
             this.isInvincible = true;
             switch (this.sprite) {
                 case "Enemy1":
+                case "Enemy7":
+                case "Enemy10":
                     this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
                     this.y = Math.floor(Math.random() * (-500 - (-350) + 1) + (-350));
                     break;
                 case "Enemy2":
+                case "Enemy8":
+                case "Enemy11":
                     this.randomNum = Math.floor(Math.random() * (2 - 1 + 1) + 1);
                     switch (this.randomNum) {
                         case 1:
@@ -186,6 +178,8 @@ var objects;
                     }
                     break;
                 case "Enemy3":
+                case "Enemy9":
+                case "Enemy12":
                     this.x = Math.floor(Math.random() * (710 - 380 + 1) + 380);
                     this.y = Math.floor(Math.random() * (-400 - (-350) + 1) + (-350));
                     break;
@@ -202,6 +196,8 @@ var objects;
         Enemy.prototype.Move = function () {
             switch (this.sprite) {
                 case "Enemy1":
+                case "Enemy7":
+                case "Enemy10":
                     if (this.y >= 300 && !this.back) {
                         this.ShootPattern(1);
                         this.shoot = false;
@@ -223,6 +219,8 @@ var objects;
                         this.isInvincible = false;
                     break;
                 case "Enemy2":
+                case "Enemy8":
+                case "Enemy11":
                     switch (this.randomNum) {
                         case 1:
                             if (this.x < 1000 && !this.back) {
@@ -265,6 +263,8 @@ var objects;
                     }
                     break;
                 case "Enemy3":
+                case "Enemy9":
+                case "Enemy12":
                     if (this.y < 730) {
                         this.y += 3;
                         if (this.y > 350 && this.y < 400)

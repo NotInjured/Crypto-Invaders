@@ -30,15 +30,11 @@ var objects;
             if (managers.Game.level2)
                 this.y = -14200;
             this.x = 297;
-            // -8250 > -1 - Level 1
         };
         // Updated 60 times per second (60FPS)
         Background.prototype.Update = function () {
             this.Move();
             this.CheckBound();
-            //if(managers.Game.level2){
-            //    this.speedY = 1;
-            //}
         };
         // Resets the position of the object
         Background.prototype.Reset = function () {
@@ -51,8 +47,10 @@ var objects;
                     this.speedY = 0;
             }
             if (managers.Game.level2) {
-                this.speedY = 1;
+                this.speedY = 1.5;
                 this.y += this.speedY;
+                if (this.y < -14200)
+                    this.y = -14200;
                 if (this.y > -1)
                     this.speedY = 0;
             }

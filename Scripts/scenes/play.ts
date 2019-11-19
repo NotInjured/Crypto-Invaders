@@ -13,17 +13,9 @@ module scenes {
         private hudImage: objects.Image;
         private hud:managers.HUD;
 
-        private eType1: objects.Enemy[]
-        private eType2: objects.Enemy[]
-        private eType3: objects.Enemy[]
-        private eType5: objects.Enemy[]
-        private eType6: objects.Enemy[]
-        private eType7: objects.Enemy[]
-        private eType8: objects.Enemy[]
-        private eType9: objects.Enemy[]
-        private eType10: objects.Enemy[]
-        private eType11: objects.Enemy[]
-        private eType12: objects.Enemy[]
+        private level1Enemies: objects.Enemy[][]
+        private level2Enemies: objects.Enemy[][]
+        private level3Enemies: objects.Enemy[][]
         private eliteUnits: objects.Enemy[][]
         private eBoss1: objects.Enemy;
         private eBoss2: objects.Enemy;
@@ -94,19 +86,11 @@ module scenes {
             managers.Game.boss3Hp = 400
             managers.Game.eEliteHp = 25
             managers.Game.eMinionHp = 10
-
-            this.eType1 = new Array<objects.Enemy>();
-            this.eType2 = new Array<objects.Enemy>();
-            this.eType3 = new Array<objects.Enemy>();
-            this.eType5 = new Array<objects.Enemy>();
-            this.eType6 = new Array<objects.Enemy>();
-            this.eType7 = new Array<objects.Enemy>();
-            this.eType8 = new Array<objects.Enemy>();
-            this.eType9 = new Array<objects.Enemy>();
-            this.eType10 = new Array<objects.Enemy>();
-            this.eType11 = new Array<objects.Enemy>();
-            this.eType12 = new Array<objects.Enemy>();
+            
             this.eliteUnits = []
+            this.level1Enemies = []
+            this.level2Enemies = []
+            this.level3Enemies = []
             this.eBoss1 = new objects.Enemy("Enemy4");
 
             //this.testCoin = new objects.Coins("B_coin", true)
@@ -115,23 +99,31 @@ module scenes {
 
             switch(managers.Game.difficulty){
                 case 0:
-                    for(let i = 0; i < 2; i++){
-                        this.eType1[i] = new objects.Enemy("Enemy1");
-                        this.eType2[i] = new objects.Enemy("Enemy2");
-                        this.eType3[i] = new objects.Enemy("Enemy3");
-                        this.eType7[i] = new objects.Enemy("Enemy7");
-                        this.eType8[i] = new objects.Enemy("Enemy8");
-                        this.eType9[i] = new objects.Enemy("Enemy9");
-                        this.eType10[i] = new objects.Enemy("Enemy10");
-                        this.eType11[i] = new objects.Enemy("Enemy11");
-                        this.eType12[i] = new objects.Enemy("Enemy12");
+                    for(let i = 0; i < 3; i++){
+                        this.level1Enemies[i] = []
+                        this.level2Enemies[i] = []
+                        this.level3Enemies[i] = []
+                        for(let j = 0; j < 2; j++){
+                            if(i == 0){
+                                this.level1Enemies[0][j] = new objects.Enemy("Enemy1")
+                                this.level2Enemies[0][j] = new objects.Enemy("Enemy7")
+                                this.level3Enemies[0][j] = new objects.Enemy("Enemy10")
+                            }
+                            if(i == 1){
+                                this.level1Enemies[1][j] = new objects.Enemy("Enemy2")
+                                this.level2Enemies[1][j] = new objects.Enemy("Enemy8")
+                                this.level3Enemies[1][j] = new objects.Enemy("Enemy11")
+
+                            }
+                            if(i == 2){
+                                this.level1Enemies[2][j] = new objects.Enemy("Enemy3")
+                                this.level2Enemies[2][j] = new objects.Enemy("Enemy9")
+                                this.level3Enemies[2][j] = new objects.Enemy("Enemy12")
+
+                            }
+                        }
                     }
-                    for(let i = 0; i < 1; i++){
-                        this.eType5[i] = new objects.Enemy("Enemy5");
-                    }
-                    for(let i = 0; i < 4; i++){
-                        this.eType6[i] = new objects.Enemy("Enemy6");
-                    }
+
                     for(let i = 0; i <2; i++){
                         this.eliteUnits[i] = []
                         for(let j = 0; j < 3; j++){
@@ -147,32 +139,80 @@ module scenes {
                 break;
                 case 1:
                     for(let i = 0; i < 3; i++){
-                        this.eType1[i] = new objects.Enemy("Enemy1");
-                        this.eType2[i] = new objects.Enemy("Enemy2");
-                        this.eType3[i] = new objects.Enemy("Enemy3");
-                        this.eType5[i] = new objects.Enemy("Enemy5");
-                        this.eType6[i] = new objects.Enemy("Enemy6");
-                        this.eType7[i] = new objects.Enemy("Enemy7");
-                        this.eType8[i] = new objects.Enemy("Enemy8");
-                        this.eType9[i] = new objects.Enemy("Enemy9");
-                        this.eType10[i] = new objects.Enemy("Enemy10");
-                        this.eType11[i] = new objects.Enemy("Enemy11");
-                        this.eType12[i] = new objects.Enemy("Enemy12");
+                        this.level1Enemies[i] = []
+                        this.level2Enemies[i] = []
+                        this.level3Enemies[i] = []
+                        for(let j = 0; j < 2; j++){
+                            if(i == 0){
+                                this.level1Enemies[0][j] = new objects.Enemy("Enemy1")
+                                this.level2Enemies[0][j] = new objects.Enemy("Enemy7")
+                                this.level3Enemies[0][j] = new objects.Enemy("Enemy10")
+                            }
+                            if(i == 1){
+                                this.level1Enemies[1][j] = new objects.Enemy("Enemy2")
+                                this.level2Enemies[1][j] = new objects.Enemy("Enemy8")
+                                this.level3Enemies[1][j] = new objects.Enemy("Enemy11")
+
+                            }
+                            if(i == 2){
+                                this.level1Enemies[2][j] = new objects.Enemy("Enemy3")
+                                this.level2Enemies[2][j] = new objects.Enemy("Enemy9")
+                                this.level3Enemies[2][j] = new objects.Enemy("Enemy12")
+
+                            }
+                        }
+                    }
+
+                    for(let i = 0; i <2; i++){
+                        this.eliteUnits[i] = []
+                        for(let j = 0; j < 3; j++){
+                            this.eliteUnits[i][0] = new objects.Enemy("Enemy6");
+                            this.eliteUnits[i][1] = new objects.Enemy("Enemy5");
+                            this.eliteUnits[i][2] = new objects.Enemy("Enemy6");
+
+                            this.eliteUnits[i][0].x = this.eliteUnits[i][1].x - 25
+                            this.eliteUnits[i][2].x = this.eliteUnits[i][1].x + 25
+
+                        }
                     }
                 break;
                 case 2:
-                    for(let i = 0; i < 5; i++){
-                        this.eType1[i] = new objects.Enemy("Enemy1");
-                        this.eType2[i] = new objects.Enemy("Enemy2");
-                        this.eType3[i] = new objects.Enemy("Enemy3");
-                        this.eType5[i] = new objects.Enemy("Enemy5");
-                        this.eType6[i] = new objects.Enemy("Enemy6");
-                        this.eType7[i] = new objects.Enemy("Enemy7");
-                        this.eType8[i] = new objects.Enemy("Enemy8");
-                        this.eType9[i] = new objects.Enemy("Enemy9");
-                        this.eType10[i] = new objects.Enemy("Enemy10");
-                        this.eType11[i] = new objects.Enemy("Enemy11");
-                        this.eType12[i] = new objects.Enemy("Enemy12");
+                    for(let i = 0; i < 3; i++){
+                        this.level1Enemies[i] = []
+                        this.level2Enemies[i] = []
+                        this.level3Enemies[i] = []
+                        for(let j = 0; j < 2; j++){
+                            if(i == 0){
+                                this.level1Enemies[0][j] = new objects.Enemy("Enemy1")
+                                this.level2Enemies[0][j] = new objects.Enemy("Enemy7")
+                                this.level3Enemies[0][j] = new objects.Enemy("Enemy10")
+                            }
+                            if(i == 1){
+                                this.level1Enemies[1][j] = new objects.Enemy("Enemy2")
+                                this.level2Enemies[1][j] = new objects.Enemy("Enemy8")
+                                this.level3Enemies[1][j] = new objects.Enemy("Enemy11")
+
+                            }
+                            if(i == 2){
+                                this.level1Enemies[2][j] = new objects.Enemy("Enemy3")
+                                this.level2Enemies[2][j] = new objects.Enemy("Enemy9")
+                                this.level3Enemies[2][j] = new objects.Enemy("Enemy12")
+
+                            }
+                        }
+                    }
+
+                    for(let i = 0; i <2; i++){
+                        this.eliteUnits[i] = []
+                        for(let j = 0; j < 3; j++){
+                            this.eliteUnits[i][0] = new objects.Enemy("Enemy6");
+                            this.eliteUnits[i][1] = new objects.Enemy("Enemy5");
+                            this.eliteUnits[i][2] = new objects.Enemy("Enemy6");
+
+                            this.eliteUnits[i][0].x = this.eliteUnits[i][1].x - 25
+                            this.eliteUnits[i][2].x = this.eliteUnits[i][1].x + 25
+
+                        }
                     }
                 break;
             }
@@ -247,9 +287,8 @@ module scenes {
                 //if(managers.Game.timer >= 481 && managers.Game.timer <= 591){
                 if(managers.Game.timer <= 591){
                     this.removeChild(this.stageName)
-
                     /*
-                    this.eliteUnits[0].forEach(e =>{
+                    this.level1Enemies[0].forEach(e =>{
                         if(!e.isDead){
                             e.isInvincible = false;
                             e.Update();
@@ -258,12 +297,9 @@ module scenes {
                                 m.FindEnemies(e)
                             })
                         }
-                        if(managers.Game.eEliteHp == 0)
-                            e.DropCoins(10)
-                    })*/
-
-                    /*
-                    this.eType5.forEach(e =>{
+                    })
+                    
+                    this.eliteUnits[0].forEach(e =>{
                         if(!e.isDead){
                             e.isInvincible = false;
                             e.Update();
@@ -287,43 +323,9 @@ module scenes {
                             m.FindEnemies(this.eBoss1)
                         })
                     }
-        
-                    /*
-                    this.eType1.forEach(e =>{
-                        if(!e.isDead){
-                            this.SpawnTimer()
-                            e.Update();
-                            e.FindPlayer(this.player);
-                            this.missileManager.Missile.forEach( m => {
-                                m.FindEnemies(e)
-                            })
-                        }
-                    })
-                    
-                    this.eType2.forEach(e =>{
-                        if(!e.isDead){
-                            e.isInvincible = false;
-                            e.Update();
-                            e.FindPlayer(this.player);
-                            this.missileManager.Missile.forEach( m => {
-                                m.FindEnemies(e)
-                            })
-                        }
-                    })
-    
-                    this.eType3.forEach(e =>{
-                        if(!e.isDead){
-                            e.isInvincible = false;
-                            e.Update();
-                            e.FindPlayer(this.player);
-                            this.missileManager.Missile.forEach( m => {
-                                m.FindEnemies(e)
-                            })
-                        }
-                    })*/
                 }/*
                 if(managers.Game.timer >= 481 && managers.Game.timer <= 581){
-                    this.eType2.forEach(e =>{
+                    this.level1Enemies[1].forEach(e =>{
                         if(!e.isDead){
                             e.isInvincible = false;
                             e.Update();
@@ -333,9 +335,23 @@ module scenes {
                             })
                         }
                     })
+
                 }
                 if(managers.Game.timer >= 481 && managers.Game.timer <= 576){
-                    this.eType3.forEach(e =>{
+                    this.eliteUnits[0].forEach(e =>{
+                        if(!e.isDead){
+                            e.isInvincible = false;
+                            e.Update();
+                            e.FindPlayer(this.player);
+                            this.missileManager.Missile.forEach( m => {
+                                m.FindEnemies(e)
+                            })
+                        }
+                        if(managers.Game.eEliteHp == 0)
+                            e.DropCoins(10)
+                    })
+
+                    this.level1Enemies[2].forEach(e =>{
                         if(!e.isDead){
                             e.isInvincible = false;
                             e.Update();
@@ -346,14 +362,15 @@ module scenes {
                         }
                     })
                 }
+
                 if(managers.Game.timer < 481){
-                    this.eType1.forEach(e =>{
+                    this.level1Enemies[0].forEach(e =>{
                         e.y -= 10;
                     })
-                    this.eType2.forEach(e =>{
+                    this.level1Enemies[1].forEach(e =>{
                         e.x += 10;
                     })
-                    this.eType3.forEach(e =>{
+                    this.level1Enemies[2].forEach(e =>{
                         e.y += 10;
                     })
                 }
@@ -380,13 +397,65 @@ module scenes {
                     this.eBoss1.isInvincible = true;
                     this.eBoss1.isDead = true;
                     managers.Game.boss1IsDead = true;
+                    managers.Game.hud.Lives + 1
                     this.eBoss1.DropCoins(50)
                     this.WaitTimer()
                 }
             }
 
             if(managers.Game.level2){
-                
+                if(managers.Game.timer == 600){
+                    createjs.Sound.stop();
+                    this.bgm = createjs.Sound.play("bgm2");
+                    this.bgm.loop = -1;
+                    this.bgm.volume = 0.05;
+                }
+
+                if(managers.Game.timer > 595 && managers.Game.timer <= 599){
+                    this.stageName.text = "Stage 2: HQ"
+                    this.stageName.x = 575
+                    this.addChild(this.stageName)
+                }
+
+                if(managers.Game.timer < 595){
+                    this.removeChild(this.stageName)
+                    
+                    this.level2Enemies[2].forEach(e =>{
+                        if(!e.isDead){
+                            e.isInvincible = false;
+                            e.Update();
+                            e.FindPlayer(this.player);
+                            this.missileManager.Missile.forEach( m => {
+                                m.FindEnemies(e)
+                            })
+                        }
+                    })
+                }
+
+                if(managers.Game.timer < 590){
+                    this.level2Enemies[1].forEach(e =>{
+                        if(!e.isDead){
+                            e.isInvincible = false;
+                            e.Update();
+                            e.FindPlayer(this.player);
+                            this.missileManager.Missile.forEach( m => {
+                                m.FindEnemies(e)
+                            })
+                        }
+                    })
+                }
+                if(managers.Game.timer < 585){
+                    this.level2Enemies[0].forEach(e =>{
+                        if(!e.isDead){
+                            e.isInvincible = false;
+                            e.Update();
+                            e.FindPlayer(this.player);
+                            this.missileManager.Missile.forEach( m => {
+                                m.FindEnemies(e)
+                            })
+                        }
+                    })
+                }
             }
 
             if(managers.Game.hud.Lives < 0){
@@ -401,41 +470,23 @@ module scenes {
             this.addChild(this.aircraft)
             
             this.GameTimer()
-            
-            this.eType1.forEach(e =>{
-                this.addChild(e)
+
+            this.level1Enemies.forEach(e =>{
+                e.forEach(f =>{
+                    this.addChild(f)
+                })
             })
 
-            this.eType2.forEach(e =>{
-                this.addChild(e)
+            this.level2Enemies.forEach(e =>{
+                e.forEach(f =>{
+                    this.addChild(f)
+                })
             })
 
-            this.eType3.forEach(e =>{
-                this.addChild(e)
-            })
-            
-            this.eType7.forEach(e =>{
-                this.addChild(e)
-            })
-
-            this.eType8.forEach(e =>{
-                this.addChild(e)
-            })
-            
-            this.eType9.forEach(e =>{
-               this.addChild(e)
-            })
-
-            this.eType10.forEach(e =>{
-                this.addChild(e)
-            })
-
-            this.eType11.forEach(e =>{
-                this.addChild(e)
-            })
-            
-            this.eType12.forEach(e =>{
-               this.addChild(e)
+            this.level3Enemies.forEach(e =>{
+                e.forEach(f =>{
+                    this.addChild(f)
+                })
             })
 
             this.eliteUnits.forEach( e =>{
@@ -470,64 +521,72 @@ module scenes {
 
         public CheckCollisions():void{
             this.bulletManager.Bullet.forEach(bullet =>{
-                this.eType1.forEach(e =>{
-                    if(!e.isInvincible){
-                        managers.Collision.CheckAABB(bullet, e)
-                        managers.Collision.CheckAABB(e, this.player)
-                    }
-                })
-                this.eType2.forEach(e =>{
-                    if(!e.isInvincible){
-                        managers.Collision.CheckAABB(bullet, e)
-                        managers.Collision.CheckAABB(e, this.player)
-                    }
-                })
-                this.eType3.forEach(e =>{
-                    if(!e.isInvincible){
-                        managers.Collision.CheckAABB(bullet, e)
-                        managers.Collision.CheckAABB(e, this.player)
-                    }
-                })
-                this.eType5.forEach(e =>{
-                    if(!e.isInvincible){
-                        managers.Collision.CheckAABB(bullet, e)
-                        managers.Collision.CheckAABB(e, this.player)
-                    }
-                })
-
-                
-                this.eliteUnits.forEach(e => {
+                this.level1Enemies.forEach(e =>{
                     e.forEach(f =>{
-                        if(!f.isInvincible){
+                        if(!f.isInvincible && f.y > -5){
                             managers.Collision.CheckAABB(bullet, f)
                             managers.Collision.CheckAABB(f, this.player)
                         }
                     })
                 })
 
+                this.level2Enemies.forEach(e =>{
+                    e.forEach(f =>{
+                        if(!f.isInvincible && f.y > -5){
+                            managers.Collision.CheckAABB(bullet, f)
+                            managers.Collision.CheckAABB(f, this.player)
+                        }
+                    })
+                })
+
+                this.level3Enemies.forEach(e =>{
+                    e.forEach(f =>{
+                        if(!f.isInvincible && f.y > -5){
+                            managers.Collision.CheckAABB(bullet, f)
+                            managers.Collision.CheckAABB(f, this.player)
+                        }
+                    })
+                })
+                
+                this.eliteUnits.forEach(e => {
+                    e.forEach(f =>{
+                        if(!f.isInvincible && f.y > -5){
+                            managers.Collision.CheckAABB(bullet, f)
+                            managers.Collision.CheckAABB(f, this.player)
+                        }
+                    })
+                })
 
                 if(!this.eBoss1.isInvincible && !managers.Game.boss1IsDead)
                     managers.Collision.CheckAABB(bullet, this.eBoss1)
             })
 
             this.missileManager.Missile.forEach(m =>{
-                this.eType1.forEach(e =>{
-                    if(!e.isInvincible)
-                        managers.Collision.CheckAABB(m, e)
+                this.level1Enemies.forEach(e =>{
+                    e.forEach(f =>{
+                        if(!f.isInvincible){
+                            managers.Collision.CheckAABB(m, f)
+                        }
+                    })
                 })
-                this.eType2.forEach(e =>{
-                    if(!e.isInvincible)
-                        managers.Collision.CheckAABB(m, e)
+
+                this.level2Enemies.forEach(e =>{
+                    e.forEach(f =>{
+                        if(!f.isInvincible){
+                            managers.Collision.CheckAABB(m, f)
+                        }
+                    })
                 })
-                this.eType3.forEach(e =>{
-                    if(!e.isInvincible)
-                        managers.Collision.CheckAABB(m, e)
+
+                this.level3Enemies.forEach(e =>{
+                    e.forEach(f =>{
+                        if(!f.isInvincible){
+                            managers.Collision.CheckAABB(m, f)
+                        }
+                    })
                 })
-                this.eType5.forEach(e =>{
-                    if(!e.isInvincible){
-                        managers.Collision.CheckAABB(m, e)
-                    }
-                })
+
+
                 if(!this.eBoss1.isInvincible && !managers.Game.boss1IsDead)
                     managers.Collision.CheckAABB(m, this.eBoss1)
             })
