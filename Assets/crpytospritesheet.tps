@@ -457,6 +457,36 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">Cruiser.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>99,37,199,75</rect>
+                <key>scale9Paddings</key>
+                <rect>99,37,199,75</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">Destroyer.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>120,87,239,174</rect>
+                <key>scale9Paddings</key>
+                <rect>120,87,239,174</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">Enemy1.png</key>
             <key type="filename">Enemy11.png</key>
             <key type="filename">Enemy2.png</key>
@@ -537,6 +567,36 @@
                 <rect>8,8,16,15</rect>
                 <key>scale9Paddings</key>
                 <rect>8,8,16,15</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">F5S2.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>41,54,81,108</rect>
+                <key>scale9Paddings</key>
+                <rect>41,54,81,108</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">F5S4.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>43,73,87,145</rect>
+                <key>scale9Paddings</key>
+                <rect>43,73,87,145</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -1110,6 +1170,10 @@
             <filename>Buff_17.png</filename>
             <filename>Buff_18.png</filename>
             <filename>Buff_19.png</filename>
+            <filename>Cruiser.png</filename>
+            <filename>Destroyer.png</filename>
+            <filename>F5S2.png</filename>
+            <filename>F5S4.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

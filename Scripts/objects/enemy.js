@@ -133,7 +133,12 @@ var objects;
                     this.x = Math.floor(Math.random() * (690 - 400 + 1) + 400);
                     this.y = Math.floor(Math.random() * (-30 - (-15) + 1) + (-15));
                     break;
-                case "Enemy6":
+                case "Destroyer":
+                    this.rotation = 90;
+                    this.scaleX = 0.3;
+                    this.scaleY = 0.3;
+                    this.x = 490;
+                    this.y = -50;
                     break;
             }
         };
@@ -659,7 +664,13 @@ var objects;
                     if (this.y > 50)
                         this.ShootPattern(1);
                     break;
-                case "Enemy7":
+                case "Destroyer":
+                    if (this.y < 200 && !this.startPos) {
+                        this.y += 2;
+                        if (this.y > 190) {
+                            this.startPos = true;
+                        }
+                    }
                     break;
             }
         };

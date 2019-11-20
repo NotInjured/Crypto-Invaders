@@ -64,7 +64,7 @@ module managers {
                                     object2.Reset();
                                 }
                         break;
-                        case "Enemy6":
+                        case "Enemy4":
                             if((object1.x + object1.halfW) > ((object2.x - 10) - object2.halfW) &&
                                 (object1.x - object1.halfW) < ((object2.x - 10) + object2.halfW) &&
                                 (object1.y + object1.halfH) > ((object2.y - 5) - object2.halfH) &&
@@ -75,21 +75,19 @@ module managers {
                                     effect.scaleY *= 2;
                                     
                                     managers.Game.currentSceneObject.addChild(effect);
-                                    managers.Game.eMinionHp--
-                                    console.log(managers.Game.eMinionHp)
+                                    managers.Game.boss1Hp -= 1;
                                     hit = createjs.Sound.play("hit");
                                     hit.volume = 0.2;
                                     object1.Reset()
-                                    if(managers.Game.eMinionHp == 0 || (managers.Game.eMinionHp < 0 && Math.abs(managers.Game.eMinionHp) % 10 == 0)){
+                                    //console.log(managers.Game.boss1Hp)
+                                    if(managers.Game.boss1Hp == 0){
                                         explosion = new objects.Effect("Explosion", object2.x + 65, object2.y +65);
                                         managers.Game.currentSceneObject.addChild(explosion)
-                                        object2.Reset()
                                         managers.Game.currentSceneObject.removeChild(object2)
-                                        managers.Game.hud.ScoreMult += 5;
-                                        managers.Game.hud.Score += Math.round(1250 * Math.pow(1.01, managers.Game.hud.ScoreMult));
+                                        managers.Game.hud.ScoreMult += 100;
+                                        managers.Game.hud.Score += Math.round(10000 * Math.pow(1.01, managers.Game.hud.ScoreMult));
                                     }
                                 }
-
                         break;
                         case "Enemy5":
                             if((object1.x + object1.halfW) > ((object2.x - 10) - object2.halfW) &&
@@ -117,7 +115,7 @@ module managers {
                                     }
                                 }
                         break;
-                        case "Enemy4":
+                        case "Enemy6":
                             if((object1.x + object1.halfW) > ((object2.x - 10) - object2.halfW) &&
                                 (object1.x - object1.halfW) < ((object2.x - 10) + object2.halfW) &&
                                 (object1.y + object1.halfH) > ((object2.y - 5) - object2.halfH) &&
@@ -128,18 +126,36 @@ module managers {
                                     effect.scaleY *= 2;
                                     
                                     managers.Game.currentSceneObject.addChild(effect);
-                                    managers.Game.boss1Hp -= 1;
+                                    managers.Game.eMinionHp--
+                                    console.log(managers.Game.eMinionHp)
                                     hit = createjs.Sound.play("hit");
                                     hit.volume = 0.2;
                                     object1.Reset()
-                                    //console.log(managers.Game.boss1Hp)
-                                    if(managers.Game.boss1Hp == 0){
+                                    if(managers.Game.eMinionHp == 0 || (managers.Game.eMinionHp < 0 && Math.abs(managers.Game.eMinionHp) % 10 == 0)){
                                         explosion = new objects.Effect("Explosion", object2.x + 65, object2.y +65);
                                         managers.Game.currentSceneObject.addChild(explosion)
+                                        object2.Reset()
                                         managers.Game.currentSceneObject.removeChild(object2)
-                                        managers.Game.hud.ScoreMult += 100;
-                                        managers.Game.hud.Score += Math.round(10000 * Math.pow(1.01, managers.Game.hud.ScoreMult));
+                                        managers.Game.hud.ScoreMult += 5;
+                                        managers.Game.hud.Score += Math.round(1250 * Math.pow(1.01, managers.Game.hud.ScoreMult));
                                     }
+                                }
+
+                        break;
+                        case "Destroyer":
+                            if((object1.x + object1.halfW) > ((object2.x + 50) - object2.halfW/6) &&
+                                (object1.x - object1.halfW) < ((object2.x + 50) + object2.halfW/6) &&
+                                (object1.y + object1.halfH) > ((object2.y - 70) - object2.halfH/4) &&
+                                (object1.y - object1.halfH) < ((object2.y - 70) + object2.halfH/4)){
+                                    effect = new objects.Effect("Laser_Hit", object1.x + 10, object1.y - object1.halfH);
+                                    effect.scaleX *= 2;
+                                    effect.scaleY *= 2;
+                                    
+                                    managers.Game.currentSceneObject.addChild(effect);
+                                    hit = createjs.Sound.play("hit");
+                                    hit.volume = 0.2;
+                                    object1.Reset()
+                                    console.log("Destroyer hit..")
                                 }
                         break;
                         case "Ship1":
