@@ -100,6 +100,14 @@ var managers;
                         object1.Reset();
                         console.log(managers.Game.eEliteHp);
                         if (managers.Game.eEliteHp == 0 || (managers.Game.eEliteHp < 0 && Math.abs(managers.Game.eEliteHp) % 25 == 0)) {
+                            var coin_1 = managers.Game.coinsManager.GetCoin();
+                            coin_1.IsDropped = true;
+                            coin_1.EnemyDropped = true;
+                            coin_1.x = object2.x;
+                            coin_1.y = object2.y;
+                            coin_1.scaleX = 0.75;
+                            coin_1.scaleY = 0.75;
+                            managers.Game.currentSceneObject.addChild(coin_1);
                             explosion = new objects.Effect("Explosion", object2.x + 65, object2.y + 65);
                             managers.Game.currentSceneObject.addChild(explosion);
                             object2.Reset();
@@ -189,6 +197,15 @@ var managers;
                         (object1.x - object1.halfW) < ((object2.x - 10) + object2.halfW / 4) &&
                         (object1.y + object1.halfH) > ((object2.y - 10) - object2.halfH / 4) &&
                         (object1.y - object1.halfH) < ((object2.y - 10) + object2.halfH / 4)) {
+                        if (object2.scaleX == 0.75 && object2.scaleY == 0.75) {
+                            var buff = new objects.Effect("Buff", object1.x + 2, object1.y - 40);
+                            buff.scaleX = 0.5;
+                            buff.scaleY = 0.7;
+                            managers.Game.currentSceneObject.addChild(buff);
+                            managers.Game.hud.Score += Math.round(2500 * Math.pow(1.01, managers.Game.hud.ScoreMult));
+                            managers.Game.hasMissiles = true;
+                            managers.Game.currentSceneObject.removeChild(object2);
+                        }
                         managers.Game.hud.Score += Math.round(100 * Math.pow(1.01, managers.Game.hud.ScoreMult));
                         object2.Reset();
                     }

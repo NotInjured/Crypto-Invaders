@@ -14,6 +14,7 @@ module managers {        // Access to globally-required items
         public static coinsManager: managers.Coins;
         public static currentSceneObject: objects.Scene;
         public static player:objects.Player;
+        public static hasMissiles: boolean = false
         public static eType2:objects.Enemy;
         public static pause:boolean = false;
         public static over:boolean = false;

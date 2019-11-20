@@ -3,6 +3,7 @@ var managers;
     var Game = /** @class */ (function () {
         function Game() {
         }
+        Game.hasMissiles = false;
         Game.pause = false;
         Game.over = false;
         Game.normal = true;

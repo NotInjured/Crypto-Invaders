@@ -289,13 +289,26 @@ module scenes {
                 //if(managers.Game.timer >= 481 && managers.Game.timer <= 591){
                 if(managers.Game.timer <= 591){
                     this.removeChild(this.stageName)
-                    this.addChild(this.eBoss2)
+
+                    this.eliteUnits[0].forEach(e =>{
+                        if(!e.isDead){
+                            e.isInvincible = false;
+                            e.Update();
+                            e.FindPlayer(this.player);
+                            
+                            this.missileManager.Missile.forEach( m => {
+                                m.FindEnemies(e)
+                            })
+                        }
+                    })
+                    /*
                     if(!this.eBoss2.isDead){
                         this.eBoss2.isInvincible = false
+                        this.eBoss2.FindPlayer(this.player)
                         this.eBoss2.Update()
                     }
                         
-                    /*
+                    
                     this.level1Enemies[0].forEach(e =>{
                         if(!e.isDead){
                             e.isInvincible = false;
@@ -306,23 +319,7 @@ module scenes {
                             })
                         }
                     })
-
                     
-                    this.eliteUnits[0].forEach(e =>{
-                        if(!e.isDead){
-                            e.isInvincible = false;
-                            e.Update();
-                            e.FindPlayer(this.player);
-                            this.missileManager.Missile.forEach( m => {
-                                m.FindEnemies(e)
-                            })
-                        }
-                        if(managers.Game.eEliteHp == 0)
-                            e.DropCoins(10)
-                    })
-
-                    
-                    this.addChild(this.eBoss1)
                     if(!this.eBoss1.isDead){
                         this.eBoss1.isInvincible = false
                         this.eBoss1.FindPlayer(this.player)
@@ -544,6 +541,9 @@ module scenes {
                     this.addChild(f)
                 })
             })
+            
+            this.addChild(this.eBoss1)
+            this.addChild(this.eBoss2)
 
             this.bulletManager.Bullet.forEach(bullet =>{
                 this.addChild(bullet)
@@ -634,6 +634,14 @@ module scenes {
                 })
 
                 this.level3Enemies.forEach(e =>{
+                    e.forEach(f =>{
+                        if(!f.isInvincible){
+                            managers.Collision.CheckAABB(m, f)
+                        }
+                    })
+                })
+
+                this.eliteUnits.forEach(e =>{
                     e.forEach(f =>{
                         if(!f.isInvincible){
                             managers.Collision.CheckAABB(m, f)

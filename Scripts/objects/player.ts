@@ -4,7 +4,6 @@ module objects {
         public isDead:boolean = false;
         public swapped:boolean;
         private isInvincible:boolean = false;
-        private hasMissiles:boolean =false
 
         private power:number;
         private shootnum:number = 0
@@ -60,7 +59,7 @@ module objects {
                 this.CheckBound(); // <-- Check collisions
                 this.Shoot();
                 this.Swapped();
-                if(this.hasMissiles)
+                if(managers.Game.hasMissiles)
                     this.ShootMissiles();
 
                 if(this.missile != undefined)
@@ -292,7 +291,7 @@ module objects {
         public ShootMissiles():void{
             if(!this.isDead){
                 let ticker:number = createjs.Ticker.getTicks();
-                if(managers.Game.keyboardManager.shoot && ticker % 100 == 0) {
+                if(managers.Game.keyboardManager.shoot && ticker % 50 == 0) {
                     if(this.shootnum < 1){
                         for(let i = 0; i < 2; i++){
                             let position = new math.Vec2(this.x- 15, this.y - 10);
@@ -304,7 +303,7 @@ module objects {
                             this.missile.Angle = 0;
                             this.missile.AngleStep = (240/4) * this.shootnum
                             this.missile.Angle += this.missile.AngleStep
-                            this.missile.Speed = 0.1
+                            this.missile.Speed = 0.05
                             
                             this.missile.Dir = new math.Vec2(
                                 (90*Math.sin(this.missile.Angle) * this.missile.Speed, 
@@ -346,6 +345,7 @@ module objects {
                     else{
                         this.isDead = false
                         this.alpha = 1;
+                        managers.Game.hasMissiles = false
                         this.InvincibilityTimer()
                     }
                     clearInterval(interval);
