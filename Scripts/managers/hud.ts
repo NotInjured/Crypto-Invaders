@@ -101,43 +101,93 @@ module managers {
             })
 
             if(managers.Game.currentScene == config.Scene.GAME){
-                if(managers.Game.level1Completed){
-                    //this.scoreLabel = new objects.Label("Score:" +"\n" + managers.Game.highscore, "30px", "OptimusPrinceps","#000000", 500, 300, false );
-
-                    this.removeChild(this.playerLivesLabel)
-                    this.removeChild(this.playerBombsLabel)
-                    this.removeChild(this.playerScoreLabel)
-                    this.removeChild(this.scoreMultLabel)
-                    this.removeChild(this.playerLivesSprite)
-                    this.addChild(this.bBackground)
-                    this.addChild(this.backButton)
-                    this.addChild(this.continueButton)
-                    this.addChild(this.gameOverLabel)
-                    this.addChild(this.playerScoreLabel)
+                if(managers.Game.level1 && managers.Game.level1Completed){
+                    this.playerLivesLabel.alpha = 0
+                    this.playerBombsLabel.alpha = 0
+                    this.scoreMultLabel.alpha = 0
+                    this.playerLivesSprite.alpha = 0
+                    this.gameOverLabel.alpha = 1
+                    this.playerScoreLabel.alpha = 1
                     this.playerScoreLabel.scaleX = 1.75
                     this.playerScoreLabel.scaleY = 1.75
                     this.playerScoreLabel.x = 450
                     this.playerScoreLabel.y = 300
-    
+                    this.bBackground.alpha = 1
+                    this.backButton.alpha = 1
+                    this.continueButton.alpha = 1
+                    
                     this.backButton.on("click", this.backButtonClick)
                     this.continueButton.on("click", this.continueButtonClick)
                 }
-    
-                if(managers.Game.level2){
+
+                if(managers.Game.level2 && managers.Game.level1Completed){
                     this.playerScoreLabel.scaleX = 1
                     this.playerScoreLabel.scaleY = 1
                     this.playerScoreLabel.x = 565
                     this.playerScoreLabel.y = 15
-                    
-                    this.addChild(this.playerLivesLabel)
-                    this.addChild(this.playerBombsLabel)
-                    this.addChild(this.playerScoreLabel)
-                    this.addChild(this.scoreMultLabel)
-                    this.addChild(this.playerLivesSprite)
-                    this.removeChild(this.bBackground)
-                    this.removeChild(this.backButton)
-                    this.removeChild(this.continueButton)
-                    this.removeChild(this.gameOverLabel)
+                    this.playerLivesLabel.alpha = 1
+                    this.playerBombsLabel.alpha = 1
+                    this.playerScoreLabel.alpha = 1
+                    this.scoreMultLabel.alpha = 1
+                    this.playerLivesSprite.alpha = 1
+                    this.bBackground.alpha = 0
+                    this.backButton.alpha = 0
+                    this.continueButton.alpha = 0
+                    this.gameOverLabel.alpha = 0
+                }
+                
+                if(managers.Game.level2 && managers.Game.level2Completed){
+                    this.playerLivesLabel.alpha = 0
+                    this.playerBombsLabel.alpha = 0
+                    this.scoreMultLabel.alpha = 0
+                    this.playerLivesSprite.alpha = 0
+                    this.gameOverLabel.alpha = 1
+                    this.playerScoreLabel.alpha = 1
+                    this.playerScoreLabel.scaleX = 1.75
+                    this.playerScoreLabel.scaleY = 1.75
+                    this.playerScoreLabel.x = 450
+                    this.playerScoreLabel.y = 300
+                    this.bBackground.alpha = 1
+                    this.backButton.alpha = 1
+                    this.continueButton.alpha = 1
+
+                    this.backButton.on("click", this.backButtonClick)
+                    this.continueButton.on("click", this.continueButtonClick)
+                }
+
+                if(managers.Game.level3 && managers.Game.level2Completed){
+                    this.playerScoreLabel.scaleX = 1
+                    this.playerScoreLabel.scaleY = 1
+                    this.playerScoreLabel.x = 565
+                    this.playerScoreLabel.y = 15
+                    this.playerLivesLabel.alpha = 1
+                    this.playerBombsLabel.alpha = 1
+                    this.playerScoreLabel.alpha = 1
+                    this.scoreMultLabel.alpha = 1
+                    this.playerLivesSprite.alpha = 1
+                    this.bBackground.alpha = 0
+                    this.backButton.alpha = 0
+                    this.continueButton.alpha = 0
+                    this.gameOverLabel.alpha = 0
+                }
+
+                if(managers.Game.level3 && managers.Game.level3Completed){
+                    this.playerLivesLabel.alpha = 0
+                    this.playerBombsLabel.alpha = 0
+                    this.scoreMultLabel.alpha = 0
+                    this.playerLivesSprite.alpha = 0
+                    this.gameOverLabel.alpha = 1
+                    this.playerScoreLabel.alpha = 1
+                    this.playerScoreLabel.scaleX = 1.75
+                    this.playerScoreLabel.scaleY = 1.75
+                    this.playerScoreLabel.x = 450
+                    this.playerScoreLabel.y = 300
+                    this.bBackground.alpha = 1
+                    this.backButton.alpha = 1
+                    this.continueButton.alpha = 1
+
+                    this.backButton.on("click", this.backButtonClick)
+                    this.continueButton.on("click", this.continueButtonClick)
                 }
             }
         }
@@ -151,12 +201,10 @@ module managers {
 
             if(managers.Game.level1Completed && managers.Game.level1){
                 managers.Game.level1 = false
-                managers.Game.level1Completed = false
                 managers.Game.level2 = true
             }
-            if(managers.Game.level2Completed && managers.Game.level2){
+            else if(managers.Game.level2Completed && managers.Game.level2){
                 managers.Game.level2 = false
-                managers.Game.level2Completed = false
                 managers.Game.level3 = true
             }
         }
@@ -267,6 +315,16 @@ module managers {
                 this.addChild(this.playerScoreLabel);
                 this.addChild(this.scoreMultLabel);
                 this.addChild(this.playerLivesSprite);
+                this.addChild(this.bBackground)
+                this.addChild(this.gameOverLabel)
+                this.addChild(this.playerScoreLabel)
+                this.addChild(this.backButton)
+                this.addChild(this.continueButton)
+
+                this.gameOverLabel.alpha = 0
+                this.bBackground.alpha = 0
+                this.backButton.alpha = 0
+                this.continueButton.alpha = 0
             }
             if(managers.Game.currentScene == config.Scene.OVER){
                 this.addChild(this.eBackground);

@@ -13,9 +13,11 @@ module objects {
         public Start():void {
             this.speedY = 1;
             if(managers.Game.level1)
-                this.y = -22500;
+                this.y = -32500
             if(managers.Game.level2)
-                this.y = -14200 
+                this.y = -24200
+            if(managers.Game.level3)
+                this.y = -10000 
             this.x = 297;
         }
         // Updated 60 times per second (60FPS)
@@ -30,22 +32,30 @@ module objects {
         public Move():void {
             if(managers.Game.level1){
                 this.y += this.speedY;
-
-                if(this.y > -14200)
+                if(this.y < -32500)
+                    this.y = -32500
+                if(this.y > -24200)
                     this.speedY = 0;
             }
             if(managers.Game.level2){
-                this.speedY = 1.5;
-                this.y += this.speedY;
-                if(this.y < -14200)
-                    this.y = -14200
-
-                if(this.y > -1)
+                if(this.y < -24200)
+                    this.y = -24200
+                if(this.y < -10000)
+                    this.speedY = 1.5
+                if(this.y > -10000)
                     this.speedY = 0;
+                this.y += this.speedY;
             }
             if(managers.Game.level3){
+                if(this.y < -10000)
+                    this.y = -10000
+                if(this.y > -10001 && this.y < -8500)
+                    this.speedY = 5
+                if(this.y > -8500 && this.y < -1)
+                    this.speedY = 1
+                if(this.y >= -1)
+                    this.speedY = 0
                 this.y += this.speedY;
-
             }
 
             if(managers.Game.pause)

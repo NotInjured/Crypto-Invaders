@@ -203,6 +203,14 @@ module objects {
                     this.isDead = true
                     this.isInvincible = true
                 break;
+                case "Enemy4":
+                    this.isDead = true
+                    this.isInvincible = true
+                break;
+                case "Destroyer":
+                    this.isDead = true
+                    this.isInvincible = true
+                break;
             }
         }
 
@@ -689,51 +697,51 @@ module objects {
                     }
                     if(this.startPos){
                         if(managers.Game.boss2Hp > 250){
-                            this.ShootPattern(1)
-                            this.ShootPattern(2)
-                            this.ShootPattern(3)
-                            this.ShootPattern(4)
+                            this.ShootPattern(12)
+                            this.ShootPattern(13)
+                            this.ShootPattern(14)
+                            this.ShootPattern(15)
                         }
                         if(managers.Game.boss2Hp > 200 && managers.Game.boss2Hp < 250){
                             if(this.pattern1){
-                                this.ShootPattern(1)
-                                this.ShootPattern(2)
-                                this.ShootPattern(3)
-                                this.ShootPattern(4)
+                                this.ShootPattern(12)
+                                this.ShootPattern(13)
+                                this.ShootPattern(14)
+                                this.ShootPattern(15)
                             }
                             if(!this.pattern1 && this.pattern2){
-                                this.ShootPattern(5)
-                                this.ShootPattern(6)
+                                this.ShootPattern(16)
+                                this.ShootPattern(17)
                             }
                         }
                         if(managers.Game.boss2Hp > 100 && managers.Game.boss2Hp < 200){
                             if(this.pattern1){
-                                this.ShootPattern(1)
-                                this.ShootPattern(2)
-                                this.ShootPattern(3)
-                                this.ShootPattern(4)
+                                this.ShootPattern(12)
+                                this.ShootPattern(13)
+                                this.ShootPattern(14)
+                                this.ShootPattern(15)
                             }
                             if(!this.pattern1 && this.pattern2){
-                                this.ShootPattern(5)
-                                this.ShootPattern(6)
+                                this.ShootPattern(16)
+                                this.ShootPattern(17)
                             }
                             if(!this.pattern2 && this.pattern3){
-                                this.ShootPattern(7)
-                                this.ShootPattern(8)
+                                this.ShootPattern(18)
+                                this.ShootPattern(19)
                             }   
                         }
                         if(managers.Game.boss2Hp < 100){
+                            if(this.pattern1){
+                                this.ShootPattern(16)
+                                this.ShootPattern(17)
+                            }
                             if(!this.pattern1 && this.pattern2){
-                                this.ShootPattern(5)
-                                this.ShootPattern(6)
+                                this.ShootPattern(18)
+                                this.ShootPattern(19)
                             }
                             if(!this.pattern2 && this.pattern3){
-                                this.ShootPattern(7)
-                                this.ShootPattern(8)
-                            }
-                            if(!this.pattern3 && this.pattern4){
-                                this.ShootPattern(9)
-                                this.ShootPattern(10)
+                                this.ShootPattern(20)
+                                this.ShootPattern(21)
                             }  
                         }
                     }
@@ -1359,13 +1367,10 @@ module objects {
                                 this.Timer();
                             }
                             break;
-                            case 12:
-
-                            break;
                         }
                     case "Destroyer":
                         switch(pattern){
-                            case 1: // Repeater x10
+                            case 12: // Repeater x10
                                 if(this.shootNum < 99){
                                     if(ticker % 5 == 0){
                                         this.bulletSpawn = new math.Vec2(this.x + 35, this.y - 85);      
@@ -1394,23 +1399,10 @@ module objects {
                                 if(this.shootNum > 36){
                                     this.bullet.Reset()
                                     this.shoot = true;
-
-                                    if(managers.Game.boss2Hp > 200 && managers.Game.boss2Hp < 250){
-                                        this.pattern1 = false
-                                        this.pattern2 = true
-                                    }
-                                    if(managers.Game.boss2Hp > 100 && managers.Game.boss2Hp < 200){
-                                        this.pattern1 = false
-                                        this.pattern2 = true
-                                    }
-                                    if(managers.Game.boss2Hp < 100){
-                                        this.pattern1 = false
-                                        this.pattern2 = true
-                                    }
                                     this.Timer();
                                 }
                             break;
-                            case 2: // Repeater x10
+                            case 13: // Repeater x10
                                 if(this.shootNum < 99){
                                     if(ticker % 5 == 0){
                                         this.bulletSpawn = new math.Vec2(this.x + 60, this.y - 60);      
@@ -1442,7 +1434,7 @@ module objects {
                                     this.Timer();
                                 }
                             break;
-                            case 3: // Repeater x10
+                            case 14: // Repeater x10
                                 if(this.shootNum < 99){
                                     if(ticker % 5 == 0){
                                         this.bulletSpawn = new math.Vec2(this.x + 80, this.y - 60);      
@@ -1474,7 +1466,7 @@ module objects {
                                     this.Timer();
                                 }
                             break;
-                            case 4: // Repeater x10
+                            case 15: // Repeater x10
                                 if(this.shootNum < 99){
                                     if(ticker % 5 == 0){
                                         this.bulletSpawn = new math.Vec2(this.x + 105, this.y - 85);      
@@ -1503,10 +1495,22 @@ module objects {
                                 if(this.shootNum > 36){
                                     this.bullet.Reset()
                                     this.shoot = true;
+                                    if(managers.Game.boss2Hp > 200 && managers.Game.boss2Hp < 250){
+                                        this.pattern1 = false
+                                        this.pattern2 = true
+                                    }
+                                    if(managers.Game.boss2Hp > 100 && managers.Game.boss2Hp < 200){
+                                        this.pattern1 = false
+                                        this.pattern2 = true
+                                    }
+                                    if(managers.Game.boss2Hp < 100){
+                                        this.pattern1 = false
+                                        this.pattern2 = true
+                                    }
                                     this.Timer();
                                 }
                             break;
-                            case 5:
+                            case 16:
                                 if(this.shootNum < 200){
                                     if(ticker % 3 == 0){
                                         this.bulletSpawn = new math.Vec2(this.x + 35, this.y - 85);      
@@ -1533,23 +1537,10 @@ module objects {
                                 if(this.shootNum > 199){
                                     this.bullet.Reset()
                                     this.shoot = true;
-
-                                    if(managers.Game.boss2Hp > 200 && managers.Game.boss2Hp < 250){
-                                        this.pattern2 = false
-                                        this.pattern3 = true
-                                    }
-                                    if(managers.Game.boss2Hp > 100 && managers.Game.boss2Hp < 200){
-                                        this.pattern2 = false
-                                        this.pattern3 = true
-                                    }
-                                    if(managers.Game.boss2Hp < 100){
-                                        this.pattern2 = false
-                                        this.pattern3 = true
-                                    }
                                     this.Timer();
                                 }
                             break;
-                            case 6:
+                            case 17:
                                 if(this.shootNum < 200){
                                     if(ticker % 3 == 0){
                                         this.bulletSpawn = new math.Vec2(this.x + 105, this.y - 85);       
@@ -1576,10 +1567,23 @@ module objects {
                                 if(this.shootNum > 199){
                                     this.bullet.Reset()
                                     this.shoot = true;
+
+                                    if(managers.Game.boss2Hp > 200 && managers.Game.boss2Hp < 250){
+                                        this.pattern2 = false
+                                        this.pattern3 = true
+                                    }
+                                    if(managers.Game.boss2Hp > 100 && managers.Game.boss2Hp < 200){
+                                        this.pattern2 = false
+                                        this.pattern3 = true
+                                    }
+                                    if(managers.Game.boss2Hp < 100){
+                                        this.pattern1 = false
+                                        this.pattern2 = true
+                                    }
                                     this.Timer();
                                 }
                             break;
-                            case 7:
+                            case 18:
                                 if(this.shootNum < 250){
                                     if(ticker % 3 == 0){
                                         this.shootNum++;
@@ -1609,19 +1613,10 @@ module objects {
                                 if(this.shootNum > 249){
                                     this.bullet.Reset()
                                     this.shoot = true;
-
-                                    if(managers.Game.boss2Hp > 100 && managers.Game.boss2Hp < 200){
-                                        this.pattern3 = false
-                                        this.pattern1 = true
-                                    }
-                                    if(managers.Game.boss2Hp < 100){
-                                        this.pattern3 = false
-                                        this.pattern4 = true
-                                    }
                                     this.Timer();
                                 }
                             break;
-                            case 8:
+                            case 19:
                                 if(this.shootNum < 250){
                                     if(ticker % 3 == 0){
                                         this.shootNum++;
@@ -1651,14 +1646,23 @@ module objects {
                                 if(this.shootNum > 249){
                                     this.bullet.Reset()
                                     this.shoot = true;
+
+                                    if(managers.Game.boss2Hp > 100 && managers.Game.boss2Hp < 200){
+                                        this.pattern3 = false
+                                        this.pattern1 = true
+                                    }
+                                    if(managers.Game.boss2Hp < 100){
+                                        this.pattern2 = false
+                                        this.pattern3 = true
+                                    }
                                     this.Timer();
                                 }
                             break;
-                            case 9: //Spiral 
+                            case 20: //Spiral 
                                 if(this.shootNum < 500){
                                     if(ticker % 3 == 0){
                                         this.shootNum++;
-                                        this.bulletSpawn = new math.Vec2(this.x - 10, this.y); 
+                                        this.bulletSpawn = new math.Vec2(this.x + 70, this.y - 60); 
                 
                                         this.bullet = managers.Game.enemyBulletManager.GetBullet()
                                         this.bullet.pattern = 5;
@@ -1683,20 +1687,15 @@ module objects {
                                 }
                                 if(this.shootNum > 499){
                                     this.bullet.Reset()
-
                                     this.shoot = true;
-                                    if(managers.Game.boss2Hp < 100){
-                                        this.pattern4 = false
-                                        this.pattern2 = true
-                                    }
-                                this.Timer();
+                                    this.Timer();
                                 }
                             break;
-                            case 10: //Spiral Reverse 
+                            case 21: //Spiral Reverse 
                                 if(this.shootNum < 500){
                                     if(ticker % 3 == 0){
                                         this.shootNum++;
-                                        this.bulletSpawn = new math.Vec2(this.x - 10, this.y); 
+                                        this.bulletSpawn = new math.Vec2(this.x + 70, this.y - 60); 
                 
                                         this.bullet = managers.Game.enemyBulletManager.GetBullet()
                                         this.bullet.pattern = 5;
@@ -1725,7 +1724,11 @@ module objects {
                                 if(this.shootNum > 499){
                                     this.bullet.Reset()
                                     this.shoot = true;
-                                this.Timer();
+                                    if(managers.Game.boss2Hp < 100){
+                                        this.pattern3 = false
+                                        this.pattern1 = true
+                                    }
+                                    this.Timer();
                                 }
                             break;
                         }

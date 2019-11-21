@@ -81,7 +81,13 @@ module objects {
                 this.Dir = new math.Vec2(
                     ((enemyPos.x - this.position.x) / this.distance) * 10,
                     ((enemyPos.y - this.position.y) / this.distance) * 10)
+                if(enemy.name == "Destroyer"){
+                    this.Dir = new math.Vec2(
+                        (((enemyPos.x + 55) - this.position.x) / this.distance) * 10,
+                        (((enemyPos.y - 100) - this.position.y) / this.distance) * 10)
+                }
             }
+            
         }
     }
 }

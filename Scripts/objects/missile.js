@@ -94,6 +94,9 @@ var objects;
             this.distance = math.Vec2.Distance(enemyPos, this.position);
             if (!enemy.isInvincible && enemy.y > 0 && enemy.y < 720 && enemy.x > 340 && enemy.x < 715) {
                 this.Dir = new math.Vec2(((enemyPos.x - this.position.x) / this.distance) * 10, ((enemyPos.y - this.position.y) / this.distance) * 10);
+                if (enemy.name == "Destroyer") {
+                    this.Dir = new math.Vec2((((enemyPos.x + 55) - this.position.x) / this.distance) * 10, (((enemyPos.y - 100) - this.position.y) / this.distance) * 10);
+                }
             }
         };
         return Missile;

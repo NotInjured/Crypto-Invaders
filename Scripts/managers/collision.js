@@ -65,7 +65,7 @@ var managers;
                         (object1.x - object1.halfW) < ((object2.x - 10) + object2.halfW) &&
                         (object1.y + object1.halfH) > ((object2.y - 5) - object2.halfH) &&
                         (object1.y - object1.halfH) < ((object2.y - 5) + object2.halfH)) {
-                        managers.Game.hud.Score += 50;
+                        managers.Game.hud.Score += Math.round(50 * Math.pow(1.01, managers.Game.hud.ScoreMult));
                         effect = new objects.Effect("Laser_Hit", object1.x + 10, object1.y - object1.halfH);
                         effect.scaleX *= 2;
                         effect.scaleY *= 2;
@@ -78,9 +78,18 @@ var managers;
                         if (managers.Game.boss1Hp == 0) {
                             explosion = new objects.Effect("Explosion", object2.x + 65, object2.y + 65);
                             managers.Game.currentSceneObject.addChild(explosion);
-                            managers.Game.currentSceneObject.removeChild(object2);
+                            object2.Reset();
+                            managers.Game.hud.Lives++;
                             managers.Game.hud.ScoreMult += 100;
                             managers.Game.hud.Score += Math.round(10000 * Math.pow(1.01, managers.Game.hud.ScoreMult));
+                            var counter_1 = 5;
+                            var interval_1 = setInterval(function () {
+                                counter_1--;
+                                if (counter_1 < 0) {
+                                    clearInterval(interval_1);
+                                    managers.Game.level1Completed = true;
+                                }
+                            }, 1000);
                         }
                     }
                     break;
@@ -150,11 +159,32 @@ var managers;
                         effect = new objects.Effect("Laser_Hit", object1.x + 10, object1.y - object1.halfH);
                         effect.scaleX *= 2;
                         effect.scaleY *= 2;
+                        managers.Game.boss2Hp--;
+                        managers.Game.hud.Score += Math.round(50 * Math.pow(1.01, managers.Game.hud.ScoreMult));
                         managers.Game.currentSceneObject.addChild(effect);
                         hit = createjs.Sound.play("hit");
                         hit.volume = 0.2;
                         object1.Reset();
-                        console.log("Destroyer hit..");
+                        console.log(managers.Game.boss2Hp);
+                        if (managers.Game.boss2Hp == 0) {
+                            explosion = new objects.Effect("Explosion", object2.x + 225, object2.y + 75);
+                            explosion.scaleX = 2;
+                            explosion.scaleY = 2;
+                            managers.Game.currentSceneObject.addChild(explosion);
+                            object2.Reset();
+                            managers.Game.hud.Lives++;
+                            managers.Game.hud.ScoreMult += 100;
+                            managers.Game.hud.Score += Math.round(10000 * Math.pow(1.01, managers.Game.hud.ScoreMult));
+                            var counter2_1 = 5;
+                            var interval_2 = setInterval(function () {
+                                counter2_1--;
+                                if (counter2_1 < 0) {
+                                    clearInterval(interval_2);
+                                    managers.Game.level2Completed = true;
+                                    console.log(managers.Game.level2Completed);
+                                }
+                            }, 1000);
+                        }
                     }
                     break;
                 case "Ship1":
@@ -165,19 +195,20 @@ var managers;
                         (object1.y + object1.halfH) > ((object2.y - 10) - object2.halfH / 4) &&
                         (object1.y - object1.halfH) < ((object2.y - 10) + object2.halfH / 4)) {
                         if (!managers.Game.player.IsInvincible && !managers.Game.player.isDead) {
-                            //explosion = new objects.Effect("Explosion", object2.x, object2.y);
-                            //console.log("Player Hit");
-                            //let death = createjs.Sound.play("playerDeath");
-                            //death.volume = 0.3;
-                            //explosion.x = object2.x + 20
-                            //explosion.y = object2.y + 20
-                            //explosion.scaleY = 0.5
-                            //explosion.scaleX = 0.5
-                            //managers.Game.currentSceneObject.addChild(explosion)
-                            //managers.Game.hud.Lives -= 1
-                            //managers.Game.hud.ScoreMult = 0;
+                            explosion = new objects.Effect("Explosion", object2.x, object2.y);
+                            console.log("Player Hit");
+                            var death = createjs.Sound.play("playerDeath");
+                            death.volume = 0.3;
+                            explosion.x = object2.x + 20;
+                            explosion.y = object2.y + 20;
+                            explosion.scaleY = 0.5;
+                            explosion.scaleX = 0.5;
+                            managers.Game.currentSceneObject.addChild(explosion);
+                            managers.Game.hasMissiles = false;
+                            managers.Game.hud.Lives -= 1;
+                            managers.Game.hud.ScoreMult = 0;
                             object1.Reset();
-                            //object2.Reset();
+                            object2.Reset();
                         }
                     }
                     break;
@@ -202,8 +233,12 @@ var managers;
                             buff.scaleX = 0.5;
                             buff.scaleY = 0.7;
                             managers.Game.currentSceneObject.addChild(buff);
-                            managers.Game.hud.Score += Math.round(2500 * Math.pow(1.01, managers.Game.hud.ScoreMult));
-                            managers.Game.hasMissiles = true;
+                            if (!managers.Game.hasMissiles) {
+                                managers.Game.hasMissiles = true;
+                                managers.Game.hud.Score += Math.round(2500 * Math.pow(1.01, managers.Game.hud.ScoreMult));
+                            }
+                            if (managers.Game.hasMissiles)
+                                managers.Game.hud.Score += Math.round(5000 * Math.pow(1.01, managers.Game.hud.ScoreMult));
                             managers.Game.currentSceneObject.removeChild(object2);
                         }
                         managers.Game.hud.Score += Math.round(100 * Math.pow(1.01, managers.Game.hud.ScoreMult));
