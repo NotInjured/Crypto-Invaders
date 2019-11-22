@@ -153,10 +153,14 @@ var managers;
                     }
                     break;
                 case "Destroyer":
-                    if ((object1.x + object1.halfW) > ((object2.x + 60) - object2.halfW / 4) &&
-                        (object1.x - object1.halfW) < ((object2.x + 60) + object2.halfW / 4) &&
-                        (object1.y + object1.halfH) > ((object2.y - 70) - object2.halfH / 4) &&
-                        (object1.y - object1.halfH) < ((object2.y - 70) + object2.halfH / 4)) {
+                    if (((object1.x + object1.halfW) > ((object2.x + 65) - object2.halfW / 4) &&
+                        (object1.x - object1.halfW) < ((object2.x + 65) + object2.halfW / 4) &&
+                        (object1.y + object1.halfH) > ((object2.y - 130) - object2.halfH / 4) &&
+                        (object1.y - object1.halfH) < ((object2.y - 130) + object2.halfH / 4) ||
+                        (object1.x + object1.halfW) > ((object2.x + 65) - object2.halfW / 7) &&
+                            (object1.x - object1.halfW) < ((object2.x + 65) + object2.halfW / 7) &&
+                            (object1.y + object1.halfH) > ((object2.y - 50) - object2.halfH / 4) &&
+                            (object1.y - object1.halfH) < ((object2.y - 50) + object2.halfH / 4))) {
                         effect = new objects.Effect("Laser_Hit", object1.x + 10, object1.y - object1.halfH);
                         effect.scaleX *= 2;
                         effect.scaleY *= 2;
