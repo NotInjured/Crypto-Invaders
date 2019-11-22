@@ -69,7 +69,7 @@ var objects;
                 this.CheckBound(); // <-- Check collisions
                 this.Shoot();
                 this.Swapped();
-                if (managers.Game.hasMissiles)
+                if (managers.Game.numOfMissiles > 0)
                     this.ShootMissiles();
                 if (this.missile != undefined)
                     this.missile.Update();
@@ -275,7 +275,6 @@ var objects;
                     else {
                         _this.isDead = false;
                         _this.alpha = 1;
-                        managers.Game.hasMissiles = false;
                         _this.InvincibilityTimer();
                     }
                     clearInterval(interval);
