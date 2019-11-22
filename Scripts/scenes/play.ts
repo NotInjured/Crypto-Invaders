@@ -19,10 +19,10 @@ module scenes {
         private eliteUnits: objects.Enemy[][]
         private eBoss1: objects.Enemy;
         private eBoss2: objects.Enemy;
+        private eBoss3: objects.Enemy;
         private eMinion1: objects.Enemy
         private eMinion2: objects.Enemy
         private eShip: objects.Enemy
-
 
         private coinsManager: managers.Coins;
         private testCoin: objects.Coins;
@@ -86,7 +86,6 @@ module scenes {
             managers.Game.boss3Hp = 400
             managers.Game.eEliteHp = 25
             managers.Game.eMinionHp = 10
-            console.log(managers.Game.boss1Hp)
 
             managers.Game.level1 = true
             managers.Game.level2 = false
@@ -104,10 +103,13 @@ module scenes {
             this.level3Enemies = []
             this.eBoss1 = new objects.Enemy("Enemy4");
             this.eBoss2 = new objects.Enemy("Destroyer")
+            //this.eBoss3 = new objects.Enemy("Destroyer")
             this.eBoss1.isDead = false
             this.eBoss1.isInvincible = false
             this.eBoss2.isDead = false
-            this.eBoss1.isInvincible = false
+            this.eBoss2.isInvincible = false
+            //this.eBoss3.isDead = false
+            //this.eBoss3.isInvincible = false
 
             //this.testCoin = new objects.Coins("B_coin", true)
             //this.testCoin.x = 550
@@ -326,13 +328,13 @@ module scenes {
                                 m.FindEnemies(e)
                             })
                         }
-                    })*/
+                    })
                     if(!this.eBoss2.isDead){
                         this.eBoss2.isInvincible = false
                         this.eBoss2.FindPlayer(this.player)
                         this.eBoss2.Update()
-                    }
-                    /*
+                    }*/
+                    
                     if(!this.eBoss1.isDead){
                         this.eBoss1.isInvincible = false
                         this.eBoss1.FindPlayer(this.player)
@@ -341,7 +343,7 @@ module scenes {
                         this.missileManager.Missile.forEach( m => {
                             m.FindEnemies(this.eBoss1)
                         })
-                    }*/
+                    }
                 }/*
                 if(managers.Game.timer >= 481 && managers.Game.timer <= 581){
                     this.level1Enemies[1].forEach(e =>{
@@ -423,7 +425,7 @@ module scenes {
                             m.FindEnemies(this.eBoss1)
                         })
                     }
-                }
+                }*/
 
                 if(managers.Game.boss1Hp == 0){
                     this.removeChild(this.eBoss1)
@@ -431,10 +433,10 @@ module scenes {
                     this.eBoss1.isDead = true;
                     managers.Game.boss1IsDead = true;
                     this.eBoss1.DropCoins(50)
-                }*/
+                }
             }
             //*
-            if(managers.Game.level2){/*
+            if(managers.Game.level2){
                 if(managers.Game.timer == 600){
                     createjs.Sound.stop();
                     this.bgm = createjs.Sound.play("bgm3");
@@ -450,7 +452,7 @@ module scenes {
 
                 if(managers.Game.timer > 445 && managers.Game.timer < 595){
                     this.removeChild(this.stageName)
-                    /*
+                    
                     if(!this.eBoss2.isDead){
                         this.eBoss2.isInvincible = false
                         this.eBoss2.FindPlayer(this.player)
@@ -460,7 +462,7 @@ module scenes {
                             m.FindEnemies(this.eBoss2)
                         })
                     }
-                    
+                    /*
                     this.level2Enemies[2].forEach(e =>{
                         if(!e.isDead){
                             e.isInvincible = false;
@@ -470,9 +472,9 @@ module scenes {
                                 m.FindEnemies(e)
                             })
                         }
-                    })
+                    })*/
                 }
-                
+                /*
                 if(managers.Game.timer > 445 && managers.Game.timer < 590){
                     this.level2Enemies[1].forEach(e =>{
                         if(!e.isDead){
@@ -549,7 +551,7 @@ module scenes {
                             m.FindEnemies(this.eBoss2)
                         })
                     }
-                }
+                }*/
 
                 if(managers.Game.boss2Hp == 0){
                     this.removeChild(this.eBoss2)
@@ -557,9 +559,9 @@ module scenes {
                     this.eBoss2.isDead = true;
                     managers.Game.boss2IsDead = true;
                     this.eBoss2.DropCoins(50)
-                }*/
+                }
             }
-            /*
+            
             if(managers.Game.level3){
                 if(managers.Game.timer == 600){
                     createjs.Sound.stop();
@@ -625,8 +627,7 @@ module scenes {
                         }
                     })
                 }
-            }*/
-
+            }
             
             if(managers.Game.hud.Lives < 0){
                 managers.Game.currentScene = config.Scene.OVER;
