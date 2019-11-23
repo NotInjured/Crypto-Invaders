@@ -44,7 +44,7 @@ var scenes;
                 this.gameOverLabel = new objects.Label("\t\t\t" + "Level 1 Completed!" + "\n" + "\t  Difficulty: " + this.diff, "36px", "OptimusPrinceps", "#000000", 675, 240, true);
                 this.tryAgainLabel = new objects.Label("Try Again?", "20px", "OptimusPrinceps", "#000000", 535, 400, true);
             }
-            this.scoreLabel = new objects.Label("Score:" + "\n" + managers.Game.highscore, "30px", "OptimusPrinceps", "#000000", 500, 300, false);
+            this.scoreLabel = new objects.Label("Score:" + "\n" + managers.Game.score, "30px", "OptimusPrinceps", "#000000", 500, 300, false);
             this.startButton = new objects.Button("buttonStart", 630, 475);
             this.backButton = new objects.Button("buttonBack", 630, 555);
             this.continueButton = new objects.Button("buttonContinue", 630, 475);
@@ -86,11 +86,11 @@ var scenes;
                 this.addChild(this.diffLabel);
             }
             this.addChild(this.backButton);
-            this.addChild(this.continueButton);
-            //this.addChild(this.startButton)
+            //this.addChild(this.continueButton)
+            this.addChild(this.startButton);
             this.backButton.on("click", this.backButtonClick);
-            this.continueButton.on("click", this.continueButtonClick);
-            //this.startButton.on("click", this.startButtonClick)
+            //this.continueButton.on("click", this.continueButtonClick)
+            this.startButton.on("click", this.startButtonClick);
         };
         return GameOverScene;
     }(objects.Scene));

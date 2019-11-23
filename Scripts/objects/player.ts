@@ -334,7 +334,6 @@ module objects {
 
             let interval = setInterval(() =>{
                counter--;
-               console.log(counter)
 
                 if(counter == 0){
                     counter = 2
@@ -358,7 +357,6 @@ module objects {
             
             let interval = setInterval(() =>{
                 counter--;
-                console.log(counter)
  
                  if(counter == 0){
                      counter = 2

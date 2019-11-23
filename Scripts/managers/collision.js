@@ -31,8 +31,7 @@ var managers;
                         (object1.x - object1.halfW) < ((object2.x - 10) + object2.halfW) &&
                         (object1.y + object1.halfH) > ((object2.y - 10) - object2.halfH) &&
                         (object1.y - object1.halfH) < ((object2.y - 10) + object2.halfH)) {
-                        managers.Game.hud.Score += Math.round(50 * Math.pow(1.01, managers.Game.hud.ScoreMult));
-                        managers.Game.highscore = managers.Game.hud.Score;
+                        managers.Game.hud.Score += 50 * managers.Game.hud.ScoreMult;
                         managers.Game.hud.ScoreMult += 1;
                         hit = createjs.Sound.play("hit");
                         hit.volume = 0.2;
@@ -65,7 +64,7 @@ var managers;
                         (object1.x - object1.halfW) < ((object2.x - 10) + object2.halfW) &&
                         (object1.y + object1.halfH) > ((object2.y - 5) - object2.halfH) &&
                         (object1.y - object1.halfH) < ((object2.y - 5) + object2.halfH)) {
-                        managers.Game.hud.Score += Math.round(50 * Math.pow(1.01, managers.Game.hud.ScoreMult));
+                        managers.Game.hud.Score += 50 * managers.Game.hud.ScoreMult;
                         effect = new objects.Effect("Laser_Hit", object1.x + 10, object1.y - object1.halfH);
                         effect.scaleX *= 2;
                         effect.scaleY *= 2;
@@ -74,15 +73,17 @@ var managers;
                         hit = createjs.Sound.play("hit");
                         hit.volume = 0.2;
                         object1.Reset();
-                        //console.log(managers.Game.boss1Hp)
                         if (managers.Game.boss1Hp == 0) {
                             explosion = new objects.Effect("Explosion", object2.x + 65, object2.y + 65);
                             managers.Game.currentSceneObject.addChild(explosion);
                             object2.Reset();
-                            managers.Game.hud.Lives++;
+                            if (managers.Game.hud.Lives < 9) {
+                                managers.Game.hud.Lives += 1;
+                                managers.Game.hud.playerLivesSprite[managers.Game.hud.Lives - 1].alpha = 1;
+                            }
                             managers.Game.numOfMissiles += 1;
                             managers.Game.hud.ScoreMult += 100;
-                            managers.Game.hud.Score += Math.round(10000 * Math.pow(1.01, managers.Game.hud.ScoreMult));
+                            managers.Game.hud.Score += 100000 * managers.Game.hud.ScoreMult;
                             var counter_1 = 5;
                             var interval_1 = setInterval(function () {
                                 counter_1--;
@@ -99,7 +100,7 @@ var managers;
                         (object1.x - object1.halfW) < ((object2.x - 10) + object2.halfW) &&
                         (object1.y + object1.halfH) > ((object2.y - 5) - object2.halfH) &&
                         (object1.y - object1.halfH) < ((object2.y - 5) + object2.halfH)) {
-                        managers.Game.hud.Score += 50;
+                        managers.Game.hud.Score += 50 * managers.Game.hud.ScoreMult;
                         effect = new objects.Effect("Laser_Hit", object1.x + 10, object1.y - object1.halfH);
                         effect.scaleX *= 2;
                         effect.scaleY *= 2;
@@ -123,7 +124,7 @@ var managers;
                             object2.Reset();
                             managers.Game.currentSceneObject.removeChild(object2);
                             managers.Game.hud.ScoreMult += 10;
-                            managers.Game.hud.Score += Math.round(2500 * Math.pow(1.01, managers.Game.hud.ScoreMult));
+                            managers.Game.hud.Score += 25000 * managers.Game.hud.ScoreMult;
                         }
                     }
                     break;
@@ -132,7 +133,7 @@ var managers;
                         (object1.x - object1.halfW) < ((object2.x - 10) + object2.halfW) &&
                         (object1.y + object1.halfH) > ((object2.y - 5) - object2.halfH) &&
                         (object1.y - object1.halfH) < ((object2.y - 5) + object2.halfH)) {
-                        managers.Game.hud.Score += 50;
+                        managers.Game.hud.Score += 50 * managers.Game.hud.ScoreMult;
                         effect = new objects.Effect("Laser_Hit", object1.x + 10, object1.y - object1.halfH);
                         effect.scaleX *= 2;
                         effect.scaleY *= 2;
@@ -148,7 +149,7 @@ var managers;
                             object2.Reset();
                             managers.Game.currentSceneObject.removeChild(object2);
                             managers.Game.hud.ScoreMult += 5;
-                            managers.Game.hud.Score += Math.round(1250 * Math.pow(1.01, managers.Game.hud.ScoreMult));
+                            managers.Game.hud.Score += Math.round(1250 * Math.pow(1.05, managers.Game.hud.ScoreMult));
                         }
                     }
                     break;
@@ -165,7 +166,7 @@ var managers;
                         effect.scaleX *= 2;
                         effect.scaleY *= 2;
                         managers.Game.boss2Hp--;
-                        managers.Game.hud.Score += Math.round(50 * Math.pow(1.01, managers.Game.hud.ScoreMult));
+                        managers.Game.hud.Score += 50 * managers.Game.hud.ScoreMult;
                         managers.Game.currentSceneObject.addChild(effect);
                         hit = createjs.Sound.play("hit");
                         hit.volume = 0.2;
@@ -180,7 +181,7 @@ var managers;
                             managers.Game.hud.Lives++;
                             managers.Game.numOfMissiles += 1;
                             managers.Game.hud.ScoreMult += 100;
-                            managers.Game.hud.Score += Math.round(10000 * Math.pow(1.01, managers.Game.hud.ScoreMult));
+                            managers.Game.hud.Score += 200000 * managers.Game.hud.ScoreMult;
                             var counter2_1 = 5;
                             var interval_2 = setInterval(function () {
                                 counter2_1--;
@@ -211,10 +212,14 @@ var managers;
                             //explosion.scaleX = 0.5
                             //managers.Game.currentSceneObject.addChild(explosion)
                             //managers.Game.numOfMissiles -=1
-                            //managers.Game.hud.Lives -= 1
-                            //managers.Game.hud.ScoreMult = 0;
+                            managers.Game.hud.Lives -= 1;
+                            managers.Game.hud.playerLivesSprite[managers.Game.hud.Lives].alpha = 0.5;
+                            console.log(managers.Game.hud.playerLivesSprite[managers.Game.hud.Lives]);
+                            console.log(managers.Game.hud.Lives);
+                            managers.Game.hud.ScoreMult = 1;
+                            managers.Game.hud.Score = Math.floor(managers.Game.hud.Score / 2);
                             object1.Reset();
-                            //object2.Reset();
+                            object2.Reset();
                         }
                     }
                     break;
@@ -240,10 +245,10 @@ var managers;
                             buff.scaleY = 0.7;
                             managers.Game.currentSceneObject.addChild(buff);
                             managers.Game.numOfMissiles += 1;
-                            managers.Game.hud.Score += Math.round(5000 * Math.pow(1.01, managers.Game.hud.ScoreMult));
+                            managers.Game.hud.Score += 5000 * managers.Game.hud.ScoreMult;
                             managers.Game.currentSceneObject.removeChild(object2);
                         }
-                        managers.Game.hud.Score += Math.round(100 * Math.pow(1.01, managers.Game.hud.ScoreMult));
+                        managers.Game.hud.Score += 100 * managers.Game.hud.ScoreMult;
                         object2.Reset();
                     }
                     break;

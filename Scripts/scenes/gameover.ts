@@ -54,7 +54,7 @@ module scenes {
                     "Try Again?", "20px", "OptimusPrinceps", "#000000", 535, 400, true);
             }
             
-            this.scoreLabel = new objects.Label("Score:" +"\n" + managers.Game.highscore, "30px", "OptimusPrinceps","#000000", 500, 300, false );
+            this.scoreLabel = new objects.Label("Score:" +"\n" + managers.Game.score, "30px", "OptimusPrinceps","#000000", 500, 300, false );
 
             this.startButton = new objects.Button("buttonStart", 630, 475);
             this.backButton = new objects.Button("buttonBack", 630, 555);
@@ -104,12 +104,12 @@ module scenes {
                 this.addChild(this.diffLabel)
             }
             this.addChild(this.backButton)
-            this.addChild(this.continueButton)
-            //this.addChild(this.startButton)
+            //this.addChild(this.continueButton)
+            this.addChild(this.startButton)
 
             this.backButton.on("click", this.backButtonClick)
-            this.continueButton.on("click", this.continueButtonClick)
-            //this.startButton.on("click", this.startButtonClick)
+            //this.continueButton.on("click", this.continueButtonClick)
+            this.startButton.on("click", this.startButtonClick)
         }
     }
 }

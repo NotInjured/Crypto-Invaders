@@ -50,7 +50,7 @@ var scenes;
             //this.testEnemyBullet.y = this.player.y - 100;
             managers.Game.player = this.player;
             managers.Game.timer = 600;
-            managers.Game.boss1Hp = 200;
+            managers.Game.boss1Hp = 2;
             managers.Game.boss2Hp = 300;
             managers.Game.boss3Hp = 400;
             managers.Game.eEliteHp = 25;
@@ -203,7 +203,6 @@ var scenes;
         };
         PlayScene.prototype.Update = function () {
             var _this = this;
-            managers.Game.highscore = this.hud.Score;
             this.hud.Update();
             this.aircraft.y += 3;
             if (this.aircraft.y > 720) {
@@ -373,28 +372,32 @@ var scenes;
                     this.eBoss1.DropCoins(50);
                 }
             }
-            //*
             if (managers.Game.level2) {
-                if (managers.Game.timer == 600) {
+                /*
+                if(managers.Game.timer == 600){
                     createjs.Sound.stop();
                     this.bgm = createjs.Sound.play("bgm3");
                     this.bgm.loop = -1;
                     this.bgm.volume = 0.05;
                 }
-                if (managers.Game.timer > 595 && managers.Game.timer <= 599) {
-                    this.stageName.text = "Stage 2: HQ";
-                    this.stageName.x = 575;
-                    this.addChild(this.stageName);
+
+                if(managers.Game.timer > 595 && managers.Game.timer <= 599){
+                    this.stageName.text = "Stage 2: HQ"
+                    this.stageName.x = 575
+                    this.addChild(this.stageName)
                 }
-                if (managers.Game.timer > 445 && managers.Game.timer < 595) {
-                    this.removeChild(this.stageName);
-                    if (!this.eBoss2.isDead) {
-                        this.eBoss2.isInvincible = false;
-                        this.eBoss2.FindPlayer(this.player);
-                        this.eBoss2.Update();
-                        this.missileManager.Missile.forEach(function (m) {
-                            m.FindEnemies(_this.eBoss2);
-                        });
+
+                if(managers.Game.timer > 445 && managers.Game.timer < 595){
+                    this.removeChild(this.stageName)
+                    
+                    if(!this.eBoss2.isDead){
+                        this.eBoss2.isInvincible = false
+                        this.eBoss2.FindPlayer(this.player)
+                        this.eBoss2.Update()
+
+                        this.missileManager.Missile.forEach( m => {
+                            m.FindEnemies(this.eBoss2)
+                        })
                     }
                     /*
                     this.level2Enemies[2].forEach(e =>{
@@ -406,9 +409,9 @@ var scenes;
                                 m.FindEnemies(e)
                             })
                         }
-                    })*/
+                    })
                 }
-                /*
+                
                 if(managers.Game.timer > 445 && managers.Game.timer < 590){
                     this.level2Enemies[1].forEach(e =>{
                         if(!e.isDead){
@@ -494,67 +497,71 @@ var scenes;
                     this.eBoss2.DropCoins(50);
                 }
             }
-            if (managers.Game.level3) {
-                if (managers.Game.timer == 600) {
+            if (managers.Game.level3) { /*
+                if(managers.Game.timer == 600){
                     createjs.Sound.stop();
                     this.bgm = createjs.Sound.play("bgm");
                     this.bgm.loop = -1;
                     this.bgm.volume = 0.05;
                 }
-                if (managers.Game.timer > 595 && managers.Game.timer <= 599) {
-                    this.stageName.text = "Stage 3: Journey";
-                    this.stageName.x = 510;
-                    this.addChild(this.stageName);
+
+                if(managers.Game.timer > 595 && managers.Game.timer <= 599){
+                    this.stageName.text = "Stage 3: Journey"
+                    this.stageName.x = 510
+                    this.addChild(this.stageName)
                 }
-                if (managers.Game.timer < 595) {
-                    this.removeChild(this.stageName);
-                    this.level3Enemies[1].forEach(function (e) {
-                        if (!e.isDead) {
+                if(managers.Game.timer < 595){
+                    this.removeChild(this.stageName)
+
+                    this.level3Enemies[1].forEach(e =>{
+                        if(!e.isDead){
                             e.isInvincible = false;
                             e.Update();
-                            e.FindPlayer(_this.player);
-                            _this.missileManager.Missile.forEach(function (m) {
-                                m.FindEnemies(e);
-                            });
+                            e.FindPlayer(this.player);
+                            this.missileManager.Missile.forEach( m => {
+                                m.FindEnemies(e)
+                            })
                         }
-                    });
+                    })
                 }
-                if (managers.Game.timer < 590) {
-                    this.level3Enemies[0].forEach(function (e) {
-                        if (!e.isDead) {
+                if(managers.Game.timer < 590){
+                    this.level3Enemies[0].forEach(e =>{
+                        if(!e.isDead){
                             e.isInvincible = false;
                             e.Update();
-                            e.FindPlayer(_this.player);
-                            _this.missileManager.Missile.forEach(function (m) {
-                                m.FindEnemies(e);
-                            });
+                            e.FindPlayer(this.player);
+                            this.missileManager.Missile.forEach( m => {
+                                m.FindEnemies(e)
+                            })
                         }
-                    });
+                    })
                 }
-                if (managers.Game.timer < 587) {
-                    this.eliteUnits[4].forEach(function (e) {
-                        if (!e.isDead) {
+
+                if(managers.Game.timer < 587){
+                    this.eliteUnits[4].forEach(e =>{
+                        if(!e.isDead){
                             e.isInvincible = false;
                             e.Update();
-                            e.FindPlayer(_this.player);
-                            _this.missileManager.Missile.forEach(function (m) {
-                                m.FindEnemies(e);
-                            });
+                            e.FindPlayer(this.player);
+                            this.missileManager.Missile.forEach( m => {
+                                m.FindEnemies(e)
+                            })
                         }
-                    });
+                    })
                 }
-                if (managers.Game.timer < 585) {
-                    this.level3Enemies[2].forEach(function (e) {
-                        if (!e.isDead) {
+
+                if(managers.Game.timer < 585){
+                    this.level3Enemies[2].forEach(e =>{
+                        if(!e.isDead){
                             e.isInvincible = false;
                             e.Update();
-                            e.FindPlayer(_this.player);
-                            _this.missileManager.Missile.forEach(function (m) {
-                                m.FindEnemies(e);
-                            });
+                            e.FindPlayer(this.player);
+                            this.missileManager.Missile.forEach( m => {
+                                m.FindEnemies(e)
+                            })
                         }
-                    });
-                }
+                    })
+                }*/
             }
             if (managers.Game.hud.Lives < 0) {
                 managers.Game.currentScene = config.Scene.OVER;
@@ -613,7 +620,7 @@ var scenes;
                 if (bullet.y > 0) {
                     _this.level1Enemies.forEach(function (e) {
                         e.forEach(function (f) {
-                            if (!f.isInvincible && f.y > -5) {
+                            if (!f.isInvincible && f.y > 0) {
                                 managers.Collision.CheckAABB(bullet, f);
                                 managers.Collision.CheckAABB(f, _this.player);
                             }
@@ -621,7 +628,7 @@ var scenes;
                     });
                     _this.level2Enemies.forEach(function (e) {
                         e.forEach(function (f) {
-                            if (!f.isInvincible && f.y > -5) {
+                            if (!f.isInvincible && f.y > 0) {
                                 managers.Collision.CheckAABB(bullet, f);
                                 managers.Collision.CheckAABB(f, _this.player);
                             }
@@ -629,7 +636,7 @@ var scenes;
                     });
                     _this.level3Enemies.forEach(function (e) {
                         e.forEach(function (f) {
-                            if (!f.isInvincible && f.y > -5) {
+                            if (!f.isInvincible && f.y > 0) {
                                 managers.Collision.CheckAABB(bullet, f);
                                 managers.Collision.CheckAABB(f, _this.player);
                             }
@@ -637,7 +644,7 @@ var scenes;
                     });
                     _this.eliteUnits.forEach(function (e) {
                         e.forEach(function (f) {
-                            if (!f.isInvincible && f.y > -5) {
+                            if (!f.isInvincible && f.y > 0) {
                                 managers.Collision.CheckAABB(bullet, f);
                                 managers.Collision.CheckAABB(f, _this.player);
                             }
@@ -752,22 +759,6 @@ var scenes;
                 counter--;
                 if (counter < 0) {
                     clearInterval(interval);
-                }
-            }, 1000);
-        };
-        PlayScene.prototype.WaitTimer = function () {
-            var counter = 5;
-            var interval = setInterval(function () {
-                counter--;
-                console.log(counter);
-                if (counter < 0) {
-                    clearInterval(interval);
-                    if (managers.Game.boss1IsDead)
-                        managers.Game.level1Completed = true;
-                    if (managers.Game.boss2IsDead)
-                        managers.Game.level2Completed = true;
-                    if (managers.Game.boss3IsDead)
-                        managers.Game.level3Completed = true;
                 }
             }, 1000);
         };

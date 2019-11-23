@@ -5,7 +5,8 @@ module managers {        // Access to globally-required items
         public static currentScene: number;
         public static hud: managers.HUD;
         public static keyboardManager: managers.Keyboard;
-        public static highscore: number;
+        public static highScore: number;
+        public static score: number;
         public static timer:number;
         public static textureSprite: createjs.SpriteSheet;
         public static bulletManager: managers.Bullet;

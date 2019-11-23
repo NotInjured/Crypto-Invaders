@@ -265,7 +265,6 @@ var objects;
             this.y = 675;
             var interval = setInterval(function () {
                 counter--;
-                console.log(counter);
                 if (counter == 0) {
                     counter = 2;
                     if (managers.Game.hud.Lives < 0) {
@@ -287,7 +286,6 @@ var objects;
             var counter = 2;
             var interval = setInterval(function () {
                 counter--;
-                console.log(counter);
                 if (counter == 0) {
                     counter = 2;
                     _this.isInvincible = false;

@@ -11,7 +11,7 @@ module managers {
         private eCoins: objects.Coins[];
         private lCoins: objects.Coins[];
 
-        public playerLivesSprite: objects.Sprite;
+        public playerLivesSprite: objects.Sprite[]
         public playerLivesLabel: objects.Label;
         public playerBombsImage: objects.Image;
         public playerBombsLabel: objects.Label;
@@ -21,6 +21,8 @@ module managers {
         public scoreMultLabel: objects.Label;
         public gameOverLabel: objects.Label;
         public versionLabel: objects.Label;
+        public highScoreLabel: objects.Label;
+        public diffLabel: objects.Label;
 
         private tryAgainLabel: objects.Label;
         private scoreLabel :objects.Label;
@@ -39,6 +41,7 @@ module managers {
         private bombs:number;
         private power:number;
         private score:number;
+        private hScore:number;
         private scoreMult:number;
         private diff:string;
 
@@ -47,7 +50,7 @@ module managers {
         }
         set Lives(newLives:number){
             this.lives = newLives;
-            this.playerLivesLabel.text = "x" + this.lives;
+            this.playerLivesLabel.text = "Lives: ";
         }
         
         get Bombs():number{
@@ -55,7 +58,7 @@ module managers {
         }
         set Bombs(newBombs:number){
             this.bombs = newBombs;
-            this.playerBombsLabel.text = "Bombs x" + this.bombs;
+            this.playerBombsLabel.text = "Bombs: " + this.bombs;
         }
 
         get Power():number{
@@ -72,6 +75,14 @@ module managers {
         set Score(newScore:number){
             this.score = newScore;
             this.playerScoreLabel.text = "Score: " + this.score;
+        }
+
+        get HighScore():number{
+            return this.hScore;
+        }
+        set HighScore(newScore:number){
+            this.hScore = newScore;
+            this.highScoreLabel.text = "HiScore: " + this.hScore;
         }
 
         get ScoreMult():number{
@@ -101,17 +112,29 @@ module managers {
             })
 
             if(managers.Game.currentScene == config.Scene.GAME){
+                this.info1.text = ""
+                this.playerScoreLabel.x = 751
+                this.playerScoreLabel.y = 225
+                this.highScoreLabel.x = 725
+                this.highScoreLabel.y = 200
+                this.scoreMultLabel.x = 808
+                this.scoreMultLabel.y = 250
+                this.playerLivesLabel.x = 760
+                this.playerLivesLabel.y = 300
+                this.playerBombsLabel.x = 745
+                this.playerBombsLabel.y = 325
+                this.diffLabel.x = 725
+                this.diffLabel.y = 375
+
+                managers.Game.score = this.Score
+
+                if(this.Score > this.HighScore){
+                    this.HighScore = this.Score
+                    managers.Game.highScore = managers.Game.score
+                }
+                
                 if(managers.Game.level1 && managers.Game.level1Completed){
-                    this.playerLivesLabel.alpha = 0
-                    this.playerBombsLabel.alpha = 0
-                    this.scoreMultLabel.alpha = 0
-                    this.playerLivesSprite.alpha = 0
                     this.gameOverLabel.alpha = 1
-                    this.playerScoreLabel.alpha = 1
-                    this.playerScoreLabel.scaleX = 1.75
-                    this.playerScoreLabel.scaleY = 1.75
-                    this.playerScoreLabel.x = 450
-                    this.playerScoreLabel.y = 300
                     this.bBackground.alpha = 1
                     this.backButton.alpha = 1
                     this.continueButton.alpha = 1
@@ -121,15 +144,6 @@ module managers {
                 }
 
                 if(managers.Game.level2 && managers.Game.level1Completed){
-                    this.playerScoreLabel.scaleX = 1
-                    this.playerScoreLabel.scaleY = 1
-                    this.playerScoreLabel.x = 565
-                    this.playerScoreLabel.y = 15
-                    this.playerLivesLabel.alpha = 1
-                    this.playerBombsLabel.alpha = 1
-                    this.playerScoreLabel.alpha = 1
-                    this.scoreMultLabel.alpha = 1
-                    this.playerLivesSprite.alpha = 1
                     this.bBackground.alpha = 0
                     this.backButton.alpha = 0
                     this.continueButton.alpha = 0
@@ -137,16 +151,7 @@ module managers {
                 }
                 
                 if(managers.Game.level2 && managers.Game.level2Completed){
-                    this.playerLivesLabel.alpha = 0
-                    this.playerBombsLabel.alpha = 0
-                    this.scoreMultLabel.alpha = 0
-                    this.playerLivesSprite.alpha = 0
                     this.gameOverLabel.alpha = 1
-                    this.playerScoreLabel.alpha = 1
-                    this.playerScoreLabel.scaleX = 1.75
-                    this.playerScoreLabel.scaleY = 1.75
-                    this.playerScoreLabel.x = 450
-                    this.playerScoreLabel.y = 300
                     this.bBackground.alpha = 1
                     this.backButton.alpha = 1
                     this.continueButton.alpha = 1
@@ -156,15 +161,6 @@ module managers {
                 }
 
                 if(managers.Game.level3 && managers.Game.level2Completed){
-                    this.playerScoreLabel.scaleX = 1
-                    this.playerScoreLabel.scaleY = 1
-                    this.playerScoreLabel.x = 565
-                    this.playerScoreLabel.y = 15
-                    this.playerLivesLabel.alpha = 1
-                    this.playerBombsLabel.alpha = 1
-                    this.playerScoreLabel.alpha = 1
-                    this.scoreMultLabel.alpha = 1
-                    this.playerLivesSprite.alpha = 1
                     this.bBackground.alpha = 0
                     this.backButton.alpha = 0
                     this.continueButton.alpha = 0
@@ -172,16 +168,7 @@ module managers {
                 }
 
                 if(managers.Game.level3 && managers.Game.level3Completed){
-                    this.playerLivesLabel.alpha = 0
-                    this.playerBombsLabel.alpha = 0
-                    this.scoreMultLabel.alpha = 0
-                    this.playerLivesSprite.alpha = 0
                     this.gameOverLabel.alpha = 1
-                    this.playerScoreLabel.alpha = 1
-                    this.playerScoreLabel.scaleX = 1.75
-                    this.playerScoreLabel.scaleY = 1.75
-                    this.playerScoreLabel.x = 450
-                    this.playerScoreLabel.y = 300
                     this.bBackground.alpha = 1
                     this.backButton.alpha = 1
                     this.continueButton.alpha = 1
@@ -224,27 +211,26 @@ module managers {
             this.backButton = new objects.Button("buttonBack", 630, 555);
             this.continueButton = new objects.Button("buttonContinue", 630, 475)
 
-            this.playerLivesLabel = new objects.Label("", "18px", "OptimusPrinceps","#000000", 380, 668, false );
-            this.playerBombsLabel = new objects.Label("", "18px", "OptimusPrinceps","#000000", 345, 690, false );       
-            this.playerScoreLabel = new objects.Label("", "20px", "OptimusPrinceps","#000000", 565, 15, false );
-            this.playerPowerLabel = new objects.Label("", "12px", "OptimusPrinceps","#000000", 465, 20, false );    
-            this.scoreMultLabel = new objects.Label("", "18px", "OptimusPrinceps","#000000", 650, 45, false );
-           
+            this.playerLivesLabel = new objects.Label("", "24px", "OptimusPrinceps","#000000", 380, 668, false );
+            this.playerBombsLabel = new objects.Label("", "24px", "OptimusPrinceps","#000000", 345, 690, false );       
+            this.playerScoreLabel = new objects.Label("", "24px", "OptimusPrinceps","#000000", 565, 15, false );
+            this.playerPowerLabel = new objects.Label("", "24px", "OptimusPrinceps","#000000", 465, 20, false );    
+            this.scoreMultLabel = new objects.Label("", "24px", "OptimusPrinceps","#000000", 650, 45, false );
+            this.highScoreLabel = new objects.Label("", "24px", "OptimusPrinceps","#000000", 565, 200, false );
+
             this.info1 = new objects.Label(
-            "Bottom Left: "+ "\n" +
             "Player starts with 9/6/3 lives on Normal/Hard/Hell " + "\n" +
             "- Gain more lives by completing stages" + "\n\n" + 
             "Player Starts with 1 bomb/special" + "\n" + 
-            "- Gain more bombs dropped by enemies or bosses " + "\n" + "(Max:3)" + "\n\n" + 
-            "Player starts with power level 1" + "\n" + 
-            "- Upgrade ship power level by collecting power-ups "  + "\n" +
-            "dropped by enemies/bosses (Max:10)" + "\n\n" + 
-            "Top Right: "+ "\n" +
+            "- Gain more bombs dropped by enemies or bosses " + "\n" + "(Max:5)" + "\n\n" + 
+            //"Player starts with power level 1" + "\n" + 
+            //"- Upgrade ship power level by collecting power-ups "  + "\n" +
+            //"dropped by enemies/bosses (Max:10)" + "\n\n" +
             "Score is gained by destroying enemies, bosses" + "\n" + 
             "and collecting item drops "+ "\n\n" + 
             "Score multiplier is gained upon destroying enemies"+ "\n" +
             "and is lost when dead", "14px", "OptimusPrimus", 
-            "#000000", 740, 235, false);
+            "#000000", 740, 265, false);
 
             this.controls = new objects.Label("Arrow Keys - Movement"+ "\n\n" + "           X - Shoot"
             + "\n\n" + "   Z - Bombs (Disabled)" + "\n\n" + "    Space - Swap Ships", "24px", "OptimusPrimus", 
@@ -260,15 +246,14 @@ module managers {
             if(managers.Game.hell)
                 this.diff = "Hell"
             this.gameOverLabel = new objects.Label(
-                "\t\t\t" + "   Level Completed!" + "\n" + "\t  Difficulty: " + this.diff, 
-                "36px", "OptimusPrinceps", "#000000", 675, 240, true);
+                "Level Completed!", 
+                "36px", "OptimusPrinceps", "#000000", 530, 240, true);
+            this.diffLabel = new objects.Label("Difficulty: " +this.diff, "24px", "OptimusPrinceps","#000000", 565, 200, false );
 
             this.controlPanel = new objects.Image("panelUI", 4, 175);
             this.infoPanel = new objects.Image("panelInfo", 710, 175);
 
-            this.playerLivesSprite = new objects.Sprite("Ship1", 370, 688);
-            this.playerLivesSprite.scaleX = 0.5;
-            this.playerLivesSprite.scaleY = 0.5;
+            this.playerLivesSprite = new Array<objects.Sprite>()
             
             this.bBackground = new objects.Image("backgroundB", 343, 0);
             this.eBackground = new objects.Image("backgroundE", 712, 0);
@@ -303,7 +288,42 @@ module managers {
                 this.addChild(this.controls);
                 this.addChild(this.versionLabel)
             }
+
             if(managers.Game.currentScene == config.Scene.GAME){
+                if(managers.Game.normal){
+                    for(let i = 0; i < 9; i++){
+                        this.playerLivesSprite[i] = new objects.Sprite("Ship1", 370, 688);
+                        this.playerLivesSprite[i].scaleX = 0.5;
+                        this.playerLivesSprite[i].scaleY = 0.5;
+                        this.playerLivesSprite[0].x = 835
+                        this.playerLivesSprite[0].y = 320
+                        this.playerLivesSprite[i].x = this.playerLivesSprite[0].x + 20 *i
+                        this.playerLivesSprite[i].y = this.playerLivesSprite[0].y
+                    }
+                }
+                if(managers.Game.hard){
+                    for(let i = 0; i < 6; i++){
+                        this.playerLivesSprite[i] = new objects.Sprite("Ship1", 370, 688);
+                        this.playerLivesSprite[i].scaleX = 0.5;
+                        this.playerLivesSprite[i].scaleY = 0.5;
+                        this.playerLivesSprite[0].x = 835
+                        this.playerLivesSprite[0].y = 320
+                        this.playerLivesSprite[i].x = this.playerLivesSprite[0].x + 20 *i
+                        this.playerLivesSprite[i].y = this.playerLivesSprite[0].y
+                    }
+                }
+                if(managers.Game.hell){
+                    for(let i = 0; i < 3; i++){
+                        this.playerLivesSprite[i] = new objects.Sprite("Ship1", 370, 688);
+                        this.playerLivesSprite[i].scaleX = 0.5;
+                        this.playerLivesSprite[i].scaleY = 0.5;
+                        this.playerLivesSprite[0].x = 835
+                        this.playerLivesSprite[0].y = 320
+                        this.playerLivesSprite[i].x = this.playerLivesSprite[0].x + 20 *i
+                        this.playerLivesSprite[i].y = this.playerLivesSprite[0].y
+                    }
+                }
+
                 this.addChild(this.eBackground);
                 this.addChild(this.lBackground);
                 this.addChild(this.controlPanel);
@@ -314,18 +334,24 @@ module managers {
                 this.addChild(this.playerBombsLabel);
                 this.addChild(this.playerScoreLabel);
                 this.addChild(this.scoreMultLabel);
-                this.addChild(this.playerLivesSprite);
                 this.addChild(this.bBackground)
                 this.addChild(this.gameOverLabel)
                 this.addChild(this.playerScoreLabel)
+                this.addChild(this.highScoreLabel)
                 this.addChild(this.backButton)
                 this.addChild(this.continueButton)
+                this.addChild(this.diffLabel)
+                
+                this.playerLivesSprite.forEach(s =>{
+                    this.addChild(s);
+                })
 
                 this.gameOverLabel.alpha = 0
                 this.bBackground.alpha = 0
                 this.backButton.alpha = 0
                 this.continueButton.alpha = 0
             }
+
             if(managers.Game.currentScene == config.Scene.OVER){
                 this.addChild(this.eBackground);
                 this.addChild(this.lBackground);
@@ -350,6 +376,7 @@ module managers {
                 this.addChild(this.info1);
                 this.addChild(this.controls);
             }
+
             if(managers.Game.currentScene == config.Scene.OPTIONS){
                 this.addChild(this.eBackground);
                 this.addChild(this.lBackground);
@@ -377,7 +404,8 @@ module managers {
             
             this.Power = 0;
             this.Score = 0;
-            this.ScoreMult = 0;
+            this.HighScore = 0
+            this.ScoreMult = 1;
         }
     }
 }

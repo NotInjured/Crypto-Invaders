@@ -81,7 +81,7 @@ module scenes {
 
             managers.Game.player = this.player
             managers.Game.timer = 600
-            managers.Game.boss1Hp = 200
+            managers.Game.boss1Hp = 2
             managers.Game.boss2Hp = 300
             managers.Game.boss3Hp = 400
             managers.Game.eEliteHp = 25
@@ -256,7 +256,6 @@ module scenes {
         }
 
         public Update(): void {
-            managers.Game.highscore = this.hud.Score;
             this.hud.Update()
             this.aircraft.y += 3;
             if(this.aircraft.y > 720){
@@ -276,6 +275,7 @@ module scenes {
 
             console.log(managers.Game.timer);
             this.background.Update();
+            
             this.player.Update();
             if(this.player.IsInvincible){
                 this.shield.x = this.player.x +20
@@ -435,8 +435,9 @@ module scenes {
                     this.eBoss1.DropCoins(50)
                 }
             }
-            //*
+            
             if(managers.Game.level2){
+                /*
                 if(managers.Game.timer == 600){
                     createjs.Sound.stop();
                     this.bgm = createjs.Sound.play("bgm3");
@@ -472,9 +473,9 @@ module scenes {
                                 m.FindEnemies(e)
                             })
                         }
-                    })*/
+                    })
                 }
-                /*
+                
                 if(managers.Game.timer > 445 && managers.Game.timer < 590){
                     this.level2Enemies[1].forEach(e =>{
                         if(!e.isDead){
@@ -562,7 +563,7 @@ module scenes {
                 }
             }
             
-            if(managers.Game.level3){
+            if(managers.Game.level3){/*
                 if(managers.Game.timer == 600){
                     createjs.Sound.stop();
                     this.bgm = createjs.Sound.play("bgm");
@@ -626,7 +627,7 @@ module scenes {
                             })
                         }
                     })
-                }
+                }*/
             }
             
             if(managers.Game.hud.Lives < 0){
@@ -697,7 +698,7 @@ module scenes {
                 if(bullet.y > 0){
                     this.level1Enemies.forEach(e =>{
                         e.forEach(f =>{
-                            if(!f.isInvincible && f.y > -5){
+                            if(!f.isInvincible && f.y > 0){
                                 managers.Collision.CheckAABB(bullet, f)
                                 managers.Collision.CheckAABB(f, this.player)
                             }
@@ -706,7 +707,7 @@ module scenes {
     
                     this.level2Enemies.forEach(e =>{
                         e.forEach(f =>{
-                            if(!f.isInvincible && f.y > -5){
+                            if(!f.isInvincible && f.y > 0){
                                 managers.Collision.CheckAABB(bullet, f)
                                 managers.Collision.CheckAABB(f, this.player)
                             }
@@ -715,7 +716,7 @@ module scenes {
     
                     this.level3Enemies.forEach(e =>{
                         e.forEach(f =>{
-                            if(!f.isInvincible && f.y > -5){
+                            if(!f.isInvincible && f.y > 0){
                                 managers.Collision.CheckAABB(bullet, f)
                                 managers.Collision.CheckAABB(f, this.player)
                             }
@@ -724,7 +725,7 @@ module scenes {
                     
                     this.eliteUnits.forEach(e => {
                         e.forEach(f =>{
-                            if(!f.isInvincible && f.y > -5){
+                            if(!f.isInvincible && f.y > 0){
                                 managers.Collision.CheckAABB(bullet, f)
                                 managers.Collision.CheckAABB(f, this.player)
                             }
@@ -860,24 +861,6 @@ module scenes {
                 counter--;
                 if(counter < 0){
                     clearInterval(interval);
-                }
-            }, 1000)
-        }
-
-        public WaitTimer():void{
-            let counter = 5;
-
-            let interval = setInterval(() =>{
-                counter--;
-                console.log(counter)
-                if(counter < 0){
-                    clearInterval(interval);
-                    if(managers.Game.boss1IsDead)
-                        managers.Game.level1Completed = true;
-                    if(managers.Game.boss2IsDead)
-                        managers.Game.level2Completed = true;
-                    if(managers.Game.boss3IsDead)
-                        managers.Game.level3Completed = true;
                 }
             }, 1000)
         }
