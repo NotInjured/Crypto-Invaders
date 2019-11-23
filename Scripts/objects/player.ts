@@ -74,21 +74,29 @@ module objects {
         public Move():void {
             if(managers.Game.keyboardManager.moveLeft)
             this.x -= 4;
+            if(managers.Game.keyboardManager.moveLeft && managers.Game.keyboardManager.shift)
+            this.x += 2;
             if(!managers.Game.keyboardManager.moveLeft)
             this.x += 0;
 
             if(managers.Game.keyboardManager.moveRight)
             this.x += 4;
+            if(managers.Game.keyboardManager.moveRight && managers.Game.keyboardManager.shift)
+            this.x -= 2;
             if(!managers.Game.keyboardManager.moveRight)
             this.x += 0;
 
             if(managers.Game.keyboardManager.moveUp)
             this.y -= 4;
+            if(managers.Game.keyboardManager.moveUp && managers.Game.keyboardManager.shift)
+            this.y += 2;
             if(!managers.Game.keyboardManager.moveUp)
             this.y += 0;
 
             if(managers.Game.keyboardManager.moveDown)
             this.y += 4;
+            if(managers.Game.keyboardManager.moveDown && managers.Game.keyboardManager.shift)
+            this.y -= 2;
             if(!managers.Game.keyboardManager.moveDown)
             this.y += 0;
         }

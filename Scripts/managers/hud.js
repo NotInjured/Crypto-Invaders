@@ -200,7 +200,8 @@ var managers;
                 "Score multiplier is gained upon destroying enemies" + "\n" +
                 "and is lost when dead", "14px", "OptimusPrimus", "#000000", 740, 265, false);
             this.controls = new objects.Label("Arrow Keys - Movement" + "\n\n" + "           X - Shoot"
-                + "\n\n" + "   Z - Bombs (Disabled)" + "\n\n" + "    Space - Swap Ships", "24px", "OptimusPrimus", "#000000", 50, 285, false);
+                + "\n\n" + "   Z - Bombs (Disabled)" + "\n\n" + "    Space - Swap Ships" + "\n\n" +
+                "     Shift - Half-speed", "24px", "OptimusPrimus", "#000000", 50, 265, false);
             this.versionLabel = new objects.Label("Alpha Release 0.1", "12px", "OptimusPrimus", "#000000", 495, 550, false);
             if (managers.Game.normal)
                 this.diff = "Normal";

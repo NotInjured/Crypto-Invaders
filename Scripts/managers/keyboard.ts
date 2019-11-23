@@ -10,6 +10,7 @@ module managers {
         public pause: boolean;
         public special:boolean;
         public swap:boolean;
+        public shift:boolean;
 
         public cooldown:number;
         public counter:number;
@@ -51,6 +52,9 @@ module managers {
                 case config.Keys.ESC:
                     this.pause = true;
                 break;
+                case config.Keys.SHIFT:
+                    this.shift = true;
+                break;
             }
         }
         public onKeyUp(event:KeyboardEvent):void {
@@ -78,6 +82,9 @@ module managers {
                 break;
                 case config.Keys.ESC:
                     this.pause = false;
+                break;
+                case config.Keys.SHIFT:
+                    this.shift = false;
                 break;
             }
         }

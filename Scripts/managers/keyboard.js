@@ -37,6 +37,9 @@ var managers;
                 case config.Keys.ESC:
                     this.pause = true;
                     break;
+                case config.Keys.SHIFT:
+                    this.shift = true;
+                    break;
             }
         };
         Keyboard.prototype.onKeyUp = function (event) {
@@ -64,6 +67,9 @@ var managers;
                     break;
                 case config.Keys.ESC:
                     this.pause = false;
+                    break;
+                case config.Keys.SHIFT:
+                    this.shift = false;
                     break;
             }
         };

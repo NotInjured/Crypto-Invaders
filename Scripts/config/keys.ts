@@ -19,6 +19,8 @@ module config {
         // ESCAPE
         public static ESC:number = 27;
 
+        public static SHIFT:number = 16
+
 
     }
 }

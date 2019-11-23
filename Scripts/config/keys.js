@@ -16,6 +16,7 @@ var config;
         Keys.Z = 90;
         // ESCAPE
         Keys.ESC = 27;
+        Keys.SHIFT = 16;
         return Keys;
     }());
     config.Keys = Keys;
