@@ -356,7 +356,9 @@ module managers {
                                     explosion.scaleY = 0.5
                                     explosion.scaleX = 0.5
                                     managers.Game.currentSceneObject.addChild(explosion)
-                                    managers.Game.numOfMissiles -=1
+                                    if(managers.Game.numOfMissiles > 0){
+                                        managers.Game.numOfMissiles -=1
+                                    }
                                     managers.Game.hud.Lives -= 1
                                     managers.Game.hud.playerLivesSprite[managers.Game.hud.Lives].alpha = 0.5
                                     console.log(managers.Game.hud.playerLivesSprite[managers.Game.hud.Lives])
@@ -395,7 +397,7 @@ module managers {
 
                                         managers.Game.currentSceneObject.addChild(buff)
                                         managers.Game.numOfMissiles += 1
-                                        managers.Game.hud.Score += 5000 * managers.Game.hud.ScoreMult
+                                        managers.Game.hud.Score += 500 * managers.Game.hud.ScoreMult
                                         managers.Game.currentSceneObject.removeChild(object2)
                                     }
                                     managers.Game.hud.Score += 100 * managers.Game.hud.ScoreMult
