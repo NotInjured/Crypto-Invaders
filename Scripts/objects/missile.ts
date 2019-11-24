@@ -86,6 +86,16 @@ module objects {
                         (((enemyPos.x + 55) - this.position.x) / this.distance) * 10,
                         (((enemyPos.y - 100) - this.position.y) / this.distance) * 10)
                 }
+                if(enemy.name == "F5S2"){
+                    this.Dir = new math.Vec2(
+                        (((enemyPos.x - 25) - this.position.x) / this.distance) * 10,
+                        (((enemyPos.y - 25) - this.position.y) / this.distance) * 10)
+                }
+                if(enemy.name == "F5S4"){
+                    this.Dir = new math.Vec2(
+                        (((enemyPos.x - 25) - this.position.x) / this.distance) * 10,
+                        (((enemyPos.y - 25) - this.position.y) / this.distance) * 10)
+                }
             }
             
         }

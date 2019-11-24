@@ -34,7 +34,6 @@ module managers {
                     break;
                 }
                 break;
-
                 case 4:
                 case 5:
                     switch(shipType){

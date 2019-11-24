@@ -99,7 +99,6 @@ var managers;
                 c.Update();
             });
             if (managers.Game.currentScene == config.Scene.GAME) {
-                this.info1.text = "";
                 this.playerScoreLabel.x = 751;
                 this.playerScoreLabel.y = 225;
                 this.highScoreLabel.x = 725;
@@ -149,9 +148,31 @@ var managers;
                     this.gameOverLabel.alpha = 1;
                     this.bBackground.alpha = 1;
                     this.backButton.alpha = 1;
-                    this.continueButton.alpha = 1;
+                    this.gameOverLabel.text = "Game Completed!";
+                    //this.continueButton.alpha = 1
+                    //this.continueLabel.alpha = 1
+                    //this.continueLabel.x = 470
+                    //this.continueLabel.y = 300
                     this.backButton.on("click", this.backButtonClick);
-                    this.continueButton.on("click", this.continueButtonClick);
+                    //this.continueButton.on("click", this.continueButtonClick)
+                }
+                if (managers.Game.level1 && managers.Game.level3Completed) {
+                    this.bBackground.alpha = 0;
+                    this.backButton.alpha = 0;
+                    this.continueButton.alpha = 0;
+                    this.gameOverLabel.alpha = 0;
+                    if (managers.Game.ng) {
+                        managers.Game.level1 = true;
+                        managers.Game.level2 = false;
+                        managers.Game.level3 = false;
+                        managers.Game.level1Completed = false;
+                        managers.Game.level2Completed = false;
+                        managers.Game.level3Completed = false;
+                        managers.Game.boss1IsDead = false;
+                        managers.Game.boss2IsDead = false;
+                        managers.Game.boss3_1IsDead = false;
+                        managers.Game.boss3_2IsDead = false;
+                    }
                 }
             }
         };
@@ -164,9 +185,14 @@ var managers;
                 managers.Game.level1 = false;
                 managers.Game.level2 = true;
             }
-            else if (managers.Game.level2Completed && managers.Game.level2) {
+            if (managers.Game.level2Completed && managers.Game.level2) {
                 managers.Game.level2 = false;
                 managers.Game.level3 = true;
+            }
+            if (managers.Game.level3Completed && managers.Game.level3) {
+                managers.Game.level3 = false;
+                managers.Game.level1 = true;
+                managers.Game.ng = true;
             }
         };
         HUD.prototype.Initialize = function () {
@@ -188,17 +214,18 @@ var managers;
             this.playerPowerLabel = new objects.Label("", "24px", "OptimusPrinceps", "#000000", 465, 20, false);
             this.scoreMultLabel = new objects.Label("", "24px", "OptimusPrinceps", "#000000", 650, 45, false);
             this.highScoreLabel = new objects.Label("", "24px", "OptimusPrinceps", "#000000", 565, 200, false);
-            this.info1 = new objects.Label("Player starts with 9/6/3 lives on Normal/Hard/Hell " + "\n" +
-                "- Gain more lives by completing stages" + "\n\n" +
+            this.info1 = new objects.Label("Player starts with 9/6/3 lives on" + "\n" +
+                "Normal/Hard/Hell" + "\n" +
+                "+1 by completing stages" + "\n\n" +
                 "Player Starts with 1 bomb/special" + "\n" +
-                "- Gain more bombs dropped by enemies or bosses " + "\n" + "(Max:5)" + "\n\n" +
+                "+1 dropped by enemies or bosses " + "\n" + "(Max:5)" + "\n\n" +
                 //"Player starts with power level 1" + "\n" + 
                 //"- Upgrade ship power level by collecting power-ups "  + "\n" +
                 //"dropped by enemies/bosses (Max:10)" + "\n\n" +
-                "Score is gained by destroying enemies, bosses" + "\n" +
+                "+Score by destroying enemies, bosses" + "\n" +
                 "and collecting item drops " + "\n\n" +
-                "Score multiplier is gained upon destroying enemies" + "\n" +
-                "and is lost when dead", "14px", "OptimusPrimus", "#000000", 740, 265, false);
+                "+Multiplier by destroying enemies" + "\n" +
+                "Reset to 1 on death", "20px", "OptimusPrimus", "#000000", 725, 215, false);
             this.controls = new objects.Label("Arrow Keys - Movement" + "\n\n" + "           X - Shoot"
                 + "\n\n" + "   Z - Bombs (Disabled)" + "\n\n" + "    Space - Swap Ships" + "\n\n" +
                 "     Shift - Half-speed", "24px", "OptimusPrimus", "#000000", 50, 265, false);
@@ -211,7 +238,8 @@ var managers;
                 this.diff = "Hell";
             this.gameOverLabel = new objects.Label("Level Completed!", "36px", "OptimusPrinceps", "#000000", 530, 240, true);
             this.diffLabel = new objects.Label("Difficulty: " + this.diff, "24px", "OptimusPrinceps", "#000000", 565, 200, false);
-            this.controlPanel = new objects.Image("panelUI", 4, 175);
+            this.continueLabel = new objects.Label("New Game+?", "24px", "OptimusPrinceps", "#000000", 565, 200, false);
+            this.controlPanel = new objects.Image("panelUI", 1, 175);
             this.infoPanel = new objects.Image("panelInfo", 710, 175);
             this.playerLivesSprite = new Array();
             this.bBackground = new objects.Image("backgroundB", 343, 0);
@@ -247,44 +275,28 @@ var managers;
                 this.addChild(this.versionLabel);
             }
             if (managers.Game.currentScene == config.Scene.GAME) {
-                if (managers.Game.normal) {
-                    for (var i = 0; i < 9; i++) {
-                        this.playerLivesSprite[i] = new objects.Sprite("Ship1", 370, 688);
-                        this.playerLivesSprite[i].scaleX = 0.5;
-                        this.playerLivesSprite[i].scaleY = 0.5;
-                        this.playerLivesSprite[0].x = 835;
-                        this.playerLivesSprite[0].y = 320;
-                        this.playerLivesSprite[i].x = this.playerLivesSprite[0].x + 20 * i;
-                        this.playerLivesSprite[i].y = this.playerLivesSprite[0].y;
-                    }
+                for (var i = 0; i < 9; i++) {
+                    this.playerLivesSprite[i] = new objects.Sprite("Ship1", 370, 688);
+                    this.playerLivesSprite[i].scaleX = 0.5;
+                    this.playerLivesSprite[i].scaleY = 0.5;
+                    this.playerLivesSprite[0].x = 835;
+                    this.playerLivesSprite[0].y = 320;
+                    this.playerLivesSprite[i].x = this.playerLivesSprite[0].x + 20 * i;
+                    this.playerLivesSprite[i].y = this.playerLivesSprite[0].y;
                 }
                 if (managers.Game.hard) {
-                    for (var i = 0; i < 6; i++) {
-                        this.playerLivesSprite[i] = new objects.Sprite("Ship1", 370, 688);
-                        this.playerLivesSprite[i].scaleX = 0.5;
-                        this.playerLivesSprite[i].scaleY = 0.5;
-                        this.playerLivesSprite[0].x = 835;
-                        this.playerLivesSprite[0].y = 320;
-                        this.playerLivesSprite[i].x = this.playerLivesSprite[0].x + 20 * i;
-                        this.playerLivesSprite[i].y = this.playerLivesSprite[0].y;
+                    for (var i = 6; i < 9; i++) {
+                        this.playerLivesSprite[i].alpha = 0.5;
                     }
                 }
                 if (managers.Game.hell) {
-                    for (var i = 0; i < 3; i++) {
-                        this.playerLivesSprite[i] = new objects.Sprite("Ship1", 370, 688);
-                        this.playerLivesSprite[i].scaleX = 0.5;
-                        this.playerLivesSprite[i].scaleY = 0.5;
-                        this.playerLivesSprite[0].x = 835;
-                        this.playerLivesSprite[0].y = 320;
-                        this.playerLivesSprite[i].x = this.playerLivesSprite[0].x + 20 * i;
-                        this.playerLivesSprite[i].y = this.playerLivesSprite[0].y;
+                    for (var i = 3; i < 9; i++) {
+                        this.playerLivesSprite[i].alpha = 0.5;
                     }
                 }
                 this.addChild(this.eBackground);
                 this.addChild(this.lBackground);
                 this.addChild(this.controlPanel);
-                this.addChild(this.infoPanel);
-                this.addChild(this.info1);
                 this.addChild(this.controls);
                 this.addChild(this.playerLivesLabel);
                 this.addChild(this.playerBombsLabel);
@@ -297,6 +309,7 @@ var managers;
                 this.addChild(this.backButton);
                 this.addChild(this.continueButton);
                 this.addChild(this.diffLabel);
+                //this.addChild(this.continueLabel)
                 this.playerLivesSprite.forEach(function (s) {
                     _this.addChild(s);
                 });
@@ -304,6 +317,7 @@ var managers;
                 this.bBackground.alpha = 0;
                 this.backButton.alpha = 0;
                 this.continueButton.alpha = 0;
+                this.continueLabel.alpha = 0;
             }
             if (managers.Game.currentScene == config.Scene.OVER) {
                 this.addChild(this.eBackground);

@@ -27,16 +27,19 @@ module managers {        // Access to globally-required items
         public static eMinionHp:number
         public static boss1Hp:number;
         public static boss2Hp:number;
-        public static boss3Hp:number;
+        public static boss3_1Hp:number;
+        public static boss3_2Hp:number;
         public static boss1IsDead:boolean = false;
         public static boss2IsDead:boolean = false;
-        public static boss3IsDead:boolean = false;
+        public static boss3_1IsDead:boolean = false;
+        public static boss3_2IsDead:boolean = false;
         public static level1:boolean = true
         public static level2:boolean = false
         public static level3:boolean = false
         public static level1Completed:boolean = false
         public static level2Completed:boolean = false
         public static level3Completed:boolean = false
+        public static ng:boolean = false
 
     }
 }

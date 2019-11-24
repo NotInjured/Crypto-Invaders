@@ -143,6 +143,14 @@ module objects {
                     this.x = 473
                     this.y = - 50
                 break;
+                case "F5S2":
+                    this.x = 473
+                    this.y = - 50
+                break;
+                case "F5S4":
+                    this.x = 640
+                    this.y = - 50
+                break;
             }
             
         }
@@ -743,6 +751,109 @@ module objects {
                                 this.ShootPattern(20)
                                 this.ShootPattern(21)
                             }  
+                        }
+                    }
+                break;
+                case "F5S2":
+                    if(this.y < 200 && !this.startPos){
+                        this.y += 2;
+                        if(this.y > 190){
+                            this.startPos = true;
+                        } 
+                    }
+                    if(this.startPos){
+                        if(managers.Game.boss3_1Hp > 200){
+                            this.ShootPattern(22)
+                            this.ShootPattern(23)
+                            this.ShootPattern(24)
+                            
+                        }
+                        if(managers.Game.boss3_1Hp > 150 && managers.Game.boss3_1Hp < 200){
+                            if(this.pattern1){
+                                this.ShootPattern(22)
+                                this.ShootPattern(23)
+                                this.ShootPattern(24)
+                            }
+                            if(!this.pattern1 && this.pattern2){
+                                this.ShootPattern(25)
+                            }
+                        }
+                        if(managers.Game.boss3_1Hp > 100 && managers.Game.boss3_1Hp < 150){
+                            if(this.pattern1){
+                                this.ShootPattern(22)
+                                this.ShootPattern(23)
+                                this.ShootPattern(24)
+                            }
+                            if(!this.pattern1 && this.pattern2){
+                                this.ShootPattern(25)
+                            }
+                            if(!this.pattern2 && this.pattern3){
+                                this.ShootPattern(26)
+                                this.ShootPattern(27)
+                            }
+                        }
+                        if(managers.Game.boss3_1Hp < 100){
+                            if(this.pattern1){
+                                this.ShootPattern(22)
+                                this.ShootPattern(23)
+                                this.ShootPattern(24)
+                            }
+                            if(!this.pattern1 && this.pattern2){
+                                this.ShootPattern(25)
+                            }
+                            if(!this.pattern2 && this.pattern3){
+                                this.ShootPattern(26)
+                                this.ShootPattern(27)
+                            }
+                            if(!this.pattern3 && this.pattern4){
+                                this.ShootPattern(28)
+                            }
+                        }
+                    }
+                break;
+                case "F5S4":
+                    if(this.y < 200 && !this.startPos){
+                        this.y += 2;
+                        if(this.y > 190){
+                            this.startPos = true;
+                        } 
+                    }
+                    if(this.startPos){
+                        if(managers.Game.boss3_2Hp > 200){
+                            this.ShootPattern(31)
+                        }
+                        if(managers.Game.boss3_2Hp > 150 && managers.Game.boss3_2Hp < 200){
+                            if(this.pattern1){
+                                this.ShootPattern(31)
+                            }
+                            if(!this.pattern1 && this.pattern2){
+                                this.ShootPattern(32)
+                                this.ShootPattern(33)
+                                this.ShootPattern(34)
+                            }
+                        }
+                        if(managers.Game.boss3_2Hp > 100 && managers.Game.boss3_2Hp < 150){
+                            if(this.pattern1){
+                                this.ShootPattern(31)
+                            }
+                            if(!this.pattern1 && this.pattern2){
+                                this.ShootPattern(32)
+                                this.ShootPattern(33)
+                                this.ShootPattern(34)
+                            }
+                            if(!this.pattern2 && this.pattern3){
+                                this.ShootPattern(35)
+                                this.ShootPattern(36)
+                            }
+                        }
+                        if(managers.Game.boss3_2Hp < 100){
+                            if(this.pattern3){
+                                this.ShootPattern(35)
+                                this.ShootPattern(36)
+                            }
+                            if(!this.pattern3 && this.pattern4){
+                                this.ShootPattern(37)
+                            }
                         }
                     }
                 break;
@@ -1733,6 +1844,581 @@ module objects {
                             break;
                         }
                     break;
+                    case "F5S2":
+                        switch(pattern){
+                            case 22: 
+                                if(this.shootNum < 90){
+                                    if(ticker % 5 == 0){
+                                        this.bulletSpawn = new math.Vec2(this.x - 18, this.y);      
+                                                
+                                        this.position = new math.Vec2(this.x - 10, this.y);
+                                        this.distance = math.Vec2.Distance(this.playerPos, this.position);
+                        
+                                        this.bullet = managers.Game.enemyBulletManager.GetBullet()
+                                        this.bullet.pattern = 1;
+
+                                        this.bullet.x = this.bulletSpawn.x;
+                                        this.bullet.y = this.bulletSpawn.y;
+        
+                                        this.bullet.Speed = 3;
+
+                                        this.bullet.Dir = new math.Vec2(
+                                            (((this.playerPos.x - this.position.x) - 50)/ this.distance) * this.bullet.Speed, 
+                                            ((this.playerPos.y - this.position.y) / this.distance) * this.bullet.Speed);
+                                        //console.log(this.bullet)
+                                        let laser = createjs.Sound.play("laser");
+                                        laser.volume = 0.1;
+                    
+                                        this.shootNum++;
+                                    }
+                                }
+                                if(this.shootNum > 89){
+                                    this.bullet.Reset()
+                                    this.shoot = true;
+                                    this.Timer();
+                                }
+                            break;
+                            case 23:
+                                if(this.shootNum < 90){
+                                    if(ticker % 5 == 0){
+                                        this.bulletSpawn = new math.Vec2(this.x - 18, this.y);      
+                                                
+                                        this.position = new math.Vec2(this.x - 10, this.y);
+                                        this.distance = math.Vec2.Distance(this.playerPos, this.position);
+                        
+                                        this.bullet = managers.Game.enemyBulletManager.GetBullet()
+                                        this.bullet.pattern = 1;
+
+                                        this.bullet.x = this.bulletSpawn.x;
+                                        this.bullet.y = this.bulletSpawn.y;
+        
+                                        this.bullet.Speed = 3;
+
+                                        this.bullet.Dir = new math.Vec2(
+                                            ((this.playerPos.x - this.position.x) / this.distance) * this.bullet.Speed, 
+                                            ((this.playerPos.y - this.position.y) / this.distance) * this.bullet.Speed);
+                                        //console.log(this.bullet)
+                                        let laser = createjs.Sound.play("laser");
+                                        laser.volume = 0.1;
+                    
+                                        this.shootNum++;
+                                    }
+                                }
+                                if(this.shootNum > 89){
+                                    this.bullet.Reset()
+                                    this.shoot = true;
+                                    this.Timer();
+                                }
+                            break;
+                            case 24:
+                                if(this.shootNum < 90){
+                                    if(ticker % 5 == 0){
+                                        this.bulletSpawn = new math.Vec2(this.x - 18, this.y);      
+                                                
+                                        this.position = new math.Vec2(this.x - 10, this.y);
+                                        this.distance = math.Vec2.Distance(this.playerPos, this.position);
+                        
+                                        this.bullet = managers.Game.enemyBulletManager.GetBullet()
+                                        this.bullet.pattern = 1;
+
+                                        this.bullet.x = this.bulletSpawn.x;
+                                        this.bullet.y = this.bulletSpawn.y;
+        
+                                        this.bullet.Speed = 3;
+
+                                        this.bullet.Dir = new math.Vec2(
+                                            (((this.playerPos.x - this.position.x) + 50)/ this.distance) * this.bullet.Speed, 
+                                            ((this.playerPos.y - this.position.y) / this.distance) * this.bullet.Speed);
+                                        //console.log(this.bullet)
+                                        let laser = createjs.Sound.play("laser");
+                                        laser.volume = 0.1;
+                    
+                                        this.shootNum++;
+                                    }
+                                }
+                                if(this.shootNum > 89){
+                                    this.bullet.Reset()
+                                    this.shoot = true;
+                                    if(managers.Game.boss3_1Hp > 150 && managers.Game.boss3_1Hp < 200){
+                                        this.pattern1 = false
+                                        this.pattern2 = true
+                                    }
+                                    if(managers.Game.boss3_1Hp > 100 && managers.Game.boss3_1Hp < 150){
+                                        this.pattern1 = false
+                                        this.pattern2 = true
+                                    }
+                                    if(managers.Game.boss3_1Hp < 100){
+                                        this.pattern1 = false
+                                        this.pattern2 = true
+                                    }
+                                    this.Timer();
+                                }
+                            break;
+                            case 25:
+                                if(this.shootNum < 90){
+                                    if(ticker % 3 == 0){
+                                        this.bulletSpawn = new math.Vec2(this.x - 18, this.y);      
+                                                
+                                        this.position = new math.Vec2(this.x - 50, this.y +50);
+                                        this.distance = math.Vec2.Distance(this.playerPos, this.position);
+                        
+                                        this.bullet = managers.Game.enemyBulletManager.GetBullet()
+                                        this.bullet.pattern = 2;
+
+                                        this.bullet.x = this.bulletSpawn.x;
+                                        this.bullet.y = this.bulletSpawn.y;
+            
+                                        this.bullet.Speed = 3;
+
+                                        this.bullet.Dir = new math.Vec2(
+                                            (((this.playerPos.x - this.position.x) +(-10 * (this.shootNum % 10)))/ this.distance) * this.bullet.Speed, 
+                                            (((this.playerPos.y - this.position.y) +(-10 * (this.shootNum % 10)))/ this.distance) * this.bullet.Speed
+                                        );
+                        
+                                        this.shootNum++;
+                                    }
+                                }
+                                if(this.shootNum > 89){
+                                    this.bullet.Reset()
+                                    this.shoot = true;
+                                    if(managers.Game.boss3_1Hp > 150 && managers.Game.boss3_1Hp < 200){
+                                        this.pattern2 = false
+                                        this.pattern1 = true
+                                    }
+                                    if(managers.Game.boss3_1Hp > 100 && managers.Game.boss3_1Hp < 150){
+                                        this.pattern2 = false
+                                        this.pattern3 = true
+                                    }
+                                    if(managers.Game.boss3_1Hp < 100){
+                                        this.pattern2 = false
+                                        this.pattern3 = true
+                                    }
+                                    this.Timer();
+                                }
+                            break;
+                            case 26:
+                                if(this.shootNum < 250){
+                                    if(ticker % 3 == 0){
+                                        this.shootNum++;
+                                        this.bulletSpawn = new math.Vec2(this.x - 18, this.y); 
+                    
+                                        this.bullet = managers.Game.enemyBulletManager.GetBullet()
+                                        this.bullet.pattern = 5;
+    
+                                        this.bullet.Speed = 0.05;
+                                        this.bullet.Radius = 1
+                                        this.bullet.Angle = 0;
+                                        this.bullet.AngleStep = (360/72) * this.shootNum;
+                                        this.bullet.Angle += this.bullet.AngleStep
+
+                                        this.bullet.Dir = new math.Vec2(
+                                            (90*Math.cos(this.bullet.Angle)) * this.bullet.Speed, 
+                                            (90*Math.sin(this.bullet.Angle)) * this.bullet.Speed
+                                        );
+
+                                        this.bullet.x = this.bulletSpawn.x 
+                                        this.bullet.y = this.bulletSpawn.y
+                                
+                                        let laser = createjs.Sound.play("laser");
+                                        laser.volume = 0.1;
+                                    }
+                                }
+                                if(this.shootNum > 249){
+                                    this.bullet.Reset()
+                                    this.shoot = true;
+                                    this.Timer();
+                                }
+                            break;
+                            case 27:
+                                if(this.shootNum < 250){
+                                    if(ticker % 3 == 0){
+                                        this.shootNum++;
+                                        this.bulletSpawn = new math.Vec2(this.x - 18, this.y); 
+                    
+                                        this.bullet = managers.Game.enemyBulletManager.GetBullet()
+                                        this.bullet.pattern = 5;
+    
+                                        this.bullet.Speed = 0.05;
+                                        this.bullet.Radius = 1
+                                        this.bullet.Angle = 0;
+                                        this.bullet.AngleStep = (360/72) * this.shootNum;
+                                        this.bullet.Angle += this.bullet.AngleStep
+
+                                        this.bullet.Dir = new math.Vec2(
+                                            (90*Math.sin(this.bullet.Angle)) * this.bullet.Speed, 
+                                            (90*Math.cos(this.bullet.Angle)) * this.bullet.Speed
+                                        );
+
+                                        this.bullet.x = this.bulletSpawn.x 
+                                        this.bullet.y = this.bulletSpawn.y
+                                
+                                        let laser = createjs.Sound.play("laser");
+                                        laser.volume = 0.1;
+                                    }
+                                }
+                                if(this.shootNum > 249){
+                                    this.bullet.Reset()
+                                    this.shoot = true;
+                                    if(managers.Game.boss3_1Hp > 100 && managers.Game.boss3_1Hp < 150){
+                                        this.pattern3 = false
+                                        this.pattern1 = true
+                                    }
+                                    if(managers.Game.boss3_1Hp < 100){
+                                        this.pattern3 = false
+                                        this.pattern4 = true
+                                    }
+                                    this.Timer();
+                                }
+                            break;
+                            case 28:
+                                let angle = Math.floor(Math.random() * (360 - 0 + 1) + 0)
+
+                                if(this.shootNum < 120){
+                                    this.shootNum++;
+                                    for(let i = 0; i < 3; i++){
+                                        if(ticker % 1 == 0){
+                                            this.bulletSpawn = new math.Vec2(this.x - 18, this.y); 
+                                
+                                            this.bullet = managers.Game.enemyBulletManager.GetBullet()
+                                            this.bullet.pattern = 5;
+                
+                                            this.bullet.Speed = 0.01
+                                            this.bullet.Radius = 1
+                                            this.bullet.AngleStep = (360/3) * this.shootNum;
+                
+                                            this.bullet.Dir = new math.Vec2(
+                                                (90*Math.cos(angle * 5)) * this.bullet.Speed, 
+                                                (120*Math.sin(angle * 3)) * this.bullet.Speed
+                                            );
+                                            this.bullet.x = this.x + 90*Math.cos(angle * 5)
+                                            this.bullet.y = this.y + 120*Math.sin(angle * 3)
+                                            //console.log(this.bullet)
+            
+                                            angle += this.bullet.AngleStep
+                                        }
+                                    }
+                                    angle += 7;
+                                }
+                                if(this.shootNum > 119){
+                                    this.bullet.Reset()
+                                    this.shoot = true;
+                                    if(managers.Game.boss3_1Hp < 100){
+                                        this.pattern4 = false
+                                        this.pattern1 = true
+                                    }
+                                    this.Timer();
+                                }
+                            break;
+                            case 29:
+                            break;
+                            case 30:
+                            break;
+                        }
+                    break;
+                    case "F5S4":
+                        switch(pattern){
+                            case 31:
+                                if(this.shootNum < 90){
+                                    if(ticker % 3 == 0){
+                                        this.bulletSpawn = new math.Vec2(this.x - 20, this.y);      
+                                                
+                                        this.position = new math.Vec2(this.x - 70, this.y);
+                                        this.distance = math.Vec2.Distance(this.playerPos, this.position);
+                        
+                                        this.bullet = managers.Game.enemyBulletManager.GetBullet()
+                                        this.bullet.pattern = 2;
+
+                                        this.bullet.x = this.bulletSpawn.x;
+                                        this.bullet.y = this.bulletSpawn.y;
+            
+                                        this.bullet.Speed = 3;
+
+                                        this.bullet.Dir = new math.Vec2(
+                                            (((this.playerPos.x - this.position.x) +(-10 * (this.shootNum % 10)))/ this.distance) * this.bullet.Speed, 
+                                            (((this.playerPos.y - this.position.y) +(-10 * (this.shootNum % 10)))/ this.distance) * this.bullet.Speed
+                                        );
+                        
+                                        this.shootNum++;
+                                    }
+                                }
+                                if(this.shootNum > 89){
+                                    this.bullet.Reset()
+                                    this.shoot = true;
+                                    if(managers.Game.boss3_2Hp > 150 && managers.Game.boss3_2Hp < 200){
+                                        this.pattern1 = false
+                                        this.pattern2 = true
+                                    }
+                                    if(managers.Game.boss3_2Hp > 100 && managers.Game.boss3_2Hp < 150){
+                                        this.pattern1 = false
+                                        this.pattern2 = true
+                                    }
+                                    if(managers.Game.boss3_2Hp < 100){
+                                        this.pattern1 = false
+                                        this.pattern3 = true
+                                    }
+                                    this.Timer();
+                                }
+                            break;
+                            case 32:
+                                if(this.shootNum < 90){
+                                    if(ticker % 5 == 0){
+                                        this.bulletSpawn = new math.Vec2(this.x - 20, this.y);      
+                                                
+                                        this.position = new math.Vec2(this.x - 10, this.y);
+                                        this.distance = math.Vec2.Distance(this.playerPos, this.position);
+                        
+                                        this.bullet = managers.Game.enemyBulletManager.GetBullet()
+                                        this.bullet.pattern = 1;
+
+                                        this.bullet.x = this.bulletSpawn.x;
+                                        this.bullet.y = this.bulletSpawn.y;
+        
+                                        this.bullet.Speed = 3;
+
+                                        this.bullet.Dir = new math.Vec2(
+                                            (((this.playerPos.x - this.position.x) - 50)/ this.distance) * this.bullet.Speed, 
+                                            ((this.playerPos.y - this.position.y) / this.distance) * this.bullet.Speed);
+                                        //console.log(this.bullet)
+                                        let laser = createjs.Sound.play("laser");
+                                        laser.volume = 0.1;
+                    
+                                        this.shootNum++;
+                                    }
+                                }
+                                if(this.shootNum > 89){
+                                    this.bullet.Reset()
+                                    this.shoot = true;
+                                    this.Timer();
+                                }
+                            break;
+                            case 33:
+                                if(this.shootNum < 990){
+                                    if(ticker % 5 == 0){
+                                        this.bulletSpawn = new math.Vec2(this.x - 20, this.y);      
+                                                
+                                        this.position = new math.Vec2(this.x - 10, this.y);
+                                        this.distance = math.Vec2.Distance(this.playerPos, this.position);
+                        
+                                        this.bullet = managers.Game.enemyBulletManager.GetBullet()
+                                        this.bullet.pattern = 1;
+
+                                        this.bullet.x = this.bulletSpawn.x;
+                                        this.bullet.y = this.bulletSpawn.y;
+        
+                                        this.bullet.Speed = 3;
+
+                                        this.bullet.Dir = new math.Vec2(
+                                            ((this.playerPos.x - this.position.x) / this.distance) * this.bullet.Speed, 
+                                            ((this.playerPos.y - this.position.y) / this.distance) * this.bullet.Speed);
+                                        //console.log(this.bullet)
+                                        let laser = createjs.Sound.play("laser");
+                                        laser.volume = 0.1;
+                    
+                                        this.shootNum++;
+                                    }
+                                }
+                                if(this.shootNum > 89){
+                                    this.bullet.Reset()
+                                    this.shoot = true;
+                                    if(managers.Game.boss3_2Hp > 150 && managers.Game.boss3_2Hp < 230){
+
+                                    }
+                                    if(managers.Game.boss3_2Hp > 100 && managers.Game.boss3_2Hp < 150){
+
+                                    }
+                                    if(managers.Game.boss3_2Hp < 100){
+
+                                    }
+                                    this.Timer();
+                                }
+                            break;
+                            case 34:
+                                if(this.shootNum < 90){
+                                    if(ticker % 5 == 0){
+                                        this.bulletSpawn = new math.Vec2(this.x - 20, this.y);      
+                                                
+                                        this.position = new math.Vec2(this.x - 10, this.y);
+                                        this.distance = math.Vec2.Distance(this.playerPos, this.position);
+                        
+                                        this.bullet = managers.Game.enemyBulletManager.GetBullet()
+                                        this.bullet.pattern = 1;
+
+                                        this.bullet.x = this.bulletSpawn.x;
+                                        this.bullet.y = this.bulletSpawn.y;
+        
+                                        this.bullet.Speed = 3;
+
+                                        this.bullet.Dir = new math.Vec2(
+                                            (((this.playerPos.x - this.position.x) + 50)/ this.distance) * this.bullet.Speed, 
+                                            ((this.playerPos.y - this.position.y) / this.distance) * this.bullet.Speed);
+                                        //console.log(this.bullet)
+                                        let laser = createjs.Sound.play("laser");
+                                        laser.volume = 0.1;
+                    
+                                        this.shootNum++;
+                                    }
+                                }
+                                if(this.shootNum > 89){
+                                    this.bullet.Reset()
+                                    this.shoot = true;
+                                    if(managers.Game.boss3_2Hp > 150 && managers.Game.boss3_2Hp < 200){
+                                        this.pattern1 = false
+                                        this.pattern2 = true
+                                    }
+                                    if(managers.Game.boss3_2Hp > 100 && managers.Game.boss3_2Hp < 150){
+                                        this.pattern2 = false
+                                        this.pattern3 = true
+                                    }
+                                    if(managers.Game.boss3_2Hp < 100){
+                                        this.pattern2 = false
+                                        this.pattern3 = true
+                                    }
+                                    this.Timer();
+                                }
+                            break;
+                            case 35:
+                                if(this.shootNum < 500){
+                                    if(ticker % 3 == 0){
+                                        this.shootNum++;
+                                        this.bulletSpawn = new math.Vec2(this.x - 20, this.y); 
+                    
+                                        this.bullet = managers.Game.enemyBulletManager.GetBullet()
+                                        this.bullet.pattern = 5;
+    
+                                        this.bullet.Speed = 0.035;
+                                        this.bullet.Radius = 1
+                                        this.bullet.Angle = 0;
+                                        this.bullet.AngleStep = (360/72) * this.shootNum;
+                                        this.bullet.Angle += this.bullet.AngleStep
+
+                                        this.bullet.Dir = new math.Vec2(
+                                            (90*Math.cos(this.bullet.Angle)) * this.bullet.Speed, 
+                                            (90*Math.sin(this.bullet.Angle)) * this.bullet.Speed
+                                        );
+
+                                        this.bullet.x = this.bulletSpawn.x 
+                                        this.bullet.y = this.bulletSpawn.y
+                                
+                                        let laser = createjs.Sound.play("laser");
+                                        laser.volume = 0.1;
+                                    }
+                                }
+                                if(this.shootNum > 499){
+                                    this.bullet.Reset()
+                                    this.shoot = true;
+                                    this.Timer();
+                                }
+                            break;
+                            case 36:
+                                if(this.shootNum < 500){
+                                    if(ticker % 3 == 0){
+                                        this.shootNum++;
+                                        this.bulletSpawn = new math.Vec2(this.x - 20, this.y); 
+                    
+                                        this.bullet = managers.Game.enemyBulletManager.GetBullet()
+                                        this.bullet.pattern = 5;
+    
+                                        this.bullet.Speed = 0.035;
+                                        this.bullet.Radius = 1
+                                        this.bullet.Angle = 0;
+                                        this.bullet.AngleStep = (360/72) * this.shootNum;
+                                        this.bullet.Angle += this.bullet.AngleStep
+
+                                        this.bullet.Dir = new math.Vec2(
+                                            (90*Math.sin(this.bullet.Angle)) * this.bullet.Speed, 
+                                            (90*Math.cos(this.bullet.Angle)) * this.bullet.Speed
+                                        );
+
+                                        this.bullet.x = this.bulletSpawn.x 
+                                        this.bullet.y = this.bulletSpawn.y
+                                
+                                        let laser = createjs.Sound.play("laser");
+                                        laser.volume = 0.1;
+                                    }
+                                }
+                                if(this.shootNum > 499){
+                                    this.bullet.Reset()
+                                    this.shoot = true;
+                                    if(managers.Game.boss3_2Hp > 100 && managers.Game.boss3_2Hp < 150){
+                                        this.pattern3 = false
+                                        this.pattern1 = true
+                                    }
+                                    if(managers.Game.boss3_2Hp < 100){
+                                        this.pattern3 = false
+                                        this.pattern4 = true
+                                    }
+                                    this.Timer();
+                                }
+                            break;
+                            case 37:
+                            if(this.shootNum < 10000){
+                                for(let i = 0; i < 4; i++){
+                                    if(ticker % 1 == 0){
+                                        this.bulletSpawn = new math.Vec2(this.x - 20, this.y); 
+                        
+                                        this.bullet = managers.Game.enemyBulletManager.GetBullet()
+                                        this.bullet.pattern = 5;
+                                        this.bullet.Speed = 0.03
+                                        this.bullet.AngleStep = (360/6) * this.shootNum;
+                                        this.bullet.Angle = 180
+                                        this.bullet.Angle += this.bullet.AngleStep
+                                        if(this.shootNum < 2500 ||
+                                            this.shootNum > 5000 && this.shootNum < 7500 //||
+                                            //this.shootNum > 10000 && this.shootNum < 12500 ||
+                                            //this.shootNum > 15000 && this.shootNum < 17500 ||
+                                            //this.shootNum > 20000 && this.shootNum < 22500 ||
+                                            //this.shootNum > 25000 && this.shootNum < 27500 ||
+                                            //this.shootNum > 30000 && this.shootNum < 32500 ||
+                                            //this.shootNum > 35000 && this.shootNum < 37500
+                                            ){
+                                            //this.bullet.Speed = 0.03
+                                            this.bullet.Dir = new math.Vec2(
+                                                (90*Math.sin(this.bullet.Angle)) * this.bullet.Speed, 
+                                                (90*Math.cos(this.bullet.Angle)) * this.bullet.Speed
+                                            );
+                                        }
+                                        if(this.shootNum > 2500 && this.shootNum < 5000 ||
+                                            this.shootNum > 7500 && this.shootNum < 10000 //||
+                                            //this.shootNum > 12500 && this.shootNum < 15000 ||
+                                            //this.shootNum > 17500 && this.shootNum < 20000 ||
+                                            //this.shootNum > 22500 && this.shootNum < 25000 ||
+                                            //this.shootNum > 27500 && this.shootNum < 30000 ||
+                                            //this.shootNum > 32500 && this.shootNum < 35000 ||
+                                            //this.shootNum > 37500 && this.shootNum < 40000
+                                            ){
+                                            //this.bullet.Speed = 0.05
+                                                this.bullet.Dir = new math.Vec2(
+                                                (90*Math.cos(this.bullet.Angle)) * this.bullet.Speed, 
+                                                (90*Math.sin(this.bullet.Angle)) * this.bullet.Speed
+                                         );
+                                        }
+                                        
+                                        this.bullet.x = this.bulletSpawn.x
+                                        this.bullet.y = this.bulletSpawn.y
+                                    }
+                                        //console.log(this.bullet.Angle)
+                                        this.shootNum++
+                                }
+
+                            }
+                            if(this.shootNum > 9999){
+                                this.bullet.Reset()
+                                this.shoot = true;
+                                if(managers.Game.boss3_2Hp < 100){
+                                    this.pattern4 = false
+                                    this.pattern3 = true
+                                }
+                                this.Timer();
+                            }
+                            break;
+                            case 38:
+                            break;
+                            case 39:
+                            break;
+                            case 40:
+                            break;
+                        }
+                    break;
                 }
             }
         }
@@ -1792,6 +2478,8 @@ module objects {
                         }, 1000)
                     }
                 break;
+                case "F5S2":
+                case "F5S4":
                 case "Destroyer":
                     if(managers.Game.normal){
                         let counter = 2;

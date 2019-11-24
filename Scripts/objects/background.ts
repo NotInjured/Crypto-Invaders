@@ -17,7 +17,7 @@ module objects {
             if(managers.Game.level2)
                 this.y = -24200
             if(managers.Game.level3)
-                this.y = -10000 
+                this.y = -9000 
             this.x = 297;
         }
         // Updated 60 times per second (60FPS)
@@ -40,16 +40,16 @@ module objects {
             if(managers.Game.level2){
                 if(this.y < -24200)
                     this.y = -24200
-                if(this.y < -10000)
+                if(this.y < -9000)
                     this.speedY = 1.5
-                if(this.y > -10000)
+                if(this.y > -9000)
                     this.speedY = 0;
                 this.y += this.speedY;
             }
             if(managers.Game.level3){
-                if(this.y < -10000)
-                    this.y = -10000
-                if(this.y > -10001 && this.y < -8500)
+                if(this.y < -9000)
+                    this.y = -9000
+                if(this.y > -9001 && this.y < -8500)
                     this.speedY = 5
                 if(this.y > -8500 && this.y < -1)
                     this.speedY = 1
