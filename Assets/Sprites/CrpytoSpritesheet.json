@@ -208,7 +208,7 @@
     "Laser2_Hit": { "frames": [32, 33] },
     "Laser2": { "frames": [34] },
     "Laser2_Shoot": { "frames": [35, 37] },
-    "Laser3_Shoot": { "frames": [39] },
+    "Laser3_Shoot": { "frames": [39, 36] },
     "Laser3": { "frames": [38] },
     "Laser1": { "frames": [40] },
     "Arc4_Shoot": { "frames": [41] },
@@ -261,7 +261,7 @@
 },
 
 "texturepacker": [
-        "SmartUpdateHash: $TexturePacker:SmartUpdate:669ff4772dec324ae56681e1256bae15:f132ccf85c81953bd0a4e81b07fbbd88:882c7af10125e9ff50756ad7992018d6$",
+        "SmartUpdateHash: $TexturePacker:SmartUpdate:b50c9553e0a8a3f9fe9ae4b73acce95f:f132ccf85c81953bd0a4e81b07fbbd88:882c7af10125e9ff50756ad7992018d6$",
         "Created with TexturePacker (https://www.codeandweb.com/texturepacker) for EaselJS"
 ]
 

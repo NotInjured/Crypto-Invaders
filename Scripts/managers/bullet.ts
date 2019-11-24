@@ -10,13 +10,10 @@ module managers {
             this.Start();
         }
         // Methods
-        public buildBulletPool(shipType:config.Ship, power:number):void {
+        public buildBulletPool(shipType:config.Ship):void {
             // Initialize a pool of ammo assets
-            switch(power){
-                case 1:
-                case 2:
-                case 3:
-                    switch(shipType){
+            if(managers.Game.hud.Power < 40){
+                switch(shipType){
                     case config.Ship.Botcoin:
                         for(let i = 0; i < this.bulletCount; i++) {
                             this.Bullet[i] = new objects.Bullet("Laser2");
@@ -33,13 +30,12 @@ module managers {
                         }
                     break;
                 }
-                break;
-                case 4:
-                case 5:
-                    switch(shipType){
+            }
+            if(managers.Game.hud.Power >= 40 && managers.Game.hud.Power < 80){
+                switch(shipType){
                     case config.Ship.Botcoin:
                         for(let i = 0; i < this.bulletCount; i++) {
-                            this.Bullet[i] = new objects.Bullet("Laser1");
+                            this.Bullet[i] = new objects.Bullet("Laser2");
                         }
                     break;
                     case config.Ship.Lightcoin:
@@ -52,12 +48,10 @@ module managers {
                             this.Bullet[i] = new objects.Bullet("Arc2");
                         }
                     break;
-                    }
-
-                break;
-                case 6:
-                case 7:
-                    switch(shipType){
+                }
+            }
+            if(managers.Game.hud.Power >= 80 && managers.Game.hud.Power < 120){
+                switch(shipType){
                     case config.Ship.Botcoin:
                         for(let i = 0; i < this.bulletCount; i++) {
                             this.Bullet[i] = new objects.Bullet("Laser3");
@@ -74,11 +68,9 @@ module managers {
                         }
                     break;
                 }
-
-                break;
-                case 8:
-                case 9:
-                    switch(shipType){
+            }
+            if(managers.Game.hud.Power >= 120 && managers.Game.hud.Power < 160){
+                switch(shipType){
                     case config.Ship.Botcoin:
                         for(let i = 0; i < this.bulletCount; i++) {
                             this.Bullet[i] = new objects.Bullet("Laser4");
@@ -95,10 +87,9 @@ module managers {
                         }
                     break;
                 }
-
-                break;
-                case 10:
-                    switch(shipType){
+            }
+            if(managers.Game.hud.Power >= 160){
+                switch(shipType){
                     case config.Ship.Botcoin:
                         for(let i = 0; i < this.bulletCount; i++) {
                             this.Bullet[i] = new objects.Bullet("Laser5");
@@ -115,16 +106,13 @@ module managers {
                         }
                     break;
                 }
-
-                break;
-
             }
         }
 
         public GetBullet(): objects.Bullet {
             let bullet:objects.Bullet = this.Bullet[this.CurrentBullet];
             this.CurrentBullet++;
-            if(managers.Game.bulletManager.CurrentBullet > 24) {
+            if(managers.Game.bulletManager.CurrentBullet > 74) {
                 managers.Game.bulletManager.CurrentBullet = 0;
             }
 
@@ -132,10 +120,10 @@ module managers {
         }
 
         public Start():void {
-            this.bulletCount =25;
+            this.bulletCount =75;
             this.Bullet = new Array<objects.Bullet>();
             this.CurrentBullet = 0;
-            this.buildBulletPool(config.Ship.Botcoin, 1);
+            this.buildBulletPool(config.Ship.Botcoin);
         }
         public Update():void {
             this.Bullet.forEach(bullet => {

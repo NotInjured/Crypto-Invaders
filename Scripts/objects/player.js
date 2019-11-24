@@ -16,7 +16,7 @@ var objects;
     var Player = /** @class */ (function (_super) {
         __extends(Player, _super);
         // Constructor
-        function Player(sprite, xPos, yPos, swapped, power) {
+        function Player(sprite, xPos, yPos, swapped) {
             var _this = _super.call(this, sprite) || this;
             // Variables
             _this.isDead = false;
@@ -25,7 +25,6 @@ var objects;
             _this.y = yPos;
             _this.x = xPos;
             _this.swapped = swapped;
-            _this.power = power;
             _this.Start();
             return _this;
         }
@@ -65,17 +64,25 @@ var objects;
         };
         Player.prototype.Update = function () {
             if (!this.isDead) {
-                this.Move();
                 this.CheckBound(); // <-- Check collisions
-                this.Shoot();
-                this.Swapped();
-                if (managers.Game.numOfMissiles > 0)
-                    this.ShootMissiles();
+                if (managers.Game.keyboardManager.enabled) {
+                    this.Move();
+                    this.Shoot();
+                    this.Swapped();
+                    if (managers.Game.hud.Power > 20)
+                        this.ShootMissiles();
+                }
                 if (this.missile != undefined)
                     this.missile.Update();
             }
         };
         Player.prototype.Reset = function () {
+            this.isDead = true;
+            managers.Game.p1 = false;
+            managers.Game.p2 = false;
+            managers.Game.p3 = false;
+            managers.Game.p4 = false;
+            managers.Game.p5 = false;
             this.RespawnTimer();
         };
         Player.prototype.Move = function () {
@@ -111,18 +118,20 @@ var objects;
             // Left boundary
             if (this.x <= 380)
                 this.x = 380;
-            if (this.y >= 720)
-                this.y = 720;
+            if (this.y >= 600)
+                this.y = 600;
             if (this.y <= this.halfH)
                 this.y = this.halfH;
         };
         Player.prototype.Shoot = function () {
+            var _this = this;
             if (!this.isDead || this.swapped) {
                 var ticker = createjs.Ticker.getTicks();
-                if ((managers.Game.keyboardManager.shoot) && (ticker % 10 == 0)) {
-                    switch (this.ShipType) {
-                        case config.Ship.Botcoin:
-                            if (this.POWER >= 1 && this.POWER <= 3) {
+                //if((managers.Game.keyboardManager.shoot) && (ticker % 10 == 0)) {
+                switch (this.ShipType) {
+                    case config.Ship.Botcoin:
+                        if (managers.Game.hud.Power < 40) {
+                            if ((managers.Game.keyboardManager.shoot) && (ticker % 10 == 0)) {
                                 this.bulletSpawn = new math.Vec2(this.x - 15.35, this.y - 40);
                                 this.effect = new objects.Effect("Laser_Shoot", this.x - 13, this.y - 43);
                                 var bullet = managers.Game.bulletManager.GetBullet();
@@ -133,45 +142,73 @@ var objects;
                                 laser.volume = 0.1;
                                 managers.Game.currentSceneObject.addChild(this.effect);
                             }
-                            else if (this.POWER >= 4 && this.POWER <= 5) {
+                        }
+                        else if (managers.Game.hud.Power >= 40 && managers.Game.hud.Power < 80) {
+                            if ((managers.Game.keyboardManager.shoot) && (ticker % 10 == 0)) {
+                                this.bulletSpawn = new math.Vec2(this.x - 15.35, this.y - 25);
+                                this.effect = new objects.Effect("Laser_Shoot", this.x - 13, this.y - 43);
+                                var ammo = managers.Game.bulletManager.GetBullet();
+                                ammo.x = this.bulletSpawn.x;
+                                ammo.y = this.bulletSpawn.y;
+                                var laser = createjs.Sound.play("laser");
+                                laser.volume = 0.1;
+                                managers.Game.currentSceneObject.addChild(this.effect);
+                            }
+                        }
+                        else if (managers.Game.hud.Power >= 80 && managers.Game.hud.Power < 120) {
+                            if ((managers.Game.keyboardManager.shoot) && (ticker % 7 == 0)) {
+                                this.bulletSpawn = new math.Vec2(this.x - 13, this.y - 25);
+                                this.effect = new objects.Effect("Laser3_Shoot", this.x - 9, this.y - 30);
+                                var ammo = managers.Game.bulletManager.GetBullet();
+                                ammo.x = this.bulletSpawn.x;
+                                ammo.y = this.bulletSpawn.y;
+                                var laser = createjs.Sound.play("laser");
+                                laser.volume = 0.1;
+                                managers.Game.currentSceneObject.addChild(this.effect);
+                            }
+                        }
+                        else if (managers.Game.hud.Power >= 120 && managers.Game.hud.Power < 160) {
+                            if ((managers.Game.keyboardManager.shoot) && (ticker % 5 == 0)) {
                                 this.bulletSpawn = new math.Vec2(this.x - 11, this.y - 25);
-                                this.effect = new objects.Effect("Laser_Shoot", this.x - 13, this.y - 43);
+                                this.effect = new objects.Effect("Laser4_Shoot", this.x - 2, this.y - 23);
                                 var ammo = managers.Game.bulletManager.GetBullet();
-                                console.log(ammo);
                                 ammo.x = this.bulletSpawn.x;
                                 ammo.y = this.bulletSpawn.y;
+                                var laser = createjs.Sound.play("laser");
+                                laser.volume = 0.1;
                                 managers.Game.currentSceneObject.addChild(this.effect);
                             }
-                            else if (this.POWER >= 6 && this.POWER <= 7) {
-                                this.bulletSpawn = new math.Vec2(this.x - 12.5, this.y - 25);
-                                this.effect = new objects.Effect("Laser_Shoot", this.x - 13, this.y - 43);
-                                var ammo = managers.Game.bulletManager.GetBullet();
-                                console.log(ammo);
-                                ammo.x = this.bulletSpawn.x;
-                                ammo.y = this.bulletSpawn.y;
-                                managers.Game.currentSceneObject.addChild(this.effect);
+                        }
+                        else if (managers.Game.hud.Power >= 160) {
+                            if ((managers.Game.keyboardManager.shoot) && (ticker % 2 == 0)) {
+                                if (this.shootnum < 25) {
+                                    this.bulletSpawn = new math.Vec2(this.x - 7.5, this.y - 25);
+                                    this.effect = new objects.Effect("Laser5_Shoot", this.x - 3, this.y - 20);
+                                    var ammo = managers.Game.bulletManager.GetBullet();
+                                    ammo.x = this.bulletSpawn.x;
+                                    ammo.y = this.bulletSpawn.y;
+                                    var laser = createjs.Sound.play("laser");
+                                    laser.volume = 0.1;
+                                    managers.Game.currentSceneObject.addChild(this.effect);
+                                    this.shootnum++;
+                                }
+                                if (this.shootnum > 24) {
+                                    var counter_1 = 1;
+                                    var interval_1 = setInterval(function () {
+                                        counter_1--;
+                                        if (counter_1 < 0) {
+                                            _this.shootnum = 0;
+                                            clearInterval(interval_1);
+                                            counter_1 = 0;
+                                        }
+                                    }, 500);
+                                }
                             }
-                            else if (this.POWER >= 8 && this.POWER <= 9) {
-                                this.bulletSpawn = new math.Vec2(this.x - 11, this.y - 25);
-                                this.effect = new objects.Effect("Laser_Shoot", this.x - 13, this.y - 43);
-                                var ammo = managers.Game.bulletManager.GetBullet();
-                                console.log(ammo);
-                                ammo.x = this.bulletSpawn.x;
-                                ammo.y = this.bulletSpawn.y;
-                                managers.Game.currentSceneObject.addChild(this.effect);
-                            }
-                            else if (this.POWER == 10) {
-                                this.bulletSpawn = new math.Vec2(this.x - 7.5, this.y - 25);
-                                this.effect = new objects.Effect("Laser_Shoot", this.x - 13, this.y - 43);
-                                var ammo = managers.Game.bulletManager.GetBullet();
-                                console.log(ammo);
-                                ammo.x = this.bulletSpawn.x;
-                                ammo.y = this.bulletSpawn.y;
-                                managers.Game.currentSceneObject.addChild(this.effect);
-                            }
-                            break;
-                        case config.Ship.Lightcoin:
-                            if (this.POWER >= 1 && this.POWER <= 10) {
+                        }
+                        break;
+                    case config.Ship.Lightcoin:
+                        if ((managers.Game.keyboardManager.shoot) && (ticker % 10 == 0)) {
+                            if (managers.Game.hud.Power >= 0) {
                                 this.bulletSpawn = new math.Vec2(this.x - 11, this.y - 25);
                                 this.effect = new objects.Effect("Laser1_Shoot", this.x - 7, this.y - 30);
                                 var ammo = managers.Game.bulletManager.GetBullet();
@@ -182,62 +219,63 @@ var objects;
                                 laser.volume = 0.1;
                                 managers.Game.currentSceneObject.addChild(this.effect);
                             }
-                            break;
-                        case config.Ship.Enderium:
-                            if (this.POWER >= 1 && this.POWER <= 3) {
-                                this.bulletSpawn = new math.Vec2(this.x - 10.5, this.y - 45);
-                                this.effect = new objects.Effect("Arc_Shoot", this.x - 13, this.y - 41);
-                                var ammo = managers.Game.bulletManager.GetBullet();
-                                console.log(ammo);
-                                ammo.x = this.bulletSpawn.x;
-                                ammo.y = this.bulletSpawn.y;
-                                managers.Game.currentSceneObject.addChild(this.effect);
-                            }
-                            else if (this.POWER >= 4 && this.POWER <= 5) {
-                                this.bulletSpawn = new math.Vec2(this.x - 10, this.y - 45);
-                                this.effect = new objects.Effect("Arc_Shoot", this.x - 13, this.y - 41);
-                                var ammo = managers.Game.bulletManager.GetBullet();
-                                console.log(ammo);
-                                ammo.x = this.bulletSpawn.x;
-                                ammo.y = this.bulletSpawn.y;
-                                managers.Game.currentSceneObject.addChild(this.effect);
-                            }
-                            else if (this.POWER >= 6 && this.POWER <= 7) {
-                                this.bulletSpawn = new math.Vec2(this.x - 10, this.y - 35);
-                                this.effect = new objects.Effect("Arc2_Shoot", this.x - 6.5, this.y - 28);
-                                var ammo = managers.Game.bulletManager.GetBullet();
-                                console.log(ammo);
-                                ammo.x = this.bulletSpawn.x;
-                                ammo.y = this.bulletSpawn.y;
-                                managers.Game.currentSceneObject.addChild(this.effect);
-                            }
-                            else if (this.POWER >= 8 && this.POWER <= 9) {
-                                this.bulletSpawn = new math.Vec2(this.x - 7, this.y - 45);
-                                this.effect = new objects.Effect("Arc4_Shoot", this.x - 7, this.y - 29);
-                                var ammo = managers.Game.bulletManager.GetBullet();
-                                console.log(ammo);
-                                ammo.x = this.bulletSpawn.x;
-                                ammo.y = this.bulletSpawn.y;
-                                managers.Game.currentSceneObject.addChild(this.effect);
-                            }
-                            else if (this.POWER == 10) {
-                                this.bulletSpawn = new math.Vec2(this.x + 4, this.y - 40);
-                                this.effect = new objects.Effect("Arc5_Shoot", this.x, this.y - 21);
-                                var ammo = managers.Game.bulletManager.GetBullet();
-                                console.log(ammo);
-                                ammo.x = this.bulletSpawn.x;
-                                ammo.y = this.bulletSpawn.y;
-                                managers.Game.currentSceneObject.addChild(this.effect);
-                            }
-                            break;
-                    }
+                        }
+                        break;
+                    case config.Ship.Enderium:
+                        if (managers.Game.hud.Power >= 0 && managers.Game.hud.Power < 40) {
+                            this.bulletSpawn = new math.Vec2(this.x - 10.5, this.y - 45);
+                            this.effect = new objects.Effect("Arc_Shoot", this.x - 13, this.y - 41);
+                            var ammo = managers.Game.bulletManager.GetBullet();
+                            console.log(ammo);
+                            ammo.x = this.bulletSpawn.x;
+                            ammo.y = this.bulletSpawn.y;
+                            managers.Game.currentSceneObject.addChild(this.effect);
+                        }
+                        else if (managers.Game.hud.Power >= 40 && managers.Game.hud.Power < 80) {
+                            this.bulletSpawn = new math.Vec2(this.x - 10, this.y - 45);
+                            this.effect = new objects.Effect("Arc_Shoot", this.x - 13, this.y - 41);
+                            var ammo = managers.Game.bulletManager.GetBullet();
+                            console.log(ammo);
+                            ammo.x = this.bulletSpawn.x;
+                            ammo.y = this.bulletSpawn.y;
+                            managers.Game.currentSceneObject.addChild(this.effect);
+                        }
+                        else if (managers.Game.hud.Power >= 80 && managers.Game.hud.Power < 120) {
+                            this.bulletSpawn = new math.Vec2(this.x - 10, this.y - 35);
+                            this.effect = new objects.Effect("Arc2_Shoot", this.x - 6.5, this.y - 28);
+                            var ammo = managers.Game.bulletManager.GetBullet();
+                            console.log(ammo);
+                            ammo.x = this.bulletSpawn.x;
+                            ammo.y = this.bulletSpawn.y;
+                            managers.Game.currentSceneObject.addChild(this.effect);
+                        }
+                        else if (managers.Game.hud.Power >= 120 && managers.Game.hud.Power < 160) {
+                            this.bulletSpawn = new math.Vec2(this.x - 7, this.y - 45);
+                            this.effect = new objects.Effect("Arc4_Shoot", this.x - 7, this.y - 29);
+                            var ammo = managers.Game.bulletManager.GetBullet();
+                            console.log(ammo);
+                            ammo.x = this.bulletSpawn.x;
+                            ammo.y = this.bulletSpawn.y;
+                            managers.Game.currentSceneObject.addChild(this.effect);
+                        }
+                        else if (managers.Game.hud.Power >= 160) {
+                            this.bulletSpawn = new math.Vec2(this.x + 4, this.y - 40);
+                            this.effect = new objects.Effect("Arc5_Shoot", this.x, this.y - 21);
+                            var ammo = managers.Game.bulletManager.GetBullet();
+                            console.log(ammo);
+                            ammo.x = this.bulletSpawn.x;
+                            ammo.y = this.bulletSpawn.y;
+                            managers.Game.currentSceneObject.addChild(this.effect);
+                        }
+                        break;
                 }
+                //}
             }
         };
         Player.prototype.ShootMissiles = function () {
             if (!this.isDead) {
                 var ticker = createjs.Ticker.getTicks();
-                if (managers.Game.keyboardManager.shoot && ticker % 50 == 0) {
+                if (managers.Game.keyboardManager.shoot && ticker % 40 == 0) {
                     if (this.shootnum < 1) {
                         for (var i = 0; i < 2; i++) {
                             var position = new math.Vec2(this.x - 15, this.y - 10);
@@ -267,10 +305,9 @@ var objects;
         Player.prototype.RespawnTimer = function () {
             var _this = this;
             var counter = 2;
-            this.isDead = true;
             this.alpha = 0;
             this.x = 555;
-            this.y = 675;
+            this.y = 550;
             var interval = setInterval(function () {
                 counter--;
                 if (counter == 0) {

@@ -15,7 +15,6 @@ module managers {        // Access to globally-required items
         public static coinsManager: managers.Coins;
         public static currentSceneObject: objects.Scene;
         public static player:objects.Player;
-        public static numOfMissiles: number = 0
         public static eType2:objects.Enemy;
         public static pause:boolean = false;
         public static over:boolean = false;
@@ -40,6 +39,12 @@ module managers {        // Access to globally-required items
         public static level2Completed:boolean = false
         public static level3Completed:boolean = false
         public static ng:boolean = false
+        public static p1: boolean = false
+        public static p2: boolean = false
+        public static p3: boolean = false
+        public static p4: boolean = false
+        public static p5: boolean = false
+        
 
     }
 }

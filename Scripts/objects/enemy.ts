@@ -893,7 +893,7 @@ module objects {
                             
                                 this.bullet = managers.Game.enemyBulletManager.GetBullet()
                                 this.bullet.pattern = 1;
-                                this.bullet.Speed = 3
+                                this.bullet.Speed = 2
         
                                 this.bullet.Dir = new math.Vec2(
                                     ((this.playerPos.x - this.position.x) / this.distance) * this.bullet.Speed, 

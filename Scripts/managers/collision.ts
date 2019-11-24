@@ -42,10 +42,7 @@ module managers {
                                     coin.y = object2.y
                                     coin.scaleX = 0.25
                                     coin.scaleY = 0.25
-                                    let rand = Math.floor(Math.random() * (10 - 1 + 1) + 1);
-                                    if(rand == 5)
-                                        managers.Game.currentSceneObject.addChild(coin)
-
+                                    managers.Game.currentSceneObject.addChild(coin)
                                     object1.Reset()
                                     explosion = new objects.Effect("Explosion", object2.x+15, object2.y +10);
                                     if(managers.Game.player.ShipType == config.Ship.Botcoin)
@@ -85,8 +82,17 @@ module managers {
                                             managers.Game.hud.Lives += 1
                                             managers.Game.hud.playerLivesSprite[managers.Game.hud.Lives-1].alpha = 1
                                         }
-                                        
-                                        managers.Game.numOfMissiles += 1
+                                        let coin = managers.Game.coinsManager.GetCoin()
+                                        coin.IsDropped = true;
+                                        coin.EnemyDropped = true
+                                        coin.x = object2.x
+                                        coin.y = object2.y
+                                        coin.scaleX = 0.75
+                                        coin.scaleY = 0.75
+                                        managers.Game.currentSceneObject.addChild(coin)
+
+                                        if(managers.Game.hud.Power < 201)
+                                            managers.Game.hud.Power += 25
                                         managers.Game.hud.ScoreMult += 100;
                                         managers.Game.hud.Score += 2500000
 
@@ -156,6 +162,14 @@ module managers {
                                     if(managers.Game.eMinionHp == 0 || (managers.Game.eMinionHp < 0 && Math.abs(managers.Game.eMinionHp) % 10 == 0)){
                                         explosion = new objects.Effect("Explosion", object2.x + 65, object2.y +65);
                                         managers.Game.currentSceneObject.addChild(explosion)
+                                        let coin = managers.Game.coinsManager.GetCoin()
+                                        coin.IsDropped = true;
+                                        coin.EnemyDropped = true
+                                        coin.x = object2.x
+                                        coin.y = object2.y
+                                        coin.scaleX = 0.75
+                                        coin.scaleY = 0.75
+                                        managers.Game.currentSceneObject.addChild(coin)
                                         object2.Reset()
                                         managers.Game.currentSceneObject.removeChild(object2)
                                         managers.Game.hud.ScoreMult += 5;
@@ -202,7 +216,8 @@ module managers {
                                     managers.Game.currentSceneObject.addChild(explosion)
                                     object2.Reset()
                                     managers.Game.hud.Lives++
-                                    managers.Game.numOfMissiles += 1
+                                    if(managers.Game.hud.Power < 201)
+                                        managers.Game.hud.Power += 25
                                     managers.Game.hud.ScoreMult += 100;
                                     managers.Game.hud.Score += 5000000
 
@@ -254,8 +269,8 @@ module managers {
                                             managers.Game.hud.Lives += 1
                                             managers.Game.hud.playerLivesSprite[managers.Game.hud.Lives-1].alpha = 1
                                         }
-                                        
-                                        managers.Game.numOfMissiles += 1
+                                        if(managers.Game.hud.Power < 201)
+                                            managers.Game.hud.Power += 25
                                         managers.Game.hud.ScoreMult += 100;
                                         managers.Game.hud.Score += 10000000
                                     }
@@ -315,8 +330,9 @@ module managers {
                                             managers.Game.hud.Lives += 1
                                             managers.Game.hud.playerLivesSprite[managers.Game.hud.Lives-1].alpha = 1
                                         }
-                                        
-                                        managers.Game.numOfMissiles += 1
+                                        if(managers.Game.hud.Power < 201)
+                                            managers.Game.hud.Power += 25
+
                                         managers.Game.hud.ScoreMult += 100;
                                         managers.Game.hud.Score += 10000000
                                     }
@@ -356,15 +372,13 @@ module managers {
                                     explosion.scaleY = 0.5
                                     explosion.scaleX = 0.5
                                     managers.Game.currentSceneObject.addChild(explosion)
-                                    if(managers.Game.numOfMissiles > 0){
-                                        managers.Game.numOfMissiles -=1
-                                    }
                                     managers.Game.hud.Lives -= 1
                                     managers.Game.hud.playerLivesSprite[managers.Game.hud.Lives].alpha = 0.5
                                     console.log(managers.Game.hud.playerLivesSprite[managers.Game.hud.Lives])
                                     console.log(managers.Game.hud.Lives)
                                     managers.Game.hud.ScoreMult = 1
                                     managers.Game.hud.Score = Math.floor(managers.Game.hud.Score/2)
+                                    managers.Game.hud.Power = Math.floor(managers.Game.hud.Power/2)
                                     object1.Reset()
                                     object2.Reset()
                                 }
@@ -396,11 +410,14 @@ module managers {
                                         buff.scaleY = 0.7
 
                                         managers.Game.currentSceneObject.addChild(buff)
-                                        managers.Game.numOfMissiles += 1
-                                        managers.Game.hud.Score += 500 * managers.Game.hud.ScoreMult
+                                        managers.Game.hud.Score += 25000
+                                        if(managers.Game.hud.Power < 201)
+                                            managers.Game.hud.Power += 25
                                         managers.Game.currentSceneObject.removeChild(object2)
                                     }
                                     managers.Game.hud.Score += 100 * managers.Game.hud.ScoreMult
+                                    if(managers.Game.hud.Power < 201)
+                                        managers.Game.hud.Power += 1
                                     object2.Reset()
                                 }
                         break;

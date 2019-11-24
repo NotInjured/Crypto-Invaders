@@ -26,9 +26,9 @@ var scenes;
             this.bgm = createjs.Sound.play("mainMenu");
             this.bgm.loop = -1;
             this.bgm.volume = 0.1;
-            this.gameLabel = new objects.Label("Crypto Invaders", "36px", "OptimusPrinceps", "#000000", 530, 240, true);
-            this.startButton = new objects.Button("buttonStart", 630, 375);
-            this.optionButton = new objects.Button("buttonOptions", 630, 455);
+            this.gameLabel = new objects.Label("Crypto Invaders", "36px", "OptimusPrinceps", "#000000", 530, 200, true);
+            this.startButton = new objects.Button("buttonStart", 630, 325);
+            this.optionButton = new objects.Button("buttonOptions", 630, 405);
             this.hud = new managers.HUD;
             managers.Game.hud = this.hud;
             if (managers.Game.normal) {

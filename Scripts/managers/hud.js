@@ -49,7 +49,7 @@ var managers;
             },
             set: function (newPower) {
                 this.power = newPower;
-                this.playerPowerLabel.text = "PWR " + this.power;
+                this.playerPowerLabel.text = "Power: " + this.power;
             },
             enumerable: true,
             configurable: true
@@ -105,22 +105,28 @@ var managers;
                 this.highScoreLabel.y = 200;
                 this.scoreMultLabel.x = 808;
                 this.scoreMultLabel.y = 250;
+                this.playerPowerLabel.x = 745;
+                this.playerPowerLabel.y = 275;
                 this.playerLivesLabel.x = 760;
-                this.playerLivesLabel.y = 300;
+                this.playerLivesLabel.y = 325;
                 this.playerBombsLabel.x = 745;
-                this.playerBombsLabel.y = 325;
+                this.playerBombsLabel.y = 350;
                 this.diffLabel.x = 725;
-                this.diffLabel.y = 375;
+                this.diffLabel.y = 400;
                 managers.Game.score = this.Score;
                 if (this.Score > this.HighScore) {
                     this.HighScore = this.Score;
                     managers.Game.highScore = managers.Game.score;
+                }
+                if (managers.Game.hud.Power > 200) {
+                    this.playerPowerLabel.text = "Power: MAX";
                 }
                 if (managers.Game.level1 && managers.Game.level1Completed) {
                     this.gameOverLabel.alpha = 1;
                     this.bBackground.alpha = 1;
                     this.backButton.alpha = 1;
                     this.continueButton.alpha = 1;
+                    managers.Game.keyboardManager.enabled = false;
                     this.backButton.on("click", this.backButtonClick);
                     this.continueButton.on("click", this.continueButtonClick);
                 }
@@ -129,12 +135,14 @@ var managers;
                     this.backButton.alpha = 0;
                     this.continueButton.alpha = 0;
                     this.gameOverLabel.alpha = 0;
+                    managers.Game.keyboardManager.enabled = true;
                 }
                 if (managers.Game.level2 && managers.Game.level2Completed) {
                     this.gameOverLabel.alpha = 1;
                     this.bBackground.alpha = 1;
                     this.backButton.alpha = 1;
                     this.continueButton.alpha = 1;
+                    managers.Game.keyboardManager.enabled = false;
                     this.backButton.on("click", this.backButtonClick);
                     this.continueButton.on("click", this.continueButtonClick);
                 }
@@ -143,12 +151,14 @@ var managers;
                     this.backButton.alpha = 0;
                     this.continueButton.alpha = 0;
                     this.gameOverLabel.alpha = 0;
+                    managers.Game.keyboardManager.enabled = true;
                 }
                 if (managers.Game.level3 && managers.Game.level3Completed) {
                     this.gameOverLabel.alpha = 1;
                     this.bBackground.alpha = 1;
                     this.backButton.alpha = 1;
                     this.gameOverLabel.text = "Game Completed!";
+                    managers.Game.keyboardManager.enabled = false;
                     //this.continueButton.alpha = 1
                     //this.continueLabel.alpha = 1
                     //this.continueLabel.x = 470
@@ -177,6 +187,7 @@ var managers;
             }
         };
         HUD.prototype.backButtonClick = function () {
+            managers.Game.keyboardManager.enabled = true;
             managers.Game.currentScene = config.Scene.START;
         };
         HUD.prototype.continueButtonClick = function () {
@@ -225,11 +236,11 @@ var managers;
                 "+Score by destroying enemies, bosses" + "\n" +
                 "and collecting item drops " + "\n\n" +
                 "+Multiplier by destroying enemies" + "\n" +
-                "Reset to 1 on death", "20px", "OptimusPrimus", "#000000", 725, 215, false);
+                "Reset to 1 on death", "20px", "OptimusPrimus", "#000000", 725, 165, false);
             this.controls = new objects.Label("Arrow Keys - Movement" + "\n\n" + "           X - Shoot"
-                + "\n\n" + "   Z - Bombs (Disabled)" + "\n\n" + "    Space - Swap Ships" + "\n\n" +
-                "     Shift - Half-speed", "24px", "OptimusPrimus", "#000000", 50, 265, false);
-            this.versionLabel = new objects.Label("Alpha Release 0.1", "12px", "OptimusPrimus", "#000000", 495, 550, false);
+                + "\n\n" + "   Z - Bombs (Disabled)" + "\n\n" + "Space - Swap Ships" + "\n" + "(Disabled)" + "\n\n" +
+                "     Shift - Half-speed", "24px", "OptimusPrimus", "#000000", 50, 215, false);
+            this.versionLabel = new objects.Label("Alpha Release 0.1", "12px", "OptimusPrimus", "#000000", 495, 450, false);
             if (managers.Game.normal)
                 this.diff = "Normal";
             if (managers.Game.hard)
@@ -239,13 +250,13 @@ var managers;
             this.gameOverLabel = new objects.Label("Level Completed!", "36px", "OptimusPrinceps", "#000000", 530, 240, true);
             this.diffLabel = new objects.Label("Difficulty: " + this.diff, "24px", "OptimusPrinceps", "#000000", 565, 200, false);
             this.continueLabel = new objects.Label("New Game+?", "24px", "OptimusPrinceps", "#000000", 565, 200, false);
-            this.controlPanel = new objects.Image("panelUI", 1, 175);
-            this.infoPanel = new objects.Image("panelInfo", 710, 175);
+            this.controlPanel = new objects.Image("panelUI", 1, 125);
+            this.infoPanel = new objects.Image("panelInfo", 710, 125);
             this.playerLivesSprite = new Array();
             this.bBackground = new objects.Image("backgroundB", 343, 0);
             this.eBackground = new objects.Image("backgroundE", 712, 0);
             this.lBackground = new objects.Image("backgroundL", 0, 0);
-            this.logo = new objects.Image("logo", 490, 600);
+            this.logo = new objects.Image("logo", 490, 500);
             this.logo.scaleX = 0.25;
             this.logo.scaleY = 0.25;
             if (managers.Game.currentScene == config.Scene.START) {
@@ -280,7 +291,7 @@ var managers;
                     this.playerLivesSprite[i].scaleX = 0.5;
                     this.playerLivesSprite[i].scaleY = 0.5;
                     this.playerLivesSprite[0].x = 835;
-                    this.playerLivesSprite[0].y = 320;
+                    this.playerLivesSprite[0].y = 345;
                     this.playerLivesSprite[i].x = this.playerLivesSprite[0].x + 20 * i;
                     this.playerLivesSprite[i].y = this.playerLivesSprite[0].y;
                 }
@@ -301,6 +312,7 @@ var managers;
                 this.addChild(this.playerLivesLabel);
                 this.addChild(this.playerBombsLabel);
                 this.addChild(this.playerScoreLabel);
+                this.addChild(this.playerPowerLabel);
                 this.addChild(this.scoreMultLabel);
                 this.addChild(this.bBackground);
                 this.addChild(this.gameOverLabel);

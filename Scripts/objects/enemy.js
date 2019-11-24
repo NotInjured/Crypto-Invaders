@@ -866,7 +866,7 @@ var objects;
                                 this.distance = math.Vec2.Distance(this.playerPos, this.position);
                                 this.bullet = managers.Game.enemyBulletManager.GetBullet();
                                 this.bullet.pattern = 1;
-                                this.bullet.Speed = 3;
+                                this.bullet.Speed = 2;
                                 this.bullet.Dir = new math.Vec2(((this.playerPos.x - this.position.x) / this.distance) * this.bullet.Speed, ((this.playerPos.y - this.position.y) / this.distance) * this.bullet.Speed);
                                 this.bullet.x = this.bulletSpawn.x;
                                 this.bullet.y = this.bulletSpawn.y;

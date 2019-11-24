@@ -691,7 +691,7 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">Laser2_Shoot.png</key>
+            <key type="filename">Laser2_Shoot_1.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -752,7 +752,7 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">Laser3_Shoot.png</key>
+            <key type="filename">Laser3_Shoot_1.png</key>
             <key type="filename">Laser3_Shoot_2.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
@@ -799,7 +799,7 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">Laser4_Shoot.png</key>
+            <key type="filename">Laser4_Shoot_1.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -1021,17 +1021,14 @@
             <filename>Laser2_1.png</filename>
             <filename>Laser2_Hit_1.png</filename>
             <filename>Laser2_Hit_2.png</filename>
-            <filename>Laser2_Shoot.png</filename>
             <filename>Laser2_Shoot_2.png</filename>
             <filename>Laser3_1.png</filename>
             <filename>Laser3_Hit_1.png</filename>
             <filename>Laser3_Hit_2.png</filename>
-            <filename>Laser3_Shoot.png</filename>
             <filename>Laser3_Shoot_2.png</filename>
             <filename>Laser4.png</filename>
             <filename>Laser4_Hit_1.png</filename>
             <filename>Laser4_Hit_2.png</filename>
-            <filename>Laser4_Shoot.png</filename>
             <filename>Laser4_Shoot_2.png</filename>
             <filename>Laser5_1.png</filename>
             <filename>Laser5_2.png</filename>
@@ -1174,6 +1171,9 @@
             <filename>Destroyer.png</filename>
             <filename>F5S2.png</filename>
             <filename>F5S4.png</filename>
+            <filename>Laser3_Shoot_1.png</filename>
+            <filename>Laser4_Shoot_1.png</filename>
+            <filename>Laser2_Shoot_1.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

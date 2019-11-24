@@ -3,7 +3,6 @@ var managers;
     var Game = /** @class */ (function () {
         function Game() {
         }
-        Game.numOfMissiles = 0;
         Game.pause = false;
         Game.over = false;
         Game.normal = true;
@@ -20,6 +19,11 @@ var managers;
         Game.level2Completed = false;
         Game.level3Completed = false;
         Game.ng = false;
+        Game.p1 = false;
+        Game.p2 = false;
+        Game.p3 = false;
+        Game.p4 = false;
+        Game.p5 = false;
         return Game;
     }());
     managers.Game = Game;

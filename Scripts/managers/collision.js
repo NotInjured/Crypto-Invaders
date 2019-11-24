@@ -41,9 +41,7 @@ var managers;
                         coin.y = object2.y;
                         coin.scaleX = 0.25;
                         coin.scaleY = 0.25;
-                        var rand = Math.floor(Math.random() * (10 - 1 + 1) + 1);
-                        if (rand == 5)
-                            managers.Game.currentSceneObject.addChild(coin);
+                        managers.Game.currentSceneObject.addChild(coin);
                         object1.Reset();
                         explosion = new objects.Effect("Explosion", object2.x + 15, object2.y + 10);
                         if (managers.Game.player.ShipType == config.Ship.Botcoin)
@@ -81,7 +79,16 @@ var managers;
                                 managers.Game.hud.Lives += 1;
                                 managers.Game.hud.playerLivesSprite[managers.Game.hud.Lives - 1].alpha = 1;
                             }
-                            managers.Game.numOfMissiles += 1;
+                            var coin_1 = managers.Game.coinsManager.GetCoin();
+                            coin_1.IsDropped = true;
+                            coin_1.EnemyDropped = true;
+                            coin_1.x = object2.x;
+                            coin_1.y = object2.y;
+                            coin_1.scaleX = 0.75;
+                            coin_1.scaleY = 0.75;
+                            managers.Game.currentSceneObject.addChild(coin_1);
+                            if (managers.Game.hud.Power < 201)
+                                managers.Game.hud.Power += 25;
                             managers.Game.hud.ScoreMult += 100;
                             managers.Game.hud.Score += 2500000;
                             var counter_1 = 5;
@@ -111,14 +118,14 @@ var managers;
                         object1.Reset();
                         console.log(managers.Game.eEliteHp);
                         if (managers.Game.eEliteHp == 0 || (managers.Game.eEliteHp < 0 && Math.abs(managers.Game.eEliteHp) % 25 == 0)) {
-                            var coin_1 = managers.Game.coinsManager.GetCoin();
-                            coin_1.IsDropped = true;
-                            coin_1.EnemyDropped = true;
-                            coin_1.x = object2.x;
-                            coin_1.y = object2.y;
-                            coin_1.scaleX = 0.75;
-                            coin_1.scaleY = 0.75;
-                            managers.Game.currentSceneObject.addChild(coin_1);
+                            var coin_2 = managers.Game.coinsManager.GetCoin();
+                            coin_2.IsDropped = true;
+                            coin_2.EnemyDropped = true;
+                            coin_2.x = object2.x;
+                            coin_2.y = object2.y;
+                            coin_2.scaleX = 0.75;
+                            coin_2.scaleY = 0.75;
+                            managers.Game.currentSceneObject.addChild(coin_2);
                             explosion = new objects.Effect("Explosion", object2.x + 65, object2.y + 65);
                             managers.Game.currentSceneObject.addChild(explosion);
                             object2.Reset();
@@ -146,6 +153,14 @@ var managers;
                         if (managers.Game.eMinionHp == 0 || (managers.Game.eMinionHp < 0 && Math.abs(managers.Game.eMinionHp) % 10 == 0)) {
                             explosion = new objects.Effect("Explosion", object2.x + 65, object2.y + 65);
                             managers.Game.currentSceneObject.addChild(explosion);
+                            var coin_3 = managers.Game.coinsManager.GetCoin();
+                            coin_3.IsDropped = true;
+                            coin_3.EnemyDropped = true;
+                            coin_3.x = object2.x;
+                            coin_3.y = object2.y;
+                            coin_3.scaleX = 0.75;
+                            coin_3.scaleY = 0.75;
+                            managers.Game.currentSceneObject.addChild(coin_3);
                             object2.Reset();
                             managers.Game.currentSceneObject.removeChild(object2);
                             managers.Game.hud.ScoreMult += 5;
@@ -173,21 +188,22 @@ var managers;
                         object1.Reset();
                         console.log(managers.Game.boss2Hp);
                         if (managers.Game.boss2Hp == 0 || (managers.Game.boss2Hp < 0 && Math.abs(managers.Game.boss2Hp) % 300 == 0)) {
-                            var coin_2 = managers.Game.coinsManager.GetCoin();
-                            coin_2.IsDropped = true;
-                            coin_2.EnemyDropped = true;
-                            coin_2.x = object2.x;
-                            coin_2.y = object2.y;
-                            coin_2.scaleX = 0.75;
-                            coin_2.scaleY = 0.75;
-                            managers.Game.currentSceneObject.addChild(coin_2);
+                            var coin_4 = managers.Game.coinsManager.GetCoin();
+                            coin_4.IsDropped = true;
+                            coin_4.EnemyDropped = true;
+                            coin_4.x = object2.x;
+                            coin_4.y = object2.y;
+                            coin_4.scaleX = 0.75;
+                            coin_4.scaleY = 0.75;
+                            managers.Game.currentSceneObject.addChild(coin_4);
                             explosion = new objects.Effect("Explosion", object2.x + 225, object2.y + 75);
                             explosion.scaleX = 2;
                             explosion.scaleY = 2;
                             managers.Game.currentSceneObject.addChild(explosion);
                             object2.Reset();
                             managers.Game.hud.Lives++;
-                            managers.Game.numOfMissiles += 1;
+                            if (managers.Game.hud.Power < 201)
+                                managers.Game.hud.Power += 25;
                             managers.Game.hud.ScoreMult += 100;
                             managers.Game.hud.Score += 5000000;
                             var counter2_1 = 5;
@@ -219,14 +235,14 @@ var managers;
                         object1.Reset();
                         if (managers.Game.boss3_1Hp == 0 || (managers.Game.boss3_1Hp < 0 && Math.abs(managers.Game.boss3_1Hp) % 250 == 0)) {
                             explosion = new objects.Effect("Explosion", object2.x + 65, object2.y + 65);
-                            var coin_3 = managers.Game.coinsManager.GetCoin();
-                            coin_3.IsDropped = true;
-                            coin_3.EnemyDropped = true;
-                            coin_3.x = object2.x;
-                            coin_3.y = object2.y;
-                            coin_3.scaleX = 0.75;
-                            coin_3.scaleY = 0.75;
-                            managers.Game.currentSceneObject.addChild(coin_3);
+                            var coin_5 = managers.Game.coinsManager.GetCoin();
+                            coin_5.IsDropped = true;
+                            coin_5.EnemyDropped = true;
+                            coin_5.x = object2.x;
+                            coin_5.y = object2.y;
+                            coin_5.scaleX = 0.75;
+                            coin_5.scaleY = 0.75;
+                            managers.Game.currentSceneObject.addChild(coin_5);
                             managers.Game.currentSceneObject.addChild(explosion);
                             managers.Game.currentSceneObject.removeChild(object2);
                             object2.Reset();
@@ -234,7 +250,8 @@ var managers;
                                 managers.Game.hud.Lives += 1;
                                 managers.Game.hud.playerLivesSprite[managers.Game.hud.Lives - 1].alpha = 1;
                             }
-                            managers.Game.numOfMissiles += 1;
+                            if (managers.Game.hud.Power < 201)
+                                managers.Game.hud.Power += 25;
                             managers.Game.hud.ScoreMult += 100;
                             managers.Game.hud.Score += 10000000;
                         }
@@ -274,14 +291,14 @@ var managers;
                         object1.Reset();
                         if (managers.Game.boss3_2Hp == 0 || (managers.Game.boss3_2Hp < 0 && Math.abs(managers.Game.boss3_2Hp) % 250 == 0)) {
                             explosion = new objects.Effect("Explosion", object2.x + 65, object2.y + 65);
-                            var coin_4 = managers.Game.coinsManager.GetCoin();
-                            coin_4.IsDropped = true;
-                            coin_4.EnemyDropped = true;
-                            coin_4.x = object2.x;
-                            coin_4.y = object2.y;
-                            coin_4.scaleX = 0.75;
-                            coin_4.scaleY = 0.75;
-                            managers.Game.currentSceneObject.addChild(coin_4);
+                            var coin_6 = managers.Game.coinsManager.GetCoin();
+                            coin_6.IsDropped = true;
+                            coin_6.EnemyDropped = true;
+                            coin_6.x = object2.x;
+                            coin_6.y = object2.y;
+                            coin_6.scaleX = 0.75;
+                            coin_6.scaleY = 0.75;
+                            managers.Game.currentSceneObject.addChild(coin_6);
                             managers.Game.currentSceneObject.addChild(explosion);
                             managers.Game.currentSceneObject.removeChild(object2);
                             object2.Reset();
@@ -289,7 +306,8 @@ var managers;
                                 managers.Game.hud.Lives += 1;
                                 managers.Game.hud.playerLivesSprite[managers.Game.hud.Lives - 1].alpha = 1;
                             }
-                            managers.Game.numOfMissiles += 1;
+                            if (managers.Game.hud.Power < 201)
+                                managers.Game.hud.Power += 25;
                             managers.Game.hud.ScoreMult += 100;
                             managers.Game.hud.Score += 10000000;
                         }
@@ -325,13 +343,13 @@ var managers;
                             explosion.scaleY = 0.5;
                             explosion.scaleX = 0.5;
                             managers.Game.currentSceneObject.addChild(explosion);
-                            managers.Game.numOfMissiles -= 1;
                             managers.Game.hud.Lives -= 1;
                             managers.Game.hud.playerLivesSprite[managers.Game.hud.Lives].alpha = 0.5;
                             console.log(managers.Game.hud.playerLivesSprite[managers.Game.hud.Lives]);
                             console.log(managers.Game.hud.Lives);
                             managers.Game.hud.ScoreMult = 1;
                             managers.Game.hud.Score = Math.floor(managers.Game.hud.Score / 2);
+                            managers.Game.hud.Power = Math.floor(managers.Game.hud.Power / 2);
                             object1.Reset();
                             object2.Reset();
                         }
@@ -358,11 +376,14 @@ var managers;
                             buff.scaleX = 0.5;
                             buff.scaleY = 0.7;
                             managers.Game.currentSceneObject.addChild(buff);
-                            managers.Game.numOfMissiles += 1;
-                            managers.Game.hud.Score += 5000 * managers.Game.hud.ScoreMult;
+                            managers.Game.hud.Score += 25000;
+                            if (managers.Game.hud.Power < 201)
+                                managers.Game.hud.Power += 25;
                             managers.Game.currentSceneObject.removeChild(object2);
                         }
                         managers.Game.hud.Score += 100 * managers.Game.hud.ScoreMult;
+                        if (managers.Game.hud.Power < 201)
+                            managers.Game.hud.Power += 1;
                         object2.Reset();
                     }
                     break;

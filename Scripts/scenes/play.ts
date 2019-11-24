@@ -45,7 +45,7 @@ module scenes {
             // Initialize our variables
             this.background = new objects.Background();
             this.background.y = -32500
-            this.aircraft = new objects.Image("aircraft", 418, 450);
+            this.aircraft = new objects.Image("aircraft", 418, 350);
             this.stageName = new objects.Label("Stage 1: Invasion", "36px", "OptimusPrinceps", "#FFFFFF", 530, 240, true);
 
             createjs.Sound.stop();
@@ -53,7 +53,7 @@ module scenes {
             this.bgm.loop = -1;
             this.bgm.volume = 0.05;
 
-            this.player = new objects.Player("Ship1", 555, 690, false, 1);
+            this.player = new objects.Player("Ship1", 555, 570, false);
 
             this.eliteUnits = []
             this.level1Enemies = []
@@ -253,7 +253,7 @@ module scenes {
         public Update(): void {
             this.hud.Update()
             this.aircraft.y += 3;
-            if(this.aircraft.y > 720){
+            if(this.aircraft.y > 600){
                 this.removeChild(this.aircraft);
             }
 
@@ -277,10 +277,133 @@ module scenes {
                 this.shields[0].y = this.player.y +10
                 this.shields[0].alpha = 1;
             }
+
             if(!this.player.IsInvincible)
                 this.shields[0].alpha = 0;
 
-            this.ChangeShip();
+            if(!this.player.isDead){
+                if(managers.Game.hud.Power < 40 && !managers.Game.p1){
+                    this.bulletManager.Bullet.forEach(ammo =>{
+                        this.removeChild(ammo);
+                    });
+    
+                    managers.Game.bulletManager.buildBulletPool(this.player.ShipType)
+    
+                    this.bulletManager.Bullet.forEach(bullet =>{
+                        this.addChild(bullet);
+                    });
+                    managers.Game.p1 = true
+                }
+                if((managers.Game.hud.Power >= 40 && managers.Game.hud.Power < 80) && !managers.Game.p2){
+                    this.bulletManager.Bullet.forEach(ammo =>{
+                        this.removeChild(ammo);
+                    });
+                    
+                    managers.Game.bulletManager.buildBulletPool(this.player.ShipType)
+    
+                    this.bulletManager.Bullet.forEach(bullet =>{
+                        this.addChild(bullet);
+                    });
+                    managers.Game.p2 = true
+                }
+                if((managers.Game.hud.Power >= 80 && managers.Game.hud.Power < 120) && !managers.Game.p3){
+                    this.bulletManager.Bullet.forEach(ammo =>{
+                        this.removeChild(ammo);
+                    });
+                    
+                    managers.Game.bulletManager.buildBulletPool(this.player.ShipType)
+    
+                    this.bulletManager.Bullet.forEach(bullet =>{
+                        this.addChild(bullet);
+                    });
+                    managers.Game.p3 = true
+                }
+                if((managers.Game.hud.Power >= 120 && managers.Game.hud.Power < 160) && !managers.Game.p4){
+                    this.bulletManager.Bullet.forEach(ammo =>{
+                        this.removeChild(ammo);
+                    });
+                    
+                    managers.Game.bulletManager.buildBulletPool(this.player.ShipType)
+    
+                    this.bulletManager.Bullet.forEach(bullet =>{
+                        this.addChild(bullet);
+                    });
+                    managers.Game.p4 = true
+                }
+                if(managers.Game.hud.Power >= 160 && !managers.Game.p5){
+                    this.bulletManager.Bullet.forEach(ammo =>{
+                        this.removeChild(ammo);
+                    });
+                    
+                    managers.Game.bulletManager.buildBulletPool(this.player.ShipType)
+    
+                    this.bulletManager.Bullet.forEach(bullet =>{
+                        this.addChild(bullet);
+                    });
+                    managers.Game.p5 = true
+                }    
+            }
+
+            if(this.player.isDead){
+                if(managers.Game.hud.Power >= 0 && managers.Game.hud.Power < 40){
+                    this.bulletManager.Bullet.forEach(ammo =>{
+                        this.removeChild(ammo);
+                    });
+    
+                    managers.Game.bulletManager.buildBulletPool(this.player.ShipType)
+    
+                    this.bulletManager.Bullet.forEach(bullet =>{
+                        this.addChild(bullet);
+                    });
+                }
+                if(managers.Game.hud.Power >= 40 && managers.Game.hud.Power < 80){
+                    this.bulletManager.Bullet.forEach(ammo =>{
+                        this.removeChild(ammo);
+                    });
+                    
+                    managers.Game.bulletManager.buildBulletPool(this.player.ShipType)
+    
+                    this.bulletManager.Bullet.forEach(bullet =>{
+                        this.addChild(bullet);
+                    });
+                }
+                if(managers.Game.hud.Power >= 80 && managers.Game.hud.Power < 120){
+                    this.bulletManager.Bullet.forEach(ammo =>{
+                        this.removeChild(ammo);
+                    });
+                    
+                    managers.Game.bulletManager.buildBulletPool(this.player.ShipType)
+    
+                    this.bulletManager.Bullet.forEach(bullet =>{
+                        this.addChild(bullet);
+                    });
+                }
+                if(managers.Game.hud.Power >= 120 && managers.Game.hud.Power < 160){
+                    this.bulletManager.Bullet.forEach(ammo =>{
+                        this.removeChild(ammo);
+                    });
+                    
+                    managers.Game.bulletManager.buildBulletPool(this.player.ShipType)
+    
+                    this.bulletManager.Bullet.forEach(bullet =>{
+                        this.addChild(bullet);
+                    });
+                }
+                if(managers.Game.hud.Power >= 160){
+                    this.bulletManager.Bullet.forEach(ammo =>{
+                        this.removeChild(ammo);
+                    });
+                    
+                    managers.Game.bulletManager.buildBulletPool(this.player.ShipType)
+    
+                    this.bulletManager.Bullet.forEach(bullet =>{
+                        this.addChild(bullet);
+                    });
+                }    
+            }
+            
+
+            //this.ChangeShip();
             this.CheckCollisions()
             //this.testCoin.FindPlayer(this.player)
             //this.testCoin.Update()
@@ -288,11 +411,11 @@ module scenes {
             
             if(managers.Game.level1){
                 if(managers.Game.timer >= 598 && managers.Game.timer <= 600){
-                    if(this.player.y > 550)
+                    if(this.player.y > 450)
                     this.player.y -= 1;
                 }
                 if(managers.Game.timer >= 597 && managers.Game.timer <= 598){
-                    if(this.player.y < 675)
+                    if(this.player.y < 550)
                     this.player.y += 1;
                 }
                 if(managers.Game.timer > 591 && managers.Game.timer <= 596){
@@ -926,37 +1049,37 @@ module scenes {
                     
                     switch(this.player.ShipType){
                         case config.Ship.Botcoin:
-                            this.addChild(this.player = new objects.Player("Ship2", playerPosX, playerPosY, true, this.player.POWER));
+                            this.addChild(this.player = new objects.Player("Ship2", playerPosX, playerPosY, true));
                             this.player.ShipType = config.Ship.Lightcoin;
                             console.log("Changing to Lightcoin Ship"); 
                             console.log(this.player.ShipType);
                                                     
-                            this.bulletManager.buildBulletPool(this.player.ShipType, this.player.POWER);
+                            this.bulletManager.buildBulletPool(this.player.ShipType);
                             this.bulletManager.Bullet.forEach(bullet =>{
                                 this.addChild(bullet);
                             });
                         break;       
                         case config.Ship.Lightcoin:
     
-                            this.addChild(this.player = new objects.Player("Ship3", playerPosX, playerPosY, true, this.player.POWER));
+                            this.addChild(this.player = new objects.Player("Ship3", playerPosX, playerPosY, true));
                             this.player.ShipType = config.Ship.Enderium;
                             console.log("Changing to Enderium Ship");
                             console.log(this.player.ShipType);
     
                             
-                            this.bulletManager.buildBulletPool(this.player.ShipType, this.player.POWER);
+                            this.bulletManager.buildBulletPool(this.player.ShipType);
                             this.bulletManager.Bullet.forEach(bullet =>{
                                 this.addChild(bullet);
                             });
                         break;
                         case config.Ship.Enderium:
     
-                            this.addChild(this.player = new objects.Player("Ship1", playerPosX, playerPosY, true, this.player.POWER));
+                            this.addChild(this.player = new objects.Player("Ship1", playerPosX, playerPosY, true));
                             this.player.ShipType = config.Ship.Botcoin;
                             console.log("Changing to Botcoin Ship");
                             console.log(this.player.ShipType); 
                             
-                            this.bulletManager.buildBulletPool(this.player.ShipType, this.player.POWER);
+                            this.bulletManager.buildBulletPool(this.player.ShipType);
                             this.bulletManager.Bullet.forEach(bullet =>{
                                 this.addChild(bullet);
                             });
