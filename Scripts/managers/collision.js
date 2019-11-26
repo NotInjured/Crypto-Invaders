@@ -91,14 +91,6 @@ var managers;
                                 managers.Game.hud.Power += 25;
                             managers.Game.hud.ScoreMult += 100;
                             managers.Game.hud.Score += 2500000;
-                            var counter_1 = 5;
-                            var interval_1 = setInterval(function () {
-                                counter_1--;
-                                if (counter_1 < 0) {
-                                    clearInterval(interval_1);
-                                    managers.Game.level1Completed = true;
-                                }
-                            }, 1000);
                         }
                     }
                     break;
@@ -206,15 +198,6 @@ var managers;
                                 managers.Game.hud.Power += 25;
                             managers.Game.hud.ScoreMult += 100;
                             managers.Game.hud.Score += 5000000;
-                            var counter2_1 = 5;
-                            var interval_2 = setInterval(function () {
-                                counter2_1--;
-                                if (counter2_1 < 0) {
-                                    clearInterval(interval_2);
-                                    managers.Game.level2Completed = true;
-                                    console.log(managers.Game.level2Completed);
-                                }
-                            }, 1000);
                         }
                     }
                     break;
@@ -254,19 +237,6 @@ var managers;
                                 managers.Game.hud.Power += 25;
                             managers.Game.hud.ScoreMult += 100;
                             managers.Game.hud.Score += 10000000;
-                        }
-                        if ((managers.Game.boss3_1Hp == 0 ||
-                            (managers.Game.boss3_1Hp < 0 && Math.abs(managers.Game.boss3_1Hp) % 5 == 0)) &&
-                            (managers.Game.boss3_2Hp == 0 ||
-                                (managers.Game.boss3_2Hp < 0 && Math.abs(managers.Game.boss3_2Hp) % 5 == 0))) {
-                            var counter_2 = 5;
-                            var interval_3 = setInterval(function () {
-                                counter_2--;
-                                if (counter_2 < 0) {
-                                    clearInterval(interval_3);
-                                    managers.Game.level3Completed = true;
-                                }
-                            }, 1000);
                         }
                     }
                     break;
@@ -311,19 +281,6 @@ var managers;
                             managers.Game.hud.ScoreMult += 100;
                             managers.Game.hud.Score += 10000000;
                         }
-                        if ((managers.Game.boss3_1Hp == 0 ||
-                            (managers.Game.boss3_1Hp < 0 && Math.abs(managers.Game.boss3_1Hp) % 250 == 0)) &&
-                            (managers.Game.boss3_2Hp == 0 ||
-                                (managers.Game.boss3_2Hp < 0 && Math.abs(managers.Game.boss3_2Hp) % 250 == 0))) {
-                            var counter_3 = 5;
-                            var interval_4 = setInterval(function () {
-                                counter_3--;
-                                if (counter_3 < 0) {
-                                    clearInterval(interval_4);
-                                    managers.Game.level3Completed = true;
-                                }
-                            }, 1000);
-                        }
                     }
                     break;
                 case "Ship1":
@@ -345,8 +302,6 @@ var managers;
                             managers.Game.currentSceneObject.addChild(explosion);
                             managers.Game.hud.Lives -= 1;
                             managers.Game.hud.playerLivesSprite[managers.Game.hud.Lives].alpha = 0.5;
-                            console.log(managers.Game.hud.playerLivesSprite[managers.Game.hud.Lives]);
-                            console.log(managers.Game.hud.Lives);
                             managers.Game.hud.ScoreMult = 1;
                             managers.Game.hud.Score = Math.floor(managers.Game.hud.Score / 2);
                             managers.Game.hud.Power = Math.floor(managers.Game.hud.Power / 2);

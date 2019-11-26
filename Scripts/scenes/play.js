@@ -363,7 +363,7 @@ var scenes;
                             m.FindEnemies(this.bosses[0])
                         })
                     }
-
+                    
                     this.eliteUnits[0].forEach(e =>{
                         if(!e.isDead){
                             e.isInvincible = false;
@@ -475,9 +475,19 @@ var scenes;
                     this.bosses[0].isDead = true;
                     managers.Game.boss1IsDead = true;
                     this.bosses[0].DropCoins(50);
+                    var counter_1 = 5;
+                    var interval_1 = setInterval(function () {
+                        counter_1--;
+                        if (counter_1 < 0) {
+                            clearInterval(interval_1);
+                            _this.player.alpha = 0;
+                            managers.Game.level1Completed = true;
+                        }
+                    }, 1000);
                 }
             }
             if (managers.Game.level2) {
+                this.player.alpha = 1;
                 if (managers.Game.timer == 600) {
                     createjs.Sound.stop();
                     this.bgm = createjs.Sound.play("bgm3");
@@ -591,9 +601,19 @@ var scenes;
                     this.bosses[1].isDead = true;
                     managers.Game.boss2IsDead = true;
                     this.bosses[1].DropCoins(50);
+                    var counter2_1 = 5;
+                    var interval_2 = setInterval(function () {
+                        counter2_1--;
+                        if (counter2_1 < 0) {
+                            clearInterval(interval_2);
+                            _this.player.alpha = 0;
+                            managers.Game.level2Completed = true;
+                        }
+                    }, 1000);
                 }
             }
             if (managers.Game.level3) {
+                this.player.alpha = 1;
                 if (managers.Game.timer == 600) {
                     createjs.Sound.stop();
                     this.bgm = createjs.Sound.play("bgm");
@@ -742,6 +762,20 @@ var scenes;
                     this.bosses[3].isDead = true;
                     managers.Game.boss3_2IsDead = true;
                     this.bosses[3].DropCoins(50);
+                }
+                if ((managers.Game.boss3_1Hp == 0 ||
+                    (managers.Game.boss3_1Hp < 0 && Math.abs(managers.Game.boss3_1Hp) % 250 == 0)) &&
+                    (managers.Game.boss3_2Hp == 0 ||
+                        (managers.Game.boss3_2Hp < 0 && Math.abs(managers.Game.boss3_2Hp) % 250 == 0))) {
+                    var counter_2 = 5;
+                    var interval_3 = setInterval(function () {
+                        counter_2--;
+                        if (counter_2 < 0) {
+                            clearInterval(interval_3);
+                            _this.player.alpha = 0;
+                            managers.Game.level3Completed = true;
+                        }
+                    }, 1000);
                 }
             }
             if (managers.Game.hud.Lives < 0) {

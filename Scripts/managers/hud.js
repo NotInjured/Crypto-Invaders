@@ -127,6 +127,7 @@ var managers;
                     this.backButton.alpha = 1;
                     this.continueButton.alpha = 1;
                     managers.Game.keyboardManager.enabled = false;
+                    managers.Game.player.alpha = 0;
                     this.backButton.on("click", this.backButtonClick);
                     this.continueButton.on("click", this.continueButtonClick);
                 }
@@ -306,6 +307,7 @@ var managers;
                         this.playerLivesSprite[i].alpha = 0.5;
                     }
                 }
+                this.addChild(this.bBackground);
                 this.addChild(this.eBackground);
                 this.addChild(this.lBackground);
                 this.addChild(this.controlPanel);
@@ -315,7 +317,6 @@ var managers;
                 this.addChild(this.playerScoreLabel);
                 this.addChild(this.playerPowerLabel);
                 this.addChild(this.scoreMultLabel);
-                this.addChild(this.bBackground);
                 this.addChild(this.gameOverLabel);
                 this.addChild(this.playerScoreLabel);
                 this.addChild(this.highScoreLabel);

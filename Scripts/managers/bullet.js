@@ -107,12 +107,12 @@ var managers;
         Bullet.prototype.GetBullet = function () {
             var bullet = this.Bullet[this.CurrentBullet];
             this.CurrentBullet++;
-            if (managers.Game.bulletManager.CurrentBullet > 1999)
+            if (managers.Game.bulletManager.CurrentBullet > 999)
                 managers.Game.bulletManager.CurrentBullet = 0;
             return bullet;
         };
         Bullet.prototype.Start = function () {
-            this.bulletCount = 2000;
+            this.bulletCount = 1000;
             this.Bullet = new Array();
             this.CurrentBullet = 0;
             this.buildBulletPool(config.Ship.Botcoin);

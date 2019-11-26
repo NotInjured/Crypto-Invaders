@@ -95,17 +95,6 @@ module managers {
                                             managers.Game.hud.Power += 25
                                         managers.Game.hud.ScoreMult += 100;
                                         managers.Game.hud.Score += 2500000
-
-                                        let counter = 5;
-
-                                        let interval = setInterval(() =>{
-                                            counter--;
-                                            if(counter < 0){
-                                                clearInterval(interval);
-                                                
-                                                managers.Game.level1Completed = true;
-                                            }
-                                        }, 1000)
                                     }
                                 }
                         break;
@@ -220,17 +209,6 @@ module managers {
                                         managers.Game.hud.Power += 25
                                     managers.Game.hud.ScoreMult += 100;
                                     managers.Game.hud.Score += 5000000
-
-                                    let counter2 = 5;
-
-                                    let interval = setInterval(() =>{
-                                        counter2--;
-                                        if(counter2 < 0){
-                                            clearInterval(interval);
-                                            managers.Game.level2Completed = true;
-                                            console.log(managers.Game.level2Completed)
-                                        }
-                                    }, 1000)
                                 }
                             }
                         break;
@@ -275,20 +253,7 @@ module managers {
                                         managers.Game.hud.Score += 10000000
                                     }
 
-                                    if((managers.Game.boss3_1Hp == 0 || 
-                                        (managers.Game.boss3_1Hp < 0 && Math.abs(managers.Game.boss3_1Hp) % 5 == 0)) && 
-                                        (managers.Game.boss3_2Hp == 0 || 
-                                        (managers.Game.boss3_2Hp < 0 && Math.abs(managers.Game.boss3_2Hp) % 5 == 0))){
-                                        let counter = 5;
-                
-                                        let interval = setInterval(() =>{
-                                            counter--;
-                                            if(counter < 0){
-                                                clearInterval(interval);              
-                                                managers.Game.level3Completed = true;
-                                            }
-                                        }, 1000)
-                                    }
+                                    
                                 }
                         break;
                         case "F5S4":
@@ -336,21 +301,6 @@ module managers {
                                         managers.Game.hud.ScoreMult += 100;
                                         managers.Game.hud.Score += 10000000
                                     }
-
-                                    if((managers.Game.boss3_1Hp == 0 || 
-                                        (managers.Game.boss3_1Hp < 0 && Math.abs(managers.Game.boss3_1Hp) % 250 == 0)) && 
-                                        (managers.Game.boss3_2Hp == 0 || 
-                                        (managers.Game.boss3_2Hp < 0 && Math.abs(managers.Game.boss3_2Hp) % 250 == 0))){
-                                        let counter = 5;
-                
-                                        let interval = setInterval(() =>{
-                                            counter--;
-                                            if(counter < 0){
-                                                clearInterval(interval);              
-                                                managers.Game.level3Completed = true;
-                                            }
-                                        }, 1000)
-                                    }
                                 }
                         break;
                         case "Ship1":
@@ -374,8 +324,6 @@ module managers {
                                     managers.Game.currentSceneObject.addChild(explosion)
                                     managers.Game.hud.Lives -= 1
                                     managers.Game.hud.playerLivesSprite[managers.Game.hud.Lives].alpha = 0.5
-                                    console.log(managers.Game.hud.playerLivesSprite[managers.Game.hud.Lives])
-                                    console.log(managers.Game.hud.Lives)
                                     managers.Game.hud.ScoreMult = 1
                                     managers.Game.hud.Score = Math.floor(managers.Game.hud.Score/2)
                                     managers.Game.hud.Power = Math.floor(managers.Game.hud.Power/2)
