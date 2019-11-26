@@ -207,14 +207,135 @@ var objects;
                         }
                         break;
                     case config.Ship.Lightcoin:
-                        if ((managers.Game.keyboardManager.shoot) && (ticker % 10 == 0)) {
-                            if (managers.Game.hud.Power >= 0) {
+                        if (managers.Game.hud.Power < 40) {
+                            if ((managers.Game.keyboardManager.shoot) && (ticker % 10 == 0)) {
                                 this.bulletSpawn = new math.Vec2(this.x - 11, this.y - 25);
                                 this.effect = new objects.Effect("Laser1_Shoot", this.x - 7, this.y - 30);
                                 var ammo = managers.Game.bulletManager.GetBullet();
                                 console.log(ammo);
                                 ammo.x = this.bulletSpawn.x;
                                 ammo.y = this.bulletSpawn.y;
+                                var laser = createjs.Sound.play("laser");
+                                laser.volume = 0.1;
+                                managers.Game.currentSceneObject.addChild(this.effect);
+                            }
+                        }
+                        else if (managers.Game.hud.Power >= 40 && managers.Game.hud.Power < 80) {
+                            if ((managers.Game.keyboardManager.shoot) && (ticker % 10 == 0)) {
+                                this.bulletSpawn = new math.Vec2(this.x - 7, this.y - 25);
+                                this.effect = new objects.Effect("Laser1_Shoot", this.x - 13, this.y - 43);
+                                var ammo = managers.Game.bulletManager.GetBullet();
+                                var ammo2 = managers.Game.bulletManager.GetBullet();
+                                ammo.x = this.bulletSpawn.x;
+                                ammo.y = this.bulletSpawn.y;
+                                ammo2.x = this.x - 11;
+                                ammo2.y = this.bulletSpawn.y;
+                                var laser = createjs.Sound.play("laser");
+                                laser.volume = 0.1;
+                                managers.Game.currentSceneObject.addChild(this.effect);
+                            }
+                        }
+                        else if (managers.Game.hud.Power >= 80 && managers.Game.hud.Power < 120) {
+                            if ((managers.Game.keyboardManager.shoot) && (ticker % 10 == 0)) {
+                                this.effect = new objects.Effect("Laser1_Shoot", this.x - 7, this.y - 30);
+                                var ammo = managers.Game.bulletManager.GetBullet();
+                                var ammo2 = managers.Game.bulletManager.GetBullet();
+                                var ammo3 = managers.Game.bulletManager.GetBullet();
+                                ammo.x = this.x - 11;
+                                ammo.y = this.y - 25;
+                                // Right
+                                ammo2.x = this.x - 11;
+                                ammo2.y = this.y - 10;
+                                ammo2.rotation = 45;
+                                ammo2.Dir = new math.Vec2((120 * Math.cos(45)) * 0.2, -(15 * Math.sin(45)) * 0.1);
+                                // Left
+                                ammo3.x = this.x - 11;
+                                ammo3.y = this.y - 10;
+                                ammo3.rotation = -45;
+                                ammo3.Dir = new math.Vec2(-(120 * Math.cos(45)) * 0.2, -(15 * Math.sin(45)) * 0.1);
+                                var laser = createjs.Sound.play("laser");
+                                laser.volume = 0.1;
+                                managers.Game.currentSceneObject.addChild(this.effect);
+                            }
+                        }
+                        else if (managers.Game.hud.Power >= 120 && managers.Game.hud.Power < 160) {
+                            if ((managers.Game.keyboardManager.shoot) && (ticker % 10 == 0)) {
+                                this.effect = new objects.Effect("Laser1_Shoot", this.x - 7, this.y - 30);
+                                var ammo = managers.Game.bulletManager.GetBullet();
+                                var ammo2 = managers.Game.bulletManager.GetBullet();
+                                var ammo3 = managers.Game.bulletManager.GetBullet();
+                                var ammo4 = managers.Game.bulletManager.GetBullet();
+                                var ammo5 = managers.Game.bulletManager.GetBullet();
+                                var ammo6 = managers.Game.bulletManager.GetBullet();
+                                ammo.x = this.x - 14;
+                                ammo.y = this.y - 25;
+                                ammo2.x = this.x - 7;
+                                ammo2.y = this.y - 25;
+                                // Right side
+                                ammo3.x = this.x - 6;
+                                ammo3.y = this.y - 16;
+                                ammo3.rotation = 45;
+                                ammo3.Dir = new math.Vec2((120 * Math.cos(45)) * 0.2, -(15 * Math.sin(45)) * 0.1);
+                                ammo5.x = this.x - 10;
+                                ammo5.y = this.y - 16;
+                                ammo5.rotation = -60;
+                                ammo5.Dir = new math.Vec2((120 * Math.cos(60)) * 0.2, -(15 * Math.sin(60)) * 0.1);
+                                // Left Side
+                                ammo4.x = this.x - 11;
+                                ammo4.y = this.y - 20;
+                                ammo4.rotation = -45;
+                                ammo4.Dir = new math.Vec2(-(120 * Math.cos(45)) * 0.2, -(15 * Math.sin(45)) * 0.1);
+                                ammo6.x = this.x - 11;
+                                ammo6.y = this.y - 5;
+                                ammo6.rotation = 60;
+                                ammo6.Dir = new math.Vec2(-(120 * Math.cos(60)) * 0.2, -(15 * Math.sin(60)) * 0.1);
+                                var laser = createjs.Sound.play("laser");
+                                laser.volume = 0.1;
+                                managers.Game.currentSceneObject.addChild(this.effect);
+                            }
+                        }
+                        else if (managers.Game.hud.Power >= 160) {
+                            if ((managers.Game.keyboardManager.shoot) && (ticker % 10 == 0)) {
+                                this.effect = new objects.Effect("Laser1_Shoot", this.x - 7, this.y - 30);
+                                var ammo = managers.Game.bulletManager.GetBullet();
+                                var ammo2 = managers.Game.bulletManager.GetBullet();
+                                var ammo3 = managers.Game.bulletManager.GetBullet();
+                                var ammo4 = managers.Game.bulletManager.GetBullet();
+                                var ammo5 = managers.Game.bulletManager.GetBullet();
+                                var ammo6 = managers.Game.bulletManager.GetBullet();
+                                var ammo7 = managers.Game.bulletManager.GetBullet();
+                                var ammo8 = managers.Game.bulletManager.GetBullet();
+                                ammo.x = this.x - 14;
+                                ammo.y = this.y - 25;
+                                ammo2.x = this.x - 7;
+                                ammo2.y = this.y - 25;
+                                // 45
+                                ammo3.x = this.x - 6;
+                                ammo3.y = this.y - 16;
+                                ammo3.rotation = 45;
+                                ammo3.Dir = new math.Vec2((180 * Math.cos(45)) * 0.1, -(15 * Math.sin(45)) * 0.05);
+                                ammo4.x = this.x - 11;
+                                ammo4.y = this.y - 20;
+                                ammo4.rotation = -45;
+                                ammo4.Dir = new math.Vec2(-(180 * Math.cos(45)) * 0.1, -(15 * Math.sin(45)) * 0.05);
+                                // 60
+                                ammo5.x = this.x - 10;
+                                ammo5.y = this.y - 16;
+                                ammo5.rotation = -60;
+                                ammo5.Dir = new math.Vec2((120 * Math.cos(60)) * 0.2, -(15 * Math.sin(60)) * 0.1);
+                                ammo6.x = this.x - 11;
+                                ammo6.y = this.y - 8;
+                                ammo6.rotation = 60;
+                                ammo6.Dir = new math.Vec2(-(120 * Math.cos(60)) * 0.2, -(15 * Math.sin(60)) * 0.1);
+                                // 25
+                                ammo7.x = this.x - 10;
+                                ammo7.y = this.y - 16;
+                                ammo7.rotation = 25;
+                                ammo7.Dir = new math.Vec2((15 * Math.cos(25)) * 0.2, -(120 * Math.sin(25)) * 0.1);
+                                ammo8.x = this.x - 10;
+                                ammo8.y = this.y - 16;
+                                ammo8.rotation = -25;
+                                ammo8.Dir = new math.Vec2(-(15 * Math.cos(25)) * 0.2, -(120 * Math.sin(25)) * 0.1);
                                 var laser = createjs.Sound.play("laser");
                                 laser.volume = 0.1;
                                 managers.Game.currentSceneObject.addChild(this.effect);

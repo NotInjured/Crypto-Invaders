@@ -23,6 +23,16 @@ var objects;
             _this.Start();
             return _this;
         }
+        Object.defineProperty(Bullet.prototype, "Dir", {
+            get: function () {
+                return this.dir;
+            },
+            set: function (d) {
+                this.dir = d;
+            },
+            enumerable: true,
+            configurable: true
+        });
         // Methods
         Bullet.prototype.Start = function () {
             this.speedY = this.speed;
@@ -30,7 +40,10 @@ var objects;
         };
         Bullet.prototype.Update = function () {
             this.Move();
-            this.CheckBound();
+            if (this.x > 700 || this.x < 360)
+                this.Reset();
+            if (this.y == 0)
+                this.Reset();
         };
         Bullet.prototype.Reset = function () {
             this.x = -10000;
@@ -39,10 +52,12 @@ var objects;
         Bullet.prototype.Main = function () { };
         Bullet.prototype.Move = function () {
             this.y += this.speedY;
+            if (this.dir != undefined) {
+                this.x += this.dir.x;
+                this.y += this.dir.y;
+            }
         };
         Bullet.prototype.CheckBounds = function () {
-            if (this.y < 0)
-                this.Reset();
         };
         return Bullet;
     }(objects.GameObject));

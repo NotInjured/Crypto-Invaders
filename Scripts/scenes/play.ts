@@ -253,13 +253,10 @@ module scenes {
         public Update(): void {
             this.hud.Update()
             this.aircraft.y += 3;
-            if(this.aircraft.y > 600){
+            if(this.aircraft.y > 600)
                 this.removeChild(this.aircraft);
-            }
-
-            this.bulletManager.Update();
+            this.bulletManager.Update()
             this.missileManager.Update()
-            
             this.enemyBulletManager.Update()
             this.coinsManager.Coin.forEach(coin =>{
                 if(coin.IsDropped){
@@ -403,7 +400,7 @@ module scenes {
             }
             
 
-            //this.ChangeShip();
+            this.ChangeShip();
             this.CheckCollisions()
             //this.testCoin.FindPlayer(this.player)
             //this.testCoin.Update()
@@ -1051,9 +1048,6 @@ module scenes {
                         case config.Ship.Botcoin:
                             this.addChild(this.player = new objects.Player("Ship2", playerPosX, playerPosY, true));
                             this.player.ShipType = config.Ship.Lightcoin;
-                            console.log("Changing to Lightcoin Ship"); 
-                            console.log(this.player.ShipType);
-                                                    
                             this.bulletManager.buildBulletPool(this.player.ShipType);
                             this.bulletManager.Bullet.forEach(bullet =>{
                                 this.addChild(bullet);
@@ -1061,29 +1055,22 @@ module scenes {
                         break;       
                         case config.Ship.Lightcoin:
     
-                            this.addChild(this.player = new objects.Player("Ship3", playerPosX, playerPosY, true));
-                            this.player.ShipType = config.Ship.Enderium;
-                            console.log("Changing to Enderium Ship");
-                            console.log(this.player.ShipType);
-    
-                            
+                            this.addChild(this.player = new objects.Player("Ship1", playerPosX, playerPosY, true));
+                            this.player.ShipType = config.Ship.Botcoin;
                             this.bulletManager.buildBulletPool(this.player.ShipType);
                             this.bulletManager.Bullet.forEach(bullet =>{
                                 this.addChild(bullet);
                             });
-                        break;
+                        break;/*
                         case config.Ship.Enderium:
     
                             this.addChild(this.player = new objects.Player("Ship1", playerPosX, playerPosY, true));
                             this.player.ShipType = config.Ship.Botcoin;
-                            console.log("Changing to Botcoin Ship");
-                            console.log(this.player.ShipType); 
-                            
                             this.bulletManager.buildBulletPool(this.player.ShipType);
                             this.bulletManager.Bullet.forEach(bullet =>{
                                 this.addChild(bullet);
                             });
-                        break;
+                        break;*/
                     }
                 }
         }

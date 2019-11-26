@@ -261,23 +261,24 @@ module managers {
             "Player starts with 9/6/3 lives on" + "\n" +
             "Normal/Hard/Hell" + "\n" +
             "+1 by completing stages" + "\n\n" + 
-            "Player Starts with 1 bomb/special" + "\n" + 
-            "+1 dropped by enemies or bosses " + "\n" + "(Max:5)" + "\n\n" + 
-            //"Player starts with power level 1" + "\n" + 
-            //"- Upgrade ship power level by collecting power-ups "  + "\n" +
-            //"dropped by enemies/bosses (Max:10)" + "\n\n" +
+            //"Player Starts with 1 bomb/special" + "\n" + 
+            //"+1 dropped by enemies or bosses " + "\n" + "(Max:5)" + "\n\n" + 
+            "Player starts with power level 1" + "\n" + 
+            "+Power by collecting coins "  + "\n" +
+            "Upgrades at 40/80/120/160" + "\n" +
+            "Powe level cut in half on death" + "\n\n" +
             "+Score by destroying enemies, bosses" + "\n" + 
             "and collecting item drops "+ "\n\n" + 
             "+Multiplier by destroying enemies"+ "\n" +
             "Reset to 1 on death", "20px", "OptimusPrimus", 
-            "#000000", 725, 165, false);
+            "#000000", 725, 155, false);
 
             this.controls = new objects.Label("Arrow Keys - Movement"+ "\n\n" + "           X - Shoot"
-            + "\n\n" + "   Z - Bombs (Disabled)" + "\n\n" + "Space - Swap Ships"+"\n"+"(Disabled)"+ "\n\n" + 
+            + "\n\n" + "   Z - Bombs (Disabled)" + "\n\n" + "    Space - Swap Ships" + "\n\n" + 
             "     Shift - Half-speed", "24px", "OptimusPrimus", 
             "#000000", 50, 215, false)
 
-            this.versionLabel = new objects.Label("Alpha Release 0.1", "12px", "OptimusPrimus", 
+            this.versionLabel = new objects.Label("Beta Release 0.2", "12px", "OptimusPrimus", 
             "#000000", 495, 450, false)
 
             if(managers.Game.normal)
