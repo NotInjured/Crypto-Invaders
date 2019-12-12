@@ -1075,7 +1075,7 @@ module scenes {
                             this.removeChild(ammo);
                         });
                         
-                        managers.Game.P1bulletManager.buildBulletPool(this.P1.ShipType)
+                        managers.Game.P1BulletManager.buildBulletPool(this.P1.ShipType)
         
                         this.P1bulletManager.Bullet.forEach(bullet =>{
                             this.addChild(bullet);
@@ -1087,7 +1087,7 @@ module scenes {
                             this.removeChild(ammo);
                         });
                         
-                        managers.Game.P1bulletManager.buildBulletPool(this.P1.ShipType)
+                        managers.Game.P1BulletManager.buildBulletPool(this.P1.ShipType)
         
                         this.P1bulletManager.Bullet.forEach(bullet =>{
                             this.addChild(bullet);
@@ -1099,7 +1099,7 @@ module scenes {
                             this.removeChild(ammo);
                         });
                         
-                        managers.Game.P1bulletManager.buildBulletPool(this.P1.ShipType)
+                        managers.Game.P1BulletManager.buildBulletPool(this.P1.ShipType)
         
                         this.P1bulletManager.Bullet.forEach(bullet =>{
                             this.addChild(bullet);
@@ -1111,7 +1111,7 @@ module scenes {
                             this.removeChild(ammo);
                         });
                         
-                        managers.Game.P1bulletManager.buildBulletPool(this.P1.ShipType)
+                        managers.Game.P1BulletManager.buildBulletPool(this.P1.ShipType)
         
                         this.P1bulletManager.Bullet.forEach(bullet =>{
                             this.addChild(bullet);
@@ -1123,7 +1123,7 @@ module scenes {
                             this.removeChild(ammo);
                         });
                         
-                        managers.Game.P1bulletManager.buildBulletPool(this.P1.ShipType)
+                        managers.Game.P1BulletManager.buildBulletPool(this.P1.ShipType)
         
                         this.P1bulletManager.Bullet.forEach(bullet =>{
                             this.addChild(bullet);
@@ -1138,7 +1138,7 @@ module scenes {
                             this.removeChild(ammo);
                         });
                         
-                        managers.Game.P1bulletManager.buildBulletPool(this.P1.ShipType)
+                        managers.Game.P1BulletManager.buildBulletPool(this.P1.ShipType)
         
                         this.P1bulletManager.Bullet.forEach(bullet =>{
                             this.addChild(bullet);
@@ -1149,7 +1149,7 @@ module scenes {
                             this.removeChild(ammo);
                         });
                         
-                        managers.Game.P1bulletManager.buildBulletPool(this.P1.ShipType)
+                        managers.Game.P1BulletManager.buildBulletPool(this.P1.ShipType)
         
                         this.P1bulletManager.Bullet.forEach(bullet =>{
                             this.addChild(bullet);
@@ -1160,7 +1160,7 @@ module scenes {
                             this.removeChild(ammo);
                         });
                         
-                        managers.Game.P1bulletManager.buildBulletPool(this.P1.ShipType)
+                        managers.Game.P1BulletManager.buildBulletPool(this.P1.ShipType)
         
                         this.P1bulletManager.Bullet.forEach(bullet =>{
                             this.addChild(bullet);
@@ -1171,7 +1171,7 @@ module scenes {
                             this.removeChild(ammo);
                         });
                         
-                        managers.Game.P1bulletManager.buildBulletPool(this.P1.ShipType)
+                        managers.Game.P1BulletManager.buildBulletPool(this.P1.ShipType)
         
                         this.P1bulletManager.Bullet.forEach(bullet =>{
                             this.addChild(bullet);
@@ -1182,7 +1182,7 @@ module scenes {
                             this.removeChild(ammo);
                         });
                         
-                        managers.Game.P1bulletManager.buildBulletPool(this.P1.ShipType)
+                        managers.Game.P1BulletManager.buildBulletPool(this.P1.ShipType)
         
                         this.P1bulletManager.Bullet.forEach(bullet =>{
                             this.addChild(bullet);
@@ -1210,7 +1210,7 @@ module scenes {
                             this.removeChild(ammo);
                         });
         
-                        managers.Game.P2bulletManager.buildBulletPool(this.P2.ShipType)
+                        managers.Game.P2BulletManager.buildBulletPool(this.P2.ShipType)
         
                         this.P2bulletManager.Bullet.forEach(bullet =>{
                             this.addChild(bullet);
@@ -1222,7 +1222,7 @@ module scenes {
                             this.removeChild(ammo);
                         });
                         
-                        managers.Game.P2bulletManager.buildBulletPool(this.P2.ShipType)
+                        managers.Game.P2BulletManager.buildBulletPool(this.P2.ShipType)
         
                         this.P2bulletManager.Bullet.forEach(bullet =>{
                             this.addChild(bullet);
@@ -1234,7 +1234,7 @@ module scenes {
                             this.removeChild(ammo);
                         });
                         
-                        managers.Game.P2bulletManager.buildBulletPool(this.P2.ShipType)
+                        managers.Game.P2BulletManager.buildBulletPool(this.P2.ShipType)
         
                         this.P2bulletManager.Bullet.forEach(bullet =>{
                             this.addChild(bullet);
@@ -1246,7 +1246,7 @@ module scenes {
                             this.removeChild(ammo);
                         });
                         
-                        managers.Game.P2bulletManager.buildBulletPool(this.P2.ShipType)
+                        managers.Game.P2BulletManager.buildBulletPool(this.P2.ShipType)
         
                         this.P2bulletManager.Bullet.forEach(bullet =>{
                             this.addChild(bullet);
@@ -1258,7 +1258,7 @@ module scenes {
                             this.removeChild(ammo);
                         });
                         
-                        managers.Game.P2bulletManager.buildBulletPool(this.P2.ShipType)
+                        managers.Game.P2BulletManager.buildBulletPool(this.P2.ShipType)
         
                         this.P2bulletManager.Bullet.forEach(bullet =>{
                             this.addChild(bullet);
@@ -1273,7 +1273,7 @@ module scenes {
                             this.removeChild(ammo);
                         });
                         
-                        managers.Game.P2bulletManager.buildBulletPool(this.P2.ShipType)
+                        managers.Game.P2BulletManager.buildBulletPool(this.P2.ShipType)
         
                         this.P2bulletManager.Bullet.forEach(bullet =>{
                             this.addChild(bullet);
@@ -1284,7 +1284,7 @@ module scenes {
                             this.removeChild(ammo);
                         });
                         
-                        managers.Game.P2bulletManager.buildBulletPool(this.P2.ShipType)
+                        managers.Game.P2BulletManager.buildBulletPool(this.P2.ShipType)
         
                         this.P2bulletManager.Bullet.forEach(bullet =>{
                             this.addChild(bullet);
@@ -1295,7 +1295,7 @@ module scenes {
                             this.removeChild(ammo);
                         });
                         
-                        managers.Game.P2bulletManager.buildBulletPool(this.P2.ShipType)
+                        managers.Game.P2BulletManager.buildBulletPool(this.P2.ShipType)
         
                         this.P2bulletManager.Bullet.forEach(bullet =>{
                             this.addChild(bullet);
@@ -1306,7 +1306,7 @@ module scenes {
                             this.removeChild(ammo);
                         });
                         
-                        managers.Game.P2bulletManager.buildBulletPool(this.P2.ShipType)
+                        managers.Game.P2BulletManager.buildBulletPool(this.P2.ShipType)
         
                         this.P2bulletManager.Bullet.forEach(bullet =>{
                             this.addChild(bullet);
@@ -1317,7 +1317,7 @@ module scenes {
                             this.removeChild(ammo);
                         });
                         
-                        managers.Game.P2bulletManager.buildBulletPool(this.P2.ShipType)
+                        managers.Game.P2BulletManager.buildBulletPool(this.P2.ShipType)
         
                         this.P2bulletManager.Bullet.forEach(bullet =>{
                             this.addChild(bullet);

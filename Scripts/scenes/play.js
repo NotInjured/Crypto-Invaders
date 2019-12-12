@@ -160,7 +160,7 @@ var scenes;
                             this.level1Enemies[i] = [];
                             this.level2Enemies[i] = [];
                             this.level3Enemies[i] = [];
-                            for (var j = 0; j < 4; j++) {
+                            for (var j = 0; j < 3; j++) {
                                 if (i == 0) {
                                     this.level1Enemies[0][j] = new objects.Enemy("Enemy1");
                                     this.level2Enemies[0][j] = new objects.Enemy("Enemy7");
@@ -230,7 +230,7 @@ var scenes;
                             this.level1Enemies[i] = [];
                             this.level2Enemies[i] = [];
                             this.level3Enemies[i] = [];
-                            for (var j = 0; j < 8; j++) {
+                            for (var j = 0; j < 6; j++) {
                                 if (i == 0) {
                                     this.level1Enemies[0][j] = new objects.Enemy("Enemy1");
                                     this.level2Enemies[0][j] = new objects.Enemy("Enemy7");
@@ -300,7 +300,7 @@ var scenes;
                             this.level1Enemies[i] = [];
                             this.level2Enemies[i] = [];
                             this.level3Enemies[i] = [];
-                            for (var j = 0; j < 12; j++) {
+                            for (var j = 0; j < 9; j++) {
                                 if (i == 0) {
                                     this.level1Enemies[0][j] = new objects.Enemy("Enemy1");
                                     this.level2Enemies[0][j] = new objects.Enemy("Enemy7");
@@ -879,7 +879,7 @@ var scenes;
                 this.P1Tag.y = this.P1.y - 50;
                 this.P2Tag.x = this.P2.x - 17;
                 this.P2Tag.y = this.P2.y - 50;
-                if (this.P1aircraft.y > 600) {
+                if (this.P1aircraft.y > 720) {
                     this.removeChild(this.P1aircraft);
                     this.removeChild(this.P2aircraft);
                 }
@@ -909,51 +909,51 @@ var scenes;
                     this.shields[1].alpha = 0;
                 if (!this.P1.isDead) {
                     if (managers.Game.hud.P1Power < 40 && !managers.Game.P1p1) {
-                        this.bulletManager.Bullet.forEach(function (ammo) {
+                        this.P1bulletManager.Bullet.forEach(function (ammo) {
                             _this.removeChild(ammo);
                         });
-                        managers.Game.bulletManager.buildBulletPool(this.P1.ShipType);
-                        this.bulletManager.Bullet.forEach(function (bullet) {
+                        managers.Game.P1BulletManager.buildBulletPool(this.P1.ShipType);
+                        this.P1bulletManager.Bullet.forEach(function (bullet) {
                             _this.addChild(bullet);
                         });
                         managers.Game.P1p1 = true;
                     }
                     if ((managers.Game.hud.P1Power >= 40 && managers.Game.hud.P1Power < 80) && !managers.Game.P1p2) {
-                        this.bulletManager.Bullet.forEach(function (ammo) {
+                        this.P1bulletManager.Bullet.forEach(function (ammo) {
                             _this.removeChild(ammo);
                         });
-                        managers.Game.bulletManager.buildBulletPool(this.P1.ShipType);
-                        this.bulletManager.Bullet.forEach(function (bullet) {
+                        managers.Game.P1BulletManager.buildBulletPool(this.P1.ShipType);
+                        this.P1bulletManager.Bullet.forEach(function (bullet) {
                             _this.addChild(bullet);
                         });
                         managers.Game.P1p2 = true;
                     }
                     if ((managers.Game.hud.P1Power >= 80 && managers.Game.hud.P1Power < 120) && !managers.Game.P1p3) {
-                        this.bulletManager.Bullet.forEach(function (ammo) {
+                        this.P1bulletManager.Bullet.forEach(function (ammo) {
                             _this.removeChild(ammo);
                         });
-                        managers.Game.bulletManager.buildBulletPool(this.P1.ShipType);
-                        this.bulletManager.Bullet.forEach(function (bullet) {
+                        managers.Game.P1BulletManager.buildBulletPool(this.P1.ShipType);
+                        this.P1bulletManager.Bullet.forEach(function (bullet) {
                             _this.addChild(bullet);
                         });
                         managers.Game.P1p3 = true;
                     }
                     if ((managers.Game.hud.P1Power >= 120 && managers.Game.hud.P1Power < 160) && !managers.Game.P1p4) {
-                        this.bulletManager.Bullet.forEach(function (ammo) {
+                        this.P1bulletManager.Bullet.forEach(function (ammo) {
                             _this.removeChild(ammo);
                         });
-                        managers.Game.bulletManager.buildBulletPool(this.P1.ShipType);
-                        this.bulletManager.Bullet.forEach(function (bullet) {
+                        managers.Game.P1BulletManager.buildBulletPool(this.P1.ShipType);
+                        this.P1bulletManager.Bullet.forEach(function (bullet) {
                             _this.addChild(bullet);
                         });
                         managers.Game.P1p4 = true;
                     }
                     if (managers.Game.hud.P1Power >= 160 && !managers.Game.P1p5) {
-                        this.bulletManager.Bullet.forEach(function (ammo) {
+                        this.P1bulletManager.Bullet.forEach(function (ammo) {
                             _this.removeChild(ammo);
                         });
-                        managers.Game.bulletManager.buildBulletPool(this.P1.ShipType);
-                        this.bulletManager.Bullet.forEach(function (bullet) {
+                        managers.Game.P1BulletManager.buildBulletPool(this.P1.ShipType);
+                        this.P1bulletManager.Bullet.forEach(function (bullet) {
                             _this.addChild(bullet);
                         });
                         managers.Game.P1p5 = true;
@@ -961,47 +961,47 @@ var scenes;
                 }
                 if (this.P1.isDead) {
                     if (managers.Game.hud.P1Power >= 0 && managers.Game.hud.P1Power < 40) {
-                        this.bulletManager.Bullet.forEach(function (ammo) {
+                        this.P1bulletManager.Bullet.forEach(function (ammo) {
                             _this.removeChild(ammo);
                         });
-                        managers.Game.bulletManager.buildBulletPool(this.P1.ShipType);
-                        this.bulletManager.Bullet.forEach(function (bullet) {
+                        managers.Game.P1BulletManager.buildBulletPool(this.P1.ShipType);
+                        this.P1bulletManager.Bullet.forEach(function (bullet) {
                             _this.addChild(bullet);
                         });
                     }
                     if (managers.Game.hud.P1Power >= 40 && managers.Game.hud.P1Power < 80) {
-                        this.bulletManager.Bullet.forEach(function (ammo) {
+                        this.P1bulletManager.Bullet.forEach(function (ammo) {
                             _this.removeChild(ammo);
                         });
-                        managers.Game.bulletManager.buildBulletPool(this.P1.ShipType);
-                        this.bulletManager.Bullet.forEach(function (bullet) {
+                        managers.Game.P1BulletManager.buildBulletPool(this.P1.ShipType);
+                        this.P1bulletManager.Bullet.forEach(function (bullet) {
                             _this.addChild(bullet);
                         });
                     }
                     if (managers.Game.hud.P1Power >= 80 && managers.Game.hud.P1Power < 120) {
-                        this.bulletManager.Bullet.forEach(function (ammo) {
+                        this.P1bulletManager.Bullet.forEach(function (ammo) {
                             _this.removeChild(ammo);
                         });
-                        managers.Game.bulletManager.buildBulletPool(this.P1.ShipType);
-                        this.bulletManager.Bullet.forEach(function (bullet) {
+                        managers.Game.P1BulletManager.buildBulletPool(this.P1.ShipType);
+                        this.P1bulletManager.Bullet.forEach(function (bullet) {
                             _this.addChild(bullet);
                         });
                     }
                     if (managers.Game.hud.P1Power >= 120 && managers.Game.hud.P1Power < 160) {
-                        this.bulletManager.Bullet.forEach(function (ammo) {
+                        this.P1bulletManager.Bullet.forEach(function (ammo) {
                             _this.removeChild(ammo);
                         });
-                        managers.Game.bulletManager.buildBulletPool(this.P1.ShipType);
-                        this.bulletManager.Bullet.forEach(function (bullet) {
+                        managers.Game.P1BulletManager.buildBulletPool(this.P1.ShipType);
+                        this.P1bulletManager.Bullet.forEach(function (bullet) {
                             _this.addChild(bullet);
                         });
                     }
                     if (managers.Game.hud.P1Power >= 160) {
-                        this.bulletManager.Bullet.forEach(function (ammo) {
+                        this.P1bulletManager.Bullet.forEach(function (ammo) {
                             _this.removeChild(ammo);
                         });
-                        managers.Game.bulletManager.buildBulletPool(this.P1.ShipType);
-                        this.bulletManager.Bullet.forEach(function (bullet) {
+                        managers.Game.P1BulletManager.buildBulletPool(this.P1.ShipType);
+                        this.P1bulletManager.Bullet.forEach(function (bullet) {
                             _this.addChild(bullet);
                         });
                     }
@@ -1019,51 +1019,51 @@ var scenes;
                     this.shields[2].alpha = 0;
                 if (!this.P2.isDead) {
                     if (managers.Game.hud.P2Power < 40 && !managers.Game.P2p1) {
-                        this.bulletManager.Bullet.forEach(function (ammo) {
+                        this.P2bulletManager.Bullet.forEach(function (ammo) {
                             _this.removeChild(ammo);
                         });
-                        managers.Game.bulletManager.buildBulletPool(this.P2.ShipType);
-                        this.bulletManager.Bullet.forEach(function (bullet) {
+                        managers.Game.P2BulletManager.buildBulletPool(this.P2.ShipType);
+                        this.P2bulletManager.Bullet.forEach(function (bullet) {
                             _this.addChild(bullet);
                         });
                         managers.Game.P2p1 = true;
                     }
                     if ((managers.Game.hud.P2Power >= 40 && managers.Game.hud.P2Power < 80) && !managers.Game.P2p2) {
-                        this.bulletManager.Bullet.forEach(function (ammo) {
+                        this.P2bulletManager.Bullet.forEach(function (ammo) {
                             _this.removeChild(ammo);
                         });
-                        managers.Game.bulletManager.buildBulletPool(this.P2.ShipType);
-                        this.bulletManager.Bullet.forEach(function (bullet) {
+                        managers.Game.P2BulletManager.buildBulletPool(this.P2.ShipType);
+                        this.P2bulletManager.Bullet.forEach(function (bullet) {
                             _this.addChild(bullet);
                         });
                         managers.Game.P2p2 = true;
                     }
                     if ((managers.Game.hud.P2Power >= 80 && managers.Game.hud.P2Power < 120) && !managers.Game.P2p3) {
-                        this.bulletManager.Bullet.forEach(function (ammo) {
+                        this.P2bulletManager.Bullet.forEach(function (ammo) {
                             _this.removeChild(ammo);
                         });
-                        managers.Game.bulletManager.buildBulletPool(this.P2.ShipType);
-                        this.bulletManager.Bullet.forEach(function (bullet) {
+                        managers.Game.P2BulletManager.buildBulletPool(this.P2.ShipType);
+                        this.P2bulletManager.Bullet.forEach(function (bullet) {
                             _this.addChild(bullet);
                         });
                         managers.Game.P2p3 = true;
                     }
                     if ((managers.Game.hud.P2Power >= 120 && managers.Game.hud.P2Power < 160) && !managers.Game.P2p4) {
-                        this.bulletManager.Bullet.forEach(function (ammo) {
+                        this.P2bulletManager.Bullet.forEach(function (ammo) {
                             _this.removeChild(ammo);
                         });
-                        managers.Game.bulletManager.buildBulletPool(this.P2.ShipType);
-                        this.bulletManager.Bullet.forEach(function (bullet) {
+                        managers.Game.P2BulletManager.buildBulletPool(this.P2.ShipType);
+                        this.P2bulletManager.Bullet.forEach(function (bullet) {
                             _this.addChild(bullet);
                         });
                         managers.Game.P2p4 = true;
                     }
                     if (managers.Game.hud.P2Power >= 160 && !managers.Game.P2p5) {
-                        this.bulletManager.Bullet.forEach(function (ammo) {
+                        this.P2bulletManager.Bullet.forEach(function (ammo) {
                             _this.removeChild(ammo);
                         });
-                        managers.Game.bulletManager.buildBulletPool(this.P2.ShipType);
-                        this.bulletManager.Bullet.forEach(function (bullet) {
+                        managers.Game.P2BulletManager.buildBulletPool(this.P2.ShipType);
+                        this.P2bulletManager.Bullet.forEach(function (bullet) {
                             _this.addChild(bullet);
                         });
                         managers.Game.P2p5 = true;
@@ -1071,47 +1071,47 @@ var scenes;
                 }
                 if (this.P2.isDead) {
                     if (managers.Game.hud.P2Power >= 0 && managers.Game.hud.P2Power < 40) {
-                        this.bulletManager.Bullet.forEach(function (ammo) {
+                        this.P2bulletManager.Bullet.forEach(function (ammo) {
                             _this.removeChild(ammo);
                         });
-                        managers.Game.bulletManager.buildBulletPool(this.P2.ShipType);
-                        this.bulletManager.Bullet.forEach(function (bullet) {
+                        managers.Game.P2BulletManager.buildBulletPool(this.P2.ShipType);
+                        this.P2bulletManager.Bullet.forEach(function (bullet) {
                             _this.addChild(bullet);
                         });
                     }
                     if (managers.Game.hud.P2Power >= 40 && managers.Game.hud.P2Power < 80) {
-                        this.bulletManager.Bullet.forEach(function (ammo) {
+                        this.P2bulletManager.Bullet.forEach(function (ammo) {
                             _this.removeChild(ammo);
                         });
-                        managers.Game.bulletManager.buildBulletPool(this.P2.ShipType);
-                        this.bulletManager.Bullet.forEach(function (bullet) {
+                        managers.Game.P2BulletManager.buildBulletPool(this.P2.ShipType);
+                        this.P2bulletManager.Bullet.forEach(function (bullet) {
                             _this.addChild(bullet);
                         });
                     }
                     if (managers.Game.hud.P2Power >= 80 && managers.Game.hud.P2Power < 120) {
-                        this.bulletManager.Bullet.forEach(function (ammo) {
+                        this.P2bulletManager.Bullet.forEach(function (ammo) {
                             _this.removeChild(ammo);
                         });
-                        managers.Game.bulletManager.buildBulletPool(this.P2.ShipType);
-                        this.bulletManager.Bullet.forEach(function (bullet) {
+                        managers.Game.P2BulletManager.buildBulletPool(this.P2.ShipType);
+                        this.P2bulletManager.Bullet.forEach(function (bullet) {
                             _this.addChild(bullet);
                         });
                     }
                     if (managers.Game.hud.P2Power >= 120 && managers.Game.hud.P2Power < 160) {
-                        this.bulletManager.Bullet.forEach(function (ammo) {
+                        this.P2bulletManager.Bullet.forEach(function (ammo) {
                             _this.removeChild(ammo);
                         });
-                        managers.Game.bulletManager.buildBulletPool(this.P2.ShipType);
-                        this.bulletManager.Bullet.forEach(function (bullet) {
+                        managers.Game.P2BulletManager.buildBulletPool(this.P2.ShipType);
+                        this.P2bulletManager.Bullet.forEach(function (bullet) {
                             _this.addChild(bullet);
                         });
                     }
                     if (managers.Game.hud.P2Power >= 160) {
-                        this.bulletManager.Bullet.forEach(function (ammo) {
+                        this.P2bulletManager.Bullet.forEach(function (ammo) {
                             _this.removeChild(ammo);
                         });
-                        managers.Game.bulletManager.buildBulletPool(this.P2.ShipType);
-                        this.bulletManager.Bullet.forEach(function (bullet) {
+                        managers.Game.P2BulletManager.buildBulletPool(this.P2.ShipType);
+                        this.P2bulletManager.Bullet.forEach(function (bullet) {
                             _this.addChild(bullet);
                         });
                     }
@@ -1147,6 +1147,9 @@ var scenes;
                                 _this.P1missileManager.Missile.forEach(function (m) {
                                     m.FindEnemies(e);
                                 });
+                                _this.P2missileManager.Missile.forEach(function (m) {
+                                    m.FindEnemies(e);
+                                });
                             }
                         });
                     }
@@ -1160,7 +1163,10 @@ var scenes;
                                     e.FindPlayer(_this.P1);
                                 if (rand == 2)
                                     e.FindPlayer(_this.P2);
-                                _this.missileManager.Missile.forEach(function (m) {
+                                _this.P1missileManager.Missile.forEach(function (m) {
+                                    m.FindEnemies(e);
+                                });
+                                _this.P2missileManager.Missile.forEach(function (m) {
                                     m.FindEnemies(e);
                                 });
                             }
@@ -1174,7 +1180,10 @@ var scenes;
                                     e.FindPlayer(_this.P1);
                                 if (rand == 2)
                                     e.FindPlayer(_this.P2);
-                                _this.missileManager.Missile.forEach(function (m) {
+                                _this.P1missileManager.Missile.forEach(function (m) {
+                                    m.FindEnemies(e);
+                                });
+                                _this.P2missileManager.Missile.forEach(function (m) {
                                     m.FindEnemies(e);
                                 });
                             }
@@ -1190,7 +1199,10 @@ var scenes;
                                     e.FindPlayer(_this.P1);
                                 if (rand == 2)
                                     e.FindPlayer(_this.P2);
-                                _this.missileManager.Missile.forEach(function (m) {
+                                _this.P1missileManager.Missile.forEach(function (m) {
+                                    m.FindEnemies(e);
+                                });
+                                _this.P2missileManager.Missile.forEach(function (m) {
                                     m.FindEnemies(e);
                                 });
                             }
@@ -1206,7 +1218,10 @@ var scenes;
                                     e.FindPlayer(_this.P1);
                                 if (rand == 2)
                                     e.FindPlayer(_this.P2);
-                                _this.missileManager.Missile.forEach(function (m) {
+                                _this.P1missileManager.Missile.forEach(function (m) {
+                                    m.FindEnemies(e);
+                                });
+                                _this.P2missileManager.Missile.forEach(function (m) {
                                     m.FindEnemies(e);
                                 });
                             }
@@ -1239,7 +1254,10 @@ var scenes;
                             if (rand == 2)
                                 this.bosses[0].FindPlayer(this.P2);
                             this.bosses[0].Update();
-                            this.missileManager.Missile.forEach(function (m) {
+                            this.P1missileManager.Missile.forEach(function (m) {
+                                m.FindEnemies(_this.bosses[0]);
+                            });
+                            this.P2missileManager.Missile.forEach(function (m) {
                                 m.FindEnemies(_this.bosses[0]);
                             });
                         }
@@ -1283,7 +1301,10 @@ var scenes;
                                     e.FindPlayer(_this.P1);
                                 if (rand == 2)
                                     e.FindPlayer(_this.P2);
-                                _this.missileManager.Missile.forEach(function (m) {
+                                _this.P1missileManager.Missile.forEach(function (m) {
+                                    m.FindEnemies(e);
+                                });
+                                _this.P2missileManager.Missile.forEach(function (m) {
                                     m.FindEnemies(e);
                                 });
                             }
@@ -1299,7 +1320,10 @@ var scenes;
                                     e.FindPlayer(_this.P1);
                                 if (rand == 2)
                                     e.FindPlayer(_this.P2);
-                                _this.missileManager.Missile.forEach(function (m) {
+                                _this.P1missileManager.Missile.forEach(function (m) {
+                                    m.FindEnemies(e);
+                                });
+                                _this.P2missileManager.Missile.forEach(function (m) {
                                     m.FindEnemies(e);
                                 });
                             }
@@ -1313,7 +1337,10 @@ var scenes;
                                     e.FindPlayer(_this.P1);
                                 if (rand == 2)
                                     e.FindPlayer(_this.P2);
-                                _this.missileManager.Missile.forEach(function (m) {
+                                _this.P1missileManager.Missile.forEach(function (m) {
+                                    m.FindEnemies(e);
+                                });
+                                _this.P2missileManager.Missile.forEach(function (m) {
                                     m.FindEnemies(e);
                                 });
                             }
@@ -1329,7 +1356,10 @@ var scenes;
                                     e.FindPlayer(_this.P1);
                                 if (rand == 2)
                                     e.FindPlayer(_this.P2);
-                                _this.missileManager.Missile.forEach(function (m) {
+                                _this.P1missileManager.Missile.forEach(function (m) {
+                                    m.FindEnemies(e);
+                                });
+                                _this.P2missileManager.Missile.forEach(function (m) {
                                     m.FindEnemies(e);
                                 });
                             }
@@ -1345,7 +1375,10 @@ var scenes;
                                     e.FindPlayer(_this.P1);
                                 if (rand == 2)
                                     e.FindPlayer(_this.P2);
-                                _this.missileManager.Missile.forEach(function (m) {
+                                _this.P1missileManager.Missile.forEach(function (m) {
+                                    m.FindEnemies(e);
+                                });
+                                _this.P2missileManager.Missile.forEach(function (m) {
                                     m.FindEnemies(e);
                                 });
                             }
@@ -1377,7 +1410,10 @@ var scenes;
                             if (rand == 2)
                                 this.bosses[1].FindPlayer(this.P2);
                             this.bosses[1].Update();
-                            this.missileManager.Missile.forEach(function (m) {
+                            this.P1missileManager.Missile.forEach(function (m) {
+                                m.FindEnemies(_this.bosses[1]);
+                            });
+                            this.P2missileManager.Missile.forEach(function (m) {
                                 m.FindEnemies(_this.bosses[1]);
                             });
                         }
@@ -1421,7 +1457,10 @@ var scenes;
                                     e.FindPlayer(_this.P1);
                                 if (rand == 2)
                                     e.FindPlayer(_this.P2);
-                                _this.missileManager.Missile.forEach(function (m) {
+                                _this.P1missileManager.Missile.forEach(function (m) {
+                                    m.FindEnemies(e);
+                                });
+                                _this.P2missileManager.Missile.forEach(function (m) {
                                     m.FindEnemies(e);
                                 });
                             }
@@ -1435,7 +1474,10 @@ var scenes;
                                     e.FindPlayer(_this.P1);
                                 if (rand == 2)
                                     e.FindPlayer(_this.P2);
-                                _this.missileManager.Missile.forEach(function (m) {
+                                _this.P1missileManager.Missile.forEach(function (m) {
+                                    m.FindEnemies(e);
+                                });
+                                _this.P2missileManager.Missile.forEach(function (m) {
                                     m.FindEnemies(e);
                                 });
                             }
@@ -1451,7 +1493,10 @@ var scenes;
                                     e.FindPlayer(_this.P1);
                                 if (rand == 2)
                                     e.FindPlayer(_this.P2);
-                                _this.missileManager.Missile.forEach(function (m) {
+                                _this.P1missileManager.Missile.forEach(function (m) {
+                                    m.FindEnemies(e);
+                                });
+                                _this.P2missileManager.Missile.forEach(function (m) {
                                     m.FindEnemies(e);
                                 });
                             }
@@ -1467,7 +1512,10 @@ var scenes;
                                     e.FindPlayer(_this.P1);
                                 if (rand == 2)
                                     e.FindPlayer(_this.P2);
-                                _this.missileManager.Missile.forEach(function (m) {
+                                _this.P1missileManager.Missile.forEach(function (m) {
+                                    m.FindEnemies(e);
+                                });
+                                _this.P2missileManager.Missile.forEach(function (m) {
                                     m.FindEnemies(e);
                                 });
                             }
@@ -1483,7 +1531,10 @@ var scenes;
                                     e.FindPlayer(_this.P1);
                                 if (rand == 2)
                                     e.FindPlayer(_this.P2);
-                                _this.missileManager.Missile.forEach(function (m) {
+                                _this.P1missileManager.Missile.forEach(function (m) {
+                                    m.FindEnemies(e);
+                                });
+                                _this.P2missileManager.Missile.forEach(function (m) {
                                     m.FindEnemies(e);
                                 });
                             }
@@ -1499,7 +1550,10 @@ var scenes;
                                     e.FindPlayer(_this.P1);
                                 if (rand == 2)
                                     e.FindPlayer(_this.P2);
-                                _this.missileManager.Missile.forEach(function (m) {
+                                _this.P1missileManager.Missile.forEach(function (m) {
+                                    m.FindEnemies(e);
+                                });
+                                _this.P2missileManager.Missile.forEach(function (m) {
                                     m.FindEnemies(e);
                                 });
                             }
@@ -1527,7 +1581,10 @@ var scenes;
                             this.bosses[2].isInvincible = false;
                             this.bosses[2].FindPlayer(this.P1);
                             this.bosses[2].Update();
-                            this.missileManager.Missile.forEach(function (m) {
+                            this.P1missileManager.Missile.forEach(function (m) {
+                                m.FindEnemies(_this.bosses[2]);
+                            });
+                            this.P2missileManager.Missile.forEach(function (m) {
                                 m.FindEnemies(_this.bosses[2]);
                             });
                         }
@@ -1535,8 +1592,11 @@ var scenes;
                             this.bosses[3].isInvincible = false;
                             this.bosses[3].FindPlayer(this.P2);
                             this.bosses[3].Update();
-                            this.missileManager.Missile.forEach(function (m) {
-                                m.FindEnemies(_this.bosses[3]);
+                            this.P1missileManager.Missile.forEach(function (m) {
+                                m.FindEnemies(_this.bosses[2]);
+                            });
+                            this.P2missileManager.Missile.forEach(function (m) {
+                                m.FindEnemies(_this.bosses[2]);
                             });
                         }
                     }
