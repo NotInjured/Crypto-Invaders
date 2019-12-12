@@ -24,6 +24,8 @@ var managers;
         Game.p3 = false;
         Game.p4 = false;
         Game.p5 = false;
+        Game.single = false;
+        Game.multi = false;
         return Game;
     }());
     managers.Game = Game;

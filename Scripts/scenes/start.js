@@ -26,8 +26,9 @@ var scenes;
             this.bgm = createjs.Sound.play("mainMenu");
             this.bgm.loop = -1;
             this.bgm.volume = 0.1;
-            this.gameLabel = new objects.Label("Crypto Invaders", "36px", "OptimusPrinceps", "#000000", 530, 200, true);
-            this.startButton = new objects.Button("buttonStart", 630, 325);
+            this.gameLabel = new objects.Label("Crypto Invaders", "36px", "OptimusPrinceps", "#000000", 530, 175, true);
+            this.startButton = new objects.Button("buttonSingle", 630, 285);
+            this.multiButton = new objects.Button("buttonMulti", 630, 345);
             this.optionButton = new objects.Button("buttonOptions", 630, 405);
             this.hud = new managers.HUD;
             managers.Game.hud = this.hud;
@@ -47,6 +48,12 @@ var scenes;
         };
         StartScene.prototype.startButtonClick = function () {
             // Change our game state from START to GAME
+            managers.Game.single = true;
+            managers.Game.currentScene = config.Scene.GAME;
+        };
+        StartScene.prototype.multiButtonClick = function () {
+            // Change our game state from START to GAME
+            managers.Game.multi = true;
             managers.Game.currentScene = config.Scene.GAME;
         };
         StartScene.prototype.optionButtonClick = function () {
@@ -57,9 +64,11 @@ var scenes;
             this.addChild(this.hud);
             this.addChild(this.gameLabel);
             this.addChild(this.startButton);
+            this.addChild(this.multiButton);
             this.addChild(this.optionButton);
             this.optionButton.on("click", this.optionButtonClick);
             this.startButton.on("click", this.startButtonClick);
+            this.multiButton.on("click", this.multiButtonClick);
         };
         return StartScene;
     }(objects.Scene));

@@ -980,8 +980,10 @@
             <key type="filename">buttonDecrease.png</key>
             <key type="filename">buttonHelp.png</key>
             <key type="filename">buttonIncrease.png</key>
+            <key type="filename">buttonMulti.png</key>
             <key type="filename">buttonNext.png</key>
             <key type="filename">buttonOptions.png</key>
+            <key type="filename">buttonSingle.png</key>
             <key type="filename">buttonStart.png</key>
             <key type="filename">buttonUI.png</key>
             <struct type="IndividualSpriteSettings">
@@ -1174,6 +1176,8 @@
             <filename>Laser3_Shoot_1.png</filename>
             <filename>Laser4_Shoot_1.png</filename>
             <filename>Laser2_Shoot_1.png</filename>
+            <filename>buttonMulti.png</filename>
+            <filename>buttonSingle.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
