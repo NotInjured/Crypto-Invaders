@@ -118,7 +118,10 @@ module managers {
         }
 
         public Start():void {
-            this.bulletCount =1000;
+            if(managers.Game.single)
+                this.bulletCount =1000;
+            if(managers.Game.multi)
+                this.bulletCount = 500
             this.Bullet = new Array<objects.Bullet>();
             this.CurrentBullet = 0;
             this.buildBulletPool(config.Ship.Botcoin);

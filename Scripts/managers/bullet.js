@@ -112,7 +112,10 @@ var managers;
             return bullet;
         };
         Bullet.prototype.Start = function () {
-            this.bulletCount = 1000;
+            if (managers.Game.single)
+                this.bulletCount = 1000;
+            if (managers.Game.multi)
+                this.bulletCount = 500;
             this.Bullet = new Array();
             this.CurrentBullet = 0;
             this.buildBulletPool(config.Ship.Botcoin);
