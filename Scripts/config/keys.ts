@@ -26,7 +26,7 @@ module config {
         public static RIGHT: number = 39;
         public static UP: number = 38;
         public static DOWN: number = 40;
-        public static NUM1: number = 97;
+        public static NUMENTER: number = 13;
         public static NUM0:number = 96
         public static NUMDOT:number = 110
 

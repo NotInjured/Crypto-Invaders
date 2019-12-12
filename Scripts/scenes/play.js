@@ -27,14 +27,24 @@ var scenes;
             this.background = new objects.Background();
             this.background.y = -32500;
             this.aircraft = new objects.Image("aircraft", 418, 350);
+            this.P1aircraft = new objects.Image("aircraft", 368, 475);
+            this.P1aircraft.scaleX = 0.5;
+            this.P1aircraft.scaleY = 0.5;
+            this.P2aircraft = new objects.Image("aircraft", 568, 475);
+            this.P2aircraft.scaleX = 0.5;
+            this.P2aircraft.scaleY = 0.5;
             this.stageName = new objects.Label("Stage 1: Invasion", "36px", "OptimusPrinceps", "#FFFFFF", 530, 240, true);
             createjs.Sound.stop();
             this.bgm = createjs.Sound.play("bgm2");
             this.bgm.loop = -1;
             this.bgm.volume = 0.05;
             this.Splayer = new objects.Player("Ship1", 555, 570, false);
-            this.P1 = new objects.Player("Ship1", 525, 570, false);
-            this.P2 = new objects.Player("Ship1", 585, 570, false);
+            this.P1 = new objects.Player("Ship1", 445, 570, false);
+            this.P2 = new objects.Player("Ship1", 645, 570, false);
+            this.P1.name = "P1";
+            this.P2.name = "P2";
+            this.P1Tag = new objects.Label("P1", "10px,", "OptimusPrinceps", "#FFFFFF", this.P1.x, this.P1.y, true);
+            this.P2Tag = new objects.Label("P2", "10px,", "OptimusPrinceps", "#FFFFFF", this.P2.x, this.P2.y, true);
             this.eliteUnits = [];
             this.level1Enemies = [];
             this.level2Enemies = [];
@@ -71,15 +81,17 @@ var scenes;
             this.coinsManager = new managers.Coins();
             managers.Game.coinsManager = this.coinsManager;
             // P1
+            managers.Game.P1 = this.P1;
             this.P1bulletManager = new managers.Bullet();
             managers.Game.P1BulletManager = this.P1bulletManager;
             this.P1missileManager = new managers.Missile();
             managers.Game.P1MissileManager = this.P1missileManager;
             // P2
+            managers.Game.P2 = this.P2;
             this.P2bulletManager = new managers.Bullet();
-            managers.Game.P1BulletManager = this.P2bulletManager;
+            managers.Game.P2BulletManager = this.P2bulletManager;
             this.P2missileManager = new managers.Missile();
-            managers.Game.P1MissileManager = this.P2missileManager;
+            managers.Game.P2MissileManager = this.P2missileManager;
             managers.Game.player = this.Splayer;
             managers.Game.timer = 600;
             managers.Game.boss1Hp = 5;
@@ -208,15 +220,26 @@ var scenes;
             if (managers.Game.single) {
                 if (managers.Game.normal) {
                     managers.Game.hud.Lives = 9;
-                    managers.Game.hud.Bombs = 1;
                 }
                 if (managers.Game.hard) {
                     managers.Game.hud.Lives = 6;
-                    managers.Game.hud.Bombs = 1;
                 }
                 if (managers.Game.hell) {
                     managers.Game.hud.Lives = 3;
-                    managers.Game.hud.Bombs = 1;
+                }
+            }
+            if (managers.Game.multi) {
+                if (managers.Game.normal) {
+                    managers.Game.hud.P1Lives = 9;
+                    managers.Game.hud.P2Lives = 9;
+                }
+                if (managers.Game.hard) {
+                    managers.Game.hud.P1Lives = 6;
+                    managers.Game.hud.P2Lives = 6;
+                }
+                if (managers.Game.hell) {
+                    managers.Game.hud.P1Lives = 3;
+                    managers.Game.hud.P2Lives = 3;
                 }
             }
             this.Main();
@@ -238,6 +261,8 @@ var scenes;
                         coin.Update();
                     }
                 });
+                this.ChangeShip();
+                this.CheckCollisions();
                 this.Splayer.Update();
                 if (this.Splayer.IsInvincible) {
                     this.shields[0].x = this.Splayer.x + 20;
@@ -345,12 +370,497 @@ var scenes;
                         });
                     }
                 }
+                if (managers.Game.level1) {
+                    if (managers.Game.timer >= 598 && managers.Game.timer <= 600) {
+                        if (this.Splayer.y > 450)
+                            this.Splayer.y -= 1;
+                        if (this.P1.y > 450)
+                            this.P1.y -= 1;
+                        if (this.P2.y > 450)
+                            this.P2.y -= 1;
+                    }
+                    if (managers.Game.timer >= 597 && managers.Game.timer <= 598) {
+                        if (this.Splayer.y < 550)
+                            this.Splayer.y += 1;
+                        if (this.P1.y < 550)
+                            this.P1.y += 1;
+                        if (this.P2.y < 550)
+                            this.P2.y += 1;
+                    }
+                    if (managers.Game.timer > 591 && managers.Game.timer <= 596) {
+                        this.addChild(this.stageName);
+                    }
+                    if (managers.Game.timer >= 481 && managers.Game.timer <= 591) {
+                        //if(managers.Game.timer <= 591){
+                        this.removeChild(this.stageName);
+                        this.level1Enemies[0].forEach(function (e) {
+                            if (!e.isDead) {
+                                e.isInvincible = false;
+                                e.Update();
+                                e.FindPlayer(_this.Splayer);
+                                _this.missileManager.Missile.forEach(function (m) {
+                                    m.FindEnemies(e);
+                                });
+                            }
+                        });
+                        /*
+                        if(!this.bosses[0].isDead){
+                            this.bosses[0].isInvincible = false
+                            this.bosses[0].FindPlayer(this.Splayer)
+                            this.bosses[0].Update();
+    
+                            this.missileManager.Missile.forEach( m => {
+                                m.FindEnemies(this.bosses[0])
+                            })
+                        }
+                        
+                        this.eliteUnits[0].forEach(e =>{
+                            if(!e.isDead){
+                                e.isInvincible = false;
+                                e.Update();
+                                e.FindPlayer(this.Splayer);
+                                
+                                this.missileManager.Missile.forEach( m => {
+                                    m.FindEnemies(e)
+                                })
+                            }
+                        })
+                        
+                        if(!this.bosses[2].isDead){
+                            this.bosses[2].isInvincible = false
+                            this.bosses[2].FindPlayer(this.Splayer)
+                            this.bosses[2].Update();
+    
+                            this.missileManager.Missile.forEach( m => {
+                                m.FindEnemies(this.bosses[2])
+                            })
+                        }
+                        if(!this.bosses[3].isDead){
+                            this.bosses[3].isInvincible = false
+                            this.bosses[3].FindPlayer(this.Splayer)
+                            this.bosses[3].Update();
+    
+                            this.missileManager.Missile.forEach( m => {
+                                m.FindEnemies(this.bosses[3])
+                            })
+                        }*/
+                    }
+                    if (managers.Game.timer >= 481 && managers.Game.timer <= 581) {
+                        this.level1Enemies[1].forEach(function (e) {
+                            if (!e.isDead) {
+                                e.isInvincible = false;
+                                e.Update();
+                                e.FindPlayer(_this.Splayer);
+                                _this.missileManager.Missile.forEach(function (m) {
+                                    m.FindEnemies(e);
+                                });
+                            }
+                        });
+                        this.eliteUnits[0].forEach(function (e) {
+                            if (!e.isDead) {
+                                e.isInvincible = false;
+                                e.Update();
+                                e.FindPlayer(_this.Splayer);
+                                _this.missileManager.Missile.forEach(function (m) {
+                                    m.FindEnemies(e);
+                                });
+                            }
+                        });
+                    }
+                    if (managers.Game.timer >= 481 && managers.Game.timer <= 576) {
+                        this.level1Enemies[2].forEach(function (e) {
+                            if (!e.isDead) {
+                                e.isInvincible = false;
+                                e.Update();
+                                e.FindPlayer(_this.Splayer);
+                                _this.missileManager.Missile.forEach(function (m) {
+                                    m.FindEnemies(e);
+                                });
+                            }
+                        });
+                    }
+                    if (managers.Game.timer >= 481 && managers.Game.timer <= 536) {
+                        this.eliteUnits[1].forEach(function (e) {
+                            if (!e.isDead) {
+                                e.isInvincible = false;
+                                e.Update();
+                                e.FindPlayer(_this.Splayer);
+                                _this.missileManager.Missile.forEach(function (m) {
+                                    m.FindEnemies(e);
+                                });
+                            }
+                        });
+                    }
+                    if (managers.Game.timer < 481) {
+                        this.level1Enemies[0].forEach(function (e) {
+                            e.y += 10;
+                        });
+                        this.level1Enemies[1].forEach(function (e) {
+                            e.x -= 10;
+                        });
+                        this.level1Enemies[2].forEach(function (e) {
+                            e.y -= 10;
+                        });
+                    }
+                    if (managers.Game.timer == 480) {
+                        createjs.Sound.stop();
+                        this.bgm = createjs.Sound.play("bossMusic");
+                        this.bgm.loop = -1;
+                        this.bgm.volume = 0.05;
+                    }
+                    if (managers.Game.timer < 479) {
+                        this.bosses[0].isInvincible = false;
+                        this.background.y += 0;
+                        if (!this.bosses[0].isDead) {
+                            this.bosses[0].FindPlayer(this.Splayer);
+                            this.bosses[0].Update();
+                            this.missileManager.Missile.forEach(function (m) {
+                                m.FindEnemies(_this.bosses[0]);
+                            });
+                        }
+                    }
+                    if (managers.Game.boss1Hp == 0) {
+                        this.removeChild(this.bosses[0]);
+                        this.bosses[0].isInvincible = true;
+                        this.bosses[0].isDead = true;
+                        managers.Game.boss1IsDead = true;
+                        this.bosses[0].DropCoins(50);
+                        var counter_1 = 5;
+                        var interval_1 = setInterval(function () {
+                            counter_1--;
+                            if (counter_1 < 0) {
+                                clearInterval(interval_1);
+                                managers.Game.level1Completed = true;
+                            }
+                        }, 1000);
+                    }
+                }
+                if (managers.Game.level2) {
+                    if (managers.Game.timer == 600) {
+                        createjs.Sound.stop();
+                        this.bgm = createjs.Sound.play("bgm3");
+                        this.bgm.loop = -1;
+                        this.bgm.volume = 0.05;
+                    }
+                    if (managers.Game.timer > 595 && managers.Game.timer <= 599) {
+                        this.stageName.text = "Stage 2: HQ";
+                        this.stageName.x = 575;
+                        this.addChild(this.stageName);
+                    }
+                    if (managers.Game.timer > 505 && managers.Game.timer < 595) {
+                        this.removeChild(this.stageName);
+                        /*
+                        if(!this.bosses[1].isDead){
+                            this.bosses[1].isInvincible = false
+                            this.bosses[1].FindPlayer(this.player)
+                            this.bosses[1].Update()
+    
+                            this.missileManager.Missile.forEach( m => {
+                                m.FindEnemies(this.bosses[1])
+                            })
+                        }*/
+                        this.level2Enemies[2].forEach(function (e) {
+                            if (!e.isDead) {
+                                e.isInvincible = false;
+                                e.Update();
+                                e.FindPlayer(_this.Splayer);
+                                _this.missileManager.Missile.forEach(function (m) {
+                                    m.FindEnemies(e);
+                                });
+                            }
+                        });
+                    }
+                    if (managers.Game.timer > 505 && managers.Game.timer < 590) {
+                        this.level2Enemies[1].forEach(function (e) {
+                            if (!e.isDead) {
+                                e.isInvincible = false;
+                                e.Update();
+                                e.FindPlayer(_this.Splayer);
+                                _this.missileManager.Missile.forEach(function (m) {
+                                    m.FindEnemies(e);
+                                });
+                            }
+                        });
+                        this.eliteUnits[2].forEach(function (e) {
+                            if (!e.isDead) {
+                                e.isInvincible = false;
+                                e.Update();
+                                e.FindPlayer(_this.Splayer);
+                                _this.missileManager.Missile.forEach(function (m) {
+                                    m.FindEnemies(e);
+                                });
+                            }
+                        });
+                    }
+                    if (managers.Game.timer > 505 && managers.Game.timer < 585) {
+                        this.level2Enemies[0].forEach(function (e) {
+                            if (!e.isDead) {
+                                e.isInvincible = false;
+                                e.Update();
+                                e.FindPlayer(_this.Splayer);
+                                _this.missileManager.Missile.forEach(function (m) {
+                                    m.FindEnemies(e);
+                                });
+                            }
+                        });
+                    }
+                    if (managers.Game.timer > 505 && managers.Game.timer < 550) {
+                        this.eliteUnits[3].forEach(function (e) {
+                            if (!e.isDead) {
+                                e.isInvincible = false;
+                                e.Update();
+                                e.FindPlayer(_this.Splayer);
+                                _this.missileManager.Missile.forEach(function (m) {
+                                    m.FindEnemies(e);
+                                });
+                            }
+                        });
+                    }
+                    if (managers.Game.timer < 504) {
+                        this.level2Enemies[0].forEach(function (e) {
+                            e.y -= 10;
+                        });
+                        this.level2Enemies[1].forEach(function (e) {
+                            e.x += 10;
+                        });
+                        this.level2Enemies[2].forEach(function (e) {
+                            e.y += 10;
+                        });
+                    }
+                    if (managers.Game.timer == 504) {
+                        createjs.Sound.stop();
+                        this.bgm = createjs.Sound.play("bossMusic");
+                        this.bgm.loop = -1;
+                        this.bgm.volume = 0.05;
+                    }
+                    if (managers.Game.timer < 503) {
+                        if (!this.bosses[1].isDead) {
+                            this.bosses[1].isInvincible = false;
+                            this.bosses[1].FindPlayer(this.Splayer);
+                            this.bosses[1].Update();
+                            this.missileManager.Missile.forEach(function (m) {
+                                m.FindEnemies(_this.bosses[1]);
+                            });
+                        }
+                    }
+                    if (managers.Game.boss2Hp == 0) {
+                        this.removeChild(this.bosses[1]);
+                        this.bosses[1].isInvincible = true;
+                        this.bosses[1].isDead = true;
+                        managers.Game.boss2IsDead = true;
+                        this.bosses[1].DropCoins(50);
+                        var counter2_1 = 5;
+                        var interval_2 = setInterval(function () {
+                            counter2_1--;
+                            if (counter2_1 < 0) {
+                                clearInterval(interval_2);
+                                managers.Game.level2Completed = true;
+                            }
+                        }, 1000);
+                    }
+                }
+                if (managers.Game.level3) {
+                    if (managers.Game.timer == 600) {
+                        createjs.Sound.stop();
+                        this.bgm = createjs.Sound.play("bgm");
+                        this.bgm.loop = -1;
+                        this.bgm.volume = 0.05;
+                    }
+                    if (managers.Game.timer > 595 && managers.Game.timer <= 599) {
+                        this.stageName.text = "Stage 3: Journey";
+                        this.stageName.x = 525;
+                        this.addChild(this.stageName);
+                    }
+                    if (managers.Game.timer >= 505 && managers.Game.timer < 595) {
+                        this.removeChild(this.stageName);
+                        /*
+                        if(!this.bosses[2].isDead){
+                            this.bosses[2].isInvincible = false
+                            this.bosses[2].FindPlayer(this.player)
+                            this.bosses[2].Update();
+    
+                            this.missileManager.Missile.forEach( m => {
+                                m.FindEnemies(this.bosses[2])
+                            })
+                        }
+                        if(!this.bosses[3].isDead){
+                            this.bosses[3].isInvincible = false
+                            this.bosses[3].FindPlayer(this.player)
+                            this.bosses[3].Update();
+    
+                            this.missileManager.Missile.forEach( m => {
+                                m.FindEnemies(this.bosses[3])
+                            })
+                        }*/
+                        this.level3Enemies[1].forEach(function (e) {
+                            if (!e.isDead) {
+                                e.isInvincible = false;
+                                e.Update();
+                                e.FindPlayer(_this.Splayer);
+                                _this.missileManager.Missile.forEach(function (m) {
+                                    m.FindEnemies(e);
+                                });
+                            }
+                        });
+                        this.eliteUnits[4].forEach(function (e) {
+                            if (!e.isDead) {
+                                e.isInvincible = false;
+                                e.Update();
+                                e.FindPlayer(_this.Splayer);
+                                _this.missileManager.Missile.forEach(function (m) {
+                                    m.FindEnemies(e);
+                                });
+                            }
+                        });
+                    }
+                    if (managers.Game.timer >= 505 && managers.Game.timer < 590) {
+                        this.level3Enemies[0].forEach(function (e) {
+                            if (!e.isDead) {
+                                e.isInvincible = false;
+                                e.Update();
+                                e.FindPlayer(_this.Splayer);
+                                _this.missileManager.Missile.forEach(function (m) {
+                                    m.FindEnemies(e);
+                                });
+                            }
+                        });
+                    }
+                    if (managers.Game.timer >= 505 && managers.Game.timer < 587) {
+                        this.eliteUnits[4].forEach(function (e) {
+                            if (!e.isDead) {
+                                e.isInvincible = false;
+                                e.Update();
+                                e.FindPlayer(_this.Splayer);
+                                _this.missileManager.Missile.forEach(function (m) {
+                                    m.FindEnemies(e);
+                                });
+                            }
+                        });
+                    }
+                    if (managers.Game.timer >= 505 && managers.Game.timer < 585) {
+                        this.level3Enemies[2].forEach(function (e) {
+                            if (!e.isDead) {
+                                e.isInvincible = false;
+                                e.Update();
+                                e.FindPlayer(_this.Splayer);
+                                _this.missileManager.Missile.forEach(function (m) {
+                                    m.FindEnemies(e);
+                                });
+                            }
+                        });
+                    }
+                    if (managers.Game.timer >= 505 && managers.Game.timer < 565) {
+                        this.eliteUnits[3].forEach(function (e) {
+                            if (!e.isDead) {
+                                e.isInvincible = false;
+                                e.Update();
+                                e.FindPlayer(_this.Splayer);
+                                _this.missileManager.Missile.forEach(function (m) {
+                                    m.FindEnemies(e);
+                                });
+                            }
+                        });
+                    }
+                    if (managers.Game.timer < 506) {
+                        this.level3Enemies[0].forEach(function (e) {
+                            e.y -= 10;
+                        });
+                        this.level3Enemies[1].forEach(function (e) {
+                            e.x += 10;
+                        });
+                        this.level3Enemies[2].forEach(function (e) {
+                            e.y += 10;
+                        });
+                    }
+                    if (managers.Game.timer == 505) {
+                        createjs.Sound.stop();
+                        this.bgm = createjs.Sound.play("bossMusic");
+                        this.bgm.loop = -1;
+                        this.bgm.volume = 0.05;
+                    }
+                    if (managers.Game.timer < 504) {
+                        if (!this.bosses[2].isDead) {
+                            this.bosses[2].isInvincible = false;
+                            this.bosses[2].FindPlayer(this.Splayer);
+                            this.bosses[2].Update();
+                            this.missileManager.Missile.forEach(function (m) {
+                                m.FindEnemies(_this.bosses[2]);
+                            });
+                        }
+                        if (!this.bosses[3].isDead) {
+                            this.bosses[3].isInvincible = false;
+                            this.bosses[3].FindPlayer(this.Splayer);
+                            this.bosses[3].Update();
+                            this.missileManager.Missile.forEach(function (m) {
+                                m.FindEnemies(_this.bosses[3]);
+                            });
+                        }
+                    }
+                    if (managers.Game.boss3_1Hp == 0) {
+                        this.removeChild(this.bosses[2]);
+                        this.bosses[2].isInvincible = true;
+                        this.bosses[2].isDead = true;
+                        managers.Game.boss3_1IsDead = true;
+                        this.bosses[2].DropCoins(50);
+                    }
+                    if (managers.Game.boss3_2Hp == 0) {
+                        this.bosses[3].isInvincible = true;
+                        this.bosses[3].isDead = true;
+                        managers.Game.boss3_2IsDead = true;
+                        this.bosses[3].DropCoins(50);
+                    }
+                    if ((managers.Game.boss3_1Hp == 0 ||
+                        (managers.Game.boss3_1Hp < 0 && Math.abs(managers.Game.boss3_1Hp) % 250 == 0)) &&
+                        (managers.Game.boss3_2Hp == 0 ||
+                            (managers.Game.boss3_2Hp < 0 && Math.abs(managers.Game.boss3_2Hp) % 250 == 0))) {
+                        var counter_2 = 5;
+                        var interval_3 = setInterval(function () {
+                            counter_2--;
+                            if (counter_2 < 0) {
+                                clearInterval(interval_3);
+                                managers.Game.level3Completed = true;
+                            }
+                        }, 1000);
+                    }
+                }
+                if (managers.Game.hud.Lives < 0) {
+                    managers.Game.currentScene = config.Scene.OVER;
+                }
             }
             if (managers.Game.multi) {
+                this.P1aircraft.y += 3;
+                this.P2aircraft.y += 3;
+                this.P1Tag.x = this.P1.x - 17;
+                this.P1Tag.y = this.P1.y - 50;
+                this.P2Tag.x = this.P2.x - 17;
+                this.P2Tag.y = this.P2.y - 50;
+                if (this.P1aircraft.y > 600) {
+                    this.removeChild(this.P1aircraft);
+                    this.removeChild(this.P2aircraft);
+                }
+                this.coinsManager.Coin.forEach(function (coin) {
+                    if (coin.IsDropped) {
+                        var rand = Math.floor(Math.random() * (2 - 1 + 1) + 1);
+                        if (rand == 1)
+                            coin.FindPlayer(_this.P1);
+                        if (rand == 2)
+                            coin.FindPlayer(_this.P2);
+                        coin.Update();
+                    }
+                });
                 // P1
                 this.P1.Update();
+                this.P1bulletManager.Update();
+                this.P1missileManager.Update();
+                if (this.P1.IsInvincible) {
+                    this.shields[1].x = this.P1.x + 20;
+                    this.shields[1].y = this.P1.y + 10;
+                    this.shields[1].alpha = 1;
+                }
+                if (!this.P1.IsInvincible)
+                    this.shields[1].alpha = 0;
                 if (!this.P1.isDead) {
-                    if (managers.Game.hud.Power < 40 && !managers.Game.p1) {
+                    if (managers.Game.hud.P1Power < 40 && !managers.Game.P1p1) {
                         this.bulletManager.Bullet.forEach(function (ammo) {
                             _this.removeChild(ammo);
                         });
@@ -358,9 +868,9 @@ var scenes;
                         this.bulletManager.Bullet.forEach(function (bullet) {
                             _this.addChild(bullet);
                         });
-                        managers.Game.p1 = true;
+                        managers.Game.P1p1 = true;
                     }
-                    if ((managers.Game.hud.Power >= 40 && managers.Game.hud.Power < 80) && !managers.Game.p2) {
+                    if ((managers.Game.hud.P1Power >= 40 && managers.Game.hud.P1Power < 80) && !managers.Game.P1p2) {
                         this.bulletManager.Bullet.forEach(function (ammo) {
                             _this.removeChild(ammo);
                         });
@@ -368,9 +878,9 @@ var scenes;
                         this.bulletManager.Bullet.forEach(function (bullet) {
                             _this.addChild(bullet);
                         });
-                        managers.Game.p2 = true;
+                        managers.Game.P1p2 = true;
                     }
-                    if ((managers.Game.hud.Power >= 80 && managers.Game.hud.Power < 120) && !managers.Game.p3) {
+                    if ((managers.Game.hud.P1Power >= 80 && managers.Game.hud.P1Power < 120) && !managers.Game.P1p3) {
                         this.bulletManager.Bullet.forEach(function (ammo) {
                             _this.removeChild(ammo);
                         });
@@ -378,9 +888,9 @@ var scenes;
                         this.bulletManager.Bullet.forEach(function (bullet) {
                             _this.addChild(bullet);
                         });
-                        managers.Game.p3 = true;
+                        managers.Game.P1p3 = true;
                     }
-                    if ((managers.Game.hud.Power >= 120 && managers.Game.hud.Power < 160) && !managers.Game.p4) {
+                    if ((managers.Game.hud.P1Power >= 120 && managers.Game.hud.P1Power < 160) && !managers.Game.P1p4) {
                         this.bulletManager.Bullet.forEach(function (ammo) {
                             _this.removeChild(ammo);
                         });
@@ -388,9 +898,9 @@ var scenes;
                         this.bulletManager.Bullet.forEach(function (bullet) {
                             _this.addChild(bullet);
                         });
-                        managers.Game.p4 = true;
+                        managers.Game.P1p4 = true;
                     }
-                    if (managers.Game.hud.Power >= 160 && !managers.Game.p5) {
+                    if (managers.Game.hud.P1Power >= 160 && !managers.Game.P1p5) {
                         this.bulletManager.Bullet.forEach(function (ammo) {
                             _this.removeChild(ammo);
                         });
@@ -398,11 +908,11 @@ var scenes;
                         this.bulletManager.Bullet.forEach(function (bullet) {
                             _this.addChild(bullet);
                         });
-                        managers.Game.p5 = true;
+                        managers.Game.P1p5 = true;
                     }
                 }
                 if (this.P1.isDead) {
-                    if (managers.Game.hud.Power >= 0 && managers.Game.hud.Power < 40) {
+                    if (managers.Game.hud.P1Power >= 0 && managers.Game.hud.P1Power < 40) {
                         this.bulletManager.Bullet.forEach(function (ammo) {
                             _this.removeChild(ammo);
                         });
@@ -411,7 +921,7 @@ var scenes;
                             _this.addChild(bullet);
                         });
                     }
-                    if (managers.Game.hud.Power >= 40 && managers.Game.hud.Power < 80) {
+                    if (managers.Game.hud.P1Power >= 40 && managers.Game.hud.P1Power < 80) {
                         this.bulletManager.Bullet.forEach(function (ammo) {
                             _this.removeChild(ammo);
                         });
@@ -420,7 +930,7 @@ var scenes;
                             _this.addChild(bullet);
                         });
                     }
-                    if (managers.Game.hud.Power >= 80 && managers.Game.hud.Power < 120) {
+                    if (managers.Game.hud.P1Power >= 80 && managers.Game.hud.P1Power < 120) {
                         this.bulletManager.Bullet.forEach(function (ammo) {
                             _this.removeChild(ammo);
                         });
@@ -429,7 +939,7 @@ var scenes;
                             _this.addChild(bullet);
                         });
                     }
-                    if (managers.Game.hud.Power >= 120 && managers.Game.hud.Power < 160) {
+                    if (managers.Game.hud.P1Power >= 120 && managers.Game.hud.P1Power < 160) {
                         this.bulletManager.Bullet.forEach(function (ammo) {
                             _this.removeChild(ammo);
                         });
@@ -438,7 +948,7 @@ var scenes;
                             _this.addChild(bullet);
                         });
                     }
-                    if (managers.Game.hud.Power >= 160) {
+                    if (managers.Game.hud.P1Power >= 160) {
                         this.bulletManager.Bullet.forEach(function (ammo) {
                             _this.removeChild(ammo);
                         });
@@ -450,8 +960,18 @@ var scenes;
                 }
                 // P2
                 this.P2.Update();
+                this.P2bulletManager.Update();
+                this.P2missileManager.Update();
+                this.enemyBulletManager.Update();
+                if (this.P2.IsInvincible) {
+                    this.shields[2].x = this.P2.x + 20;
+                    this.shields[2].y = this.P2.y + 10;
+                    this.shields[2].alpha = 1;
+                }
+                if (!this.P2.IsInvincible)
+                    this.shields[2].alpha = 0;
                 if (!this.P2.isDead) {
-                    if (managers.Game.hud.Power < 40 && !managers.Game.p1) {
+                    if (managers.Game.hud.P2Power < 40 && !managers.Game.P2p1) {
                         this.bulletManager.Bullet.forEach(function (ammo) {
                             _this.removeChild(ammo);
                         });
@@ -459,9 +979,9 @@ var scenes;
                         this.bulletManager.Bullet.forEach(function (bullet) {
                             _this.addChild(bullet);
                         });
-                        managers.Game.p1 = true;
+                        managers.Game.P2p1 = true;
                     }
-                    if ((managers.Game.hud.Power >= 40 && managers.Game.hud.Power < 80) && !managers.Game.p2) {
+                    if ((managers.Game.hud.P2Power >= 40 && managers.Game.hud.P2Power < 80) && !managers.Game.P2p2) {
                         this.bulletManager.Bullet.forEach(function (ammo) {
                             _this.removeChild(ammo);
                         });
@@ -469,9 +989,9 @@ var scenes;
                         this.bulletManager.Bullet.forEach(function (bullet) {
                             _this.addChild(bullet);
                         });
-                        managers.Game.p2 = true;
+                        managers.Game.P2p2 = true;
                     }
-                    if ((managers.Game.hud.Power >= 80 && managers.Game.hud.Power < 120) && !managers.Game.p3) {
+                    if ((managers.Game.hud.P2Power >= 80 && managers.Game.hud.P2Power < 120) && !managers.Game.P2p3) {
                         this.bulletManager.Bullet.forEach(function (ammo) {
                             _this.removeChild(ammo);
                         });
@@ -479,9 +999,9 @@ var scenes;
                         this.bulletManager.Bullet.forEach(function (bullet) {
                             _this.addChild(bullet);
                         });
-                        managers.Game.p3 = true;
+                        managers.Game.P2p3 = true;
                     }
-                    if ((managers.Game.hud.Power >= 120 && managers.Game.hud.Power < 160) && !managers.Game.p4) {
+                    if ((managers.Game.hud.P2Power >= 120 && managers.Game.hud.P2Power < 160) && !managers.Game.P2p4) {
                         this.bulletManager.Bullet.forEach(function (ammo) {
                             _this.removeChild(ammo);
                         });
@@ -489,9 +1009,9 @@ var scenes;
                         this.bulletManager.Bullet.forEach(function (bullet) {
                             _this.addChild(bullet);
                         });
-                        managers.Game.p4 = true;
+                        managers.Game.P2p4 = true;
                     }
-                    if (managers.Game.hud.Power >= 160 && !managers.Game.p5) {
+                    if (managers.Game.hud.P2Power >= 160 && !managers.Game.P2p5) {
                         this.bulletManager.Bullet.forEach(function (ammo) {
                             _this.removeChild(ammo);
                         });
@@ -499,11 +1019,11 @@ var scenes;
                         this.bulletManager.Bullet.forEach(function (bullet) {
                             _this.addChild(bullet);
                         });
-                        managers.Game.p5 = true;
+                        managers.Game.P2p5 = true;
                     }
                 }
                 if (this.P2.isDead) {
-                    if (managers.Game.hud.Power >= 0 && managers.Game.hud.Power < 40) {
+                    if (managers.Game.hud.P2Power >= 0 && managers.Game.hud.P2Power < 40) {
                         this.bulletManager.Bullet.forEach(function (ammo) {
                             _this.removeChild(ammo);
                         });
@@ -512,7 +1032,7 @@ var scenes;
                             _this.addChild(bullet);
                         });
                     }
-                    if (managers.Game.hud.Power >= 40 && managers.Game.hud.Power < 80) {
+                    if (managers.Game.hud.P2Power >= 40 && managers.Game.hud.P2Power < 80) {
                         this.bulletManager.Bullet.forEach(function (ammo) {
                             _this.removeChild(ammo);
                         });
@@ -521,7 +1041,7 @@ var scenes;
                             _this.addChild(bullet);
                         });
                     }
-                    if (managers.Game.hud.Power >= 80 && managers.Game.hud.Power < 120) {
+                    if (managers.Game.hud.P2Power >= 80 && managers.Game.hud.P2Power < 120) {
                         this.bulletManager.Bullet.forEach(function (ammo) {
                             _this.removeChild(ammo);
                         });
@@ -530,7 +1050,7 @@ var scenes;
                             _this.addChild(bullet);
                         });
                     }
-                    if (managers.Game.hud.Power >= 120 && managers.Game.hud.Power < 160) {
+                    if (managers.Game.hud.P2Power >= 120 && managers.Game.hud.P2Power < 160) {
                         this.bulletManager.Bullet.forEach(function (ammo) {
                             _this.removeChild(ammo);
                         });
@@ -539,7 +1059,7 @@ var scenes;
                             _this.addChild(bullet);
                         });
                     }
-                    if (managers.Game.hud.Power >= 160) {
+                    if (managers.Game.hud.P2Power >= 160) {
                         this.bulletManager.Bullet.forEach(function (ammo) {
                             _this.removeChild(ammo);
                         });
@@ -549,463 +1069,466 @@ var scenes;
                         });
                     }
                 }
-            }
-            this.ChangeShip();
-            this.CheckCollisions();
-            if (managers.Game.level1) {
-                if (managers.Game.timer >= 598 && managers.Game.timer <= 600) {
-                    if (this.Splayer.y > 450)
-                        this.Splayer.y -= 1;
-                }
-                if (managers.Game.timer >= 597 && managers.Game.timer <= 598) {
-                    if (this.Splayer.y < 550)
-                        this.Splayer.y += 1;
-                }
-                if (managers.Game.timer > 591 && managers.Game.timer <= 596) {
-                    this.addChild(this.stageName);
-                }
-                if (managers.Game.timer >= 481 && managers.Game.timer <= 591) {
-                    //if(managers.Game.timer <= 591){
-                    this.removeChild(this.stageName);
-                    /*
-                    this.level1Enemies[0].forEach(e =>{
-                        if(!e.isDead){
-                            e.isInvincible = false;
-                            e.Update();
-                            e.FindPlayer(this.player);
-                            this.missileManager.Missile.forEach( m => {
-                                m.FindEnemies(e)
-                            })
-                        }
-                    })*/
-                    if (!this.bosses[0].isDead) {
+                if (managers.Game.level1) {
+                    if (managers.Game.timer >= 598 && managers.Game.timer <= 600) {
+                        if (this.Splayer.y > 450)
+                            this.Splayer.y -= 1;
+                        if (this.P1.y > 450)
+                            this.P1.y -= 1;
+                        if (this.P2.y > 450)
+                            this.P2.y -= 1;
+                    }
+                    if (managers.Game.timer >= 597 && managers.Game.timer <= 598) {
+                        if (this.Splayer.y < 550)
+                            this.Splayer.y += 1;
+                        if (this.P1.y < 550)
+                            this.P1.y += 1;
+                        if (this.P2.y < 550)
+                            this.P2.y += 1;
+                    }
+                    if (managers.Game.timer > 591 && managers.Game.timer <= 596) {
+                        this.addChild(this.stageName);
+                    }
+                    if (managers.Game.timer >= 481 && managers.Game.timer <= 591) {
+                        //if(managers.Game.timer <= 591){
+                        this.removeChild(this.stageName);
+                        this.level1Enemies[0].forEach(function (e) {
+                            if (!e.isDead) {
+                                e.isInvincible = false;
+                                e.Update();
+                                var rand = Math.floor(Math.random() * (2 - 1 + 1) + 1);
+                                if (rand == 1)
+                                    e.FindPlayer(_this.P1);
+                                if (rand == 2)
+                                    e.FindPlayer(_this.P2);
+                                _this.P1missileManager.Missile.forEach(function (m) {
+                                    m.FindEnemies(e);
+                                });
+                            }
+                        });
+                    }
+                    if (managers.Game.timer >= 481 && managers.Game.timer <= 581) {
+                        this.level1Enemies[1].forEach(function (e) {
+                            if (!e.isDead) {
+                                e.isInvincible = false;
+                                e.Update();
+                                var rand = Math.floor(Math.random() * (2 - 1 + 1) + 1);
+                                if (rand == 1)
+                                    e.FindPlayer(_this.P1);
+                                if (rand == 2)
+                                    e.FindPlayer(_this.P2);
+                                _this.missileManager.Missile.forEach(function (m) {
+                                    m.FindEnemies(e);
+                                });
+                            }
+                        });
+                        this.eliteUnits[0].forEach(function (e) {
+                            if (!e.isDead) {
+                                e.isInvincible = false;
+                                e.Update();
+                                var rand = Math.floor(Math.random() * (2 - 1 + 1) + 1);
+                                if (rand == 1)
+                                    e.FindPlayer(_this.P1);
+                                if (rand == 2)
+                                    e.FindPlayer(_this.P2);
+                                _this.missileManager.Missile.forEach(function (m) {
+                                    m.FindEnemies(e);
+                                });
+                            }
+                        });
+                    }
+                    if (managers.Game.timer >= 481 && managers.Game.timer <= 576) {
+                        this.level1Enemies[2].forEach(function (e) {
+                            if (!e.isDead) {
+                                e.isInvincible = false;
+                                e.Update();
+                                var rand = Math.floor(Math.random() * (2 - 1 + 1) + 1);
+                                if (rand == 1)
+                                    e.FindPlayer(_this.P1);
+                                if (rand == 2)
+                                    e.FindPlayer(_this.P2);
+                                _this.missileManager.Missile.forEach(function (m) {
+                                    m.FindEnemies(e);
+                                });
+                            }
+                        });
+                    }
+                    if (managers.Game.timer >= 481 && managers.Game.timer <= 536) {
+                        this.eliteUnits[1].forEach(function (e) {
+                            if (!e.isDead) {
+                                e.isInvincible = false;
+                                e.Update();
+                                var rand = Math.floor(Math.random() * (2 - 1 + 1) + 1);
+                                if (rand == 1)
+                                    e.FindPlayer(_this.P1);
+                                if (rand == 2)
+                                    e.FindPlayer(_this.P2);
+                                _this.missileManager.Missile.forEach(function (m) {
+                                    m.FindEnemies(e);
+                                });
+                            }
+                        });
+                    }
+                    if (managers.Game.timer < 481) {
+                        this.level1Enemies[0].forEach(function (e) {
+                            e.y += 10;
+                        });
+                        this.level1Enemies[1].forEach(function (e) {
+                            e.x -= 10;
+                        });
+                        this.level1Enemies[2].forEach(function (e) {
+                            e.y -= 10;
+                        });
+                    }
+                    if (managers.Game.timer == 480) {
+                        createjs.Sound.stop();
+                        this.bgm = createjs.Sound.play("bossMusic");
+                        this.bgm.loop = -1;
+                        this.bgm.volume = 0.05;
+                    }
+                    if (managers.Game.timer < 479) {
                         this.bosses[0].isInvincible = false;
-                        this.bosses[0].FindPlayer(this.Splayer);
-                        this.bosses[0].Update();
-                        this.missileManager.Missile.forEach(function (m) {
-                            m.FindEnemies(_this.bosses[0]);
-                        });
-                    } /*
-                    
-                    this.eliteUnits[0].forEach(e =>{
-                        if(!e.isDead){
-                            e.isInvincible = false;
-                            e.Update();
-                            e.FindPlayer(this.Splayer);
-                            
-                            this.missileManager.Missile.forEach( m => {
-                                m.FindEnemies(e)
-                            })
+                        this.background.y += 0;
+                        if (!this.bosses[0].isDead) {
+                            var rand = Math.floor(Math.random() * (2 - 1 + 1) + 1);
+                            if (rand == 1)
+                                this.bosses[0].FindPlayer(this.P1);
+                            if (rand == 2)
+                                this.bosses[0].FindPlayer(this.P2);
+                            this.bosses[0].Update();
+                            this.missileManager.Missile.forEach(function (m) {
+                                m.FindEnemies(_this.bosses[0]);
+                            });
                         }
-                    })
-                    
-                    if(!this.bosses[2].isDead){
-                        this.bosses[2].isInvincible = false
-                        this.bosses[2].FindPlayer(this.Splayer)
-                        this.bosses[2].Update();
-
-                        this.missileManager.Missile.forEach( m => {
-                            m.FindEnemies(this.bosses[2])
-                        })
                     }
-                    if(!this.bosses[3].isDead){
-                        this.bosses[3].isInvincible = false
-                        this.bosses[3].FindPlayer(this.Splayer)
-                        this.bosses[3].Update();
-
-                        this.missileManager.Missile.forEach( m => {
-                            m.FindEnemies(this.bosses[3])
-                        })
-                    }*/
-                } /*
-                if(managers.Game.timer >= 481 && managers.Game.timer <= 581){
-                    this.level1Enemies[1].forEach(e =>{
-                        if(!e.isDead){
-                            e.isInvincible = false;
-                            e.Update();
-                            e.FindPlayer(this.Splayer);
-                            this.missileManager.Missile.forEach( m => {
-                                m.FindEnemies(e)
-                            })
-                        }
-                    })
-
-                    this.eliteUnits[0].forEach(e =>{
-                        if(!e.isDead){
-                            e.isInvincible = false;
-                            e.Update();
-                            e.FindPlayer(this.Splayer);
-                            this.missileManager.Missile.forEach( m => {
-                                m.FindEnemies(e)
-                            })
-                        }
-                    })
-
-                }
-
-                if(managers.Game.timer >= 481 && managers.Game.timer <= 576){
-                    this.level1Enemies[2].forEach(e =>{
-                        if(!e.isDead){
-                            e.isInvincible = false;
-                            e.Update();
-                            e.FindPlayer(this.Splayer);
-                            this.missileManager.Missile.forEach( m => {
-                                m.FindEnemies(e)
-                            })
-                        }
-                    })
-                }
-
-                if(managers.Game.timer >= 481 && managers.Game.timer <= 536){
-                    this.eliteUnits[1].forEach(e =>{
-                        if(!e.isDead){
-                            e.isInvincible = false;
-                            e.Update();
-                            e.FindPlayer(this.player);
-                            this.missileManager.Missile.forEach( m => {
-                                m.FindEnemies(e)
-                            })
-                        }
-                    })
-                }
-
-                if(managers.Game.timer < 481){
-                    this.level1Enemies[0].forEach(e =>{
-                        e.y += 10;
-                    })
-                    this.level1Enemies[1].forEach(e =>{
-                        e.x -= 10;
-                    })
-                    this.level1Enemies[2].forEach(e =>{
-                        e.y -= 10;
-                    })
-                }
-
-                if(managers.Game.timer == 480){
-                    createjs.Sound.stop();
-                    this.bgm = createjs.Sound.play("bossMusic");
-                    this.bgm.loop = -1;
-                    this.bgm.volume = 0.05;
-                }
-
-                if(managers.Game.timer < 479){
-                    this.bosses[0].isInvincible = false
-                    this.background.y += 0;
-                    if(!this.bosses[0].isDead){
-                        this.bosses[0].FindPlayer(this.Splayer)
-                        this.bosses[0].Update();
-                        this.missileManager.Missile.forEach( m => {
-                            m.FindEnemies(this.bosses[0])
-                        })
+                    if (managers.Game.boss1Hp == 0) {
+                        this.removeChild(this.bosses[0]);
+                        this.bosses[0].isInvincible = true;
+                        this.bosses[0].isDead = true;
+                        managers.Game.boss1IsDead = true;
+                        this.bosses[0].DropCoins(50);
+                        var counter_3 = 5;
+                        var interval_4 = setInterval(function () {
+                            counter_3--;
+                            if (counter_3 < 0) {
+                                clearInterval(interval_4);
+                                managers.Game.level1Completed = true;
+                            }
+                        }, 1000);
                     }
-                }*/
-                if (managers.Game.boss1Hp == 0) {
-                    this.removeChild(this.bosses[0]);
-                    this.bosses[0].isInvincible = true;
-                    this.bosses[0].isDead = true;
-                    managers.Game.boss1IsDead = true;
-                    this.bosses[0].DropCoins(50);
-                    var counter_1 = 5;
-                    var interval_1 = setInterval(function () {
-                        counter_1--;
-                        if (counter_1 < 0) {
-                            clearInterval(interval_1);
-                            //this.player.alpha = 0
-                            managers.Game.level1Completed = true;
-                        }
-                    }, 1000);
                 }
-            }
-            if (managers.Game.level2) {
-                if (managers.Game.timer == 600) {
-                    createjs.Sound.stop();
-                    this.bgm = createjs.Sound.play("bgm3");
-                    this.bgm.loop = -1;
-                    this.bgm.volume = 0.05;
-                }
-                if (managers.Game.timer > 595 && managers.Game.timer <= 599) {
-                    this.stageName.text = "Stage 2: HQ";
-                    this.stageName.x = 575;
-                    this.addChild(this.stageName);
-                }
-                if (managers.Game.timer > 505 && managers.Game.timer < 595) {
-                    this.removeChild(this.stageName);
-                    /*
-                    if(!this.bosses[1].isDead){
-                        this.bosses[1].isInvincible = false
-                        this.bosses[1].FindPlayer(this.player)
-                        this.bosses[1].Update()
-
-                        this.missileManager.Missile.forEach( m => {
-                            m.FindEnemies(this.bosses[1])
-                        })
-                    }*/
-                    this.level2Enemies[2].forEach(function (e) {
-                        if (!e.isDead) {
-                            e.isInvincible = false;
-                            e.Update();
-                            e.FindPlayer(_this.Splayer);
-                            _this.missileManager.Missile.forEach(function (m) {
-                                m.FindEnemies(e);
-                            });
-                        }
-                    });
-                }
-                if (managers.Game.timer > 505 && managers.Game.timer < 590) {
-                    this.level2Enemies[1].forEach(function (e) {
-                        if (!e.isDead) {
-                            e.isInvincible = false;
-                            e.Update();
-                            e.FindPlayer(_this.Splayer);
-                            _this.missileManager.Missile.forEach(function (m) {
-                                m.FindEnemies(e);
-                            });
-                        }
-                    });
-                    this.eliteUnits[2].forEach(function (e) {
-                        if (!e.isDead) {
-                            e.isInvincible = false;
-                            e.Update();
-                            e.FindPlayer(_this.Splayer);
-                            _this.missileManager.Missile.forEach(function (m) {
-                                m.FindEnemies(e);
-                            });
-                        }
-                    });
-                }
-                if (managers.Game.timer > 505 && managers.Game.timer < 585) {
-                    this.level2Enemies[0].forEach(function (e) {
-                        if (!e.isDead) {
-                            e.isInvincible = false;
-                            e.Update();
-                            e.FindPlayer(_this.Splayer);
-                            _this.missileManager.Missile.forEach(function (m) {
-                                m.FindEnemies(e);
-                            });
-                        }
-                    });
-                }
-                if (managers.Game.timer > 505 && managers.Game.timer < 550) {
-                    this.eliteUnits[3].forEach(function (e) {
-                        if (!e.isDead) {
-                            e.isInvincible = false;
-                            e.Update();
-                            e.FindPlayer(_this.Splayer);
-                            _this.missileManager.Missile.forEach(function (m) {
-                                m.FindEnemies(e);
-                            });
-                        }
-                    });
-                }
-                if (managers.Game.timer < 504) {
-                    this.level2Enemies[0].forEach(function (e) {
-                        e.y -= 10;
-                    });
-                    this.level2Enemies[1].forEach(function (e) {
-                        e.x += 10;
-                    });
-                    this.level2Enemies[2].forEach(function (e) {
-                        e.y += 10;
-                    });
-                }
-                if (managers.Game.timer == 504) {
-                    createjs.Sound.stop();
-                    this.bgm = createjs.Sound.play("bossMusic");
-                    this.bgm.loop = -1;
-                    this.bgm.volume = 0.05;
-                }
-                if (managers.Game.timer < 503) {
-                    if (!this.bosses[1].isDead) {
-                        this.bosses[1].isInvincible = false;
-                        this.bosses[1].FindPlayer(this.Splayer);
-                        this.bosses[1].Update();
-                        this.missileManager.Missile.forEach(function (m) {
-                            m.FindEnemies(_this.bosses[1]);
+                if (managers.Game.level2) {
+                    if (managers.Game.timer == 600) {
+                        createjs.Sound.stop();
+                        this.bgm = createjs.Sound.play("bgm3");
+                        this.bgm.loop = -1;
+                        this.bgm.volume = 0.05;
+                    }
+                    if (managers.Game.timer > 595 && managers.Game.timer <= 599) {
+                        this.stageName.text = "Stage 2: HQ";
+                        this.stageName.x = 575;
+                        this.addChild(this.stageName);
+                    }
+                    if (managers.Game.timer > 505 && managers.Game.timer < 595) {
+                        this.removeChild(this.stageName);
+                        this.level2Enemies[2].forEach(function (e) {
+                            if (!e.isDead) {
+                                e.isInvincible = false;
+                                e.Update();
+                                var rand = Math.floor(Math.random() * (2 - 1 + 1) + 1);
+                                if (rand == 1)
+                                    e.FindPlayer(_this.P1);
+                                if (rand == 2)
+                                    e.FindPlayer(_this.P2);
+                                _this.missileManager.Missile.forEach(function (m) {
+                                    m.FindEnemies(e);
+                                });
+                            }
                         });
                     }
-                }
-                if (managers.Game.boss2Hp == 0) {
-                    this.removeChild(this.bosses[1]);
-                    this.bosses[1].isInvincible = true;
-                    this.bosses[1].isDead = true;
-                    managers.Game.boss2IsDead = true;
-                    this.bosses[1].DropCoins(50);
-                    var counter2_1 = 5;
-                    var interval_2 = setInterval(function () {
-                        counter2_1--;
-                        if (counter2_1 < 0) {
-                            clearInterval(interval_2);
-                            managers.Game.level2Completed = true;
-                        }
-                    }, 1000);
-                }
-            }
-            if (managers.Game.level3) {
-                if (managers.Game.timer == 600) {
-                    createjs.Sound.stop();
-                    this.bgm = createjs.Sound.play("bgm");
-                    this.bgm.loop = -1;
-                    this.bgm.volume = 0.05;
-                }
-                if (managers.Game.timer > 595 && managers.Game.timer <= 599) {
-                    this.stageName.text = "Stage 3: Journey";
-                    this.stageName.x = 525;
-                    this.addChild(this.stageName);
-                }
-                if (managers.Game.timer >= 505 && managers.Game.timer < 595) {
-                    this.removeChild(this.stageName);
-                    /*
-                    if(!this.bosses[2].isDead){
-                        this.bosses[2].isInvincible = false
-                        this.bosses[2].FindPlayer(this.player)
-                        this.bosses[2].Update();
-
-                        this.missileManager.Missile.forEach( m => {
-                            m.FindEnemies(this.bosses[2])
-                        })
-                    }
-                    if(!this.bosses[3].isDead){
-                        this.bosses[3].isInvincible = false
-                        this.bosses[3].FindPlayer(this.player)
-                        this.bosses[3].Update();
-
-                        this.missileManager.Missile.forEach( m => {
-                            m.FindEnemies(this.bosses[3])
-                        })
-                    }*/
-                    this.level3Enemies[1].forEach(function (e) {
-                        if (!e.isDead) {
-                            e.isInvincible = false;
-                            e.Update();
-                            e.FindPlayer(_this.Splayer);
-                            _this.missileManager.Missile.forEach(function (m) {
-                                m.FindEnemies(e);
-                            });
-                        }
-                    });
-                    this.eliteUnits[4].forEach(function (e) {
-                        if (!e.isDead) {
-                            e.isInvincible = false;
-                            e.Update();
-                            e.FindPlayer(_this.Splayer);
-                            _this.missileManager.Missile.forEach(function (m) {
-                                m.FindEnemies(e);
-                            });
-                        }
-                    });
-                }
-                if (managers.Game.timer >= 505 && managers.Game.timer < 590) {
-                    this.level3Enemies[0].forEach(function (e) {
-                        if (!e.isDead) {
-                            e.isInvincible = false;
-                            e.Update();
-                            e.FindPlayer(_this.Splayer);
-                            _this.missileManager.Missile.forEach(function (m) {
-                                m.FindEnemies(e);
-                            });
-                        }
-                    });
-                }
-                if (managers.Game.timer >= 505 && managers.Game.timer < 587) {
-                    this.eliteUnits[4].forEach(function (e) {
-                        if (!e.isDead) {
-                            e.isInvincible = false;
-                            e.Update();
-                            e.FindPlayer(_this.Splayer);
-                            _this.missileManager.Missile.forEach(function (m) {
-                                m.FindEnemies(e);
-                            });
-                        }
-                    });
-                }
-                if (managers.Game.timer >= 505 && managers.Game.timer < 585) {
-                    this.level3Enemies[2].forEach(function (e) {
-                        if (!e.isDead) {
-                            e.isInvincible = false;
-                            e.Update();
-                            e.FindPlayer(_this.Splayer);
-                            _this.missileManager.Missile.forEach(function (m) {
-                                m.FindEnemies(e);
-                            });
-                        }
-                    });
-                }
-                if (managers.Game.timer >= 505 && managers.Game.timer < 565) {
-                    this.eliteUnits[3].forEach(function (e) {
-                        if (!e.isDead) {
-                            e.isInvincible = false;
-                            e.Update();
-                            e.FindPlayer(_this.Splayer);
-                            _this.missileManager.Missile.forEach(function (m) {
-                                m.FindEnemies(e);
-                            });
-                        }
-                    });
-                }
-                if (managers.Game.timer < 506) {
-                    this.level3Enemies[0].forEach(function (e) {
-                        e.y -= 10;
-                    });
-                    this.level3Enemies[1].forEach(function (e) {
-                        e.x += 10;
-                    });
-                    this.level3Enemies[2].forEach(function (e) {
-                        e.y += 10;
-                    });
-                }
-                if (managers.Game.timer == 505) {
-                    createjs.Sound.stop();
-                    this.bgm = createjs.Sound.play("bossMusic");
-                    this.bgm.loop = -1;
-                    this.bgm.volume = 0.05;
-                }
-                if (managers.Game.timer < 504) {
-                    if (!this.bosses[2].isDead) {
-                        this.bosses[2].isInvincible = false;
-                        this.bosses[2].FindPlayer(this.Splayer);
-                        this.bosses[2].Update();
-                        this.missileManager.Missile.forEach(function (m) {
-                            m.FindEnemies(_this.bosses[2]);
+                    if (managers.Game.timer > 505 && managers.Game.timer < 590) {
+                        this.level2Enemies[1].forEach(function (e) {
+                            if (!e.isDead) {
+                                e.isInvincible = false;
+                                e.Update();
+                                var rand = Math.floor(Math.random() * (2 - 1 + 1) + 1);
+                                if (rand == 1)
+                                    e.FindPlayer(_this.P1);
+                                if (rand == 2)
+                                    e.FindPlayer(_this.P2);
+                                _this.missileManager.Missile.forEach(function (m) {
+                                    m.FindEnemies(e);
+                                });
+                            }
+                        });
+                        this.eliteUnits[2].forEach(function (e) {
+                            if (!e.isDead) {
+                                e.isInvincible = false;
+                                e.Update();
+                                var rand = Math.floor(Math.random() * (2 - 1 + 1) + 1);
+                                if (rand == 1)
+                                    e.FindPlayer(_this.P1);
+                                if (rand == 2)
+                                    e.FindPlayer(_this.P2);
+                                _this.missileManager.Missile.forEach(function (m) {
+                                    m.FindEnemies(e);
+                                });
+                            }
                         });
                     }
-                    if (!this.bosses[3].isDead) {
-                        this.bosses[3].isInvincible = false;
-                        this.bosses[3].FindPlayer(this.Splayer);
-                        this.bosses[3].Update();
-                        this.missileManager.Missile.forEach(function (m) {
-                            m.FindEnemies(_this.bosses[3]);
+                    if (managers.Game.timer > 505 && managers.Game.timer < 585) {
+                        this.level2Enemies[0].forEach(function (e) {
+                            if (!e.isDead) {
+                                e.isInvincible = false;
+                                e.Update();
+                                var rand = Math.floor(Math.random() * (2 - 1 + 1) + 1);
+                                if (rand == 1)
+                                    e.FindPlayer(_this.P1);
+                                if (rand == 2)
+                                    e.FindPlayer(_this.P2);
+                                _this.missileManager.Missile.forEach(function (m) {
+                                    m.FindEnemies(e);
+                                });
+                            }
                         });
                     }
-                }
-                if (managers.Game.boss3_1Hp == 0) {
-                    this.removeChild(this.bosses[2]);
-                    this.bosses[2].isInvincible = true;
-                    this.bosses[2].isDead = true;
-                    managers.Game.boss3_1IsDead = true;
-                    this.bosses[2].DropCoins(50);
-                }
-                if (managers.Game.boss3_2Hp == 0) {
-                    this.bosses[3].isInvincible = true;
-                    this.bosses[3].isDead = true;
-                    managers.Game.boss3_2IsDead = true;
-                    this.bosses[3].DropCoins(50);
-                }
-                if ((managers.Game.boss3_1Hp == 0 ||
-                    (managers.Game.boss3_1Hp < 0 && Math.abs(managers.Game.boss3_1Hp) % 250 == 0)) &&
-                    (managers.Game.boss3_2Hp == 0 ||
-                        (managers.Game.boss3_2Hp < 0 && Math.abs(managers.Game.boss3_2Hp) % 250 == 0))) {
-                    var counter_2 = 5;
-                    var interval_3 = setInterval(function () {
-                        counter_2--;
-                        if (counter_2 < 0) {
-                            clearInterval(interval_3);
-                            managers.Game.level3Completed = true;
+                    if (managers.Game.timer > 505 && managers.Game.timer < 550) {
+                        this.eliteUnits[3].forEach(function (e) {
+                            if (!e.isDead) {
+                                e.isInvincible = false;
+                                e.Update();
+                                var rand = Math.floor(Math.random() * (2 - 1 + 1) + 1);
+                                if (rand == 1)
+                                    e.FindPlayer(_this.P1);
+                                if (rand == 2)
+                                    e.FindPlayer(_this.P2);
+                                _this.missileManager.Missile.forEach(function (m) {
+                                    m.FindEnemies(e);
+                                });
+                            }
+                        });
+                    }
+                    if (managers.Game.timer < 504) {
+                        this.level2Enemies[0].forEach(function (e) {
+                            e.y -= 10;
+                        });
+                        this.level2Enemies[1].forEach(function (e) {
+                            e.x += 10;
+                        });
+                        this.level2Enemies[2].forEach(function (e) {
+                            e.y += 10;
+                        });
+                    }
+                    if (managers.Game.timer == 504) {
+                        createjs.Sound.stop();
+                        this.bgm = createjs.Sound.play("bossMusic");
+                        this.bgm.loop = -1;
+                        this.bgm.volume = 0.05;
+                    }
+                    if (managers.Game.timer < 503) {
+                        if (!this.bosses[1].isDead) {
+                            this.bosses[1].isInvincible = false;
+                            var rand = Math.floor(Math.random() * (2 - 1 + 1) + 1);
+                            if (rand == 1)
+                                this.bosses[1].FindPlayer(this.P1);
+                            if (rand == 2)
+                                this.bosses[1].FindPlayer(this.P2);
+                            this.bosses[1].Update();
+                            this.missileManager.Missile.forEach(function (m) {
+                                m.FindEnemies(_this.bosses[1]);
+                            });
                         }
-                    }, 1000);
+                    }
+                    if (managers.Game.boss2Hp == 0) {
+                        this.removeChild(this.bosses[1]);
+                        this.bosses[1].isInvincible = true;
+                        this.bosses[1].isDead = true;
+                        managers.Game.boss2IsDead = true;
+                        this.bosses[1].DropCoins(50);
+                        var counter2_2 = 5;
+                        var interval_5 = setInterval(function () {
+                            counter2_2--;
+                            if (counter2_2 < 0) {
+                                clearInterval(interval_5);
+                                managers.Game.level2Completed = true;
+                            }
+                        }, 1000);
+                    }
                 }
-            }
-            if (managers.Game.hud.Lives < 0) {
-                managers.Game.currentScene = config.Scene.OVER;
+                if (managers.Game.level3) {
+                    if (managers.Game.timer == 600) {
+                        createjs.Sound.stop();
+                        this.bgm = createjs.Sound.play("bgm");
+                        this.bgm.loop = -1;
+                        this.bgm.volume = 0.05;
+                    }
+                    if (managers.Game.timer > 595 && managers.Game.timer <= 599) {
+                        this.stageName.text = "Stage 3: Journey";
+                        this.stageName.x = 525;
+                        this.addChild(this.stageName);
+                    }
+                    if (managers.Game.timer >= 505 && managers.Game.timer < 595) {
+                        this.removeChild(this.stageName);
+                        this.level3Enemies[1].forEach(function (e) {
+                            if (!e.isDead) {
+                                e.isInvincible = false;
+                                e.Update();
+                                var rand = Math.floor(Math.random() * (2 - 1 + 1) + 1);
+                                if (rand == 1)
+                                    e.FindPlayer(_this.P1);
+                                if (rand == 2)
+                                    e.FindPlayer(_this.P2);
+                                _this.missileManager.Missile.forEach(function (m) {
+                                    m.FindEnemies(e);
+                                });
+                            }
+                        });
+                        this.eliteUnits[4].forEach(function (e) {
+                            if (!e.isDead) {
+                                e.isInvincible = false;
+                                e.Update();
+                                var rand = Math.floor(Math.random() * (2 - 1 + 1) + 1);
+                                if (rand == 1)
+                                    e.FindPlayer(_this.P1);
+                                if (rand == 2)
+                                    e.FindPlayer(_this.P2);
+                                _this.missileManager.Missile.forEach(function (m) {
+                                    m.FindEnemies(e);
+                                });
+                            }
+                        });
+                    }
+                    if (managers.Game.timer >= 505 && managers.Game.timer < 590) {
+                        this.level3Enemies[0].forEach(function (e) {
+                            if (!e.isDead) {
+                                e.isInvincible = false;
+                                e.Update();
+                                var rand = Math.floor(Math.random() * (2 - 1 + 1) + 1);
+                                if (rand == 1)
+                                    e.FindPlayer(_this.P1);
+                                if (rand == 2)
+                                    e.FindPlayer(_this.P2);
+                                _this.missileManager.Missile.forEach(function (m) {
+                                    m.FindEnemies(e);
+                                });
+                            }
+                        });
+                    }
+                    if (managers.Game.timer >= 505 && managers.Game.timer < 587) {
+                        this.eliteUnits[4].forEach(function (e) {
+                            if (!e.isDead) {
+                                e.isInvincible = false;
+                                e.Update();
+                                var rand = Math.floor(Math.random() * (2 - 1 + 1) + 1);
+                                if (rand == 1)
+                                    e.FindPlayer(_this.P1);
+                                if (rand == 2)
+                                    e.FindPlayer(_this.P2);
+                                _this.missileManager.Missile.forEach(function (m) {
+                                    m.FindEnemies(e);
+                                });
+                            }
+                        });
+                    }
+                    if (managers.Game.timer >= 505 && managers.Game.timer < 585) {
+                        this.level3Enemies[2].forEach(function (e) {
+                            if (!e.isDead) {
+                                e.isInvincible = false;
+                                e.Update();
+                                var rand = Math.floor(Math.random() * (2 - 1 + 1) + 1);
+                                if (rand == 1)
+                                    e.FindPlayer(_this.P1);
+                                if (rand == 2)
+                                    e.FindPlayer(_this.P2);
+                                _this.missileManager.Missile.forEach(function (m) {
+                                    m.FindEnemies(e);
+                                });
+                            }
+                        });
+                    }
+                    if (managers.Game.timer >= 505 && managers.Game.timer < 565) {
+                        this.eliteUnits[3].forEach(function (e) {
+                            if (!e.isDead) {
+                                e.isInvincible = false;
+                                e.Update();
+                                var rand = Math.floor(Math.random() * (2 - 1 + 1) + 1);
+                                if (rand == 1)
+                                    e.FindPlayer(_this.P1);
+                                if (rand == 2)
+                                    e.FindPlayer(_this.P2);
+                                _this.missileManager.Missile.forEach(function (m) {
+                                    m.FindEnemies(e);
+                                });
+                            }
+                        });
+                    }
+                    if (managers.Game.timer < 506) {
+                        this.level3Enemies[0].forEach(function (e) {
+                            e.y -= 10;
+                        });
+                        this.level3Enemies[1].forEach(function (e) {
+                            e.x += 10;
+                        });
+                        this.level3Enemies[2].forEach(function (e) {
+                            e.y += 10;
+                        });
+                    }
+                    if (managers.Game.timer == 505) {
+                        createjs.Sound.stop();
+                        this.bgm = createjs.Sound.play("bossMusic");
+                        this.bgm.loop = -1;
+                        this.bgm.volume = 0.05;
+                    }
+                    if (managers.Game.timer < 504) {
+                        if (!this.bosses[2].isDead) {
+                            this.bosses[2].isInvincible = false;
+                            this.bosses[2].FindPlayer(this.P1);
+                            this.bosses[2].Update();
+                            this.missileManager.Missile.forEach(function (m) {
+                                m.FindEnemies(_this.bosses[2]);
+                            });
+                        }
+                        if (!this.bosses[3].isDead) {
+                            this.bosses[3].isInvincible = false;
+                            this.bosses[3].FindPlayer(this.P2);
+                            this.bosses[3].Update();
+                            this.missileManager.Missile.forEach(function (m) {
+                                m.FindEnemies(_this.bosses[3]);
+                            });
+                        }
+                    }
+                    if (managers.Game.boss3_1Hp == 0) {
+                        this.removeChild(this.bosses[2]);
+                        this.bosses[2].isInvincible = true;
+                        this.bosses[2].isDead = true;
+                        managers.Game.boss3_1IsDead = true;
+                        this.bosses[2].DropCoins(50);
+                    }
+                    if (managers.Game.boss3_2Hp == 0) {
+                        this.bosses[3].isInvincible = true;
+                        this.bosses[3].isDead = true;
+                        managers.Game.boss3_2IsDead = true;
+                        this.bosses[3].DropCoins(50);
+                    }
+                    if ((managers.Game.boss3_1Hp == 0 ||
+                        (managers.Game.boss3_1Hp < 0 && Math.abs(managers.Game.boss3_1Hp) % 250 == 0)) &&
+                        (managers.Game.boss3_2Hp == 0 ||
+                            (managers.Game.boss3_2Hp < 0 && Math.abs(managers.Game.boss3_2Hp) % 250 == 0))) {
+                        var counter_4 = 5;
+                        var interval_6 = setInterval(function () {
+                            counter_4--;
+                            if (counter_4 < 0) {
+                                clearInterval(interval_6);
+                                managers.Game.level3Completed = true;
+                            }
+                        }, 1000);
+                    }
+                }
+                this.ChangeShip();
+                this.CheckCollisions();
+                if (managers.Game.hud.P1Lives < 0 && managers.Game.hud.P2Lives < 0) {
+                    managers.Game.currentScene = config.Scene.OVER;
+                }
             }
         };
         PlayScene.prototype.Main = function () {
@@ -1050,6 +1573,8 @@ var scenes;
                 });
             }
             if (managers.Game.multi) {
+                this.addChild(this.P1aircraft);
+                this.addChild(this.P2aircraft);
                 this.P1bulletManager.Bullet.forEach(function (bullet) {
                     _this.addChild(bullet);
                 });
@@ -1062,6 +1587,10 @@ var scenes;
                 this.P2missileManager.Missile.forEach(function (m) {
                     _this.addChild(m);
                 });
+                this.addChild(this.P1);
+                this.addChild(this.P1Tag);
+                this.addChild(this.P2);
+                this.addChild(this.P2Tag);
             }
             this.enemyBulletManager.Bullet.forEach(function (bullet) {
                 _this.addChild(bullet);
@@ -1171,7 +1700,202 @@ var scenes;
                         managers.Collision.CheckAABB(b, _this.shields[0]);
                 });
             }
-            //managers.Collision.CheckAABB(this.testEnemyBullet, this.player)
+            if (managers.Game.multi) {
+                // P1
+                this.P1bulletManager.Bullet.forEach(function (bullet) {
+                    if (bullet.y > 0) {
+                        _this.level1Enemies.forEach(function (e) {
+                            e.forEach(function (f) {
+                                if (!f.isInvincible && f.y > 0) {
+                                    managers.Collision.CheckAABB(bullet, f);
+                                    managers.Collision.CheckAABB(f, _this.P1);
+                                }
+                            });
+                        });
+                        _this.level2Enemies.forEach(function (e) {
+                            e.forEach(function (f) {
+                                if (!f.isInvincible && f.y > 0) {
+                                    managers.Collision.CheckAABB(bullet, f);
+                                    managers.Collision.CheckAABB(f, _this.P1);
+                                }
+                            });
+                        });
+                        _this.level3Enemies.forEach(function (e) {
+                            e.forEach(function (f) {
+                                if (!f.isInvincible && f.y > 0) {
+                                    managers.Collision.CheckAABB(bullet, f);
+                                    managers.Collision.CheckAABB(f, _this.P1);
+                                }
+                            });
+                        });
+                        _this.eliteUnits.forEach(function (e) {
+                            e.forEach(function (f) {
+                                if (!f.isInvincible && f.y > 0) {
+                                    managers.Collision.CheckAABB(bullet, f);
+                                    managers.Collision.CheckAABB(f, _this.P1);
+                                }
+                            });
+                        });
+                        _this.bosses.forEach(function (e) {
+                            if (!e.isInvincible && !managers.Game.boss1IsDead)
+                                managers.Collision.CheckAABB(bullet, e);
+                            if (!e.isInvincible && !managers.Game.boss2IsDead)
+                                managers.Collision.CheckAABB(bullet, e);
+                            if (!e.isInvincible && !managers.Game.boss3_1IsDead)
+                                managers.Collision.CheckAABB(bullet, e);
+                            if (!e.isInvincible && !managers.Game.boss3_2IsDead)
+                                managers.Collision.CheckAABB(bullet, e);
+                        });
+                        _this.shields.forEach(function (s) {
+                            managers.Collision.CheckAABB(bullet, s);
+                        });
+                    }
+                });
+                this.P1missileManager.Missile.forEach(function (m) {
+                    _this.level1Enemies.forEach(function (e) {
+                        e.forEach(function (f) {
+                            if (!f.isInvincible) {
+                                managers.Collision.CheckAABB(m, f);
+                            }
+                        });
+                    });
+                    _this.level2Enemies.forEach(function (e) {
+                        e.forEach(function (f) {
+                            if (!f.isInvincible) {
+                                managers.Collision.CheckAABB(m, f);
+                            }
+                        });
+                    });
+                    _this.level3Enemies.forEach(function (e) {
+                        e.forEach(function (f) {
+                            if (!f.isInvincible) {
+                                managers.Collision.CheckAABB(m, f);
+                            }
+                        });
+                    });
+                    _this.eliteUnits.forEach(function (e) {
+                        e.forEach(function (f) {
+                            if (!f.isInvincible) {
+                                managers.Collision.CheckAABB(m, f);
+                            }
+                        });
+                    });
+                    _this.bosses.forEach(function (e) {
+                        if (!e.isInvincible && !managers.Game.boss1IsDead)
+                            managers.Collision.CheckAABB(m, e);
+                        if (!e.isInvincible && !managers.Game.boss2IsDead)
+                            managers.Collision.CheckAABB(m, e);
+                        if (!e.isInvincible && !managers.Game.boss3_1IsDead)
+                            managers.Collision.CheckAABB(m, e);
+                        if (!e.isInvincible && !managers.Game.boss3_2IsDead)
+                            managers.Collision.CheckAABB(m, e);
+                    });
+                });
+                // P2
+                this.P2bulletManager.Bullet.forEach(function (bullet) {
+                    if (bullet.y > 0) {
+                        _this.level1Enemies.forEach(function (e) {
+                            e.forEach(function (f) {
+                                if (!f.isInvincible && f.y > 0) {
+                                    managers.Collision.CheckAABB(bullet, f);
+                                    managers.Collision.CheckAABB(f, _this.P2);
+                                }
+                            });
+                        });
+                        _this.level2Enemies.forEach(function (e) {
+                            e.forEach(function (f) {
+                                if (!f.isInvincible && f.y > 0) {
+                                    managers.Collision.CheckAABB(bullet, f);
+                                    managers.Collision.CheckAABB(f, _this.P2);
+                                }
+                            });
+                        });
+                        _this.level3Enemies.forEach(function (e) {
+                            e.forEach(function (f) {
+                                if (!f.isInvincible && f.y > 0) {
+                                    managers.Collision.CheckAABB(bullet, f);
+                                    managers.Collision.CheckAABB(f, _this.P2);
+                                }
+                            });
+                        });
+                        _this.eliteUnits.forEach(function (e) {
+                            e.forEach(function (f) {
+                                if (!f.isInvincible && f.y > 0) {
+                                    managers.Collision.CheckAABB(bullet, f);
+                                    managers.Collision.CheckAABB(f, _this.P2);
+                                }
+                            });
+                        });
+                        _this.bosses.forEach(function (e) {
+                            if (!e.isInvincible && !managers.Game.boss1IsDead)
+                                managers.Collision.CheckAABB(bullet, e);
+                            if (!e.isInvincible && !managers.Game.boss2IsDead)
+                                managers.Collision.CheckAABB(bullet, e);
+                            if (!e.isInvincible && !managers.Game.boss3_1IsDead)
+                                managers.Collision.CheckAABB(bullet, e);
+                            if (!e.isInvincible && !managers.Game.boss3_2IsDead)
+                                managers.Collision.CheckAABB(bullet, e);
+                        });
+                        _this.shields.forEach(function (s) {
+                            managers.Collision.CheckAABB(bullet, s);
+                        });
+                    }
+                });
+                this.P2missileManager.Missile.forEach(function (m) {
+                    _this.level1Enemies.forEach(function (e) {
+                        e.forEach(function (f) {
+                            if (!f.isInvincible) {
+                                managers.Collision.CheckAABB(m, f);
+                            }
+                        });
+                    });
+                    _this.level2Enemies.forEach(function (e) {
+                        e.forEach(function (f) {
+                            if (!f.isInvincible) {
+                                managers.Collision.CheckAABB(m, f);
+                            }
+                        });
+                    });
+                    _this.level3Enemies.forEach(function (e) {
+                        e.forEach(function (f) {
+                            if (!f.isInvincible) {
+                                managers.Collision.CheckAABB(m, f);
+                            }
+                        });
+                    });
+                    _this.eliteUnits.forEach(function (e) {
+                        e.forEach(function (f) {
+                            if (!f.isInvincible) {
+                                managers.Collision.CheckAABB(m, f);
+                            }
+                        });
+                    });
+                    _this.bosses.forEach(function (e) {
+                        if (!e.isInvincible && !managers.Game.boss1IsDead)
+                            managers.Collision.CheckAABB(m, e);
+                        if (!e.isInvincible && !managers.Game.boss2IsDead)
+                            managers.Collision.CheckAABB(m, e);
+                        if (!e.isInvincible && !managers.Game.boss3_1IsDead)
+                            managers.Collision.CheckAABB(m, e);
+                        if (!e.isInvincible && !managers.Game.boss3_2IsDead)
+                            managers.Collision.CheckAABB(m, e);
+                    });
+                });
+                this.coinsManager.Coin.forEach(function (c) {
+                    managers.Collision.CheckAABB(_this.P1, c);
+                    managers.Collision.CheckAABB(_this.P2, c);
+                });
+                this.enemyBulletManager.Bullet.forEach(function (b) {
+                    //if(!this.P1.IsInvincible && !this.P1.isDead)
+                    managers.Collision.CheckAABB(b, _this.P1);
+                    //if(this.P1.IsInvincible)
+                    managers.Collision.CheckAABB(b, _this.shields[1]);
+                    //if(!this.P2.IsInvincible && !this.P2.isDead)
+                    managers.Collision.CheckAABB(b, _this.P2);
+                    //if(this.P2.IsInvincible)
+                    managers.Collision.CheckAABB(b, _this.shields[2]);
+                });
+            }
         };
         PlayScene.prototype.ChangeShip = function () {
             var _this = this;
@@ -1201,6 +1925,68 @@ var scenes;
                                 _this.addChild(bullet);
                             });
                             break;
+                    }
+                }
+            }
+            if (managers.Game.multi) {
+                if (this.P1.name == "P1") {
+                    if (managers.Game.keyboardManager.P1swap && (ticker % 50 == 0)) {
+                        var playerPosX = this.P1.x;
+                        var playerPosY = this.P1.y;
+                        this.removeChild(this.P1);
+                        this.P1bulletManager.Bullet.forEach(function (ammo) {
+                            _this.removeChild(ammo);
+                        });
+                        switch (this.P1.ShipType) {
+                            case config.Ship.Botcoin:
+                                this.addChild(this.P1 = new objects.Player("Ship2", playerPosX, playerPosY, true));
+                                this.P1.name = "P1";
+                                this.P1.ShipType = config.Ship.Lightcoin;
+                                this.P1bulletManager.buildBulletPool(this.P1.ShipType);
+                                this.P1bulletManager.Bullet.forEach(function (bullet) {
+                                    _this.addChild(bullet);
+                                });
+                                break;
+                            case config.Ship.Lightcoin:
+                                this.addChild(this.P1 = new objects.Player("Ship1", playerPosX, playerPosY, true));
+                                this.P1.name = "P1";
+                                this.P1.ShipType = config.Ship.Botcoin;
+                                this.P1bulletManager.buildBulletPool(this.P1.ShipType);
+                                this.P1bulletManager.Bullet.forEach(function (bullet) {
+                                    _this.addChild(bullet);
+                                });
+                                break;
+                        }
+                    }
+                }
+                if (this.P2.name == "P2") {
+                    if (managers.Game.keyboardManager.P2swap && (ticker % 50 == 0)) {
+                        var playerPosX = this.P2.x;
+                        var playerPosY = this.P2.y;
+                        this.removeChild(this.P2);
+                        this.P2bulletManager.Bullet.forEach(function (ammo) {
+                            _this.removeChild(ammo);
+                        });
+                        switch (this.P2.ShipType) {
+                            case config.Ship.Botcoin:
+                                this.addChild(this.P2 = new objects.Player("Ship2", playerPosX, playerPosY, true));
+                                this.P2.name = "P2";
+                                this.P2.ShipType = config.Ship.Lightcoin;
+                                this.P2bulletManager.buildBulletPool(this.P2.ShipType);
+                                this.P2bulletManager.Bullet.forEach(function (bullet) {
+                                    _this.addChild(bullet);
+                                });
+                                break;
+                            case config.Ship.Lightcoin:
+                                this.addChild(this.P2 = new objects.Player("Ship1", playerPosX, playerPosY, true));
+                                this.P2.name = "P2";
+                                this.P2.ShipType = config.Ship.Botcoin;
+                                this.P2bulletManager.buildBulletPool(this.P2.ShipType);
+                                this.P2bulletManager.Bullet.forEach(function (bullet) {
+                                    _this.addChild(bullet);
+                                });
+                                break;
+                        }
                     }
                 }
             }

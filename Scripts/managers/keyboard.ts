@@ -23,8 +23,8 @@ module managers {
         public P2moveLeft: boolean;
         public P2moveRight: boolean;
         public P2shoot: boolean;
-        public P2swap:boolean;
-        public P2shift:boolean;
+        public P2swap: boolean;
+        public P2shift: boolean;
 
         public cooldown:number;
         public counter:number;
@@ -94,25 +94,25 @@ module managers {
 
                     // P2
                     case config.Keys.UP:
-                        this.SmoveUp = true;
+                        this.P2moveUp = true;
                     break;
                     case config.Keys.LEFT:
-                        this.SmoveLeft = true;
+                        this.P2moveLeft = true;
                     break;
                     case config.Keys.DOWN:
-                        this.SmoveDown = true;
+                        this.P2moveDown = true;
                     break;
                     case config.Keys.RIGHT:
-                        this.SmoveRight = true;
+                        this.P2moveRight = true;
                     break;
-                    case config.Keys.NUM1:
-                        this.Sshoot = true;
+                    case config.Keys.NUMENTER:
+                        this.P2shoot = true;
                     break;
                     case config.Keys.NUM0:
-                        this.Sswap = true;
+                        this.P2swap = true;
                     break;
                     case config.Keys.NUMDOT:
-                        this.Sshift = true;
+                        this.P2shift = true;
                     break;
                 }
             }
@@ -172,25 +172,25 @@ module managers {
 
                     // P2
                     case config.Keys.UP:
-                        this.SmoveUp = false;
+                        this.P2moveUp = false;
                     break;
                     case config.Keys.LEFT:
-                        this.SmoveLeft = false;
+                        this.P2moveLeft = false;
                     break;
                     case config.Keys.DOWN:
-                        this.SmoveDown = false;
+                        this.P2moveDown = false;
                     break;
                     case config.Keys.RIGHT:
-                        this.SmoveRight = false;
+                        this.P2moveRight = false;
                     break;
-                    case config.Keys.NUM1:
-                        this.Sshoot = false;
+                    case config.Keys.NUMENTER:
+                        this.P2shoot = false;
                     break;
                     case config.Keys.NUM0:
-                        this.Sswap = false;
+                        this.P2swap = false;
                     break;
                     case config.Keys.NUMDOT:
-                        this.Sshift = false;
+                        this.P2shift = false;
                     break;
                 }
             }

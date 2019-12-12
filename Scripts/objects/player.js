@@ -66,25 +66,73 @@ var objects;
         Player.prototype.Update = function () {
             if (!this.isDead) {
                 this.CheckBound(); // <-- Check collisions
-                if (managers.Game.keyboardManager.enabled) {
-                    this.Move();
-                    this.Shoot();
-                    this.Swapped();
-                    if (managers.Game.hud.Power > 20)
-                        this.ShootMissiles();
+                if (managers.Game.single) {
+                    if (managers.Game.keyboardManager.enabled) {
+                        this.Move();
+                        this.Shoot();
+                        this.Swapped();
+                        if (managers.Game.hud.Power > 20)
+                            this.ShootMissiles();
+                    }
+                    if (this.missile != undefined)
+                        this.missile.Update();
                 }
-                if (this.missile != undefined)
-                    this.missile.Update();
+                if (managers.Game.multi) {
+                    if (this.name == "P1") {
+                        if (managers.Game.keyboardManager.enabled) {
+                            this.Move();
+                            this.Shoot();
+                            this.Swapped();
+                            if (managers.Game.hud.P1Power > 20)
+                                this.ShootMissiles();
+                        }
+                        if (this.missile != undefined)
+                            this.missile.Update();
+                    }
+                    if (this.name == "P2") {
+                        if (managers.Game.keyboardManager.enabled) {
+                            this.Move();
+                            this.Shoot();
+                            this.Swapped();
+                            if (managers.Game.hud.P2Power > 20)
+                                this.ShootMissiles();
+                        }
+                        if (this.missile != undefined)
+                            this.missile.Update();
+                    }
+                }
             }
         };
         Player.prototype.Reset = function () {
-            this.isDead = true;
-            managers.Game.p1 = false;
-            managers.Game.p2 = false;
-            managers.Game.p3 = false;
-            managers.Game.p4 = false;
-            managers.Game.p5 = false;
-            this.RespawnTimer();
+            if (managers.Game.single) {
+                this.isDead = true;
+                managers.Game.p1 = false;
+                managers.Game.p2 = false;
+                managers.Game.p3 = false;
+                managers.Game.p4 = false;
+                managers.Game.p5 = false;
+                this.RespawnTimer();
+            }
+            if (managers.Game.multi) {
+                if (this.name == "P1") {
+                    this.isDead = true;
+                    managers.Game.P1p1 = false;
+                    managers.Game.P1p2 = false;
+                    managers.Game.P1p3 = false;
+                    managers.Game.P1p4 = false;
+                    managers.Game.P1p5 = false;
+                    this.RespawnTimer();
+                }
+                if (this.name == "P2") {
+                    this.isDead = true;
+                    managers.Game.P2p1 = false;
+                    managers.Game.P2p2 = false;
+                    managers.Game.P2p3 = false;
+                    managers.Game.P2p4 = false;
+                    managers.Game.P2p5 = false;
+                    this.RespawnTimer();
+                }
+            }
         };
         Player.prototype.Move = function () {
             if (managers.Game.single) {
@@ -859,26 +907,51 @@ var objects;
                     }
                 }
                 if (managers.Game.multi) {
-                    if ((managers.Game.keyboardManager.P1shoot || managers.Game.keyboardManager.P2shoot) && ticker % 40 == 0) {
-                        if (this.shootnum < 1) {
-                            for (var i = 0; i < 2; i++) {
-                                var position = new math.Vec2(this.x - 15, this.y - 10);
-                                //let enemyPos = new math.Vec2(enemy.x, enemy.y)
-                                //let distance =  math.Vec2.Distance(enemyPos, position)
-                                this.missile = managers.Game.missileManager.GetMissile();
-                                this.missile.Angle = 0;
-                                this.missile.AngleStep = (240 / 4) * this.shootnum;
-                                this.missile.Angle += this.missile.AngleStep;
-                                this.missile.Speed = 0.05;
-                                this.missile.Dir = new math.Vec2((90 * Math.sin(this.missile.Angle) * this.missile.Speed,
-                                    (90 * Math.cos(this.missile.Angle) * this.missile.Speed)));
-                                this.missile.x = position.x;
-                                this.missile.y = position.y;
-                                this.shootnum++;
+                    if (this.name == "P1") {
+                        if ((managers.Game.keyboardManager.P1shoot) && ticker % 40 == 0) {
+                            if (this.shootnum < 1) {
+                                for (var i = 0; i < 2; i++) {
+                                    var position = new math.Vec2(this.x - 15, this.y - 10);
+                                    //let enemyPos = new math.Vec2(enemy.x, enemy.y)
+                                    //let distance =  math.Vec2.Distance(enemyPos, position)
+                                    this.missile = managers.Game.P1MissileManager.GetMissile();
+                                    this.missile.Angle = 0;
+                                    this.missile.AngleStep = (240 / 4) * this.shootnum;
+                                    this.missile.Angle += this.missile.AngleStep;
+                                    this.missile.Speed = 0.05;
+                                    this.missile.Dir = new math.Vec2((90 * Math.sin(this.missile.Angle) * this.missile.Speed,
+                                        (90 * Math.cos(this.missile.Angle) * this.missile.Speed)));
+                                    this.missile.x = position.x;
+                                    this.missile.y = position.y;
+                                    this.shootnum++;
+                                }
                             }
+                            if (this.shootnum > 1)
+                                this.shootnum = 0;
                         }
-                        if (this.shootnum > 1)
-                            this.shootnum = 0;
+                    }
+                    if (this.name == "P2") {
+                        if ((managers.Game.keyboardManager.P2shoot) && ticker % 40 == 0) {
+                            if (this.shootnum < 1) {
+                                for (var i = 0; i < 2; i++) {
+                                    var position = new math.Vec2(this.x - 15, this.y - 10);
+                                    //let enemyPos = new math.Vec2(enemy.x, enemy.y)
+                                    //let distance =  math.Vec2.Distance(enemyPos, position)
+                                    this.missile = managers.Game.P2MissileManager.GetMissile();
+                                    this.missile.Angle = 0;
+                                    this.missile.AngleStep = (240 / 4) * this.shootnum;
+                                    this.missile.Angle += this.missile.AngleStep;
+                                    this.missile.Speed = 0.05;
+                                    this.missile.Dir = new math.Vec2((90 * Math.sin(this.missile.Angle) * this.missile.Speed,
+                                        (90 * Math.cos(this.missile.Angle) * this.missile.Speed)));
+                                    this.missile.x = position.x;
+                                    this.missile.y = position.y;
+                                    this.shootnum++;
+                                }
+                            }
+                            if (this.shootnum > 1)
+                                this.shootnum = 0;
+                        }
                     }
                 }
             }
@@ -897,14 +970,27 @@ var objects;
                 counter--;
                 if (counter == 0) {
                     counter = 2;
-                    if (managers.Game.hud.Lives < 0) {
-                        managers.Game.over = true;
-                        managers.Game.currentScene = config.Scene.OVER;
+                    if (managers.Game.single) {
+                        if (managers.Game.hud.Lives < 0) {
+                            managers.Game.over = true;
+                            managers.Game.currentScene = config.Scene.OVER;
+                        }
+                        else {
+                            _this.isDead = false;
+                            _this.alpha = 1;
+                            _this.InvincibilityTimer();
+                        }
                     }
-                    else {
-                        _this.isDead = false;
-                        _this.alpha = 1;
-                        _this.InvincibilityTimer();
+                    if (managers.Game.multi) {
+                        if (managers.Game.hud.P1Lives < 0 && managers.Game.hud.P2Lives < 0) {
+                            managers.Game.over = true;
+                            managers.Game.currentScene = config.Scene.OVER;
+                        }
+                        else {
+                            _this.isDead = false;
+                            _this.alpha = 1;
+                            _this.InvincibilityTimer();
+                        }
                     }
                     clearInterval(interval);
                 }

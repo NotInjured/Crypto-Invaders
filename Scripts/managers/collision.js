@@ -290,23 +290,63 @@ var managers;
                         (object1.x - object1.halfW) < ((object2.x - 10) + object2.halfW / 4) &&
                         (object1.y + object1.halfH) > ((object2.y - 10) - object2.halfH / 4) &&
                         (object1.y - object1.halfH) < ((object2.y - 10) + object2.halfH / 4)) {
-                        if (!managers.Game.player.IsInvincible && !managers.Game.player.isDead) {
-                            explosion = new objects.Effect("Explosion", object2.x, object2.y);
-                            console.log("Player Hit");
-                            var death = createjs.Sound.play("playerDeath");
-                            death.volume = 0.3;
-                            explosion.x = object2.x + 20;
-                            explosion.y = object2.y + 20;
-                            explosion.scaleY = 0.5;
-                            explosion.scaleX = 0.5;
-                            managers.Game.currentSceneObject.addChild(explosion);
-                            managers.Game.hud.Lives -= 1;
-                            managers.Game.hud.playerLivesSprite[managers.Game.hud.Lives].alpha = 0.5;
-                            managers.Game.hud.ScoreMult = 1;
-                            managers.Game.hud.Score = Math.floor(managers.Game.hud.Score / 2);
-                            managers.Game.hud.Power = Math.floor(managers.Game.hud.Power / 2);
-                            object1.Reset();
-                            object2.Reset();
+                        if (managers.Game.single) {
+                            if (!managers.Game.player.IsInvincible && !managers.Game.player.isDead) {
+                                explosion = new objects.Effect("Explosion", object2.x, object2.y);
+                                console.log("Player Hit");
+                                var death = createjs.Sound.play("playerDeath");
+                                death.volume = 0.3;
+                                explosion.x = object2.x + 20;
+                                explosion.y = object2.y + 20;
+                                explosion.scaleY = 0.5;
+                                explosion.scaleX = 0.5;
+                                managers.Game.currentSceneObject.addChild(explosion);
+                                managers.Game.hud.Lives -= 1;
+                                managers.Game.hud.playerLivesSprite[managers.Game.hud.Lives].alpha = 0.5;
+                                managers.Game.hud.ScoreMult = 1;
+                                managers.Game.hud.Score = Math.floor(managers.Game.hud.Score / 2);
+                                managers.Game.hud.Power = Math.floor(managers.Game.hud.Power / 2);
+                                object1.Reset();
+                                object2.Reset();
+                            }
+                        }
+                        if (managers.Game.multi) {
+                            if (!managers.Game.P1.IsInvincible && !managers.Game.P1.isDead) {
+                                explosion = new objects.Effect("Explosion", object2.x, object2.y);
+                                console.log("Player Hit");
+                                var death = createjs.Sound.play("playerDeath");
+                                death.volume = 0.3;
+                                explosion.x = object2.x + 20;
+                                explosion.y = object2.y + 20;
+                                explosion.scaleY = 0.5;
+                                explosion.scaleX = 0.5;
+                                managers.Game.currentSceneObject.addChild(explosion);
+                                managers.Game.hud.P1Lives -= 1;
+                                managers.Game.hud.P1playerLivesSprite[managers.Game.hud.P1Lives].alpha = 0.5;
+                                managers.Game.hud.P1ScoreMult = 1;
+                                managers.Game.hud.P1Score = Math.floor(managers.Game.hud.P1Score / 2);
+                                managers.Game.hud.P1Power = Math.floor(managers.Game.hud.P1Power / 2);
+                                object1.Reset();
+                                object2.Reset();
+                            }
+                            if (!managers.Game.P2.IsInvincible && !managers.Game.P2.isDead) {
+                                explosion = new objects.Effect("Explosion", object2.x, object2.y);
+                                console.log("Player Hit");
+                                var death = createjs.Sound.play("playerDeath");
+                                death.volume = 0.3;
+                                explosion.x = object2.x + 20;
+                                explosion.y = object2.y + 20;
+                                explosion.scaleY = 0.5;
+                                explosion.scaleX = 0.5;
+                                managers.Game.currentSceneObject.addChild(explosion);
+                                managers.Game.hud.P2Lives -= 1;
+                                managers.Game.hud.P2playerLivesSprite[managers.Game.hud.P2Lives].alpha = 0.5;
+                                managers.Game.hud.P2ScoreMult = 1;
+                                managers.Game.hud.P2Score = Math.floor(managers.Game.hud.P2Score / 2);
+                                managers.Game.hud.P2Power = Math.floor(managers.Game.hud.P2Power / 2);
+                                object1.Reset();
+                                object2.Reset();
+                            }
                         }
                     }
                     break;

@@ -26,7 +26,7 @@ var config;
         Keys.RIGHT = 39;
         Keys.UP = 38;
         Keys.DOWN = 40;
-        Keys.NUM1 = 97;
+        Keys.NUMENTER = 13;
         Keys.NUM0 = 96;
         Keys.NUMDOT = 110;
         return Keys;

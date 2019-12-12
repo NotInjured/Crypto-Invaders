@@ -48,6 +48,8 @@ module managers {        // Access to globally-required items
         public static multi: boolean = false
 
         public static P1: objects.Player
+        public static P1score: number
+        public static P1hScore: number
         public static P1BulletManager: managers.Bullet
         public static P1MissileManager: managers.Missile
         public static P1p1: boolean = false
@@ -57,6 +59,8 @@ module managers {        // Access to globally-required items
         public static P1p5: boolean = false
 
         public static P2: objects.Player
+        public static P2score: number
+        public static P2hScore: number
         public static P2BulletManager: managers.Bullet
         public static P2MissileManager: managers.Missile
         public static P2p1: boolean = false
