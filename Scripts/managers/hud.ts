@@ -154,6 +154,8 @@ module managers {
                     this.backButton.alpha = 0
                     this.continueButton.alpha = 0
                     this.gameOverLabel.alpha = 0
+                    if(!managers.Game.player.isDead)
+                        managers.Game.player.alpha = 1
                     managers.Game.keyboardManager.enabled = true
                 }
                 
@@ -162,6 +164,7 @@ module managers {
                     this.bBackground.alpha = 1
                     this.backButton.alpha = 1
                     this.continueButton.alpha = 1
+                    managers.Game.player.alpha = 0
                     managers.Game.keyboardManager.enabled =false
 
                     this.backButton.on("click", this.backButtonClick)
@@ -173,6 +176,8 @@ module managers {
                     this.backButton.alpha = 0
                     this.continueButton.alpha = 0
                     this.gameOverLabel.alpha = 0
+                    if(!managers.Game.player.isDead)
+                        managers.Game.player.alpha = 1
                     managers.Game.keyboardManager.enabled =true
                 }
 
@@ -180,15 +185,11 @@ module managers {
                     this.gameOverLabel.alpha = 1
                     this.bBackground.alpha = 1
                     this.backButton.alpha = 1
+                    managers.Game.player.alpha = 0
                     this.gameOverLabel.text = "Game Completed!"
-                    managers.Game.keyboardManager.enabled =false
-                    //this.continueButton.alpha = 1
-                    //this.continueLabel.alpha = 1
-                    //this.continueLabel.x = 470
-                    //this.continueLabel.y = 300
+                    managers.Game.keyboardManager.enabled = false
 
                     this.backButton.on("click", this.backButtonClick)
-                    //this.continueButton.on("click", this.continueButtonClick)
                 }
 
                 if(managers.Game.level1 && managers.Game.level3Completed){
@@ -196,19 +197,6 @@ module managers {
                     this.backButton.alpha = 0
                     this.continueButton.alpha = 0
                     this.gameOverLabel.alpha = 0
-
-                    if(managers.Game.ng){
-                        managers.Game.level1 = true
-                        managers.Game.level2 = false
-                        managers.Game.level3 = false
-                        managers.Game.level1Completed = false
-                        managers.Game.level2Completed = false
-                        managers.Game.level3Completed = false
-                        managers.Game.boss1IsDead = false
-                        managers.Game.boss2IsDead = false
-                        managers.Game.boss3_1IsDead = false
-                        managers.Game.boss3_2IsDead = false
-                    }
                 }
             }
         }
@@ -224,15 +212,17 @@ module managers {
             if(managers.Game.level1Completed && managers.Game.level1){
                 managers.Game.level1 = false
                 managers.Game.level2 = true
+                managers.Game.player.alpha = 1
             }
             if(managers.Game.level2Completed && managers.Game.level2){
                 managers.Game.level2 = false
                 managers.Game.level3 = true
+                managers.Game.player.alpha = 1
             }
             if(managers.Game.level3Completed && managers.Game.level3){
                 managers.Game.level3 = false
                 managers.Game.level1 = true
-                managers.Game.ng = true
+                managers.Game.player.alpha = 1
             }
         }
 

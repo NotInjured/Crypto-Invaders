@@ -1183,11 +1183,6 @@ var objects;
                                         this.pattern7 = false;
                                         this.pattern9 = true;
                                     }
-                                    if (managers.Game.boss1Hp < 100) {
-                                        this.pattern1 = true;
-                                        this.pattern7 = false;
-                                        this.pattern9 = false;
-                                    }
                                     this.Timer();
                                 }
                                 break;

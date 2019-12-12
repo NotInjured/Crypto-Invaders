@@ -36,23 +36,14 @@ module scenes {
             if(managers.Game.hell)
                 this.diff = "Hell"
             
-
-            if(!managers.Game.boss1IsDead){
-                this.gameOverLabel = new objects.Label(
-                    "     Game Over!" + "\n" + "Ran out of lives.", 
-                    "36px", "OptimusPrinceps", "#000000", 650, 240, true);
-                this.tryAgainLabel = new objects.Label(
-                    "Try Again?", "20px", "OptimusPrinceps", "#000000", 535, 400, true);
-                this.diffLabel = new objects.Label(
-                    "Maybe turn down the difficulty if its too hard.", "12px", "OptimusPrinceps", "#000000", 535, 690, true);
-            }
-            if(managers.Game.boss1IsDead){
-                this.gameOverLabel = new objects.Label(
-                    "\t\t\t" + "Level 1 Completed!" + "\n" + "\t  Difficulty: " + this.diff, 
-                    "36px", "OptimusPrinceps", "#000000", 675, 240, true);
-                this.tryAgainLabel = new objects.Label(
-                    "Try Again?", "20px", "OptimusPrinceps", "#000000", 535, 400, true);
-            }
+            this.gameOverLabel = new objects.Label(
+                "     Game Over!" + "\n" + "Ran out of lives.", 
+                "36px", "OptimusPrinceps", "#000000", 650, 240, true);
+            this.tryAgainLabel = new objects.Label(
+                "Try Again?", "20px", "OptimusPrinceps", "#000000", 535, 400, true);
+            this.diffLabel = new objects.Label(
+                "Maybe turn down the difficulty if its too hard.", "12px", "OptimusPrinceps", "#000000", 535, 690, true);
+            
             
             this.scoreLabel = new objects.Label("Score:" +"\n" + managers.Game.score, "30px", "OptimusPrinceps","#000000", 500, 300, false );
 
@@ -92,17 +83,11 @@ module scenes {
 
         public Main():void {
             this.addChild(this.hud);
-            if(managers.Game.boss1IsDead){
-                this.addChild(this.gameOverLabel)
-                this.addChild(this.tryAgainLabel)
-                this.addChild(this.scoreLabel)
-            }
-            if(!managers.Game.boss1IsDead){
-                this.addChild(this.gameOverLabel)
-                this.addChild(this.tryAgainLabel)
-                this.addChild(this.scoreLabel)
-                this.addChild(this.diffLabel)
-            }
+            this.addChild(this.gameOverLabel)
+            this.addChild(this.tryAgainLabel)
+            this.addChild(this.scoreLabel)
+            this.addChild(this.diffLabel)
+            
             this.addChild(this.backButton)
             //this.addChild(this.continueButton)
             this.addChild(this.startButton)

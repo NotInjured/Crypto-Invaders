@@ -92,7 +92,7 @@ module scenes {
 
             managers.Game.player = this.player
             managers.Game.timer = 600
-            managers.Game.boss1Hp = 200
+            managers.Game.boss1Hp = 5
             managers.Game.boss2Hp = 300
             managers.Game.boss3_1Hp = 250
             managers.Game.boss3_2Hp = 250
@@ -422,7 +422,7 @@ module scenes {
                 //if(managers.Game.timer <= 591){
                     this.removeChild(this.stageName)
                    
-                    
+                    /*
                     this.level1Enemies[0].forEach(e =>{
                         if(!e.isDead){
                             e.isInvincible = false;
@@ -432,8 +432,8 @@ module scenes {
                                 m.FindEnemies(e)
                             })
                         }
-                    })
-                    /*
+                    })*/
+                    
                     if(!this.bosses[0].isDead){
                         this.bosses[0].isInvincible = false
                         this.bosses[0].FindPlayer(this.player)
@@ -442,7 +442,7 @@ module scenes {
                         this.missileManager.Missile.forEach( m => {
                             m.FindEnemies(this.bosses[0])
                         })
-                    }
+                    }/*
                     
                     this.eliteUnits[0].forEach(e =>{
                         if(!e.isDead){
@@ -474,7 +474,7 @@ module scenes {
                             m.FindEnemies(this.bosses[3])
                         })
                     }*/
-                }
+                }/*
                 if(managers.Game.timer >= 481 && managers.Game.timer <= 581){
                     this.level1Enemies[1].forEach(e =>{
                         if(!e.isDead){
@@ -499,6 +499,7 @@ module scenes {
                     })
 
                 }
+
                 if(managers.Game.timer >= 481 && managers.Game.timer <= 576){
                     this.level1Enemies[2].forEach(e =>{
                         if(!e.isDead){
@@ -527,13 +528,13 @@ module scenes {
 
                 if(managers.Game.timer < 481){
                     this.level1Enemies[0].forEach(e =>{
-                        e.y -= 10;
+                        e.y += 10;
                     })
                     this.level1Enemies[1].forEach(e =>{
-                        e.x += 10;
+                        e.x -= 10;
                     })
                     this.level1Enemies[2].forEach(e =>{
-                        e.y += 10;
+                        e.y -= 10;
                     })
                 }
 
@@ -554,7 +555,7 @@ module scenes {
                             m.FindEnemies(this.bosses[0])
                         })
                     }
-                }
+                }*/
 
                 if(managers.Game.boss1Hp == 0){
                     this.removeChild(this.bosses[0])
@@ -569,7 +570,7 @@ module scenes {
                         counter--;
                         if(counter < 0){
                             clearInterval(interval);
-                            this.player.alpha = 0
+                            //this.player.alpha = 0
                             managers.Game.level1Completed = true;
                         }
                     }, 1000)
@@ -577,8 +578,6 @@ module scenes {
             }
             
             if(managers.Game.level2){
-                this.player.alpha = 1
-
                 if(managers.Game.timer == 600){
                     createjs.Sound.stop();
                     this.bgm = createjs.Sound.play("bgm3");
@@ -640,6 +639,7 @@ module scenes {
                         }
                     })
                 }
+
                 if(managers.Game.timer > 505 && managers.Game.timer < 585){
                     this.level2Enemies[0].forEach(e =>{
                         if(!e.isDead){
@@ -677,12 +677,14 @@ module scenes {
                         e.y += 10;
                     })
                 }
+
                 if(managers.Game.timer == 504){
                     createjs.Sound.stop();
                     this.bgm = createjs.Sound.play("bossMusic");
                     this.bgm.loop = -1;
                     this.bgm.volume = 0.05;
                 }
+
                 if(managers.Game.timer < 503){
                     if(!this.bosses[1].isDead){
                         this.bosses[1].isInvincible = false
@@ -701,14 +703,13 @@ module scenes {
                     this.bosses[1].isDead = true;
                     managers.Game.boss2IsDead = true;
                     this.bosses[1].DropCoins(50)
-
                     let counter2 = 5;
 
                     let interval = setInterval(() =>{
                         counter2--;
                         if(counter2 < 0){
                             clearInterval(interval);
-                            this.player.alpha = 0
+                            //this.player.alpha = 0
                             managers.Game.level2Completed = true
                         }
                     }, 1000)
