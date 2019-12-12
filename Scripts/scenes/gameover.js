@@ -38,7 +38,12 @@ var scenes;
             this.gameOverLabel = new objects.Label("     Game Over!" + "\n" + "Ran out of lives.", "36px", "OptimusPrinceps", "#000000", 650, 240, true);
             this.tryAgainLabel = new objects.Label("Try Again?", "20px", "OptimusPrinceps", "#000000", 535, 400, true);
             this.diffLabel = new objects.Label("Maybe turn down the difficulty if its too hard.", "12px", "OptimusPrinceps", "#000000", 535, 690, true);
-            this.scoreLabel = new objects.Label("Score:" + "\n" + managers.Game.score, "30px", "OptimusPrinceps", "#000000", 500, 300, false);
+            if (managers.Game.single) {
+                this.scoreLabel = new objects.Label("HighScore: " + managers.Game.highScore + "\n" + "Score: " + managers.Game.score, "24px", "OptimusPrinceps", "#000000", 375, 300, false);
+            }
+            if (managers.Game.multi)
+                this.scoreLabel = new objects.Label("Highest Total Score: " + "\n" + managers.Game.P1hScore + managers.Game.P2hScore + "\n" +
+                    "Total Score: " + "\n" + managers.Game.P1score + managers.Game.P2score, "24px", "OptimusPrinceps", "#000000", 375, 300, false);
             this.startButton = new objects.Button("buttonStart", 630, 475);
             this.backButton = new objects.Button("buttonBack", 630, 555);
             this.continueButton = new objects.Button("buttonContinue", 630, 475);
@@ -53,18 +58,6 @@ var scenes;
         GameOverScene.prototype.startButtonClick = function () {
             // Change our game state from START to GAME
             managers.Game.currentScene = config.Scene.GAME;
-        };
-        GameOverScene.prototype.continueButtonClick = function () {
-            if (managers.Game.level1Completed && managers.Game.level1) {
-                managers.Game.level1 = false;
-                managers.Game.level2 = true;
-                managers.Game.currentScene = config.Scene.GAME;
-            }
-            if (managers.Game.level2Completed && managers.Game.level2) {
-                managers.Game.level2 = false;
-                managers.Game.level3 = true;
-                managers.Game.currentScene = config.Scene.GAME;
-            }
         };
         GameOverScene.prototype.Main = function () {
             this.addChild(this.hud);

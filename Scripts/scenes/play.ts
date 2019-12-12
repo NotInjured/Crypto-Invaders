@@ -1821,6 +1821,17 @@ module scenes {
                 if(managers.Game.hud.P1Lives < 0 && managers.Game.hud.P2Lives < 0){
                     managers.Game.currentScene = config.Scene.OVER;
                 }
+
+                if(managers.Game.hud.P1Lives < 0){
+                    this.P1.isDead = true
+                    this.P1.alpha = 0
+                    this.P1Tag.alpha = 0
+                }
+                if(managers.Game.hud.P2Lives < 0){
+                    this.P2.isDead = true
+                    this.P2.alpha = 0
+                    this.P2Tag.alpha = 0
+                }
             }
         }
 

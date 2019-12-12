@@ -115,13 +115,19 @@ var objects;
             }
             if (managers.Game.multi) {
                 if (this.name == "P1") {
-                    this.isDead = true;
-                    managers.Game.P1p1 = false;
-                    managers.Game.P1p2 = false;
-                    managers.Game.P1p3 = false;
-                    managers.Game.P1p4 = false;
-                    managers.Game.P1p5 = false;
-                    this.RespawnTimer();
+                    if (managers.Game.hud.P1Lives < 0) {
+                        this.isDead = true;
+                        this.alpha = 0;
+                    }
+                    if (managers.Game.hud.P1Lives >= 0) {
+                        this.isDead = true;
+                        managers.Game.P1p1 = false;
+                        managers.Game.P1p2 = false;
+                        managers.Game.P1p3 = false;
+                        managers.Game.P1p4 = false;
+                        managers.Game.P1p5 = false;
+                        this.RespawnTimer();
+                    }
                 }
                 if (this.name == "P2") {
                     this.isDead = true;

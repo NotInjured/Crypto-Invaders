@@ -48,6 +48,7 @@ module objects {
         private pattern8:boolean = false
         private pattern9:boolean = false
         private pattern10:boolean = false
+        private pattern11:boolean = false
     
         private randomPattern:number = Math.floor(Math.random() * (5 - 1 + 1) + 1)
 
@@ -568,115 +569,225 @@ module objects {
                                     }
                                 }
                         }
+                        if(managers.Game.single){
+                            if(managers.Game.boss1Hp > 150){
+                                if(managers.Game.normal){
+                                    if(this.pattern1)
+                                        this.ShootPattern(1)
+                                    if(!this.pattern1 && this.pattern2)
+                                        this.ShootPattern(2)
+                                    if(!this.pattern2 && this.pattern3)
+                                        this.ShootPattern(3)
+                                    if(!this.pattern3 && this.pattern4)
+                                        this.ShootPattern(4)
+                                }
+                                if(managers.Game.hard){
+                                    if(this.pattern1)
+                                        this.ShootPattern(1)
+                                    if(!this.pattern1 && this.pattern2)
+                                        this.ShootPattern(2)
+                                    if(!this.pattern2 && this.pattern3)
+                                        this.ShootPattern(3)
+                                    if(!this.pattern3 && this.pattern6)
+                                        this.ShootPattern(6)
+                                }
+                                if(managers.Game.hell){
+                                    if(this.pattern1)
+                                        this.ShootPattern(1)
+                                    if(!this.pattern1 && this.pattern2)
+                                        this.ShootPattern(2)
+                                    if(!this.pattern2 && this.pattern3)
+                                        this.ShootPattern(3)
+                                    if(!this.pattern3 && this.pattern7)
+                                       this.ShootPattern(7)
+                                } 
+                            }
+                            if(managers.Game.boss1Hp > 100 && managers.Game.boss1Hp < 150){
+                                if(managers.Game.normal){
+                                    if(this.pattern1)
+                                        this.ShootPattern(1)
+                                    if(!this.pattern1 && this.pattern2)
+                                        this.ShootPattern(2)
+                                    if(!this.pattern2 && this.pattern3)
+                                        this.ShootPattern(3)
+                                    if(!this.pattern3 && this.pattern4)
+                                        this.ShootPattern(4)
+                                    if(!this.pattern4 && this.pattern5)
+                                        this.ShootPattern(5)
+                                }
+                                if(managers.Game.hard){
+                                    if(this.pattern1)
+                                        this.ShootPattern(1)
+                                    if(!this.pattern1 && this.pattern2)
+                                        this.ShootPattern(2)
+                                    if(!this.pattern2 && this.pattern3)
+                                        this.ShootPattern(3)
+                                    if(!this.pattern3 && this.pattern6)
+                                        this.ShootPattern(6)
+                                    if(!this.pattern6 && this.pattern8)
+                                        this.ShootPattern(8)
+                                }
+                                if(managers.Game.hell){
+                                    if(this.pattern1)
+                                        this.ShootPattern(1)
+                                    if(!this.pattern1 && this.pattern2)
+                                        this.ShootPattern(2)
+                                    if(!this.pattern2 && this.pattern3)
+                                        this.ShootPattern(3)
+                                    if(!this.pattern3 && this.pattern7)
+                                        this.ShootPattern(7)
+                                    if(!this.pattern7 && this.pattern9)
+                                        this.ShootPattern(9)
+                                }
+                            }
+                            if(managers.Game.boss1Hp < 100){
+                                if(managers.Game.normal){
+                                    if(this.pattern1)
+                                        this.ShootPattern(1)
+                                    if(!this.pattern1 && this.pattern2)
+                                        this.ShootPattern(2)
+                                    if(!this.pattern2 && this.pattern3)
+                                        this.ShootPattern(3)
+                                    if(!this.pattern3 && this.pattern4 || this.pattern5){
+                                        this.ShootPattern(4)
+                                        this.ShootPattern(5)
+                                    }
+                                }
+                                if(managers.Game.hard){
+                                    if(this.pattern1)
+                                        this.ShootPattern(1)
+                                    if(!this.pattern1 && this.pattern2)
+                                        this.ShootPattern(2)
+                                    if(!this.pattern2 && this.pattern3)
+                                        this.ShootPattern(3)
+                                    if(!this.pattern3 && this.pattern6 || this.pattern8){
+                                        this.ShootPattern(6)
+                                        this.ShootPattern(8)
+                                    }
+                                }
+                                if(managers.Game.hell){
+                                    if(this.pattern1)
+                                        this.ShootPattern(1)
+                                    if(!this.pattern1 && this.pattern2)
+                                        this.ShootPattern(2)
+                                    if(!this.pattern2 && this.pattern3)
+                                        this.ShootPattern(3)
+                                    if(!this.pattern3 && this.pattern7 || this.pattern9){
+                                        this.ShootPattern(7)
+                                        this.ShootPattern(9)
+                                    }
+                                }
+                            }
+                        }
 
-                        if(managers.Game.boss1Hp > 150){
-                            if(managers.Game.normal){
-                                if(this.pattern1)
-                                    this.ShootPattern(1)
-                                if(!this.pattern1 && this.pattern2)
-                                    this.ShootPattern(2)
-                                if(!this.pattern2 && this.pattern3)
-                                    this.ShootPattern(3)
-                                if(!this.pattern3 && this.pattern4)
-                                    this.ShootPattern(4)
+                        if(managers.Game.multi){
+                            if(managers.Game.boss1Hp > 350){
+                                if(managers.Game.normal){
+                                    if(this.pattern1)
+                                        this.ShootPattern(1)
+                                    if(!this.pattern1 && this.pattern2)
+                                        this.ShootPattern(2)
+                                    if(!this.pattern2 && this.pattern3)
+                                        this.ShootPattern(3)
+                                    if(!this.pattern3 && this.pattern4)
+                                        this.ShootPattern(4)
+                                }
+                                if(managers.Game.hard){
+                                    if(this.pattern1)
+                                        this.ShootPattern(1)
+                                    if(!this.pattern1 && this.pattern2)
+                                        this.ShootPattern(2)
+                                    if(!this.pattern2 && this.pattern3)
+                                        this.ShootPattern(3)
+                                    if(!this.pattern3 && this.pattern6)
+                                        this.ShootPattern(6)
+                                }
+                                if(managers.Game.hell){
+                                    if(this.pattern1)
+                                        this.ShootPattern(1)
+                                    if(!this.pattern1 && this.pattern2)
+                                        this.ShootPattern(2)
+                                    if(!this.pattern2 && this.pattern3)
+                                        this.ShootPattern(3)
+                                    if(!this.pattern3 && this.pattern7)
+                                       this.ShootPattern(7)
+                                } 
                             }
-                            if(managers.Game.hard){
-                                if(this.pattern1)
-                                    this.ShootPattern(1)
-                                if(!this.pattern1 && this.pattern2)
-                                    this.ShootPattern(2)
-                                if(!this.pattern2 && this.pattern3)
-                                    this.ShootPattern(3)
-                                if(!this.pattern3 && this.pattern6)
-                                    this.ShootPattern(6)
-                            }
-                            if(managers.Game.hell){
-                                if(this.pattern1)
-                                    this.ShootPattern(1)
-                                if(!this.pattern1 && this.pattern2)
-                                    this.ShootPattern(2)
-                                if(!this.pattern2 && this.pattern3)
-                                    this.ShootPattern(3)
-                                if(!this.pattern3 && this.pattern7)
-                                   this.ShootPattern(7)
-                            } 
-                        }
-                        if(managers.Game.boss1Hp > 100 && managers.Game.boss1Hp < 150){
-                            if(managers.Game.normal){
-                                if(this.pattern1)
-                                    this.ShootPattern(1)
-                                if(!this.pattern1 && this.pattern2)
-                                    this.ShootPattern(2)
-                                if(!this.pattern2 && this.pattern3)
-                                    this.ShootPattern(3)
-                                if(!this.pattern3 && this.pattern4)
-                                    this.ShootPattern(4)
-                                if(!this.pattern4 && this.pattern5)
-                                    this.ShootPattern(5)
-                            }
-                            if(managers.Game.hard){
-                                if(this.pattern1)
-                                    this.ShootPattern(1)
-                                if(!this.pattern1 && this.pattern2)
-                                    this.ShootPattern(2)
-                                if(!this.pattern2 && this.pattern3)
-                                    this.ShootPattern(3)
-                                if(!this.pattern3 && this.pattern6)
-                                    this.ShootPattern(6)
-                                if(!this.pattern6 && this.pattern8)
-                                    this.ShootPattern(8)
-                            }
-                            if(managers.Game.hell){
-                                if(this.pattern1)
-                                    this.ShootPattern(1)
-                                if(!this.pattern1 && this.pattern2)
-                                    this.ShootPattern(2)
-                                if(!this.pattern2 && this.pattern3)
-                                    this.ShootPattern(3)
-                                if(!this.pattern3 && this.pattern7)
-                                    this.ShootPattern(7)
-                                if(!this.pattern7 && this.pattern9)
-                                    this.ShootPattern(9)
-                            }
-                        }
-                        if(managers.Game.boss1Hp < 100){
-                            if(managers.Game.normal){
-                                if(this.pattern1)
-                                    this.ShootPattern(1)
-                                if(!this.pattern1 && this.pattern2)
-                                    this.ShootPattern(2)
-                                if(!this.pattern2 && this.pattern3)
-                                    this.ShootPattern(3)
-                                if(!this.pattern3 && this.pattern4 || this.pattern5){
-                                    this.ShootPattern(4)
-                                    this.ShootPattern(5)
+                            if(managers.Game.boss1Hp > 250 && managers.Game.boss1Hp < 350){
+                                if(managers.Game.normal){
+                                    if(this.pattern1)
+                                        this.ShootPattern(1)
+                                    if(!this.pattern1 && this.pattern2)
+                                        this.ShootPattern(2)
+                                    if(!this.pattern2 && this.pattern3)
+                                        this.ShootPattern(3)
+                                    if(!this.pattern3 && this.pattern4)
+                                        this.ShootPattern(4)
+                                    if(!this.pattern4 && this.pattern5)
+                                        this.ShootPattern(5)
+                                }
+                                if(managers.Game.hard){
+                                    if(this.pattern1)
+                                        this.ShootPattern(1)
+                                    if(!this.pattern1 && this.pattern2)
+                                        this.ShootPattern(2)
+                                    if(!this.pattern2 && this.pattern3)
+                                        this.ShootPattern(3)
+                                    if(!this.pattern3 && this.pattern6)
+                                        this.ShootPattern(6)
+                                    if(!this.pattern6 && this.pattern8)
+                                        this.ShootPattern(8)
+                                }
+                                if(managers.Game.hell){
+                                    if(this.pattern1)
+                                        this.ShootPattern(1)
+                                    if(!this.pattern1 && this.pattern2)
+                                        this.ShootPattern(2)
+                                    if(!this.pattern2 && this.pattern3)
+                                        this.ShootPattern(3)
+                                    if(!this.pattern3 && this.pattern7)
+                                        this.ShootPattern(7)
+                                    if(!this.pattern7 && this.pattern9)
+                                        this.ShootPattern(9)
                                 }
                             }
-                            if(managers.Game.hard){
-                                if(this.pattern1)
-                                    this.ShootPattern(1)
-                                if(!this.pattern1 && this.pattern2)
-                                    this.ShootPattern(2)
-                                if(!this.pattern2 && this.pattern3)
-                                    this.ShootPattern(3)
-                                if(!this.pattern3 && this.pattern6 || this.pattern8){
-                                    this.ShootPattern(6)
-                                    this.ShootPattern(8)
+                            if(managers.Game.boss1Hp < 250){
+                                if(managers.Game.normal){
+                                    if(this.pattern1)
+                                        this.ShootPattern(1)
+                                    if(!this.pattern1 && this.pattern2)
+                                        this.ShootPattern(2)
+                                    if(!this.pattern2 && this.pattern3)
+                                        this.ShootPattern(3)
+                                    if(!this.pattern3 && this.pattern11){
+                                        this.ShootPattern(11)
+                                    }
                                 }
-                            }
-                            if(managers.Game.hell){
-                                if(this.pattern1)
-                                    this.ShootPattern(1)
-                                if(!this.pattern1 && this.pattern2)
-                                    this.ShootPattern(2)
-                                if(!this.pattern2 && this.pattern3)
-                                    this.ShootPattern(3)
-                                if(!this.pattern3 && this.pattern7 || this.pattern9){
-                                    this.ShootPattern(7)
-                                    this.ShootPattern(9)
+                                if(managers.Game.hard){
+                                    if(this.pattern1)
+                                        this.ShootPattern(1)
+                                    if(!this.pattern1 && this.pattern2)
+                                        this.ShootPattern(2)
+                                    if(!this.pattern2 && this.pattern3)
+                                        this.ShootPattern(3)
+                                    if(!this.pattern3 && this.pattern11){
+                                        this.ShootPattern(11)
+                                    }
+                                }
+                                if(managers.Game.hell){
+                                    if(this.pattern1)
+                                        this.ShootPattern(1)
+                                    if(!this.pattern1 && this.pattern2)
+                                        this.ShootPattern(2)
+                                    if(!this.pattern2 && this.pattern3)
+                                        this.ShootPattern(3)
+                                    if(!this.pattern3 && this.pattern11){
+                                        this.ShootPattern(11)
+                                    }
                                 }
                             }
                         }
+                        
                     }
                 break;
                 case "Enemy5":
@@ -1069,41 +1180,77 @@ module objects {
                                 if(this.shootNum > 13){
                                     this.bullet.Reset()
                                     this.shoot = true;
+                                    if(managers.Game.single){
+                                        if(managers.Game.boss1Hp > 150){
+                                            this.pattern3 = false
+                                            this.pattern4 = true
+                                        }
+                                        if(managers.Game.boss1Hp > 100 && managers.Game.boss1Hp < 150){
+                                            if(managers.Game.normal){
+                                                this.pattern3 = false
+                                                this.pattern4 = true
+                                            }
+                                            if(managers.Game.hard){
+                                                this.pattern3 = false
+                                                this.pattern6 = true
+                                            }
+                                            if(managers.Game.hell){
+                                                this.pattern3 = false
+                                                this.pattern7 = true
+                                            }
+                                        }
+                                        if(managers.Game.boss1Hp < 100){
+                                            if(managers.Game.normal){
+                                                this.pattern3 = false
+                                                this.pattern4 = true
+                                            }
+                                            if(managers.Game.hard){
+                                                this.pattern3 = false
+                                                this.pattern6 = true
+                                                this.pattern8 = true
+                                            }
+                                            if(managers.Game.hell){
+                                                this.pattern3 = false
+                                                this.pattern7 = true
+                                                this.pattern9 = true
+                                            }
+                                        }
+                                    }
+                                    if(managers.Game.multi){
+                                        if(managers.Game.boss1Hp > 350){
+                                            this.pattern3 = false
+                                            this.pattern4 = true
+                                        }
+                                        if(managers.Game.boss1Hp > 250 && managers.Game.boss1Hp < 350){
+                                            if(managers.Game.normal){
+                                                this.pattern3 = false
+                                                this.pattern4 = true
+                                            }
+                                            if(managers.Game.hard){
+                                                this.pattern3 = false
+                                                this.pattern6 = true
+                                            }
+                                            if(managers.Game.hell){
+                                                this.pattern3 = false
+                                                this.pattern7 = true
+                                            }
+                                        }
+                                        if(managers.Game.boss1Hp < 250){
+                                            if(managers.Game.normal){
+                                                this.pattern3 = false
+                                                this.pattern11 = true
+                                            }
+                                            if(managers.Game.hard){
+                                                this.pattern3 = false
+                                                this.pattern11 = true
+                                            }
+                                            if(managers.Game.hell){
+                                                this.pattern3 = false
+                                                this.pattern11 = true
+                                            }
+                                        }
+                                    }
                                     
-                                    if(managers.Game.boss1Hp > 150){
-                                        this.pattern3 = false
-                                        this.pattern4 = true
-                                    }
-                                    if(managers.Game.boss1Hp > 100 && managers.Game.boss1Hp < 150){
-                                        if(managers.Game.normal){
-                                            this.pattern3 = false
-                                            this.pattern4 = true
-                                        }
-                                        if(managers.Game.hard){
-                                            this.pattern3 = false
-                                            this.pattern6 = true
-                                        }
-                                        if(managers.Game.hell){
-                                            this.pattern3 = false
-                                            this.pattern7 = true
-                                        }
-                                    }
-                                    if(managers.Game.boss1Hp < 100){
-                                        if(managers.Game.normal){
-                                            this.pattern3 = false
-                                            this.pattern4 = true
-                                        }
-                                        if(managers.Game.hard){
-                                            this.pattern3 = false
-                                            this.pattern6 = true
-                                            this.pattern8 = true
-                                        }
-                                        if(managers.Game.hell){
-                                            this.pattern3 = false
-                                            this.pattern7 = true
-                                            this.pattern9 = true
-                                        }
-                                    }
                                     this.Timer();
                                 }
                             break;
@@ -1468,6 +1615,8 @@ module objects {
                             if(this.shootNum > 39999){
                                 this.bullet.Reset()
                                 this.shoot = true;
+                                this.pattern11 = false
+                                this.pattern1 = true
                                 this.Timer();
                             }
                             break;

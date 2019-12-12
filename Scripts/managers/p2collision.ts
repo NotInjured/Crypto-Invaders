@@ -327,8 +327,10 @@ module managers {
                                 explosion.scaleY = 0.5
                                 explosion.scaleX = 0.5
                                 managers.Game.currentSceneObject.addChild(explosion)
-                                managers.Game.hud.P2Lives -= 1
-                                managers.Game.hud.P2playerLivesSprite[managers.Game.hud.P2Lives].alpha = 0.5
+                                if(managers.Game.hud.P2Lives >= 0){
+                                    managers.Game.hud.P2Lives -= 1
+                                    managers.Game.hud.P2playerLivesSprite[managers.Game.hud.P2Lives].alpha = 0.5
+                                }
                                 managers.Game.hud.P2ScoreMult = 1
                                 managers.Game.hud.P2Score = Math.floor(managers.Game.hud.P2Score/2)
                                 managers.Game.hud.P2Power = Math.floor(managers.Game.hud.P2Power/2)

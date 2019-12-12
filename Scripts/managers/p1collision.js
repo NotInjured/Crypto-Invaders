@@ -304,8 +304,11 @@ var managers;
                         explosion.scaleY = 0.5;
                         explosion.scaleX = 0.5;
                         managers.Game.currentSceneObject.addChild(explosion);
-                        managers.Game.hud.P1Lives -= 1;
-                        managers.Game.hud.P1playerLivesSprite[managers.Game.hud.P1Lives].alpha = 0.5;
+                        console.log(managers.Game.hud.P1Lives);
+                        if (managers.Game.hud.P1Lives >= 0) {
+                            managers.Game.hud.P1Lives -= 1;
+                            managers.Game.hud.P1playerLivesSprite[managers.Game.hud.P1Lives].alpha = 0.5;
+                        }
                         managers.Game.hud.P1ScoreMult = 1;
                         managers.Game.hud.P1Score = Math.floor(managers.Game.hud.P1Score / 2);
                         managers.Game.hud.P1Power = Math.floor(managers.Game.hud.P1Power / 2);

@@ -214,6 +214,7 @@ var managers;
                     this.diffLabel.x = 725;
                     this.diffLabel.y = 400;
                     managers.Game.score = this.Score;
+                    managers.Game.highScore = this.HighScore;
                     if (this.Score > this.HighScore) {
                         this.HighScore = this.Score;
                         managers.Game.highScore = managers.Game.score;
@@ -293,6 +294,7 @@ var managers;
                     this.P1Name.x = 110;
                     this.P1Name.y = 100;
                     managers.Game.P1score = this.P1Score;
+                    managers.Game.P1hScore = this.P1hScore;
                     if (this.P1Score > this.P1HighScore) {
                         this.P1HighScore = this.P1Score;
                         managers.Game.P1hScore = managers.Game.P1score;
@@ -314,6 +316,7 @@ var managers;
                     this.P2Name.x = 825;
                     this.P2Name.y = 100;
                     managers.Game.P2score = this.P2Score;
+                    managers.Game.P2hScore = this.P2hScore;
                     if (this.P2Score > this.P2HighScore) {
                         this.P2HighScore = this.P2Score;
                         managers.Game.P2hScore = managers.Game.P2score;
