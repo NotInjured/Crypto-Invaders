@@ -1762,7 +1762,8 @@ module scenes {
                 }
 
                 this.ChangeShip();
-                this.CheckCollisions()
+                this.P1Collisions()
+                this.P2Collisions()
 
                 if(managers.Game.hud.P1Lives < 0 && managers.Game.hud.P2Lives < 0){
                     managers.Game.currentScene = config.Scene.OVER;
@@ -1853,336 +1854,340 @@ module scenes {
         }
 
         public CheckCollisions():void{
-            if(managers.Game.single){
-                this.bulletManager.Bullet.forEach(bullet =>{
-                    if(bullet.y > 0){
-                        this.level1Enemies.forEach(e =>{
-                            e.forEach(f =>{
-                                if(!f.isInvincible && f.y > 0){
-                                    managers.Collision.CheckAABB(bullet, f)
-                                    managers.Collision.CheckAABB(f, this.Splayer)
-                                }
-                            })
-                        })
-        
-                        this.level2Enemies.forEach(e =>{
-                            e.forEach(f =>{
-                                if(!f.isInvincible && f.y > 0){
-                                    managers.Collision.CheckAABB(bullet, f)
-                                    managers.Collision.CheckAABB(f, this.Splayer)
-                                }
-                            })
-                        })
-        
-                        this.level3Enemies.forEach(e =>{
-                            e.forEach(f =>{
-                                if(!f.isInvincible && f.y > 0){
-                                    managers.Collision.CheckAABB(bullet, f)
-                                    managers.Collision.CheckAABB(f, this.Splayer)
-                                }
-                            })
-                        })
-                        
-                        this.eliteUnits.forEach(e => {
-                            e.forEach(f =>{
-                                if(!f.isInvincible && f.y > 0){
-                                    managers.Collision.CheckAABB(bullet, f)
-                                    managers.Collision.CheckAABB(f, this.Splayer)
-                                }
-                            })
-                        })
-                        this.bosses.forEach(e=>{
-                            if(!e.isInvincible && !managers.Game.boss1IsDead)
-                                managers.Collision.CheckAABB(bullet,e)
-                            if(!e.isInvincible && !managers.Game.boss2IsDead)
-                                managers.Collision.CheckAABB(bullet, e)
-                            if(!e.isInvincible && !managers.Game.boss3_1IsDead)
-                                managers.Collision.CheckAABB(bullet, e)
-                            if(!e.isInvincible && !managers.Game.boss3_2IsDead)
-                                managers.Collision.CheckAABB(bullet, e)
-                        })
-    
-                        this.shields.forEach(s=>{
-                            managers.Collision.CheckAABB(bullet, s)
-                        })
-                    }
-                })
-    
-                this.missileManager.Missile.forEach(m =>{
+            this.bulletManager.Bullet.forEach(bullet =>{
+                if(bullet.y > 0){
                     this.level1Enemies.forEach(e =>{
                         e.forEach(f =>{
-                            if(!f.isInvincible){
-                                managers.Collision.CheckAABB(m, f)
+                            if(!f.isInvincible && f.y > 0){
+                                managers.Collision.CheckAABB(bullet, f)
+                                managers.Collision.CheckAABB(f, this.Splayer)
                             }
                         })
                     })
     
                     this.level2Enemies.forEach(e =>{
                         e.forEach(f =>{
-                            if(!f.isInvincible){
-                                managers.Collision.CheckAABB(m, f)
+                            if(!f.isInvincible && f.y > 0){
+                                managers.Collision.CheckAABB(bullet, f)
+                                managers.Collision.CheckAABB(f, this.Splayer)
                             }
                         })
                     })
     
                     this.level3Enemies.forEach(e =>{
                         e.forEach(f =>{
-                            if(!f.isInvincible){
-                                managers.Collision.CheckAABB(m, f)
+                            if(!f.isInvincible && f.y > 0){
+                                managers.Collision.CheckAABB(bullet, f)
+                                managers.Collision.CheckAABB(f, this.Splayer)
                             }
                         })
                     })
-    
-                    this.eliteUnits.forEach(e =>{
+                    
+                    this.eliteUnits.forEach(e => {
                         e.forEach(f =>{
-                            if(!f.isInvincible){
-                                managers.Collision.CheckAABB(m, f)
+                            if(!f.isInvincible && f.y > 0){
+                                managers.Collision.CheckAABB(bullet, f)
+                                managers.Collision.CheckAABB(f, this.Splayer)
                             }
                         })
                     })
-    
                     this.bosses.forEach(e=>{
                         if(!e.isInvincible && !managers.Game.boss1IsDead)
-                            managers.Collision.CheckAABB(m,e)
+                            managers.Collision.CheckAABB(bullet,e)
                         if(!e.isInvincible && !managers.Game.boss2IsDead)
-                            managers.Collision.CheckAABB(m, e)
+                            managers.Collision.CheckAABB(bullet, e)
                         if(!e.isInvincible && !managers.Game.boss3_1IsDead)
-                            managers.Collision.CheckAABB(m, e)
+                            managers.Collision.CheckAABB(bullet, e)
                         if(!e.isInvincible && !managers.Game.boss3_2IsDead)
-                            managers.Collision.CheckAABB(m, e)
+                            managers.Collision.CheckAABB(bullet, e)
+                    })
+
+                    this.shields.forEach(s=>{
+                        managers.Collision.CheckAABB(bullet, s)
+                    })
+                }
+            })
+
+            this.missileManager.Missile.forEach(m =>{
+                this.level1Enemies.forEach(e =>{
+                    e.forEach(f =>{
+                        if(!f.isInvincible){
+                            managers.Collision.CheckAABB(m, f)
+                        }
                     })
                 })
-    
-                this.coinsManager.Coin.forEach(c =>{
-                    managers.Collision.CheckAABB(this.Splayer, c)
+
+                this.level2Enemies.forEach(e =>{
+                    e.forEach(f =>{
+                        if(!f.isInvincible){
+                            managers.Collision.CheckAABB(m, f)
+                        }
+                    })
                 })
-    
-                this.enemyBulletManager.Bullet.forEach(b =>{
-                    if(!this.Splayer.IsInvincible && !this.Splayer.isDead)
-                        managers.Collision.CheckAABB(b, this.Splayer)
-                    if(this.Splayer.IsInvincible)
-                        managers.Collision.CheckAABB(b, this.shields[0])
+
+                this.level3Enemies.forEach(e =>{
+                    e.forEach(f =>{
+                        if(!f.isInvincible){
+                            managers.Collision.CheckAABB(m, f)
+                        }
+                    })
                 })
-            }
+
+                this.eliteUnits.forEach(e =>{
+                    e.forEach(f =>{
+                        if(!f.isInvincible){
+                            managers.Collision.CheckAABB(m, f)
+                        }
+                    })
+                })
+
+                this.bosses.forEach(e=>{
+                    if(!e.isInvincible && !managers.Game.boss1IsDead)
+                        managers.Collision.CheckAABB(m,e)
+                    if(!e.isInvincible && !managers.Game.boss2IsDead)
+                        managers.Collision.CheckAABB(m, e)
+                    if(!e.isInvincible && !managers.Game.boss3_1IsDead)
+                        managers.Collision.CheckAABB(m, e)
+                    if(!e.isInvincible && !managers.Game.boss3_2IsDead)
+                        managers.Collision.CheckAABB(m, e)
+                })
+            })
+
+            this.coinsManager.Coin.forEach(c =>{
+                managers.Collision.CheckAABB(this.Splayer, c)
+            })
+
+            this.enemyBulletManager.Bullet.forEach(b =>{
+                if(!this.Splayer.IsInvincible && !this.Splayer.isDead)
+                    managers.Collision.CheckAABB(b, this.Splayer)
+                if(this.Splayer.IsInvincible)
+                    managers.Collision.CheckAABB(b, this.shields[0])
+            })
+        }
+
+        public P1Collisions():void{
+            this.P1bulletManager.Bullet.forEach(bullet =>{
+                if(bullet.y > 0){
+                    this.level1Enemies.forEach(e =>{
+                        e.forEach(f =>{
+                            if(!f.isInvincible && f.y > 0){
+                                managers.P1Collision.CheckAABB(bullet, f)
+                                managers.P1Collision.CheckAABB(f, this.P1)
+                            }
+                        })
+                    })
+    
+                    this.level2Enemies.forEach(e =>{
+                        e.forEach(f =>{
+                            if(!f.isInvincible && f.y > 0){
+                                managers.P1Collision.CheckAABB(bullet, f)
+                                managers.P1Collision.CheckAABB(f, this.P1)
+                            }
+                        })
+                    })
+    
+                    this.level3Enemies.forEach(e =>{
+                        e.forEach(f =>{
+                            if(!f.isInvincible && f.y > 0){
+                                managers.P1Collision.CheckAABB(bullet, f)
+                                managers.P1Collision.CheckAABB(f, this.P1)
+                            }
+                        })
+                    })
+                    
+                    this.eliteUnits.forEach(e => {
+                        e.forEach(f =>{
+                            if(!f.isInvincible && f.y > 0){
+                                managers.P1Collision.CheckAABB(bullet, f)
+                                managers.P1Collision.CheckAABB(f, this.P1)
+                            }
+                        })
+                    })
+                    this.bosses.forEach(e=>{
+                        if(!e.isInvincible && !managers.Game.boss1IsDead)
+                            managers.P1Collision.CheckAABB(bullet,e)
+                        if(!e.isInvincible && !managers.Game.boss2IsDead)
+                            managers.P1Collision.CheckAABB(bullet, e)
+                        if(!e.isInvincible && !managers.Game.boss3_1IsDead)
+                            managers.P1Collision.CheckAABB(bullet, e)
+                        if(!e.isInvincible && !managers.Game.boss3_2IsDead)
+                            managers.P1Collision.CheckAABB(bullet, e)
+                    })
+
+                    this.shields.forEach(s=>{
+                        managers.P1Collision.CheckAABB(bullet, s)
+                    })
+                }
+            })
+
+            this.P1missileManager.Missile.forEach(m =>{
+                this.level1Enemies.forEach(e =>{
+                    e.forEach(f =>{
+                        if(!f.isInvincible){
+                            managers.P1Collision.CheckAABB(m, f)
+                        }
+                    })
+                })
+
+                this.level2Enemies.forEach(e =>{
+                    e.forEach(f =>{
+                        if(!f.isInvincible){
+                            managers.P1Collision.CheckAABB(m, f)
+                        }
+                    })
+                })
+
+                this.level3Enemies.forEach(e =>{
+                    e.forEach(f =>{
+                        if(!f.isInvincible){
+                            managers.P1Collision.CheckAABB(m, f)
+                        }
+                    })
+                })
+
+                this.eliteUnits.forEach(e =>{
+                    e.forEach(f =>{
+                        if(!f.isInvincible){
+                            managers.P1Collision.CheckAABB(m, f)
+                        }
+                    })
+                })
+
+                this.bosses.forEach(e=>{
+                    if(!e.isInvincible && !managers.Game.boss1IsDead)
+                        managers.P1Collision.CheckAABB(m, e)
+                    if(!e.isInvincible && !managers.Game.boss2IsDead)
+                        managers.P1Collision.CheckAABB(m, e)
+                    if(!e.isInvincible && !managers.Game.boss3_1IsDead)
+                        managers.P1Collision.CheckAABB(m, e)
+                    if(!e.isInvincible && !managers.Game.boss3_2IsDead)
+                        managers.P1Collision.CheckAABB(m, e)
+                })
+            })
+
+            this.coinsManager.Coin.forEach(c =>{
+                managers.P1Collision.CheckAABB(this.P1, c)
+            })
+
+            this.enemyBulletManager.Bullet.forEach(b =>{
+                if(!this.P1.IsInvincible && !this.P1.isDead)
+                    managers.P1Collision.CheckAABB(b, this.P1)
+                if(this.P1.IsInvincible)
+                    managers.P1Collision.CheckAABB(b, this.shields[1])
+            })
+        }
+
+        public P2Collisions():void{
+            // P2
+            this.P2bulletManager.Bullet.forEach(bullet =>{
+                if(bullet.y > 0){
+                    this.level1Enemies.forEach(e =>{
+                        e.forEach(f =>{
+                            if(!f.isInvincible && f.y > 0){
+                                managers.P2Collision.CheckAABB(bullet, f)
+                                managers.P2Collision.CheckAABB(f, this.P2)
+                            }
+                        })
+                    })
+    
+                    this.level2Enemies.forEach(e =>{
+                        e.forEach(f =>{
+                            if(!f.isInvincible && f.y > 0){
+                                managers.P2Collision.CheckAABB(bullet, f)
+                                managers.P2Collision.CheckAABB(f, this.P2)
+                            }
+                        })
+                    })
+    
+                    this.level3Enemies.forEach(e =>{
+                        e.forEach(f =>{
+                            if(!f.isInvincible && f.y > 0){
+                                managers.P2Collision.CheckAABB(bullet, f)
+                                managers.P2Collision.CheckAABB(f, this.P2)
+                            }
+                        })
+                    })
+                    
+                    this.eliteUnits.forEach(e => {
+                        e.forEach(f =>{
+                            if(!f.isInvincible && f.y > 0){
+                                managers.P2Collision.CheckAABB(bullet, f)
+                                managers.P2Collision.CheckAABB(f, this.P2)
+                            }
+                        })
+                    })
+                    this.bosses.forEach(e=>{
+                        if(!e.isInvincible && !managers.Game.boss1IsDead)
+                            managers.P2Collision.CheckAABB(bullet,e)
+                        if(!e.isInvincible && !managers.Game.boss2IsDead)
+                            managers.P2Collision.CheckAABB(bullet, e)
+                        if(!e.isInvincible && !managers.Game.boss3_1IsDead)
+                            managers.P2Collision.CheckAABB(bullet, e)
+                        if(!e.isInvincible && !managers.Game.boss3_2IsDead)
+                            managers.P2Collision.CheckAABB(bullet, e)
+                    })
+
+                    this.shields.forEach(s=>{
+                        managers.P2Collision.CheckAABB(bullet, s)
+                    })
+                }
+            })
+
+            this.P2missileManager.Missile.forEach(m =>{
+                this.level1Enemies.forEach(e =>{
+                    e.forEach(f =>{
+                        if(!f.isInvincible){
+                            managers.P2Collision.CheckAABB(m, f)
+                        }
+                    })
+                })
+
+                this.level2Enemies.forEach(e =>{
+                    e.forEach(f =>{
+                        if(!f.isInvincible){
+                            managers.P2Collision.CheckAABB(m, f)
+                        }
+                    })
+                })
+
+                this.level3Enemies.forEach(e =>{
+                    e.forEach(f =>{
+                        if(!f.isInvincible){
+                            managers.P2Collision.CheckAABB(m, f)
+                        }
+                    })
+                })
+
+                this.eliteUnits.forEach(e =>{
+                    e.forEach(f =>{
+                        if(!f.isInvincible){
+                            managers.P2Collision.CheckAABB(m, f)
+                        }
+                    })
+                })
+
+                this.bosses.forEach(e=>{
+                    if(!e.isInvincible && !managers.Game.boss1IsDead)
+                        managers.P2Collision.CheckAABB(m,e)
+                    if(!e.isInvincible && !managers.Game.boss2IsDead)
+                        managers.P2Collision.CheckAABB(m, e)
+                    if(!e.isInvincible && !managers.Game.boss3_1IsDead)
+                        managers.P2Collision.CheckAABB(m, e)
+                    if(!e.isInvincible && !managers.Game.boss3_2IsDead)
+                        managers.P2Collision.CheckAABB(m, e)
+                })
+            })
+
+            this.coinsManager.Coin.forEach(c =>{
+                managers.P2Collision.CheckAABB(this.P2, c)
+            })
             
-            if(managers.Game.multi){
-                // P1
-                this.P1bulletManager.Bullet.forEach(bullet =>{
-                    if(bullet.y > 0){
-                        this.level1Enemies.forEach(e =>{
-                            e.forEach(f =>{
-                                if(!f.isInvincible && f.y > 0){
-                                    managers.Collision.CheckAABB(bullet, f)
-                                    managers.Collision.CheckAABB(f, this.P1)
-                                }
-                            })
-                        })
-        
-                        this.level2Enemies.forEach(e =>{
-                            e.forEach(f =>{
-                                if(!f.isInvincible && f.y > 0){
-                                    managers.Collision.CheckAABB(bullet, f)
-                                    managers.Collision.CheckAABB(f, this.P1)
-                                }
-                            })
-                        })
-        
-                        this.level3Enemies.forEach(e =>{
-                            e.forEach(f =>{
-                                if(!f.isInvincible && f.y > 0){
-                                    managers.Collision.CheckAABB(bullet, f)
-                                    managers.Collision.CheckAABB(f, this.P1)
-                                }
-                            })
-                        })
-                        
-                        this.eliteUnits.forEach(e => {
-                            e.forEach(f =>{
-                                if(!f.isInvincible && f.y > 0){
-                                    managers.Collision.CheckAABB(bullet, f)
-                                    managers.Collision.CheckAABB(f, this.P1)
-                                }
-                            })
-                        })
-                        this.bosses.forEach(e=>{
-                            if(!e.isInvincible && !managers.Game.boss1IsDead)
-                                managers.Collision.CheckAABB(bullet,e)
-                            if(!e.isInvincible && !managers.Game.boss2IsDead)
-                                managers.Collision.CheckAABB(bullet, e)
-                            if(!e.isInvincible && !managers.Game.boss3_1IsDead)
-                                managers.Collision.CheckAABB(bullet, e)
-                            if(!e.isInvincible && !managers.Game.boss3_2IsDead)
-                                managers.Collision.CheckAABB(bullet, e)
-                        })
-    
-                        this.shields.forEach(s=>{
-                            managers.Collision.CheckAABB(bullet, s)
-                        })
-                    }
-                })
-    
-                this.P1missileManager.Missile.forEach(m =>{
-                    this.level1Enemies.forEach(e =>{
-                        e.forEach(f =>{
-                            if(!f.isInvincible){
-                                managers.Collision.CheckAABB(m, f)
-                            }
-                        })
-                    })
-    
-                    this.level2Enemies.forEach(e =>{
-                        e.forEach(f =>{
-                            if(!f.isInvincible){
-                                managers.Collision.CheckAABB(m, f)
-                            }
-                        })
-                    })
-    
-                    this.level3Enemies.forEach(e =>{
-                        e.forEach(f =>{
-                            if(!f.isInvincible){
-                                managers.Collision.CheckAABB(m, f)
-                            }
-                        })
-                    })
-    
-                    this.eliteUnits.forEach(e =>{
-                        e.forEach(f =>{
-                            if(!f.isInvincible){
-                                managers.Collision.CheckAABB(m, f)
-                            }
-                        })
-                    })
-    
-                    this.bosses.forEach(e=>{
-                        if(!e.isInvincible && !managers.Game.boss1IsDead)
-                            managers.Collision.CheckAABB(m,e)
-                        if(!e.isInvincible && !managers.Game.boss2IsDead)
-                            managers.Collision.CheckAABB(m, e)
-                        if(!e.isInvincible && !managers.Game.boss3_1IsDead)
-                            managers.Collision.CheckAABB(m, e)
-                        if(!e.isInvincible && !managers.Game.boss3_2IsDead)
-                            managers.Collision.CheckAABB(m, e)
-                    })
-                })
-
-                // P2
-                this.P2bulletManager.Bullet.forEach(bullet =>{
-                    if(bullet.y > 0){
-                        this.level1Enemies.forEach(e =>{
-                            e.forEach(f =>{
-                                if(!f.isInvincible && f.y > 0){
-                                    managers.Collision.CheckAABB(bullet, f)
-                                    managers.Collision.CheckAABB(f, this.P2)
-                                }
-                            })
-                        })
-        
-                        this.level2Enemies.forEach(e =>{
-                            e.forEach(f =>{
-                                if(!f.isInvincible && f.y > 0){
-                                    managers.Collision.CheckAABB(bullet, f)
-                                    managers.Collision.CheckAABB(f, this.P2)
-                                }
-                            })
-                        })
-        
-                        this.level3Enemies.forEach(e =>{
-                            e.forEach(f =>{
-                                if(!f.isInvincible && f.y > 0){
-                                    managers.Collision.CheckAABB(bullet, f)
-                                    managers.Collision.CheckAABB(f, this.P2)
-                                }
-                            })
-                        })
-                        
-                        this.eliteUnits.forEach(e => {
-                            e.forEach(f =>{
-                                if(!f.isInvincible && f.y > 0){
-                                    managers.Collision.CheckAABB(bullet, f)
-                                    managers.Collision.CheckAABB(f, this.P2)
-                                }
-                            })
-                        })
-                        this.bosses.forEach(e=>{
-                            if(!e.isInvincible && !managers.Game.boss1IsDead)
-                                managers.Collision.CheckAABB(bullet,e)
-                            if(!e.isInvincible && !managers.Game.boss2IsDead)
-                                managers.Collision.CheckAABB(bullet, e)
-                            if(!e.isInvincible && !managers.Game.boss3_1IsDead)
-                                managers.Collision.CheckAABB(bullet, e)
-                            if(!e.isInvincible && !managers.Game.boss3_2IsDead)
-                                managers.Collision.CheckAABB(bullet, e)
-                        })
-    
-                        this.shields.forEach(s=>{
-                            managers.Collision.CheckAABB(bullet, s)
-                        })
-                    }
-                })
-    
-                this.P2missileManager.Missile.forEach(m =>{
-                    this.level1Enemies.forEach(e =>{
-                        e.forEach(f =>{
-                            if(!f.isInvincible){
-                                managers.Collision.CheckAABB(m, f)
-                            }
-                        })
-                    })
-    
-                    this.level2Enemies.forEach(e =>{
-                        e.forEach(f =>{
-                            if(!f.isInvincible){
-                                managers.Collision.CheckAABB(m, f)
-                            }
-                        })
-                    })
-    
-                    this.level3Enemies.forEach(e =>{
-                        e.forEach(f =>{
-                            if(!f.isInvincible){
-                                managers.Collision.CheckAABB(m, f)
-                            }
-                        })
-                    })
-    
-                    this.eliteUnits.forEach(e =>{
-                        e.forEach(f =>{
-                            if(!f.isInvincible){
-                                managers.Collision.CheckAABB(m, f)
-                            }
-                        })
-                    })
-    
-                    this.bosses.forEach(e=>{
-                        if(!e.isInvincible && !managers.Game.boss1IsDead)
-                            managers.Collision.CheckAABB(m,e)
-                        if(!e.isInvincible && !managers.Game.boss2IsDead)
-                            managers.Collision.CheckAABB(m, e)
-                        if(!e.isInvincible && !managers.Game.boss3_1IsDead)
-                            managers.Collision.CheckAABB(m, e)
-                        if(!e.isInvincible && !managers.Game.boss3_2IsDead)
-                            managers.Collision.CheckAABB(m, e)
-                    })
-                })
-    
-                this.coinsManager.Coin.forEach(c =>{
-                    managers.Collision.CheckAABB(this.P1, c)
-                    managers.Collision.CheckAABB(this.P2, c)
-                })
-    
-                this.enemyBulletManager.Bullet.forEach(b =>{
-                    //if(!this.P1.IsInvincible && !this.P1.isDead)
-                        managers.Collision.CheckAABB(b, this.P1)
-                    //if(this.P1.IsInvincible)
-                        managers.Collision.CheckAABB(b, this.shields[1])
-
-                    //if(!this.P2.IsInvincible && !this.P2.isDead)
-                        managers.Collision.CheckAABB(b, this.P2)
-                    //if(this.P2.IsInvincible)
-                        managers.Collision.CheckAABB(b, this.shields[2])
-                })
-            }
+            this.enemyBulletManager.Bullet.forEach(b =>{
+                if(!this.P2.IsInvincible && !this.P2.isDead)
+                    managers.P2Collision.CheckAABB(b, this.P1)
+                if(this.P2.IsInvincible)
+                    managers.P2Collision.CheckAABB(b, this.shields[1])
+            })
         }
         
         public ChangeShip():void{

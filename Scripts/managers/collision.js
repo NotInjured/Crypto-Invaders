@@ -249,37 +249,41 @@ var managers;
                             (object1.x - object1.halfW) < ((object2.x - 27) + object2.halfW) &&
                             (object1.y + object1.halfH) > ((object2.y - 100) - object2.halfH) &&
                             (object1.y - object1.halfH) < ((object2.y - 100) + object2.halfH)) {
-                        managers.Game.hud.Score += 50 * managers.Game.hud.ScoreMult;
-                        effect = new objects.Effect("Laser_Hit", object1.x + 10, object1.y - object1.halfH);
-                        effect.scaleX *= 2;
-                        effect.scaleY *= 2;
-                        managers.Game.currentSceneObject.addChild(effect);
-                        managers.Game.boss3_2Hp -= 1;
-                        console.log(managers.Game.boss3_2Hp);
-                        hit = createjs.Sound.play("hit");
-                        hit.volume = 0.2;
-                        object1.Reset();
-                        if (managers.Game.boss3_2Hp == 0 || (managers.Game.boss3_2Hp < 0 && Math.abs(managers.Game.boss3_2Hp) % 250 == 0)) {
-                            explosion = new objects.Effect("Explosion", object2.x + 65, object2.y + 65);
-                            var coin_6 = managers.Game.coinsManager.GetCoin();
-                            coin_6.IsDropped = true;
-                            coin_6.EnemyDropped = true;
-                            coin_6.x = object2.x;
-                            coin_6.y = object2.y;
-                            coin_6.scaleX = 0.75;
-                            coin_6.scaleY = 0.75;
-                            managers.Game.currentSceneObject.addChild(coin_6);
-                            managers.Game.currentSceneObject.addChild(explosion);
-                            managers.Game.currentSceneObject.removeChild(object2);
-                            object2.Reset();
-                            if (managers.Game.hud.Lives < 9) {
-                                managers.Game.hud.Lives += 1;
-                                managers.Game.hud.playerLivesSprite[managers.Game.hud.Lives - 1].alpha = 1;
+                        if (managers.Game.single) {
+                            managers.Game.hud.Score += 50 * managers.Game.hud.ScoreMult;
+                            effect = new objects.Effect("Laser_Hit", object1.x + 10, object1.y - object1.halfH);
+                            effect.scaleX *= 2;
+                            effect.scaleY *= 2;
+                            managers.Game.currentSceneObject.addChild(effect);
+                            managers.Game.boss3_2Hp -= 1;
+                            console.log(managers.Game.boss3_2Hp);
+                            hit = createjs.Sound.play("hit");
+                            hit.volume = 0.2;
+                            object1.Reset();
+                            if (managers.Game.boss3_2Hp == 0 || (managers.Game.boss3_2Hp < 0 && Math.abs(managers.Game.boss3_2Hp) % 250 == 0)) {
+                                explosion = new objects.Effect("Explosion", object2.x + 65, object2.y + 65);
+                                var coin_6 = managers.Game.coinsManager.GetCoin();
+                                coin_6.IsDropped = true;
+                                coin_6.EnemyDropped = true;
+                                coin_6.x = object2.x;
+                                coin_6.y = object2.y;
+                                coin_6.scaleX = 0.75;
+                                coin_6.scaleY = 0.75;
+                                managers.Game.currentSceneObject.addChild(coin_6);
+                                managers.Game.currentSceneObject.addChild(explosion);
+                                managers.Game.currentSceneObject.removeChild(object2);
+                                object2.Reset();
+                                if (managers.Game.hud.Lives < 9) {
+                                    managers.Game.hud.Lives += 1;
+                                    managers.Game.hud.playerLivesSprite[managers.Game.hud.Lives - 1].alpha = 1;
+                                }
+                                if (managers.Game.hud.Power < 201)
+                                    managers.Game.hud.Power += 25;
+                                managers.Game.hud.ScoreMult += 100;
+                                managers.Game.hud.Score += 10000000;
                             }
-                            if (managers.Game.hud.Power < 201)
-                                managers.Game.hud.Power += 25;
-                            managers.Game.hud.ScoreMult += 100;
-                            managers.Game.hud.Score += 10000000;
+                        }
+                        if (managers.Game.multi) {
                         }
                     }
                     break;
@@ -366,20 +370,54 @@ var managers;
                         (object1.x - object1.halfW) < ((object2.x - 10) + object2.halfW / 4) &&
                         (object1.y + object1.halfH) > ((object2.y - 10) - object2.halfH / 4) &&
                         (object1.y - object1.halfH) < ((object2.y - 10) + object2.halfH / 4)) {
-                        if (object2.scaleX == 0.75 && object2.scaleY == 0.75) {
-                            var buff = new objects.Effect("Buff", object1.x + 2, object1.y - 40);
-                            buff.scaleX = 0.5;
-                            buff.scaleY = 0.7;
-                            managers.Game.currentSceneObject.addChild(buff);
-                            managers.Game.hud.Score += 25000;
+                        if (managers.Game.single) {
+                            if (object2.scaleX == 0.75 && object2.scaleY == 0.75) {
+                                var buff = new objects.Effect("Buff", object1.x + 2, object1.y - 40);
+                                buff.scaleX = 0.5;
+                                buff.scaleY = 0.7;
+                                managers.Game.currentSceneObject.addChild(buff);
+                                managers.Game.hud.Score += 25000;
+                                if (managers.Game.hud.Power < 201)
+                                    managers.Game.hud.Power += 25;
+                                managers.Game.currentSceneObject.removeChild(object2);
+                            }
+                            managers.Game.hud.Score += 100 * managers.Game.hud.ScoreMult;
                             if (managers.Game.hud.Power < 201)
-                                managers.Game.hud.Power += 25;
-                            managers.Game.currentSceneObject.removeChild(object2);
+                                managers.Game.hud.Power += 1;
+                            object2.Reset();
                         }
-                        managers.Game.hud.Score += 100 * managers.Game.hud.ScoreMult;
-                        if (managers.Game.hud.Power < 201)
-                            managers.Game.hud.Power += 1;
-                        object2.Reset();
+                        if (object1.name == "P1") {
+                            if (object2.scaleX == 0.75 && object2.scaleY == 0.75) {
+                                var buff = new objects.Effect("Buff", object1.x + 2, object1.y - 40);
+                                buff.scaleX = 0.5;
+                                buff.scaleY = 0.7;
+                                managers.Game.currentSceneObject.addChild(buff);
+                                managers.Game.hud.P1Score += 25000;
+                                if (managers.Game.hud.P1Power < 201)
+                                    managers.Game.hud.P1Power += 25;
+                                managers.Game.currentSceneObject.removeChild(object2);
+                            }
+                            managers.Game.hud.P1Score += 100 * managers.Game.hud.P1ScoreMult;
+                            if (managers.Game.hud.P1Power < 201)
+                                managers.Game.hud.P1Power += 1;
+                            object2.Reset();
+                        }
+                        if (object1.name == "P2") {
+                            if (object2.scaleX == 0.75 && object2.scaleY == 0.75) {
+                                var buff = new objects.Effect("Buff", object1.x + 2, object1.y - 40);
+                                buff.scaleX = 0.5;
+                                buff.scaleY = 0.7;
+                                managers.Game.currentSceneObject.addChild(buff);
+                                managers.Game.hud.P2Score += 25000;
+                                if (managers.Game.hud.P2Power < 201)
+                                    managers.Game.hud.P2Power += 25;
+                                managers.Game.currentSceneObject.removeChild(object2);
+                            }
+                            managers.Game.hud.P2Score += 100 * managers.Game.hud.P2ScoreMult;
+                            if (managers.Game.hud.P2Power < 201)
+                                managers.Game.hud.P2Power += 1;
+                            object2.Reset();
+                        }
                     }
                     break;
             }

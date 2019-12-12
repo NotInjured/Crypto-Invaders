@@ -254,7 +254,7 @@ var objects;
                                         this.bulletSpawn = new math.Vec2(this.x - 15.35, this.y - 40);
                                         this.effect = new objects.Effect("Laser_Shoot", this.x - 13, this.y - 43);
                                         var bullet = managers.Game.P1BulletManager.GetBullet();
-                                        //console.log(bullet);
+                                        console.log(managers.Game.P1BulletManager.GetBullet());
                                         bullet.x = this.bulletSpawn.x;
                                         bullet.y = this.bulletSpawn.y;
                                         var laser = createjs.Sound.play("laser");

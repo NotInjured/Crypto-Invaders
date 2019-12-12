@@ -1,5 +1,5 @@
 module managers {
-    export class Collision {
+    export class P2Collision {
 
         // Check collisions using AABB (Axis-aligned Bounding Box)
         public static CheckAABB(object1: objects.GameObject, object2: objects.GameObject) {
@@ -32,8 +32,8 @@ module managers {
                                 (object1.x - object1.halfW) < ((object2.x - 10) + object2.halfW) &&
                                 (object1.y + object1.halfH) > ((object2.y - 10) - object2.halfH) &&
                                 (object1.y - object1.halfH) < ((object2.y - 10) + object2.halfH)){
-                                    managers.Game.hud.Score += 50 * managers.Game.hud.ScoreMult
-                                    managers.Game.hud.ScoreMult += 1;
+                                    managers.Game.hud.P2Score += 50 * managers.Game.hud.P2ScoreMult
+                                    managers.Game.hud.P2ScoreMult += 1;
                                     hit = createjs.Sound.play("hit");
                                     hit.volume = 0.2;
                                     coin.IsDropped = true;
@@ -45,9 +45,9 @@ module managers {
                                     managers.Game.currentSceneObject.addChild(coin)
                                     object1.Reset()
                                     explosion = new objects.Effect("Explosion", object2.x+15, object2.y +10);
-                                    if(managers.Game.player.ShipType == config.Ship.Botcoin)
+                                    if(managers.Game.P2.ShipType == config.Ship.Botcoin)
                                         effect = new objects.Effect("Laser_Hit", object1.x + 10, object1.y - object1.halfH);
-                                    else if(managers.Game.player.ShipType == config.Ship.Lightcoin)
+                                    else if(managers.Game.P2.ShipType == config.Ship.Lightcoin)
                                         effect = new objects.Effect("Laser1_Hit", object1.x + 10, object1.y - object1.halfH);
 
                                     effect.scaleX *= 2;
@@ -64,7 +64,7 @@ module managers {
                                 (object1.x - object1.halfW) < ((object2.x - 10) + object2.halfW) &&
                                 (object1.y + object1.halfH) > ((object2.y - 5) - object2.halfH) &&
                                 (object1.y - object1.halfH) < ((object2.y - 5) + object2.halfH)){
-                                    managers.Game.hud.Score += 50 * managers.Game.hud.ScoreMult
+                                    managers.Game.hud.P2Score += 50 * managers.Game.hud.P2ScoreMult
                                     effect = new objects.Effect("Laser_Hit", object1.x + 10, object1.y - object1.halfH);
                                     effect.scaleX *= 2;
                                     effect.scaleY *= 2;
@@ -78,9 +78,9 @@ module managers {
                                         explosion = new objects.Effect("Explosion", object2.x + 65, object2.y +65);
                                         managers.Game.currentSceneObject.addChild(explosion)
                                         object2.Reset()
-                                        if(managers.Game.hud.Lives < 9){
-                                            managers.Game.hud.Lives += 1
-                                            managers.Game.hud.playerLivesSprite[managers.Game.hud.Lives-1].alpha = 1
+                                        if(managers.Game.hud.P2Lives < 9){
+                                            managers.Game.hud.P2Lives += 1
+                                            managers.Game.hud.P2playerLivesSprite[managers.Game.hud.P2Lives-1].alpha = 1
                                         }
                                         let coin = managers.Game.coinsManager.GetCoin()
                                         coin.IsDropped = true;
@@ -91,10 +91,10 @@ module managers {
                                         coin.scaleY = 0.75
                                         managers.Game.currentSceneObject.addChild(coin)
 
-                                        if(managers.Game.hud.Power < 201)
-                                            managers.Game.hud.Power += 25
-                                        managers.Game.hud.ScoreMult += 100;
-                                        managers.Game.hud.Score += 2500000
+                                        if(managers.Game.hud.P2Power < 201)
+                                            managers.Game.hud.P2Power += 25
+                                        managers.Game.hud.P2ScoreMult += 100;
+                                        managers.Game.hud.P2Score += 2500000
                                     }
                                 }
                         break;
@@ -103,7 +103,7 @@ module managers {
                                 (object1.x - object1.halfW) < ((object2.x - 10) + object2.halfW) &&
                                 (object1.y + object1.halfH) > ((object2.y - 5) - object2.halfH) &&
                                 (object1.y - object1.halfH) < ((object2.y - 5) + object2.halfH)){
-                                    managers.Game.hud.Score += 50 * managers.Game.hud.ScoreMult
+                                    managers.Game.hud.P2Score += 50 * managers.Game.hud.P2ScoreMult
                                     effect = new objects.Effect("Laser_Hit", object1.x + 10, object1.y - object1.halfH);
                                     effect.scaleX *= 2;
                                     effect.scaleY *= 2;
@@ -127,8 +127,8 @@ module managers {
                                         managers.Game.currentSceneObject.addChild(explosion)
                                         object2.Reset()
                                         managers.Game.currentSceneObject.removeChild(object2)
-                                        managers.Game.hud.ScoreMult += 10;
-                                        managers.Game.hud.Score += 25000 * managers.Game.hud.ScoreMult
+                                        managers.Game.hud.P2ScoreMult += 10;
+                                        managers.Game.hud.P2Score += 25000 * managers.Game.hud.P2ScoreMult
                                     }
                                 }
                         break;
@@ -137,7 +137,7 @@ module managers {
                                 (object1.x - object1.halfW) < ((object2.x - 10) + object2.halfW) &&
                                 (object1.y + object1.halfH) > ((object2.y - 5) - object2.halfH) &&
                                 (object1.y - object1.halfH) < ((object2.y - 5) + object2.halfH)){
-                                    managers.Game.hud.Score += 50 * managers.Game.hud.ScoreMult
+                                    managers.Game.hud.P2Score += 50 * managers.Game.hud.P2ScoreMult
                                     effect = new objects.Effect("Laser_Hit", object1.x + 10, object1.y - object1.halfH);
                                     effect.scaleX *= 2;
                                     effect.scaleY *= 2;
@@ -161,8 +161,8 @@ module managers {
                                         managers.Game.currentSceneObject.addChild(coin)
                                         object2.Reset()
                                         managers.Game.currentSceneObject.removeChild(object2)
-                                        managers.Game.hud.ScoreMult += 5;
-                                        managers.Game.hud.Score += Math.round(1250 * Math.pow(1.05, managers.Game.hud.ScoreMult));
+                                        managers.Game.hud.P2ScoreMult += 5;
+                                        managers.Game.hud.P2Score += Math.round(1250 * Math.pow(1.05, managers.Game.hud.P1ScoreMult));
                                     }
                                 }
 
@@ -181,7 +181,7 @@ module managers {
                                 effect.scaleY *= 2;
                                 
                                 managers.Game.boss2Hp--
-                                managers.Game.hud.Score += 50 * managers.Game.hud.ScoreMult
+                                managers.Game.hud.P2Score += 50 * managers.Game.hud.P2ScoreMult
                                 managers.Game.currentSceneObject.addChild(effect);
 
                                 hit = createjs.Sound.play("hit");
@@ -205,10 +205,10 @@ module managers {
                                     managers.Game.currentSceneObject.addChild(explosion)
                                     object2.Reset()
                                     managers.Game.hud.Lives++
-                                    if(managers.Game.hud.Power < 201)
-                                        managers.Game.hud.Power += 25
-                                    managers.Game.hud.ScoreMult += 100;
-                                    managers.Game.hud.Score += 5000000
+                                    if(managers.Game.hud.P2Power < 201)
+                                        managers.Game.hud.P2Power += 25
+                                    managers.Game.hud.P2ScoreMult += 100;
+                                    managers.Game.hud.P2Score += 5000000
                                 }
                             }
                         break;
@@ -217,7 +217,7 @@ module managers {
                                 (object1.x - object1.halfW) < ((object2.x - 25) + object2.halfW) &&
                                 (object1.y + object1.halfH) > ((object2.y - 50) - object2.halfH) &&
                                 (object1.y - object1.halfH) < ((object2.y - 50) + object2.halfH )){
-                                    managers.Game.hud.Score += 50 * managers.Game.hud.ScoreMult
+                                    managers.Game.hud.P2Score += 50 * managers.Game.hud.P2ScoreMult
                                     effect = new objects.Effect("Laser_Hit", object1.x + 10, object1.y - object1.halfH);
                                     effect.scaleX *= 2;
                                     effect.scaleY *= 2;
@@ -243,14 +243,14 @@ module managers {
                                         managers.Game.currentSceneObject.addChild(explosion)
                                         managers.Game.currentSceneObject.removeChild(object2)
                                         object2.Reset()
-                                        if(managers.Game.hud.Lives < 9){
-                                            managers.Game.hud.Lives += 1
-                                            managers.Game.hud.playerLivesSprite[managers.Game.hud.Lives-1].alpha = 1
+                                        if(managers.Game.hud.P2Lives < 9){
+                                            managers.Game.hud.P2Lives += 1
+                                            managers.Game.hud.P2playerLivesSprite[managers.Game.hud.P2Lives-1].alpha = 1
                                         }
-                                        if(managers.Game.hud.Power < 201)
-                                            managers.Game.hud.Power += 25
-                                        managers.Game.hud.ScoreMult += 100;
-                                        managers.Game.hud.Score += 10000000
+                                        if(managers.Game.hud.P2Power < 201)
+                                            managers.Game.hud.P2Power += 25
+                                        managers.Game.hud.P2ScoreMult += 100;
+                                        managers.Game.hud.P2Score += 10000000
                                     }
 
                                     
@@ -265,8 +265,7 @@ module managers {
                                 (object1.x - object1.halfW) < ((object2.x - 27) + object2.halfW) &&
                                 (object1.y + object1.halfH) > ((object2.y - 100) - object2.halfH) &&
                                 (object1.y - object1.halfH) < ((object2.y - 100) + object2.halfH)){
-                                    if(managers.Game.single){
-                                        managers.Game.hud.Score += 50 * managers.Game.hud.ScoreMult
+                                        managers.Game.hud.P2Score += 50 * managers.Game.hud.P2ScoreMult
                                         effect = new objects.Effect("Laser_Hit", object1.x + 10, object1.y - object1.halfH);
                                         effect.scaleX *= 2;
                                         effect.scaleY *= 2;
@@ -292,20 +291,16 @@ module managers {
                                             managers.Game.currentSceneObject.addChild(explosion)
                                             managers.Game.currentSceneObject.removeChild(object2)
                                             object2.Reset()
-                                            if(managers.Game.hud.Lives < 9){
-                                                managers.Game.hud.Lives += 1
-                                                managers.Game.hud.playerLivesSprite[managers.Game.hud.Lives-1].alpha = 1
+                                            if(managers.Game.hud.P2Lives < 9){
+                                                managers.Game.hud.P2Lives += 1
+                                                managers.Game.hud.P2playerLivesSprite[managers.Game.hud.P2Lives-1].alpha = 1
                                             }
-                                            if(managers.Game.hud.Power < 201)
-                                                managers.Game.hud.Power += 25
+                                            if(managers.Game.hud.P2Power < 201)
+                                                managers.Game.hud.P2Power += 25
     
-                                            managers.Game.hud.ScoreMult += 100;
-                                            managers.Game.hud.Score += 10000000
+                                            managers.Game.hud.P2ScoreMult += 100;
+                                            managers.Game.hud.P2Score += 10000000
                                         }
-                                    }
-
-                                    if(managers.Game.multi){
-                                    }
                                     
                                 }
                         break;
@@ -318,65 +313,24 @@ module managers {
                                 (object1.y + object1.halfH) > ((object2.y - 10) - object2.halfH/4) &&
                                 (object1.y - object1.halfH) < ((object2.y - 10) + object2.halfH/4)
                                 ){
-                                    if(managers.Game.single){
-                                        if(!managers.Game.player.IsInvincible && !managers.Game.player.isDead){
-                                            explosion = new objects.Effect("Explosion", object2.x, object2.y);
-                                            console.log("Player Hit");
-                                            let death = createjs.Sound.play("playerDeath");
-                                            death.volume = 0.3;
-                                            explosion.x = object2.x + 20
-                                            explosion.y = object2.y + 20
-                                            explosion.scaleY = 0.5
-                                            explosion.scaleX = 0.5
-                                            managers.Game.currentSceneObject.addChild(explosion)
-                                            managers.Game.hud.Lives -= 1
-                                            managers.Game.hud.playerLivesSprite[managers.Game.hud.Lives].alpha = 0.5
-                                            managers.Game.hud.ScoreMult = 1
-                                            managers.Game.hud.Score = Math.floor(managers.Game.hud.Score/2)
-                                            managers.Game.hud.Power = Math.floor(managers.Game.hud.Power/2)
-                                            object1.Reset()
-                                            object2.Reset()
-                                        }
-                                    }
-
-                                    if(managers.Game.multi){
-                                        if(!managers.Game.P1.IsInvincible && !managers.Game.P1.isDead){
-                                            explosion = new objects.Effect("Explosion", object2.x, object2.y);
-                                            console.log("Player Hit");
-                                            let death = createjs.Sound.play("playerDeath");
-                                            death.volume = 0.3;
-                                            explosion.x = object2.x + 20
-                                            explosion.y = object2.y + 20
-                                            explosion.scaleY = 0.5
-                                            explosion.scaleX = 0.5
-                                            managers.Game.currentSceneObject.addChild(explosion)
-                                            managers.Game.hud.P1Lives -= 1
-                                            managers.Game.hud.P1playerLivesSprite[managers.Game.hud.P1Lives].alpha = 0.5
-                                            managers.Game.hud.P1ScoreMult = 1
-                                            managers.Game.hud.P1Score = Math.floor(managers.Game.hud.P1Score/2)
-                                            managers.Game.hud.P1Power = Math.floor(managers.Game.hud.P1Power/2)
-                                            object1.Reset()
-                                            object2.Reset()
-                                        }
-                                        if(!managers.Game.P2.IsInvincible && !managers.Game.P2.isDead){
-                                            explosion = new objects.Effect("Explosion", object2.x, object2.y);
-                                            console.log("Player Hit");
-                                            let death = createjs.Sound.play("playerDeath");
-                                            death.volume = 0.3;
-                                            explosion.x = object2.x + 20
-                                            explosion.y = object2.y + 20
-                                            explosion.scaleY = 0.5
-                                            explosion.scaleX = 0.5
-                                            managers.Game.currentSceneObject.addChild(explosion)
-                                            managers.Game.hud.P2Lives -= 1
-                                            managers.Game.hud.P2playerLivesSprite[managers.Game.hud.P2Lives].alpha = 0.5
-                                            managers.Game.hud.P2ScoreMult = 1
-                                            managers.Game.hud.P2Score = Math.floor(managers.Game.hud.P2Score/2)
-                                            managers.Game.hud.P2Power = Math.floor(managers.Game.hud.P2Power/2)
-                                            object1.Reset()
-                                            object2.Reset()
-                                        }
-                                    }
+                                    if(!managers.Game.P2.IsInvincible && !managers.Game.P2.isDead){
+                                        explosion = new objects.Effect("Explosion", object2.x, object2.y);
+                                        console.log("Player Hit");
+                                        let death = createjs.Sound.play("playerDeath");
+                                        death.volume = 0.3;
+                                        explosion.x = object2.x + 20
+                                        explosion.y = object2.y + 20
+                                        explosion.scaleY = 0.5
+                                        explosion.scaleX = 0.5
+                                        managers.Game.currentSceneObject.addChild(explosion)
+                                        managers.Game.hud.P2Lives -= 1
+                                        managers.Game.hud.P2playerLivesSprite[managers.Game.hud.P2Lives].alpha = 0.5
+                                        managers.Game.hud.P2ScoreMult = 1
+                                        managers.Game.hud.P2Score = Math.floor(managers.Game.hud.P2Score/2)
+                                        managers.Game.hud.P2Power = Math.floor(managers.Game.hud.P2Power/2)
+                                        object1.Reset()
+                                        object2.Reset()
+                                    }    
                                 
                             }
                         break;
@@ -400,62 +354,24 @@ module managers {
                                 (object1.y + object1.halfH) > ((object2.y - 10) - object2.halfH/4) &&
                                 (object1.y - object1.halfH) < ((object2.y - 10) + object2.halfH/4)
                                 ){
-                                    if(managers.Game.single){
-                                        if(object2.scaleX == 0.75 && object2.scaleY == 0.75){
-                                            let buff = new objects.Effect("Buff", object1.x + 2, object1.y - 40)
-                                            buff.scaleX = 0.5
-                                            buff.scaleY = 0.7
-    
-                                            managers.Game.currentSceneObject.addChild(buff)
-                                            managers.Game.hud.Score += 25000
-                                            if(managers.Game.hud.Power < 201)
-                                                managers.Game.hud.Power += 25
-                                            managers.Game.currentSceneObject.removeChild(object2)
-                                        }
-                                        managers.Game.hud.Score += 100 * managers.Game.hud.ScoreMult
-                                        if(managers.Game.hud.Power < 201)
-                                            managers.Game.hud.Power += 1
-                                        object2.Reset()
-                                    }
-                                    if(object1.name == "P1"){
-                                        if(object2.scaleX == 0.75 && object2.scaleY == 0.75){
-                                            let buff = new objects.Effect("Buff", object1.x + 2, object1.y - 40)
-                                            buff.scaleX = 0.5
-                                            buff.scaleY = 0.7
-    
-                                            managers.Game.currentSceneObject.addChild(buff)
-                                            managers.Game.hud.P1Score += 25000
-                                            if(managers.Game.hud.P1Power < 201)
-                                                managers.Game.hud.P1Power += 25
-                                            managers.Game.currentSceneObject.removeChild(object2)
-                                        }
-                                        managers.Game.hud.P1Score += 100 * managers.Game.hud.P1ScoreMult
-                                        if(managers.Game.hud.P1Power < 201)
-                                            managers.Game.hud.P1Power += 1
-                                        object2.Reset()
-                                    }
-                                    if(object1.name == "P2"){
-                                        if(object2.scaleX == 0.75 && object2.scaleY == 0.75){
-                                            let buff = new objects.Effect("Buff", object1.x + 2, object1.y - 40)
-                                            buff.scaleX = 0.5
-                                            buff.scaleY = 0.7
-    
-                                            managers.Game.currentSceneObject.addChild(buff)
-                                            managers.Game.hud.P2Score += 25000
-                                            if(managers.Game.hud.P2Power < 201)
-                                                managers.Game.hud.P2Power += 25
-                                            managers.Game.currentSceneObject.removeChild(object2)
-                                        }
-                                        managers.Game.hud.P2Score += 100 * managers.Game.hud.P2ScoreMult
+                                    if(object2.scaleX == 0.75 && object2.scaleY == 0.75){
+                                        let buff = new objects.Effect("Buff", object1.x + 2, object1.y - 40)
+                                        buff.scaleX = 0.5
+                                        buff.scaleY = 0.7
+
+                                        managers.Game.currentSceneObject.addChild(buff)
+                                        managers.Game.hud.P2Score += 25000
                                         if(managers.Game.hud.P2Power < 201)
-                                            managers.Game.hud.P2Power += 1
-                                        object2.Reset()
+                                            managers.Game.hud.P2Power += 25
+                                        managers.Game.currentSceneObject.removeChild(object2)
                                     }
-                                    
+                                    managers.Game.hud.P2Score += 100 * managers.Game.hud.P2ScoreMult
+                                    if(managers.Game.hud.P2Power < 201)
+                                        managers.Game.hud.P2Power += 1
+                                    object2.Reset()    
                                 }
                         break;
                     }
-                //}
         }
     }
 }

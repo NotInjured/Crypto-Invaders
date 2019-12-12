@@ -275,7 +275,7 @@ module objects {
                                             
                                                 let bullet = managers.Game.P1BulletManager.GetBullet();
         
-                                                //console.log(bullet);
+                                                console.log(managers.Game.P1BulletManager.GetBullet());
                                 
                                                 bullet.x = this.bulletSpawn.x;
                                                 bullet.y = this.bulletSpawn.y;

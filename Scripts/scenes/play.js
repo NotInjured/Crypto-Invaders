@@ -1525,7 +1525,8 @@ var scenes;
                     }
                 }
                 this.ChangeShip();
-                this.CheckCollisions();
+                this.P1Collisions();
+                this.P2Collisions();
                 if (managers.Game.hud.P1Lives < 0 && managers.Game.hud.P2Lives < 0) {
                     managers.Game.currentScene = config.Scene.OVER;
                 }
@@ -1600,302 +1601,307 @@ var scenes;
         };
         PlayScene.prototype.CheckCollisions = function () {
             var _this = this;
-            if (managers.Game.single) {
-                this.bulletManager.Bullet.forEach(function (bullet) {
-                    if (bullet.y > 0) {
-                        _this.level1Enemies.forEach(function (e) {
-                            e.forEach(function (f) {
-                                if (!f.isInvincible && f.y > 0) {
-                                    managers.Collision.CheckAABB(bullet, f);
-                                    managers.Collision.CheckAABB(f, _this.Splayer);
-                                }
-                            });
-                        });
-                        _this.level2Enemies.forEach(function (e) {
-                            e.forEach(function (f) {
-                                if (!f.isInvincible && f.y > 0) {
-                                    managers.Collision.CheckAABB(bullet, f);
-                                    managers.Collision.CheckAABB(f, _this.Splayer);
-                                }
-                            });
-                        });
-                        _this.level3Enemies.forEach(function (e) {
-                            e.forEach(function (f) {
-                                if (!f.isInvincible && f.y > 0) {
-                                    managers.Collision.CheckAABB(bullet, f);
-                                    managers.Collision.CheckAABB(f, _this.Splayer);
-                                }
-                            });
-                        });
-                        _this.eliteUnits.forEach(function (e) {
-                            e.forEach(function (f) {
-                                if (!f.isInvincible && f.y > 0) {
-                                    managers.Collision.CheckAABB(bullet, f);
-                                    managers.Collision.CheckAABB(f, _this.Splayer);
-                                }
-                            });
-                        });
-                        _this.bosses.forEach(function (e) {
-                            if (!e.isInvincible && !managers.Game.boss1IsDead)
-                                managers.Collision.CheckAABB(bullet, e);
-                            if (!e.isInvincible && !managers.Game.boss2IsDead)
-                                managers.Collision.CheckAABB(bullet, e);
-                            if (!e.isInvincible && !managers.Game.boss3_1IsDead)
-                                managers.Collision.CheckAABB(bullet, e);
-                            if (!e.isInvincible && !managers.Game.boss3_2IsDead)
-                                managers.Collision.CheckAABB(bullet, e);
-                        });
-                        _this.shields.forEach(function (s) {
-                            managers.Collision.CheckAABB(bullet, s);
-                        });
-                    }
-                });
-                this.missileManager.Missile.forEach(function (m) {
+            this.bulletManager.Bullet.forEach(function (bullet) {
+                if (bullet.y > 0) {
                     _this.level1Enemies.forEach(function (e) {
                         e.forEach(function (f) {
-                            if (!f.isInvincible) {
-                                managers.Collision.CheckAABB(m, f);
+                            if (!f.isInvincible && f.y > 0) {
+                                managers.Collision.CheckAABB(bullet, f);
+                                managers.Collision.CheckAABB(f, _this.Splayer);
                             }
                         });
                     });
                     _this.level2Enemies.forEach(function (e) {
                         e.forEach(function (f) {
-                            if (!f.isInvincible) {
-                                managers.Collision.CheckAABB(m, f);
+                            if (!f.isInvincible && f.y > 0) {
+                                managers.Collision.CheckAABB(bullet, f);
+                                managers.Collision.CheckAABB(f, _this.Splayer);
                             }
                         });
                     });
                     _this.level3Enemies.forEach(function (e) {
                         e.forEach(function (f) {
-                            if (!f.isInvincible) {
-                                managers.Collision.CheckAABB(m, f);
+                            if (!f.isInvincible && f.y > 0) {
+                                managers.Collision.CheckAABB(bullet, f);
+                                managers.Collision.CheckAABB(f, _this.Splayer);
                             }
                         });
                     });
                     _this.eliteUnits.forEach(function (e) {
                         e.forEach(function (f) {
-                            if (!f.isInvincible) {
-                                managers.Collision.CheckAABB(m, f);
+                            if (!f.isInvincible && f.y > 0) {
+                                managers.Collision.CheckAABB(bullet, f);
+                                managers.Collision.CheckAABB(f, _this.Splayer);
                             }
                         });
                     });
                     _this.bosses.forEach(function (e) {
                         if (!e.isInvincible && !managers.Game.boss1IsDead)
-                            managers.Collision.CheckAABB(m, e);
+                            managers.Collision.CheckAABB(bullet, e);
                         if (!e.isInvincible && !managers.Game.boss2IsDead)
-                            managers.Collision.CheckAABB(m, e);
+                            managers.Collision.CheckAABB(bullet, e);
                         if (!e.isInvincible && !managers.Game.boss3_1IsDead)
-                            managers.Collision.CheckAABB(m, e);
+                            managers.Collision.CheckAABB(bullet, e);
                         if (!e.isInvincible && !managers.Game.boss3_2IsDead)
-                            managers.Collision.CheckAABB(m, e);
+                            managers.Collision.CheckAABB(bullet, e);
+                    });
+                    _this.shields.forEach(function (s) {
+                        managers.Collision.CheckAABB(bullet, s);
+                    });
+                }
+            });
+            this.missileManager.Missile.forEach(function (m) {
+                _this.level1Enemies.forEach(function (e) {
+                    e.forEach(function (f) {
+                        if (!f.isInvincible) {
+                            managers.Collision.CheckAABB(m, f);
+                        }
                     });
                 });
-                this.coinsManager.Coin.forEach(function (c) {
-                    managers.Collision.CheckAABB(_this.Splayer, c);
+                _this.level2Enemies.forEach(function (e) {
+                    e.forEach(function (f) {
+                        if (!f.isInvincible) {
+                            managers.Collision.CheckAABB(m, f);
+                        }
+                    });
                 });
-                this.enemyBulletManager.Bullet.forEach(function (b) {
-                    if (!_this.Splayer.IsInvincible && !_this.Splayer.isDead)
-                        managers.Collision.CheckAABB(b, _this.Splayer);
-                    if (_this.Splayer.IsInvincible)
-                        managers.Collision.CheckAABB(b, _this.shields[0]);
+                _this.level3Enemies.forEach(function (e) {
+                    e.forEach(function (f) {
+                        if (!f.isInvincible) {
+                            managers.Collision.CheckAABB(m, f);
+                        }
+                    });
                 });
-            }
-            if (managers.Game.multi) {
-                // P1
-                this.P1bulletManager.Bullet.forEach(function (bullet) {
-                    if (bullet.y > 0) {
-                        _this.level1Enemies.forEach(function (e) {
-                            e.forEach(function (f) {
-                                if (!f.isInvincible && f.y > 0) {
-                                    managers.Collision.CheckAABB(bullet, f);
-                                    managers.Collision.CheckAABB(f, _this.P1);
-                                }
-                            });
-                        });
-                        _this.level2Enemies.forEach(function (e) {
-                            e.forEach(function (f) {
-                                if (!f.isInvincible && f.y > 0) {
-                                    managers.Collision.CheckAABB(bullet, f);
-                                    managers.Collision.CheckAABB(f, _this.P1);
-                                }
-                            });
-                        });
-                        _this.level3Enemies.forEach(function (e) {
-                            e.forEach(function (f) {
-                                if (!f.isInvincible && f.y > 0) {
-                                    managers.Collision.CheckAABB(bullet, f);
-                                    managers.Collision.CheckAABB(f, _this.P1);
-                                }
-                            });
-                        });
-                        _this.eliteUnits.forEach(function (e) {
-                            e.forEach(function (f) {
-                                if (!f.isInvincible && f.y > 0) {
-                                    managers.Collision.CheckAABB(bullet, f);
-                                    managers.Collision.CheckAABB(f, _this.P1);
-                                }
-                            });
-                        });
-                        _this.bosses.forEach(function (e) {
-                            if (!e.isInvincible && !managers.Game.boss1IsDead)
-                                managers.Collision.CheckAABB(bullet, e);
-                            if (!e.isInvincible && !managers.Game.boss2IsDead)
-                                managers.Collision.CheckAABB(bullet, e);
-                            if (!e.isInvincible && !managers.Game.boss3_1IsDead)
-                                managers.Collision.CheckAABB(bullet, e);
-                            if (!e.isInvincible && !managers.Game.boss3_2IsDead)
-                                managers.Collision.CheckAABB(bullet, e);
-                        });
-                        _this.shields.forEach(function (s) {
-                            managers.Collision.CheckAABB(bullet, s);
-                        });
-                    }
+                _this.eliteUnits.forEach(function (e) {
+                    e.forEach(function (f) {
+                        if (!f.isInvincible) {
+                            managers.Collision.CheckAABB(m, f);
+                        }
+                    });
                 });
-                this.P1missileManager.Missile.forEach(function (m) {
+                _this.bosses.forEach(function (e) {
+                    if (!e.isInvincible && !managers.Game.boss1IsDead)
+                        managers.Collision.CheckAABB(m, e);
+                    if (!e.isInvincible && !managers.Game.boss2IsDead)
+                        managers.Collision.CheckAABB(m, e);
+                    if (!e.isInvincible && !managers.Game.boss3_1IsDead)
+                        managers.Collision.CheckAABB(m, e);
+                    if (!e.isInvincible && !managers.Game.boss3_2IsDead)
+                        managers.Collision.CheckAABB(m, e);
+                });
+            });
+            this.coinsManager.Coin.forEach(function (c) {
+                managers.Collision.CheckAABB(_this.Splayer, c);
+            });
+            this.enemyBulletManager.Bullet.forEach(function (b) {
+                if (!_this.Splayer.IsInvincible && !_this.Splayer.isDead)
+                    managers.Collision.CheckAABB(b, _this.Splayer);
+                if (_this.Splayer.IsInvincible)
+                    managers.Collision.CheckAABB(b, _this.shields[0]);
+            });
+        };
+        PlayScene.prototype.P1Collisions = function () {
+            var _this = this;
+            this.P1bulletManager.Bullet.forEach(function (bullet) {
+                if (bullet.y > 0) {
                     _this.level1Enemies.forEach(function (e) {
                         e.forEach(function (f) {
-                            if (!f.isInvincible) {
-                                managers.Collision.CheckAABB(m, f);
+                            if (!f.isInvincible && f.y > 0) {
+                                managers.P1Collision.CheckAABB(bullet, f);
+                                managers.P1Collision.CheckAABB(f, _this.P1);
                             }
                         });
                     });
                     _this.level2Enemies.forEach(function (e) {
                         e.forEach(function (f) {
-                            if (!f.isInvincible) {
-                                managers.Collision.CheckAABB(m, f);
+                            if (!f.isInvincible && f.y > 0) {
+                                managers.P1Collision.CheckAABB(bullet, f);
+                                managers.P1Collision.CheckAABB(f, _this.P1);
                             }
                         });
                     });
                     _this.level3Enemies.forEach(function (e) {
                         e.forEach(function (f) {
-                            if (!f.isInvincible) {
-                                managers.Collision.CheckAABB(m, f);
+                            if (!f.isInvincible && f.y > 0) {
+                                managers.P1Collision.CheckAABB(bullet, f);
+                                managers.P1Collision.CheckAABB(f, _this.P1);
                             }
                         });
                     });
                     _this.eliteUnits.forEach(function (e) {
                         e.forEach(function (f) {
-                            if (!f.isInvincible) {
-                                managers.Collision.CheckAABB(m, f);
+                            if (!f.isInvincible && f.y > 0) {
+                                managers.P1Collision.CheckAABB(bullet, f);
+                                managers.P1Collision.CheckAABB(f, _this.P1);
                             }
                         });
                     });
                     _this.bosses.forEach(function (e) {
                         if (!e.isInvincible && !managers.Game.boss1IsDead)
-                            managers.Collision.CheckAABB(m, e);
+                            managers.P1Collision.CheckAABB(bullet, e);
                         if (!e.isInvincible && !managers.Game.boss2IsDead)
-                            managers.Collision.CheckAABB(m, e);
+                            managers.P1Collision.CheckAABB(bullet, e);
                         if (!e.isInvincible && !managers.Game.boss3_1IsDead)
-                            managers.Collision.CheckAABB(m, e);
+                            managers.P1Collision.CheckAABB(bullet, e);
                         if (!e.isInvincible && !managers.Game.boss3_2IsDead)
-                            managers.Collision.CheckAABB(m, e);
+                            managers.P1Collision.CheckAABB(bullet, e);
+                    });
+                    _this.shields.forEach(function (s) {
+                        managers.P1Collision.CheckAABB(bullet, s);
+                    });
+                }
+            });
+            this.P1missileManager.Missile.forEach(function (m) {
+                _this.level1Enemies.forEach(function (e) {
+                    e.forEach(function (f) {
+                        if (!f.isInvincible) {
+                            managers.P1Collision.CheckAABB(m, f);
+                        }
                     });
                 });
-                // P2
-                this.P2bulletManager.Bullet.forEach(function (bullet) {
-                    if (bullet.y > 0) {
-                        _this.level1Enemies.forEach(function (e) {
-                            e.forEach(function (f) {
-                                if (!f.isInvincible && f.y > 0) {
-                                    managers.Collision.CheckAABB(bullet, f);
-                                    managers.Collision.CheckAABB(f, _this.P2);
-                                }
-                            });
-                        });
-                        _this.level2Enemies.forEach(function (e) {
-                            e.forEach(function (f) {
-                                if (!f.isInvincible && f.y > 0) {
-                                    managers.Collision.CheckAABB(bullet, f);
-                                    managers.Collision.CheckAABB(f, _this.P2);
-                                }
-                            });
-                        });
-                        _this.level3Enemies.forEach(function (e) {
-                            e.forEach(function (f) {
-                                if (!f.isInvincible && f.y > 0) {
-                                    managers.Collision.CheckAABB(bullet, f);
-                                    managers.Collision.CheckAABB(f, _this.P2);
-                                }
-                            });
-                        });
-                        _this.eliteUnits.forEach(function (e) {
-                            e.forEach(function (f) {
-                                if (!f.isInvincible && f.y > 0) {
-                                    managers.Collision.CheckAABB(bullet, f);
-                                    managers.Collision.CheckAABB(f, _this.P2);
-                                }
-                            });
-                        });
-                        _this.bosses.forEach(function (e) {
-                            if (!e.isInvincible && !managers.Game.boss1IsDead)
-                                managers.Collision.CheckAABB(bullet, e);
-                            if (!e.isInvincible && !managers.Game.boss2IsDead)
-                                managers.Collision.CheckAABB(bullet, e);
-                            if (!e.isInvincible && !managers.Game.boss3_1IsDead)
-                                managers.Collision.CheckAABB(bullet, e);
-                            if (!e.isInvincible && !managers.Game.boss3_2IsDead)
-                                managers.Collision.CheckAABB(bullet, e);
-                        });
-                        _this.shields.forEach(function (s) {
-                            managers.Collision.CheckAABB(bullet, s);
-                        });
-                    }
+                _this.level2Enemies.forEach(function (e) {
+                    e.forEach(function (f) {
+                        if (!f.isInvincible) {
+                            managers.P1Collision.CheckAABB(m, f);
+                        }
+                    });
                 });
-                this.P2missileManager.Missile.forEach(function (m) {
+                _this.level3Enemies.forEach(function (e) {
+                    e.forEach(function (f) {
+                        if (!f.isInvincible) {
+                            managers.P1Collision.CheckAABB(m, f);
+                        }
+                    });
+                });
+                _this.eliteUnits.forEach(function (e) {
+                    e.forEach(function (f) {
+                        if (!f.isInvincible) {
+                            managers.P1Collision.CheckAABB(m, f);
+                        }
+                    });
+                });
+                _this.bosses.forEach(function (e) {
+                    if (!e.isInvincible && !managers.Game.boss1IsDead)
+                        managers.P1Collision.CheckAABB(m, e);
+                    if (!e.isInvincible && !managers.Game.boss2IsDead)
+                        managers.P1Collision.CheckAABB(m, e);
+                    if (!e.isInvincible && !managers.Game.boss3_1IsDead)
+                        managers.P1Collision.CheckAABB(m, e);
+                    if (!e.isInvincible && !managers.Game.boss3_2IsDead)
+                        managers.P1Collision.CheckAABB(m, e);
+                });
+            });
+            this.coinsManager.Coin.forEach(function (c) {
+                managers.P1Collision.CheckAABB(_this.P1, c);
+            });
+            this.enemyBulletManager.Bullet.forEach(function (b) {
+                if (!_this.P1.IsInvincible && !_this.P1.isDead)
+                    managers.P1Collision.CheckAABB(b, _this.P1);
+                if (_this.P1.IsInvincible)
+                    managers.P1Collision.CheckAABB(b, _this.shields[1]);
+            });
+        };
+        PlayScene.prototype.P2Collisions = function () {
+            var _this = this;
+            // P2
+            this.P2bulletManager.Bullet.forEach(function (bullet) {
+                if (bullet.y > 0) {
                     _this.level1Enemies.forEach(function (e) {
                         e.forEach(function (f) {
-                            if (!f.isInvincible) {
-                                managers.Collision.CheckAABB(m, f);
+                            if (!f.isInvincible && f.y > 0) {
+                                managers.P2Collision.CheckAABB(bullet, f);
+                                managers.P2Collision.CheckAABB(f, _this.P2);
                             }
                         });
                     });
                     _this.level2Enemies.forEach(function (e) {
                         e.forEach(function (f) {
-                            if (!f.isInvincible) {
-                                managers.Collision.CheckAABB(m, f);
+                            if (!f.isInvincible && f.y > 0) {
+                                managers.P2Collision.CheckAABB(bullet, f);
+                                managers.P2Collision.CheckAABB(f, _this.P2);
                             }
                         });
                     });
                     _this.level3Enemies.forEach(function (e) {
                         e.forEach(function (f) {
-                            if (!f.isInvincible) {
-                                managers.Collision.CheckAABB(m, f);
+                            if (!f.isInvincible && f.y > 0) {
+                                managers.P2Collision.CheckAABB(bullet, f);
+                                managers.P2Collision.CheckAABB(f, _this.P2);
                             }
                         });
                     });
                     _this.eliteUnits.forEach(function (e) {
                         e.forEach(function (f) {
-                            if (!f.isInvincible) {
-                                managers.Collision.CheckAABB(m, f);
+                            if (!f.isInvincible && f.y > 0) {
+                                managers.P2Collision.CheckAABB(bullet, f);
+                                managers.P2Collision.CheckAABB(f, _this.P2);
                             }
                         });
                     });
                     _this.bosses.forEach(function (e) {
                         if (!e.isInvincible && !managers.Game.boss1IsDead)
-                            managers.Collision.CheckAABB(m, e);
+                            managers.P2Collision.CheckAABB(bullet, e);
                         if (!e.isInvincible && !managers.Game.boss2IsDead)
-                            managers.Collision.CheckAABB(m, e);
+                            managers.P2Collision.CheckAABB(bullet, e);
                         if (!e.isInvincible && !managers.Game.boss3_1IsDead)
-                            managers.Collision.CheckAABB(m, e);
+                            managers.P2Collision.CheckAABB(bullet, e);
                         if (!e.isInvincible && !managers.Game.boss3_2IsDead)
-                            managers.Collision.CheckAABB(m, e);
+                            managers.P2Collision.CheckAABB(bullet, e);
+                    });
+                    _this.shields.forEach(function (s) {
+                        managers.P2Collision.CheckAABB(bullet, s);
+                    });
+                }
+            });
+            this.P2missileManager.Missile.forEach(function (m) {
+                _this.level1Enemies.forEach(function (e) {
+                    e.forEach(function (f) {
+                        if (!f.isInvincible) {
+                            managers.P2Collision.CheckAABB(m, f);
+                        }
                     });
                 });
-                this.coinsManager.Coin.forEach(function (c) {
-                    managers.Collision.CheckAABB(_this.P1, c);
-                    managers.Collision.CheckAABB(_this.P2, c);
+                _this.level2Enemies.forEach(function (e) {
+                    e.forEach(function (f) {
+                        if (!f.isInvincible) {
+                            managers.P2Collision.CheckAABB(m, f);
+                        }
+                    });
                 });
-                this.enemyBulletManager.Bullet.forEach(function (b) {
-                    //if(!this.P1.IsInvincible && !this.P1.isDead)
-                    managers.Collision.CheckAABB(b, _this.P1);
-                    //if(this.P1.IsInvincible)
-                    managers.Collision.CheckAABB(b, _this.shields[1]);
-                    //if(!this.P2.IsInvincible && !this.P2.isDead)
-                    managers.Collision.CheckAABB(b, _this.P2);
-                    //if(this.P2.IsInvincible)
-                    managers.Collision.CheckAABB(b, _this.shields[2]);
+                _this.level3Enemies.forEach(function (e) {
+                    e.forEach(function (f) {
+                        if (!f.isInvincible) {
+                            managers.P2Collision.CheckAABB(m, f);
+                        }
+                    });
                 });
-            }
+                _this.eliteUnits.forEach(function (e) {
+                    e.forEach(function (f) {
+                        if (!f.isInvincible) {
+                            managers.P2Collision.CheckAABB(m, f);
+                        }
+                    });
+                });
+                _this.bosses.forEach(function (e) {
+                    if (!e.isInvincible && !managers.Game.boss1IsDead)
+                        managers.P2Collision.CheckAABB(m, e);
+                    if (!e.isInvincible && !managers.Game.boss2IsDead)
+                        managers.P2Collision.CheckAABB(m, e);
+                    if (!e.isInvincible && !managers.Game.boss3_1IsDead)
+                        managers.P2Collision.CheckAABB(m, e);
+                    if (!e.isInvincible && !managers.Game.boss3_2IsDead)
+                        managers.P2Collision.CheckAABB(m, e);
+                });
+            });
+            this.coinsManager.Coin.forEach(function (c) {
+                managers.P2Collision.CheckAABB(_this.P2, c);
+            });
+            this.enemyBulletManager.Bullet.forEach(function (b) {
+                if (!_this.P2.IsInvincible && !_this.P2.isDead)
+                    managers.P2Collision.CheckAABB(b, _this.P1);
+                if (_this.P2.IsInvincible)
+                    managers.P2Collision.CheckAABB(b, _this.shields[1]);
+            });
         };
         PlayScene.prototype.ChangeShip = function () {
             var _this = this;
