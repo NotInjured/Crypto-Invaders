@@ -230,9 +230,17 @@ var managers;
                 "and collecting item drops " + "\n\n" +
                 "+Multiplier by destroying enemies" + "\n" +
                 "Reset to 1 on death", "20px", "OptimusPrimus", "#000000", 725, 155, false);
-            this.controls = new objects.Label("Arrow Keys - Movement" + "\n\n" + "           X - Shoot"
-                + "\n\n" + "   Z - Bombs (Disabled)" + "\n\n" + "    Space - Swap Ships" + "\n\n" +
-                "     Shift - Half-speed", "24px", "OptimusPrimus", "#000000", 50, 215, false);
+            this.controls = new objects.Label("                      Singleplayer" + "\n\n" +
+                "           Arrow Keys - Movement" + "\n" +
+                "                       X - Shoot" + "\n" +
+                "               Space - Swap Ships" + "\n" +
+                "                 Shift - Half-speed" + "\n\n" +
+                "                      Multiplayer" + "\n\n" +
+                "         P1                                    P2" + "\n" +
+                "     WASD        - Move -   Arrow Keys" + "\n" +
+                "         V            - Shoot -        NUM1" + "\n" +
+                "      Space         - Swap -        NUM0" + "\n" +
+                "     LShift     - Half-speed -    NUM.", "16px", "OptimusPrimus", "#000000", 50, 195, false);
             this.versionLabel = new objects.Label("Beta Release 0.2", "12px", "OptimusPrimus", "#000000", 495, 450, false);
             if (managers.Game.normal)
                 this.diff = "Normal";
@@ -304,7 +312,7 @@ var managers;
                 this.addChild(this.controlPanel);
                 this.addChild(this.controls);
                 this.addChild(this.playerLivesLabel);
-                this.addChild(this.playerBombsLabel);
+                //this.addChild(this.playerBombsLabel);
                 this.addChild(this.playerScoreLabel);
                 this.addChild(this.playerPowerLabel);
                 this.addChild(this.scoreMultLabel);

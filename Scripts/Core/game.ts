@@ -296,7 +296,9 @@
         {id: "laser", src:"./Assets/Sounds/laser.mp3"},
         {id: "bossMusic", src:"./Assets/Sounds/Sudden_Death.ogg"},
         {id: "mainMenu", src:"./Assets/Sounds/cyberspace.exe.ogg"},
-        {id: "hit", src:"./Assets/Sounds/hit.wav"}
+        {id: "hit", src:"./Assets/Sounds/hit.wav"},
+        {id: "buttonSingle", src: "./Assets/buttonSingle.png"},
+        {id: "buttonMulti", src: "./Assets/buttonMulti.png"}
     ];
 
     function Init() {
