@@ -1,5 +1,5 @@
 module managers {
-    export class Bullet {
+    export class P1Bullet {
         // Variables
         private bulletCount:number;
         public Bullet:objects.Bullet[];
@@ -13,7 +13,7 @@ module managers {
         // Methods
         public buildBulletPool(shipType:config.Ship):void {
             // Initialize a pool of ammo assets
-            if(managers.Game.hud.Power < 40){
+            if(managers.Game.hud.P1Power < 40){
                 switch(shipType){
                     case config.Ship.Botcoin:
                         for(let i = 0; i < this.bulletCount; i++) {
@@ -27,7 +27,7 @@ module managers {
                     break;
                 }
             }
-            if(managers.Game.hud.Power >= 40 && managers.Game.hud.Power < 80){
+            if(managers.Game.hud.P1Power >= 40 && managers.Game.hud.P1Power < 80){
                 switch(shipType){
                     case config.Ship.Botcoin:
                         for(let i = 0; i < this.bulletCount; i++) {
@@ -41,7 +41,7 @@ module managers {
                     break;
                 }
             }
-            if(managers.Game.hud.Power >= 80 && managers.Game.hud.Power < 120){
+            if(managers.Game.hud.P1Power >= 80 && managers.Game.hud.P1Power < 120){
                 switch(shipType){
                     case config.Ship.Botcoin:
                         for(let i = 0; i < this.bulletCount; i++) {
@@ -55,7 +55,7 @@ module managers {
                     break;
                 }
             }
-            if(managers.Game.hud.Power >= 120 && managers.Game.hud.Power < 160){
+            if(managers.Game.hud.P1Power >= 120 && managers.Game.hud.P1Power < 160){
                 switch(shipType){
                     case config.Ship.Botcoin:
                         for(let i = 0; i < this.bulletCount; i++) {
@@ -69,7 +69,7 @@ module managers {
                     break;
                 }
             }
-            if(managers.Game.hud.Power >= 160){
+            if(managers.Game.hud.P1Power >= 160){
                 switch(shipType){
                     case config.Ship.Botcoin:
                         for(let i = 0; i < this.bulletCount; i++) {

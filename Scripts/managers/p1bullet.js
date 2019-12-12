@@ -1,14 +1,14 @@
 var managers;
 (function (managers) {
-    var Bullet = /** @class */ (function () {
+    var P1Bullet = /** @class */ (function () {
         // Constructor
-        function Bullet() {
+        function P1Bullet() {
             this.Start();
         }
         // Methods
-        Bullet.prototype.buildBulletPool = function (shipType) {
+        P1Bullet.prototype.buildBulletPool = function (shipType) {
             // Initialize a pool of ammo assets
-            if (managers.Game.hud.Power < 40) {
+            if (managers.Game.hud.P1Power < 40) {
                 switch (shipType) {
                     case config.Ship.Botcoin:
                         for (var i = 0; i < this.bulletCount; i++) {
@@ -22,7 +22,7 @@ var managers;
                         break;
                 }
             }
-            if (managers.Game.hud.Power >= 40 && managers.Game.hud.Power < 80) {
+            if (managers.Game.hud.P1Power >= 40 && managers.Game.hud.P1Power < 80) {
                 switch (shipType) {
                     case config.Ship.Botcoin:
                         for (var i = 0; i < this.bulletCount; i++) {
@@ -36,7 +36,7 @@ var managers;
                         break;
                 }
             }
-            if (managers.Game.hud.Power >= 80 && managers.Game.hud.Power < 120) {
+            if (managers.Game.hud.P1Power >= 80 && managers.Game.hud.P1Power < 120) {
                 switch (shipType) {
                     case config.Ship.Botcoin:
                         for (var i = 0; i < this.bulletCount; i++) {
@@ -50,7 +50,7 @@ var managers;
                         break;
                 }
             }
-            if (managers.Game.hud.Power >= 120 && managers.Game.hud.Power < 160) {
+            if (managers.Game.hud.P1Power >= 120 && managers.Game.hud.P1Power < 160) {
                 switch (shipType) {
                     case config.Ship.Botcoin:
                         for (var i = 0; i < this.bulletCount; i++) {
@@ -64,7 +64,7 @@ var managers;
                         break;
                 }
             }
-            if (managers.Game.hud.Power >= 160) {
+            if (managers.Game.hud.P1Power >= 160) {
                 switch (shipType) {
                     case config.Ship.Botcoin:
                         for (var i = 0; i < this.bulletCount; i++) {
@@ -79,26 +79,26 @@ var managers;
                 }
             }
         };
-        Bullet.prototype.GetBullet = function () {
+        P1Bullet.prototype.GetBullet = function () {
             var bullet = this.Bullet[this.CurrentBullet];
             this.CurrentBullet++;
             if (managers.Game.bulletManager.CurrentBullet > 950)
                 managers.Game.bulletManager.CurrentBullet = 0;
             return bullet;
         };
-        Bullet.prototype.Start = function () {
+        P1Bullet.prototype.Start = function () {
             this.bulletCount = 1000;
             this.Bullet = new Array();
             this.CurrentBullet = 0;
             this.buildBulletPool(config.Ship.Botcoin);
         };
-        Bullet.prototype.Update = function () {
+        P1Bullet.prototype.Update = function () {
             this.Bullet.forEach(function (bullet) {
                 bullet.Update();
             });
         };
-        return Bullet;
+        return P1Bullet;
     }());
-    managers.Bullet = Bullet;
+    managers.P1Bullet = P1Bullet;
 })(managers || (managers = {}));
-//# sourceMappingURL=bullet.js.map
+//# sourceMappingURL=P1bullet.js.map

@@ -31,10 +31,10 @@ module scenes {
         private bulletManager:managers.Bullet;
         private missileManager:managers.Missile;
 
-        private P1bulletManager:managers.Bullet;
+        private P1bulletManager:managers.P1Bullet;
         private P1missileManager:managers.Missile;
 
-        private P2bulletManager:managers.Bullet;
+        private P2bulletManager:managers.P2Bullet;
         private P2missileManager:managers.Missile;
 
         private enemyBulletManager:managers.EnemyBullet;
@@ -120,7 +120,7 @@ module scenes {
 
             // P1
             managers.Game.P1 = this.P1
-            this.P1bulletManager = new managers.Bullet();
+            this.P1bulletManager = new managers.P1Bullet();
             managers.Game.P1BulletManager = this.P1bulletManager;
 
             this.P1missileManager = new managers.Missile()
@@ -128,7 +128,7 @@ module scenes {
 
             // P2
             managers.Game.P2 = this.P2
-            this.P2bulletManager = new managers.Bullet();
+            this.P2bulletManager = new managers.P2Bullet();
             managers.Game.P2BulletManager = this.P2bulletManager;
 
             this.P2missileManager = new managers.Missile()
