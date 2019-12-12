@@ -71,7 +71,7 @@ var objects;
                         this.Move();
                         this.Shoot();
                         this.Swapped();
-                        if (managers.Game.hud.Power > 20)
+                        if (managers.Game.hud.Power >= 20)
                             this.ShootMissiles();
                     }
                     if (this.missile != undefined)
@@ -83,7 +83,7 @@ var objects;
                             this.Move();
                             this.Shoot();
                             this.Swapped();
-                            if (managers.Game.hud.P1Power > 20)
+                            if (managers.Game.hud.P1Power >= 20)
                                 this.ShootMissiles();
                         }
                         if (this.missile != undefined)
@@ -94,7 +94,7 @@ var objects;
                             this.Move();
                             this.Shoot();
                             this.Swapped();
-                            if (managers.Game.hud.P2Power > 20)
+                            if (managers.Game.hud.P2Power >= 20)
                                 this.ShootMissiles();
                         }
                         if (this.missile != undefined)
@@ -254,7 +254,7 @@ var objects;
                                         this.bulletSpawn = new math.Vec2(this.x - 15.35, this.y - 40);
                                         this.effect = new objects.Effect("Laser_Shoot", this.x - 13, this.y - 43);
                                         var bullet = managers.Game.P1BulletManager.GetBullet();
-                                        console.log(managers.Game.P1BulletManager.GetBullet());
+                                        //console.log(managers.Game.P1BulletManager.GetBullet());
                                         bullet.x = this.bulletSpawn.x;
                                         bullet.y = this.bulletSpawn.y;
                                         var laser = createjs.Sound.play("laser");
@@ -912,9 +912,8 @@ var objects;
                             if (this.shootnum < 1) {
                                 for (var i = 0; i < 2; i++) {
                                     var position = new math.Vec2(this.x - 15, this.y - 10);
-                                    //let enemyPos = new math.Vec2(enemy.x, enemy.y)
-                                    //let distance =  math.Vec2.Distance(enemyPos, position)
                                     this.missile = managers.Game.P1MissileManager.GetMissile();
+                                    console.log(this.missile);
                                     this.missile.Angle = 0;
                                     this.missile.AngleStep = (240 / 4) * this.shootnum;
                                     this.missile.Angle += this.missile.AngleStep;

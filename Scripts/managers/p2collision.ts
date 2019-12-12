@@ -42,6 +42,7 @@ module managers {
                                     coin.y = object2.y
                                     coin.scaleX = 0.25
                                     coin.scaleY = 0.25
+                                    coin.p2 = true
                                     managers.Game.currentSceneObject.addChild(coin)
                                     object1.Reset()
                                     explosion = new objects.Effect("Explosion", object2.x+15, object2.y +10);
@@ -89,6 +90,7 @@ module managers {
                                         coin.y = object2.y
                                         coin.scaleX = 0.75
                                         coin.scaleY = 0.75
+                                        coin.p2 = true
                                         managers.Game.currentSceneObject.addChild(coin)
 
                                         if(managers.Game.hud.P2Power < 201)
@@ -122,6 +124,7 @@ module managers {
                                         coin.y = object2.y
                                         coin.scaleX = 0.75
                                         coin.scaleY = 0.75
+                                        coin.p2 = true
                                         managers.Game.currentSceneObject.addChild(coin)
                                         explosion = new objects.Effect("Explosion", object2.x + 65, object2.y +65);
                                         managers.Game.currentSceneObject.addChild(explosion)
@@ -158,6 +161,7 @@ module managers {
                                         coin.y = object2.y
                                         coin.scaleX = 0.75
                                         coin.scaleY = 0.75
+                                        coin.p2 = true
                                         managers.Game.currentSceneObject.addChild(coin)
                                         object2.Reset()
                                         managers.Game.currentSceneObject.removeChild(object2)
@@ -197,6 +201,7 @@ module managers {
                                         coin.y = object2.y
                                         coin.scaleX = 0.75
                                         coin.scaleY = 0.75
+                                        coin.p2 = true
                                         managers.Game.currentSceneObject.addChild(coin)
 
                                     explosion = new objects.Effect("Explosion", object2.x +225, object2.y + 75);
@@ -238,6 +243,7 @@ module managers {
                                         coin.y = object2.y
                                         coin.scaleX = 0.75
                                         coin.scaleY = 0.75
+                                        coin.p2 = true
                                         managers.Game.currentSceneObject.addChild(coin)
 
                                         managers.Game.currentSceneObject.addChild(explosion)
@@ -286,6 +292,7 @@ module managers {
                                             coin.y = object2.y
                                             coin.scaleX = 0.75
                                             coin.scaleY = 0.75
+                                            coin.p2 = true
                                             managers.Game.currentSceneObject.addChild(coin)
     
                                             managers.Game.currentSceneObject.addChild(explosion)
@@ -313,25 +320,23 @@ module managers {
                                 (object1.y + object1.halfH) > ((object2.y - 10) - object2.halfH/4) &&
                                 (object1.y - object1.halfH) < ((object2.y - 10) + object2.halfH/4)
                                 ){
-                                    if(!managers.Game.P2.IsInvincible && !managers.Game.P2.isDead){
-                                        explosion = new objects.Effect("Explosion", object2.x, object2.y);
-                                        console.log("Player Hit");
-                                        let death = createjs.Sound.play("playerDeath");
-                                        death.volume = 0.3;
-                                        explosion.x = object2.x + 20
-                                        explosion.y = object2.y + 20
-                                        explosion.scaleY = 0.5
-                                        explosion.scaleX = 0.5
-                                        managers.Game.currentSceneObject.addChild(explosion)
-                                        managers.Game.hud.P2Lives -= 1
-                                        managers.Game.hud.P2playerLivesSprite[managers.Game.hud.P2Lives].alpha = 0.5
-                                        managers.Game.hud.P2ScoreMult = 1
-                                        managers.Game.hud.P2Score = Math.floor(managers.Game.hud.P2Score/2)
-                                        managers.Game.hud.P2Power = Math.floor(managers.Game.hud.P2Power/2)
-                                        object1.Reset()
-                                        object2.Reset()
-                                    }    
-                                
+                                explosion = new objects.Effect("Explosion", object2.x, object2.y);
+                                console.log("Player Hit");
+                                let death = createjs.Sound.play("playerDeath");
+                                death.volume = 0.3;
+                                explosion.x = object2.x + 20
+                                explosion.y = object2.y + 20
+                                explosion.scaleY = 0.5
+                                explosion.scaleX = 0.5
+                                managers.Game.currentSceneObject.addChild(explosion)
+                                managers.Game.hud.P2Lives -= 1
+                                managers.Game.hud.P2playerLivesSprite[managers.Game.hud.P2Lives].alpha = 0.5
+                                managers.Game.hud.P2ScoreMult = 1
+                                managers.Game.hud.P2Score = Math.floor(managers.Game.hud.P2Score/2)
+                                managers.Game.hud.P2Power = Math.floor(managers.Game.hud.P2Power/2)
+                                object1.Reset()
+                                object2.Reset()
+                                        
                             }
                         break;
                         case "Shield":

@@ -59,6 +59,7 @@ module managers {
         public P1scoreMultLabel: objects.Label;
         public P1highScoreLabel: objects.Label;
         public P1diffLabel: objects.Label;
+        public P1Name: objects.Label;
 
         // P2
         private P2lives:number;
@@ -67,6 +68,7 @@ module managers {
         private P2hScore:number;
         private P2scoreMult:number;
         private P2diff:string;
+        private P2Name:objects.Label;
 
         public P2playerLivesSprite: objects.Sprite[]
         public P2playerLivesLabel: objects.Label;
@@ -325,7 +327,16 @@ module managers {
                     this.P1diffLabel.x = 15
                     this.P1diffLabel.y = 400
 
+                    this.P1Name.text = "Player 1"
+                    this.P1Name.x = 110
+                    this.P1Name.y = 100
+
                     managers.Game.P1score = this.P1Score
+
+                    if(this.P1Score > this.P1HighScore){
+                        this.P1HighScore = this.P1Score
+                        managers.Game.P1hScore = managers.Game.P1score
+                    }
     
                     // P2
                     this.P2playerScoreLabel.x = 751
@@ -342,7 +353,16 @@ module managers {
                     this.P2diffLabel.x = 725
                     this.P2diffLabel.y = 400
 
+                    this.P2Name.text = "Player 2"
+                    this.P2Name.x = 825
+                    this.P2Name.y = 100
+
                     managers.Game.P2score = this.P2Score
+
+                    if(this.P2Score > this.P2HighScore){
+                        this.P2HighScore = this.P2Score
+                        managers.Game.P2hScore = managers.Game.P2score
+                    }
     
                     if(this.Score > this.HighScore){
                         this.HighScore = this.Score
@@ -486,6 +506,7 @@ module managers {
             this.P1playerPowerLabel = new objects.Label("", "24px", "OptimusPrinceps","#000000", 15, 20, false );    
             this.P1scoreMultLabel = new objects.Label("", "24px", "OptimusPrinceps","#000000", 15, 45, false );
             this.P1highScoreLabel = new objects.Label("", "24px", "OptimusPrinceps","#000000", 15, 200, false );
+            this.P1Name = new objects.Label("", "36px", "OptimusPrinceps","#000000", 15, 200, false );
 
             // P2
             this.P2playerLivesLabel = new objects.Label("", "24px", "OptimusPrinceps","#000000", 380, 668, false );      
@@ -493,6 +514,7 @@ module managers {
             this.P2playerPowerLabel = new objects.Label("", "24px", "OptimusPrinceps","#000000", 465, 20, false );    
             this.P2scoreMultLabel = new objects.Label("", "24px", "OptimusPrinceps","#000000", 650, 45, false );
             this.P2highScoreLabel = new objects.Label("", "24px", "OptimusPrinceps","#000000", 565, 200, false );
+            this.P2Name = new objects.Label("", "36px", "OptimusPrinceps","#000000", 15, 200, false );
 
             this.info1 = new objects.Label(
             "Player starts with 9/6/3 lives on" + "\n" +
@@ -681,6 +703,8 @@ module managers {
                         this.addChild(s);
                     })
 
+                    this.addChild(this.P1Name)
+                    this.addChild(this.P2Name)
 
                     // P2
                     this.addChild(this.P2playerLivesLabel);

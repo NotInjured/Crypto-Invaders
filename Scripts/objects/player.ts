@@ -61,7 +61,7 @@ module objects {
                         this.Move();
                         this.Shoot();
                         this.Swapped();
-                        if(managers.Game.hud.Power > 20 )
+                        if(managers.Game.hud.Power >= 20 )
                            this.ShootMissiles();
                     }
     
@@ -74,7 +74,7 @@ module objects {
                             this.Move();
                             this.Shoot();
                             this.Swapped();
-                            if(managers.Game.hud.P1Power > 20 )
+                            if(managers.Game.hud.P1Power >= 20 )
                                this.ShootMissiles();
                         }
         
@@ -86,7 +86,7 @@ module objects {
                             this.Move();
                             this.Shoot();
                             this.Swapped();
-                            if(managers.Game.hud.P2Power > 20 )
+                            if(managers.Game.hud.P2Power >= 20 )
                                this.ShootMissiles();
                         }
         
@@ -275,7 +275,7 @@ module objects {
                                             
                                                 let bullet = managers.Game.P1BulletManager.GetBullet();
         
-                                                console.log(managers.Game.P1BulletManager.GetBullet());
+                                                //console.log(managers.Game.P1BulletManager.GetBullet());
                                 
                                                 bullet.x = this.bulletSpawn.x;
                                                 bullet.y = this.bulletSpawn.y;
@@ -1193,11 +1193,9 @@ module objects {
                             if(this.shootnum < 1){
                                 for(let i = 0; i < 2; i++){
                                     let position = new math.Vec2(this.x- 15, this.y - 10);
-        
-                                    //let enemyPos = new math.Vec2(enemy.x, enemy.y)
-                                    //let distance =  math.Vec2.Distance(enemyPos, position)
-                        
+
                                     this.missile = managers.Game.P1MissileManager.GetMissile()
+                                    console.log(this.missile)
                                     this.missile.Angle = 0;
                                     this.missile.AngleStep = (240/4) * this.shootnum
                                     this.missile.Angle += this.missile.AngleStep

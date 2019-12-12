@@ -112,10 +112,6 @@ module objects {
                 }
                 
             }
-            //else if(this.dir == undefined && this.pattern){
-            //    this.y += this.speedY;
-            //    this.x += 0 
-            //}
             else if(this.dir != undefined && !this.isPattern){
                 this.x += this.dir.x
                 this.y += this.dir.y

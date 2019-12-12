@@ -7,6 +7,8 @@ module objects {
         private position:math.Vec2;
         private isDropped:boolean = false;
         private enemyDropped:boolean = false;
+        public p1: boolean = false
+        public p2: boolean = false
 
         get Dir():math.Vec2{
             return this.dir;

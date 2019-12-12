@@ -72,14 +72,11 @@ var scenes;
             this.shields[2].scaleX = 0.6;
             this.shields[2].scaleY = 0.6;
             // Single
+            managers.Game.player = this.Splayer;
             this.bulletManager = new managers.Bullet();
             managers.Game.bulletManager = this.bulletManager;
             this.missileManager = new managers.Missile();
             managers.Game.missileManager = this.missileManager;
-            this.enemyBulletManager = new managers.EnemyBullet();
-            managers.Game.enemyBulletManager = this.enemyBulletManager;
-            this.coinsManager = new managers.Coins();
-            managers.Game.coinsManager = this.coinsManager;
             // P1
             managers.Game.P1 = this.P1;
             this.P1bulletManager = new managers.Bullet();
@@ -92,12 +89,23 @@ var scenes;
             managers.Game.P2BulletManager = this.P2bulletManager;
             this.P2missileManager = new managers.Missile();
             managers.Game.P2MissileManager = this.P2missileManager;
-            managers.Game.player = this.Splayer;
+            this.SenemyBulletManager = new managers.EnemyBullet();
+            managers.Game.enemyBulletManager = this.SenemyBulletManager;
+            this.coinsManager = new managers.Coins();
+            managers.Game.coinsManager = this.coinsManager;
             managers.Game.timer = 600;
-            managers.Game.boss1Hp = 5;
-            managers.Game.boss2Hp = 300;
-            managers.Game.boss3_1Hp = 250;
-            managers.Game.boss3_2Hp = 250;
+            if (managers.Game.single) {
+                managers.Game.boss1Hp = 200;
+                managers.Game.boss2Hp = 300;
+                managers.Game.boss3_1Hp = 250;
+                managers.Game.boss3_2Hp = 250;
+            }
+            if (managers.Game.multi) {
+                managers.Game.boss1Hp = 400;
+                managers.Game.boss2Hp = 600;
+                managers.Game.boss3_1Hp = 500;
+                managers.Game.boss3_2Hp = 500;
+            }
             managers.Game.eEliteHp = 25;
             managers.Game.eMinionHp = 10;
             managers.Game.level1 = true;
@@ -112,104 +120,212 @@ var scenes;
             managers.Game.boss3_2IsDead = false;
             switch (managers.Game.difficulty) {
                 case 0:
-                    for (var i = 0; i < 3; i++) {
-                        this.level1Enemies[i] = [];
-                        this.level2Enemies[i] = [];
-                        this.level3Enemies[i] = [];
-                        for (var j = 0; j < 2; j++) {
-                            if (i == 0) {
-                                this.level1Enemies[0][j] = new objects.Enemy("Enemy1");
-                                this.level2Enemies[0][j] = new objects.Enemy("Enemy7");
-                                this.level3Enemies[0][j] = new objects.Enemy("Enemy10");
+                    if (managers.Game.single) {
+                        for (var i = 0; i < 3; i++) {
+                            this.level1Enemies[i] = [];
+                            this.level2Enemies[i] = [];
+                            this.level3Enemies[i] = [];
+                            for (var j = 0; j < 2; j++) {
+                                if (i == 0) {
+                                    this.level1Enemies[0][j] = new objects.Enemy("Enemy1");
+                                    this.level2Enemies[0][j] = new objects.Enemy("Enemy7");
+                                    this.level3Enemies[0][j] = new objects.Enemy("Enemy10");
+                                }
+                                if (i == 1) {
+                                    this.level1Enemies[1][j] = new objects.Enemy("Enemy2");
+                                    this.level2Enemies[1][j] = new objects.Enemy("Enemy8");
+                                    this.level3Enemies[1][j] = new objects.Enemy("Enemy11");
+                                }
+                                if (i == 2) {
+                                    this.level1Enemies[2][j] = new objects.Enemy("Enemy3");
+                                    this.level2Enemies[2][j] = new objects.Enemy("Enemy9");
+                                    this.level3Enemies[2][j] = new objects.Enemy("Enemy12");
+                                }
                             }
-                            if (i == 1) {
-                                this.level1Enemies[1][j] = new objects.Enemy("Enemy2");
-                                this.level2Enemies[1][j] = new objects.Enemy("Enemy8");
-                                this.level3Enemies[1][j] = new objects.Enemy("Enemy11");
-                            }
-                            if (i == 2) {
-                                this.level1Enemies[2][j] = new objects.Enemy("Enemy3");
-                                this.level2Enemies[2][j] = new objects.Enemy("Enemy9");
-                                this.level3Enemies[2][j] = new objects.Enemy("Enemy12");
+                        }
+                        for (var i = 0; i < 8; i++) {
+                            this.eliteUnits[i] = [];
+                            for (var j = 0; j < 3; j++) {
+                                this.eliteUnits[i][0] = new objects.Enemy("Enemy6");
+                                this.eliteUnits[i][1] = new objects.Enemy("Enemy5");
+                                this.eliteUnits[i][2] = new objects.Enemy("Enemy6");
+                                this.eliteUnits[i][0].x = this.eliteUnits[i][1].x - 25;
+                                this.eliteUnits[i][2].x = this.eliteUnits[i][1].x + 25;
                             }
                         }
                     }
-                    for (var i = 0; i < 8; i++) {
-                        this.eliteUnits[i] = [];
-                        for (var j = 0; j < 3; j++) {
-                            this.eliteUnits[i][0] = new objects.Enemy("Enemy6");
-                            this.eliteUnits[i][1] = new objects.Enemy("Enemy5");
-                            this.eliteUnits[i][2] = new objects.Enemy("Enemy6");
-                            this.eliteUnits[i][0].x = this.eliteUnits[i][1].x - 25;
-                            this.eliteUnits[i][2].x = this.eliteUnits[i][1].x + 25;
+                    if (managers.Game.multi) {
+                        for (var i = 0; i < 3; i++) {
+                            this.level1Enemies[i] = [];
+                            this.level2Enemies[i] = [];
+                            this.level3Enemies[i] = [];
+                            for (var j = 0; j < 4; j++) {
+                                if (i == 0) {
+                                    this.level1Enemies[0][j] = new objects.Enemy("Enemy1");
+                                    this.level2Enemies[0][j] = new objects.Enemy("Enemy7");
+                                    this.level3Enemies[0][j] = new objects.Enemy("Enemy10");
+                                }
+                                if (i == 1) {
+                                    this.level1Enemies[1][j] = new objects.Enemy("Enemy2");
+                                    this.level2Enemies[1][j] = new objects.Enemy("Enemy8");
+                                    this.level3Enemies[1][j] = new objects.Enemy("Enemy11");
+                                }
+                                if (i == 2) {
+                                    this.level1Enemies[2][j] = new objects.Enemy("Enemy3");
+                                    this.level2Enemies[2][j] = new objects.Enemy("Enemy9");
+                                    this.level3Enemies[2][j] = new objects.Enemy("Enemy12");
+                                }
+                            }
+                        }
+                        for (var i = 0; i < 8; i++) {
+                            this.eliteUnits[i] = [];
+                            for (var j = 0; j < 3; j++) {
+                                this.eliteUnits[i][0] = new objects.Enemy("Enemy6");
+                                this.eliteUnits[i][1] = new objects.Enemy("Enemy5");
+                                this.eliteUnits[i][2] = new objects.Enemy("Enemy6");
+                                this.eliteUnits[i][0].x = this.eliteUnits[i][1].x - 25;
+                                this.eliteUnits[i][2].x = this.eliteUnits[i][1].x + 25;
+                            }
                         }
                     }
                     break;
                 case 1:
-                    for (var i = 0; i < 3; i++) {
-                        this.level1Enemies[i] = [];
-                        this.level2Enemies[i] = [];
-                        this.level3Enemies[i] = [];
-                        for (var j = 0; j < 2; j++) {
-                            if (i == 0) {
-                                this.level1Enemies[0][j] = new objects.Enemy("Enemy1");
-                                this.level2Enemies[0][j] = new objects.Enemy("Enemy7");
-                                this.level3Enemies[0][j] = new objects.Enemy("Enemy10");
+                    if (managers.Game.single) {
+                        for (var i = 0; i < 3; i++) {
+                            this.level1Enemies[i] = [];
+                            this.level2Enemies[i] = [];
+                            this.level3Enemies[i] = [];
+                            for (var j = 0; j < 4; j++) {
+                                if (i == 0) {
+                                    this.level1Enemies[0][j] = new objects.Enemy("Enemy1");
+                                    this.level2Enemies[0][j] = new objects.Enemy("Enemy7");
+                                    this.level3Enemies[0][j] = new objects.Enemy("Enemy10");
+                                }
+                                if (i == 1) {
+                                    this.level1Enemies[1][j] = new objects.Enemy("Enemy2");
+                                    this.level2Enemies[1][j] = new objects.Enemy("Enemy8");
+                                    this.level3Enemies[1][j] = new objects.Enemy("Enemy11");
+                                }
+                                if (i == 2) {
+                                    this.level1Enemies[2][j] = new objects.Enemy("Enemy3");
+                                    this.level2Enemies[2][j] = new objects.Enemy("Enemy9");
+                                    this.level3Enemies[2][j] = new objects.Enemy("Enemy12");
+                                }
                             }
-                            if (i == 1) {
-                                this.level1Enemies[1][j] = new objects.Enemy("Enemy2");
-                                this.level2Enemies[1][j] = new objects.Enemy("Enemy8");
-                                this.level3Enemies[1][j] = new objects.Enemy("Enemy11");
-                            }
-                            if (i == 2) {
-                                this.level1Enemies[2][j] = new objects.Enemy("Enemy3");
-                                this.level2Enemies[2][j] = new objects.Enemy("Enemy9");
-                                this.level3Enemies[2][j] = new objects.Enemy("Enemy12");
+                        }
+                        for (var i = 0; i < 2; i++) {
+                            this.eliteUnits[i] = [];
+                            for (var j = 0; j < 3; j++) {
+                                this.eliteUnits[i][0] = new objects.Enemy("Enemy6");
+                                this.eliteUnits[i][1] = new objects.Enemy("Enemy5");
+                                this.eliteUnits[i][2] = new objects.Enemy("Enemy6");
+                                this.eliteUnits[i][0].x = this.eliteUnits[i][1].x - 25;
+                                this.eliteUnits[i][2].x = this.eliteUnits[i][1].x + 25;
                             }
                         }
                     }
-                    for (var i = 0; i < 2; i++) {
-                        this.eliteUnits[i] = [];
-                        for (var j = 0; j < 3; j++) {
-                            this.eliteUnits[i][0] = new objects.Enemy("Enemy6");
-                            this.eliteUnits[i][1] = new objects.Enemy("Enemy5");
-                            this.eliteUnits[i][2] = new objects.Enemy("Enemy6");
-                            this.eliteUnits[i][0].x = this.eliteUnits[i][1].x - 25;
-                            this.eliteUnits[i][2].x = this.eliteUnits[i][1].x + 25;
+                    if (managers.Game.multi) {
+                        for (var i = 0; i < 3; i++) {
+                            this.level1Enemies[i] = [];
+                            this.level2Enemies[i] = [];
+                            this.level3Enemies[i] = [];
+                            for (var j = 0; j < 8; j++) {
+                                if (i == 0) {
+                                    this.level1Enemies[0][j] = new objects.Enemy("Enemy1");
+                                    this.level2Enemies[0][j] = new objects.Enemy("Enemy7");
+                                    this.level3Enemies[0][j] = new objects.Enemy("Enemy10");
+                                }
+                                if (i == 1) {
+                                    this.level1Enemies[1][j] = new objects.Enemy("Enemy2");
+                                    this.level2Enemies[1][j] = new objects.Enemy("Enemy8");
+                                    this.level3Enemies[1][j] = new objects.Enemy("Enemy11");
+                                }
+                                if (i == 2) {
+                                    this.level1Enemies[2][j] = new objects.Enemy("Enemy3");
+                                    this.level2Enemies[2][j] = new objects.Enemy("Enemy9");
+                                    this.level3Enemies[2][j] = new objects.Enemy("Enemy12");
+                                }
+                            }
+                        }
+                        for (var i = 0; i < 2; i++) {
+                            this.eliteUnits[i] = [];
+                            for (var j = 0; j < 3; j++) {
+                                this.eliteUnits[i][0] = new objects.Enemy("Enemy6");
+                                this.eliteUnits[i][1] = new objects.Enemy("Enemy5");
+                                this.eliteUnits[i][2] = new objects.Enemy("Enemy6");
+                                this.eliteUnits[i][0].x = this.eliteUnits[i][1].x - 25;
+                                this.eliteUnits[i][2].x = this.eliteUnits[i][1].x + 25;
+                            }
                         }
                     }
                     break;
                 case 2:
-                    for (var i = 0; i < 3; i++) {
-                        this.level1Enemies[i] = [];
-                        this.level2Enemies[i] = [];
-                        this.level3Enemies[i] = [];
-                        for (var j = 0; j < 2; j++) {
-                            if (i == 0) {
-                                this.level1Enemies[0][j] = new objects.Enemy("Enemy1");
-                                this.level2Enemies[0][j] = new objects.Enemy("Enemy7");
-                                this.level3Enemies[0][j] = new objects.Enemy("Enemy10");
+                    if (managers.Game.single) {
+                        for (var i = 0; i < 3; i++) {
+                            this.level1Enemies[i] = [];
+                            this.level2Enemies[i] = [];
+                            this.level3Enemies[i] = [];
+                            for (var j = 0; j < 6; j++) {
+                                if (i == 0) {
+                                    this.level1Enemies[0][j] = new objects.Enemy("Enemy1");
+                                    this.level2Enemies[0][j] = new objects.Enemy("Enemy7");
+                                    this.level3Enemies[0][j] = new objects.Enemy("Enemy10");
+                                }
+                                if (i == 1) {
+                                    this.level1Enemies[1][j] = new objects.Enemy("Enemy2");
+                                    this.level2Enemies[1][j] = new objects.Enemy("Enemy8");
+                                    this.level3Enemies[1][j] = new objects.Enemy("Enemy11");
+                                }
+                                if (i == 2) {
+                                    this.level1Enemies[2][j] = new objects.Enemy("Enemy3");
+                                    this.level2Enemies[2][j] = new objects.Enemy("Enemy9");
+                                    this.level3Enemies[2][j] = new objects.Enemy("Enemy12");
+                                }
                             }
-                            if (i == 1) {
-                                this.level1Enemies[1][j] = new objects.Enemy("Enemy2");
-                                this.level2Enemies[1][j] = new objects.Enemy("Enemy8");
-                                this.level3Enemies[1][j] = new objects.Enemy("Enemy11");
-                            }
-                            if (i == 2) {
-                                this.level1Enemies[2][j] = new objects.Enemy("Enemy3");
-                                this.level2Enemies[2][j] = new objects.Enemy("Enemy9");
-                                this.level3Enemies[2][j] = new objects.Enemy("Enemy12");
+                        }
+                        for (var i = 0; i < 8; i++) {
+                            this.eliteUnits[i] = [];
+                            for (var j = 0; j < 3; j++) {
+                                this.eliteUnits[i][0] = new objects.Enemy("Enemy6");
+                                this.eliteUnits[i][1] = new objects.Enemy("Enemy5");
+                                this.eliteUnits[i][2] = new objects.Enemy("Enemy6");
+                                this.eliteUnits[i][0].x = this.eliteUnits[i][1].x - 25;
+                                this.eliteUnits[i][2].x = this.eliteUnits[i][1].x + 25;
                             }
                         }
                     }
-                    for (var i = 0; i < 8; i++) {
-                        this.eliteUnits[i] = [];
-                        for (var j = 0; j < 3; j++) {
-                            this.eliteUnits[i][0] = new objects.Enemy("Enemy6");
-                            this.eliteUnits[i][1] = new objects.Enemy("Enemy5");
-                            this.eliteUnits[i][2] = new objects.Enemy("Enemy6");
-                            this.eliteUnits[i][0].x = this.eliteUnits[i][1].x - 25;
-                            this.eliteUnits[i][2].x = this.eliteUnits[i][1].x + 25;
+                    if (managers.Game.multi) {
+                        for (var i = 0; i < 3; i++) {
+                            this.level1Enemies[i] = [];
+                            this.level2Enemies[i] = [];
+                            this.level3Enemies[i] = [];
+                            for (var j = 0; j < 12; j++) {
+                                if (i == 0) {
+                                    this.level1Enemies[0][j] = new objects.Enemy("Enemy1");
+                                    this.level2Enemies[0][j] = new objects.Enemy("Enemy7");
+                                    this.level3Enemies[0][j] = new objects.Enemy("Enemy10");
+                                }
+                                if (i == 1) {
+                                    this.level1Enemies[1][j] = new objects.Enemy("Enemy2");
+                                    this.level2Enemies[1][j] = new objects.Enemy("Enemy8");
+                                    this.level3Enemies[1][j] = new objects.Enemy("Enemy11");
+                                }
+                                if (i == 2) {
+                                    this.level1Enemies[2][j] = new objects.Enemy("Enemy3");
+                                    this.level2Enemies[2][j] = new objects.Enemy("Enemy9");
+                                    this.level3Enemies[2][j] = new objects.Enemy("Enemy12");
+                                }
+                            }
+                        }
+                        for (var i = 0; i < 8; i++) {
+                            this.eliteUnits[i] = [];
+                            for (var j = 0; j < 3; j++) {
+                                this.eliteUnits[i][0] = new objects.Enemy("Enemy6");
+                                this.eliteUnits[i][1] = new objects.Enemy("Enemy5");
+                                this.eliteUnits[i][2] = new objects.Enemy("Enemy6");
+                                this.eliteUnits[i][0].x = this.eliteUnits[i][1].x - 25;
+                                this.eliteUnits[i][2].x = this.eliteUnits[i][1].x + 25;
+                            }
                         }
                     }
                     break;
@@ -254,7 +370,7 @@ var scenes;
                     this.removeChild(this.aircraft);
                 this.bulletManager.Update();
                 this.missileManager.Update();
-                this.enemyBulletManager.Update();
+                this.SenemyBulletManager.Update();
                 this.coinsManager.Coin.forEach(function (coin) {
                     if (coin.IsDropped) {
                         coin.FindPlayer(_this.Splayer);
@@ -391,7 +507,6 @@ var scenes;
                         this.addChild(this.stageName);
                     }
                     if (managers.Game.timer >= 481 && managers.Game.timer <= 591) {
-                        //if(managers.Game.timer <= 591){
                         this.removeChild(this.stageName);
                         this.level1Enemies[0].forEach(function (e) {
                             if (!e.isDead) {
@@ -403,47 +518,6 @@ var scenes;
                                 });
                             }
                         });
-                        /*
-                        if(!this.bosses[0].isDead){
-                            this.bosses[0].isInvincible = false
-                            this.bosses[0].FindPlayer(this.Splayer)
-                            this.bosses[0].Update();
-    
-                            this.missileManager.Missile.forEach( m => {
-                                m.FindEnemies(this.bosses[0])
-                            })
-                        }
-                        
-                        this.eliteUnits[0].forEach(e =>{
-                            if(!e.isDead){
-                                e.isInvincible = false;
-                                e.Update();
-                                e.FindPlayer(this.Splayer);
-                                
-                                this.missileManager.Missile.forEach( m => {
-                                    m.FindEnemies(e)
-                                })
-                            }
-                        })
-                        
-                        if(!this.bosses[2].isDead){
-                            this.bosses[2].isInvincible = false
-                            this.bosses[2].FindPlayer(this.Splayer)
-                            this.bosses[2].Update();
-    
-                            this.missileManager.Missile.forEach( m => {
-                                m.FindEnemies(this.bosses[2])
-                            })
-                        }
-                        if(!this.bosses[3].isDead){
-                            this.bosses[3].isInvincible = false
-                            this.bosses[3].FindPlayer(this.Splayer)
-                            this.bosses[3].Update();
-    
-                            this.missileManager.Missile.forEach( m => {
-                                m.FindEnemies(this.bosses[3])
-                            })
-                        }*/
                     }
                     if (managers.Game.timer >= 481 && managers.Game.timer <= 581) {
                         this.level1Enemies[1].forEach(function (e) {
@@ -549,16 +623,6 @@ var scenes;
                     }
                     if (managers.Game.timer > 505 && managers.Game.timer < 595) {
                         this.removeChild(this.stageName);
-                        /*
-                        if(!this.bosses[1].isDead){
-                            this.bosses[1].isInvincible = false
-                            this.bosses[1].FindPlayer(this.player)
-                            this.bosses[1].Update()
-    
-                            this.missileManager.Missile.forEach( m => {
-                                m.FindEnemies(this.bosses[1])
-                            })
-                        }*/
                         this.level2Enemies[2].forEach(function (e) {
                             if (!e.isDead) {
                                 e.isInvincible = false;
@@ -673,25 +737,6 @@ var scenes;
                     }
                     if (managers.Game.timer >= 505 && managers.Game.timer < 595) {
                         this.removeChild(this.stageName);
-                        /*
-                        if(!this.bosses[2].isDead){
-                            this.bosses[2].isInvincible = false
-                            this.bosses[2].FindPlayer(this.player)
-                            this.bosses[2].Update();
-    
-                            this.missileManager.Missile.forEach( m => {
-                                m.FindEnemies(this.bosses[2])
-                            })
-                        }
-                        if(!this.bosses[3].isDead){
-                            this.bosses[3].isInvincible = false
-                            this.bosses[3].FindPlayer(this.player)
-                            this.bosses[3].Update();
-    
-                            this.missileManager.Missile.forEach( m => {
-                                m.FindEnemies(this.bosses[3])
-                            })
-                        }*/
                         this.level3Enemies[1].forEach(function (e) {
                             if (!e.isDead) {
                                 e.isInvincible = false;
@@ -823,9 +868,8 @@ var scenes;
                         }, 1000);
                     }
                 }
-                if (managers.Game.hud.Lives < 0) {
+                if (managers.Game.hud.Lives < 0)
                     managers.Game.currentScene = config.Scene.OVER;
-                }
             }
             if (managers.Game.multi) {
                 this.P1aircraft.y += 3;
@@ -838,16 +882,19 @@ var scenes;
                     this.removeChild(this.P1aircraft);
                     this.removeChild(this.P2aircraft);
                 }
+                this.enemyBulletManager.Update();
                 this.coinsManager.Coin.forEach(function (coin) {
                     if (coin.IsDropped) {
-                        var rand = Math.floor(Math.random() * (2 - 1 + 1) + 1);
-                        if (rand == 1)
+                        if (coin.p1)
                             coin.FindPlayer(_this.P1);
-                        if (rand == 2)
+                        if (coin.p2)
                             coin.FindPlayer(_this.P2);
                         coin.Update();
                     }
                 });
+                this.ChangeShip();
+                this.P1Collisions();
+                this.P2Collisions();
                 // P1
                 this.P1.Update();
                 this.P1bulletManager.Update();
@@ -962,7 +1009,6 @@ var scenes;
                 this.P2.Update();
                 this.P2bulletManager.Update();
                 this.P2missileManager.Update();
-                this.enemyBulletManager.Update();
                 if (this.P2.IsInvincible) {
                     this.shields[2].x = this.P2.x + 20;
                     this.shields[2].y = this.P2.y + 10;
@@ -1071,16 +1117,12 @@ var scenes;
                 }
                 if (managers.Game.level1) {
                     if (managers.Game.timer >= 598 && managers.Game.timer <= 600) {
-                        if (this.Splayer.y > 450)
-                            this.Splayer.y -= 1;
                         if (this.P1.y > 450)
                             this.P1.y -= 1;
                         if (this.P2.y > 450)
                             this.P2.y -= 1;
                     }
                     if (managers.Game.timer >= 597 && managers.Game.timer <= 598) {
-                        if (this.Splayer.y < 550)
-                            this.Splayer.y += 1;
                         if (this.P1.y < 550)
                             this.P1.y += 1;
                         if (this.P2.y < 550)
@@ -1524,9 +1566,6 @@ var scenes;
                         }, 1000);
                     }
                 }
-                this.ChangeShip();
-                this.P1Collisions();
-                this.P2Collisions();
                 if (managers.Game.hud.P1Lives < 0 && managers.Game.hud.P2Lives < 0) {
                     managers.Game.currentScene = config.Scene.OVER;
                 }
@@ -1537,31 +1576,31 @@ var scenes;
             // Order matters when adding game objects.
             this.addChild(this.background);
             this.GameTimer();
-            this.level1Enemies.forEach(function (e) {
-                e.forEach(function (f) {
-                    _this.addChild(f);
-                });
-            });
-            this.level2Enemies.forEach(function (e) {
-                e.forEach(function (f) {
-                    _this.addChild(f);
-                });
-            });
-            this.level3Enemies.forEach(function (e) {
-                e.forEach(function (f) {
-                    _this.addChild(f);
-                });
-            });
-            this.eliteUnits.forEach(function (e) {
-                e.forEach(function (f) {
-                    _this.addChild(f);
-                });
-            });
-            this.bosses.forEach(function (e) {
-                _this.addChild(e);
-            });
             if (managers.Game.single) {
                 this.addChild(this.aircraft);
+                this.level1Enemies.forEach(function (e) {
+                    e.forEach(function (f) {
+                        _this.addChild(f);
+                    });
+                });
+                this.level2Enemies.forEach(function (e) {
+                    e.forEach(function (f) {
+                        _this.addChild(f);
+                    });
+                });
+                this.level3Enemies.forEach(function (e) {
+                    e.forEach(function (f) {
+                        _this.addChild(f);
+                    });
+                });
+                this.eliteUnits.forEach(function (e) {
+                    e.forEach(function (f) {
+                        _this.addChild(f);
+                    });
+                });
+                this.bosses.forEach(function (e) {
+                    _this.addChild(e);
+                });
                 this.bulletManager.Bullet.forEach(function (bullet) {
                     _this.addChild(bullet);
                 });
@@ -1572,10 +1611,38 @@ var scenes;
                 this.shields.forEach(function (s) {
                     _this.addChild(s);
                 });
+                this.SenemyBulletManager.Bullet.forEach(function (bullet) {
+                    _this.addChild(bullet);
+                });
+                this.addChild(this.hudImage);
+                this.addChild(this.hud);
             }
             if (managers.Game.multi) {
                 this.addChild(this.P1aircraft);
                 this.addChild(this.P2aircraft);
+                this.level1Enemies.forEach(function (e) {
+                    e.forEach(function (f) {
+                        _this.addChild(f);
+                    });
+                });
+                this.level2Enemies.forEach(function (e) {
+                    e.forEach(function (f) {
+                        _this.addChild(f);
+                    });
+                });
+                this.level3Enemies.forEach(function (e) {
+                    e.forEach(function (f) {
+                        _this.addChild(f);
+                    });
+                });
+                this.eliteUnits.forEach(function (e) {
+                    e.forEach(function (f) {
+                        _this.addChild(f);
+                    });
+                });
+                this.bosses.forEach(function (e) {
+                    _this.addChild(e);
+                });
                 this.P1bulletManager.Bullet.forEach(function (bullet) {
                     _this.addChild(bullet);
                 });
@@ -1592,10 +1659,10 @@ var scenes;
                 this.addChild(this.P1Tag);
                 this.addChild(this.P2);
                 this.addChild(this.P2Tag);
+                this.enemyBulletManager.Bullet.forEach(function (bullet) {
+                    _this.addChild(bullet);
+                });
             }
-            this.enemyBulletManager.Bullet.forEach(function (bullet) {
-                _this.addChild(bullet);
-            });
             this.addChild(this.hudImage);
             this.addChild(this.hud);
         };
@@ -1693,7 +1760,7 @@ var scenes;
             this.coinsManager.Coin.forEach(function (c) {
                 managers.Collision.CheckAABB(_this.Splayer, c);
             });
-            this.enemyBulletManager.Bullet.forEach(function (b) {
+            this.SenemyBulletManager.Bullet.forEach(function (b) {
                 if (!_this.Splayer.IsInvincible && !_this.Splayer.isDead)
                     managers.Collision.CheckAABB(b, _this.Splayer);
                 if (_this.Splayer.IsInvincible)

@@ -19,6 +19,8 @@ var objects;
             var _this = _super.call(this, sprite) || this;
             _this.isDropped = false;
             _this.enemyDropped = false;
+            _this.p1 = false;
+            _this.p2 = false;
             _this.coin = sprite;
             _this.Start();
             return _this;

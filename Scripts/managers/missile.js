@@ -18,6 +18,12 @@ var managers;
             if (managers.Game.missileManager.CurrentMissile > 3) {
                 managers.Game.missileManager.CurrentMissile = 0;
             }
+            if (managers.Game.P1MissileManager.CurrentMissile > 3) {
+                managers.Game.P1MissileManager.CurrentMissile = 0;
+            }
+            if (managers.Game.P2MissileManager.CurrentMissile > 3) {
+                managers.Game.P2MissileManager.CurrentMissile = 0;
+            }
             return missile;
         };
         Missile.prototype.Start = function () {
