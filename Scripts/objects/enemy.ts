@@ -160,8 +160,6 @@ module objects {
                 this.Move();
                 if(this.bullet != undefined)
                     this.bullet.Update()
-                if(this.bullet == undefined)
-                    managers.Game.currentSceneObject.removeChild(this.bullet)
             }
 
             if(this.isDead)

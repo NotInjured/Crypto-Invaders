@@ -38,7 +38,6 @@ module scenes {
         private P2missileManager:managers.Missile;
 
         private enemyBulletManager:managers.EnemyBullet;
-        private SenemyBulletManager:managers.EnemyBullet;
 
         private bgm:createjs.AbstractSoundInstance;
 
@@ -70,6 +69,7 @@ module scenes {
             this.bgm.volume = 0.05;
 
             this.Splayer = new objects.Player("Ship1", 555, 570, false);
+            this.Splayer.name = "Single"
 
             this.P1 = new objects.Player("Ship1", 445, 570, false);
             this.P2 = new objects.Player("Ship1", 645, 570, false);
@@ -134,8 +134,8 @@ module scenes {
             this.P2missileManager = new managers.Missile()
             managers.Game.P2MissileManager = this.P2missileManager
 
-            this.SenemyBulletManager = new managers.EnemyBullet();
-            managers.Game.enemyBulletManager = this.SenemyBulletManager;
+            this.enemyBulletManager = new managers.EnemyBullet();
+            managers.Game.enemyBulletManager = this.enemyBulletManager;
 
             this.coinsManager = new managers.Coins();
             managers.Game.coinsManager = this.coinsManager;
@@ -460,7 +460,7 @@ module scenes {
 
                 this.bulletManager.Update()
                 this.missileManager.Update()
-                this.SenemyBulletManager.Update()
+                this.enemyBulletManager.Update()
                 this.coinsManager.Coin.forEach(coin =>{
                     if(coin.IsDropped){
                         coin.FindPlayer(this.Splayer)
@@ -1828,8 +1828,8 @@ module scenes {
             // Order matters when adding game objects.
             this.addChild(this.background);
             
-            this.GameTimer()
             if(managers.Game.single){
+                this.GameTimer()
                 this.addChild(this.aircraft)
                 this.level1Enemies.forEach(e =>{
                     e.forEach(f =>{
@@ -1871,7 +1871,7 @@ module scenes {
                     this.addChild(s)
                 })
     
-                this.SenemyBulletManager.Bullet.forEach(bullet =>{
+                this.enemyBulletManager.Bullet.forEach(bullet =>{
                     this.addChild(bullet)
                 })
     
@@ -1880,6 +1880,8 @@ module scenes {
             }
             
             if(managers.Game.multi){
+                this.GameTimer()
+
                 this.addChild(this.P1aircraft)
                 this.addChild(this.P2aircraft)
 
@@ -1929,6 +1931,9 @@ module scenes {
 
                 this.addChild(this.P2)
                 this.addChild(this.P2Tag)
+                this.shields.forEach(s =>{
+                    this.addChild(s)
+                })
 
                 this.enemyBulletManager.Bullet.forEach(bullet =>{
                     this.addChild(bullet)
@@ -2043,7 +2048,7 @@ module scenes {
                 managers.Collision.CheckAABB(this.Splayer, c)
             })
 
-            this.SenemyBulletManager.Bullet.forEach(b =>{
+            this.enemyBulletManager.Bullet.forEach(b =>{
                 if(!this.Splayer.IsInvincible && !this.Splayer.isDead)
                     managers.Collision.CheckAABB(b, this.Splayer)
                 if(this.Splayer.IsInvincible)
@@ -2270,7 +2275,7 @@ module scenes {
             
             this.enemyBulletManager.Bullet.forEach(b =>{
                 if(!this.P2.IsInvincible && !this.P2.isDead)
-                    managers.P2Collision.CheckAABB(b, this.P1)
+                    managers.P2Collision.CheckAABB(b, this.P2)
                 if(this.P2.IsInvincible)
                     managers.P2Collision.CheckAABB(b, this.shields[1])
             })

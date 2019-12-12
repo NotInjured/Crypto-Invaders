@@ -283,9 +283,7 @@ var managers;
                         }
                     }
                     break;
-                case "Ship1":
-                case "Ship2":
-                case "Ship3":
+                case "Single":
                     if ((object1.x + object1.halfW) > ((object2.x - 10) - object2.halfW / 4) &&
                         (object1.x - object1.halfW) < ((object2.x - 10) + object2.halfW / 4) &&
                         (object1.y + object1.halfH) > ((object2.y - 10) - object2.halfH / 4) &&

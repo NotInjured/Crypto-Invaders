@@ -39,6 +39,7 @@ var scenes;
             this.bgm.loop = -1;
             this.bgm.volume = 0.05;
             this.Splayer = new objects.Player("Ship1", 555, 570, false);
+            this.Splayer.name = "Single";
             this.P1 = new objects.Player("Ship1", 445, 570, false);
             this.P2 = new objects.Player("Ship1", 645, 570, false);
             this.P1.name = "P1";
@@ -89,8 +90,8 @@ var scenes;
             managers.Game.P2BulletManager = this.P2bulletManager;
             this.P2missileManager = new managers.Missile();
             managers.Game.P2MissileManager = this.P2missileManager;
-            this.SenemyBulletManager = new managers.EnemyBullet();
-            managers.Game.enemyBulletManager = this.SenemyBulletManager;
+            this.enemyBulletManager = new managers.EnemyBullet();
+            managers.Game.enemyBulletManager = this.enemyBulletManager;
             this.coinsManager = new managers.Coins();
             managers.Game.coinsManager = this.coinsManager;
             managers.Game.timer = 600;
@@ -370,7 +371,7 @@ var scenes;
                     this.removeChild(this.aircraft);
                 this.bulletManager.Update();
                 this.missileManager.Update();
-                this.SenemyBulletManager.Update();
+                this.enemyBulletManager.Update();
                 this.coinsManager.Coin.forEach(function (coin) {
                     if (coin.IsDropped) {
                         coin.FindPlayer(_this.Splayer);
@@ -1575,8 +1576,8 @@ var scenes;
             var _this = this;
             // Order matters when adding game objects.
             this.addChild(this.background);
-            this.GameTimer();
             if (managers.Game.single) {
+                this.GameTimer();
                 this.addChild(this.aircraft);
                 this.level1Enemies.forEach(function (e) {
                     e.forEach(function (f) {
@@ -1611,13 +1612,14 @@ var scenes;
                 this.shields.forEach(function (s) {
                     _this.addChild(s);
                 });
-                this.SenemyBulletManager.Bullet.forEach(function (bullet) {
+                this.enemyBulletManager.Bullet.forEach(function (bullet) {
                     _this.addChild(bullet);
                 });
                 this.addChild(this.hudImage);
                 this.addChild(this.hud);
             }
             if (managers.Game.multi) {
+                this.GameTimer();
                 this.addChild(this.P1aircraft);
                 this.addChild(this.P2aircraft);
                 this.level1Enemies.forEach(function (e) {
@@ -1659,6 +1661,9 @@ var scenes;
                 this.addChild(this.P1Tag);
                 this.addChild(this.P2);
                 this.addChild(this.P2Tag);
+                this.shields.forEach(function (s) {
+                    _this.addChild(s);
+                });
                 this.enemyBulletManager.Bullet.forEach(function (bullet) {
                     _this.addChild(bullet);
                 });
@@ -1760,7 +1765,7 @@ var scenes;
             this.coinsManager.Coin.forEach(function (c) {
                 managers.Collision.CheckAABB(_this.Splayer, c);
             });
-            this.SenemyBulletManager.Bullet.forEach(function (b) {
+            this.enemyBulletManager.Bullet.forEach(function (b) {
                 if (!_this.Splayer.IsInvincible && !_this.Splayer.isDead)
                     managers.Collision.CheckAABB(b, _this.Splayer);
                 if (_this.Splayer.IsInvincible)
@@ -1965,7 +1970,7 @@ var scenes;
             });
             this.enemyBulletManager.Bullet.forEach(function (b) {
                 if (!_this.P2.IsInvincible && !_this.P2.isDead)
-                    managers.P2Collision.CheckAABB(b, _this.P1);
+                    managers.P2Collision.CheckAABB(b, _this.P2);
                 if (_this.P2.IsInvincible)
                     managers.P2Collision.CheckAABB(b, _this.shields[1]);
             });
