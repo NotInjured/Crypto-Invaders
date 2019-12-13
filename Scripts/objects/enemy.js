@@ -656,9 +656,8 @@ var objects;
                                         this.ShootPattern(2);
                                     if (!this.pattern2 && this.pattern3)
                                         this.ShootPattern(3);
-                                    if (!this.pattern3 && this.pattern7 || this.pattern9) {
-                                        this.ShootPattern(7);
-                                        this.ShootPattern(9);
+                                    if (!this.pattern3 && this.pattern11) {
+                                        this.ShootPattern(11);
                                     }
                                 }
                             }
@@ -1163,8 +1162,18 @@ var objects;
                                     this.shoot = true;
                                     if (managers.Game.single) {
                                         if (managers.Game.boss1Hp > 150) {
-                                            this.pattern3 = false;
-                                            this.pattern4 = true;
+                                            if (managers.Game.normal) {
+                                                this.pattern3 = false;
+                                                this.pattern4 = true;
+                                            }
+                                            if (managers.Game.hard) {
+                                                this.pattern3 = false;
+                                                this.pattern6 = true;
+                                            }
+                                            if (managers.Game.hell) {
+                                                this.pattern3 = false;
+                                                this.pattern7 = true;
+                                            }
                                         }
                                         if (managers.Game.boss1Hp > 100 && managers.Game.boss1Hp < 150) {
                                             if (managers.Game.normal) {
@@ -1192,8 +1201,7 @@ var objects;
                                             }
                                             if (managers.Game.hell) {
                                                 this.pattern3 = false;
-                                                this.pattern7 = true;
-                                                this.pattern9 = true;
+                                                this.pattern11 = true;
                                             }
                                         }
                                     }
@@ -1445,11 +1453,6 @@ var objects;
                                     if (managers.Game.boss1Hp > 100 && managers.Game.boss1Hp < 150) {
                                         this.pattern9 = false;
                                         this.pattern1 = true;
-                                    }
-                                    if (managers.Game.boss1Hp < 100) {
-                                        this.pattern1 = true;
-                                        this.pattern7 = false;
-                                        this.pattern9 = false;
                                     }
                                     this.Timer();
                                 }
