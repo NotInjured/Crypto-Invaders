@@ -101,4 +101,4 @@ var managers;
     }());
     managers.P1Bullet = P1Bullet;
 })(managers || (managers = {}));
-//# sourceMappingURL=P1bullet.js.map
+//# sourceMappingURL=p1bullet.js.map
