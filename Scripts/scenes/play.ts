@@ -1025,7 +1025,7 @@ module scenes {
                     }
                 }
 
-                if(!managers.Game.bossRush){
+                if(managers.Game.bossRush){
                     this.aircraft.y += 3;
 
                     if(this.aircraft.y > 600)
@@ -1332,7 +1332,6 @@ module scenes {
                         }
                     }
                 }
-                
 
                 if(managers.Game.hud.Lives < 0)
                     managers.Game.currentScene = config.Scene.OVER;
@@ -2707,9 +2706,7 @@ module scenes {
 
         public Main(): void {
             // Order matters when adding game objects.
-            this.addChild(this.background);
-            this.addChild(this.hudImage)
-            this.addChild(this.hud)
+            this.addChild(this.background)
             
             if(managers.Game.single){
                 if(!managers.Game.bossRush){
@@ -2888,6 +2885,9 @@ module scenes {
                     })
                 }
             }
+
+            this.addChild(this.hudImage)
+            this.addChild(this.hud)
         }
 
         public CheckCollisions():void{

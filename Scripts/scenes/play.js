@@ -871,7 +871,7 @@ var scenes;
                         }
                     }
                 }
-                if (!managers.Game.bossRush) {
+                if (managers.Game.bossRush) {
                     this.aircraft.y += 3;
                     if (this.aircraft.y > 600)
                         this.removeChild(this.aircraft);
@@ -2327,8 +2327,6 @@ var scenes;
             var _this = this;
             // Order matters when adding game objects.
             this.addChild(this.background);
-            this.addChild(this.hudImage);
-            this.addChild(this.hud);
             if (managers.Game.single) {
                 if (!managers.Game.bossRush) {
                     this.GameTimer();
@@ -2473,6 +2471,8 @@ var scenes;
                     });
                 }
             }
+            this.addChild(this.hudImage);
+            this.addChild(this.hud);
         };
         PlayScene.prototype.CheckCollisions = function () {
             var _this = this;
