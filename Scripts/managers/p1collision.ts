@@ -93,10 +93,25 @@ module managers {
                                         coin.p1 = true
                                         managers.Game.currentSceneObject.addChild(coin)
 
+                                        if(managers.Game.hud.P1Lives < 9){
+                                            managers.Game.hud.P1Lives += 1
+                                            managers.Game.hud.P1playerLivesSprite[managers.Game.hud.P1Lives-1].alpha = 1
+                                        }
+    
+                                        if(managers.Game.hud.P2Lives < 9){
+                                            managers.Game.hud.P2Lives += 1
+                                            managers.Game.hud.P2playerLivesSprite[managers.Game.hud.P2Lives-1].alpha = 1
+                                        }
+    
                                         if(managers.Game.hud.P1Power < 201)
                                             managers.Game.hud.P1Power += 25
+                                        if(managers.Game.hud.P2Power < 201)
+                                            managers.Game.hud.P2Power += 25
+    
                                         managers.Game.hud.P1ScoreMult += 100;
                                         managers.Game.hud.P1Score += 2500000
+                                        managers.Game.hud.P2ScoreMult += 100;
+                                        managers.Game.hud.P2Score += 2500000
                                     }
                                 }
                         break;
@@ -209,11 +224,26 @@ module managers {
                                     explosion.scaleY = 2
                                     managers.Game.currentSceneObject.addChild(explosion)
                                     object2.Reset()
-                                    managers.Game.hud.Lives++
+
+                                    if(managers.Game.hud.P1Lives < 9){
+                                        managers.Game.hud.P1Lives += 1
+                                        managers.Game.hud.P1playerLivesSprite[managers.Game.hud.P1Lives-1].alpha = 1
+                                    }
+
+                                    if(managers.Game.hud.P2Lives < 9){
+                                        managers.Game.hud.P2Lives += 1
+                                        managers.Game.hud.P2playerLivesSprite[managers.Game.hud.P2Lives-1].alpha = 1
+                                    }
+
                                     if(managers.Game.hud.P1Power < 201)
                                         managers.Game.hud.P1Power += 25
+                                    if(managers.Game.hud.P2Power < 201)
+                                        managers.Game.hud.P2Power += 25
+
                                     managers.Game.hud.P1ScoreMult += 100;
-                                    managers.Game.hud.P1Score += 5000000
+                                    managers.Game.hud.P1Score += 10000000
+                                    managers.Game.hud.P2ScoreMult += 100;
+                                    managers.Game.hud.P2Score += 10000000
                                 }
                             }
                         break;
@@ -253,10 +283,21 @@ module managers {
                                             managers.Game.hud.P1Lives += 1
                                             managers.Game.hud.P1playerLivesSprite[managers.Game.hud.P1Lives-1].alpha = 1
                                         }
+
+                                        if(managers.Game.hud.P2Lives < 9){
+                                            managers.Game.hud.P2Lives += 1
+                                            managers.Game.hud.P2playerLivesSprite[managers.Game.hud.P2Lives-1].alpha = 1
+                                        }
+
                                         if(managers.Game.hud.P1Power < 201)
                                             managers.Game.hud.P1Power += 25
+                                        if(managers.Game.hud.P2Power < 201)
+                                            managers.Game.hud.P2Power += 25
+
                                         managers.Game.hud.P1ScoreMult += 100;
                                         managers.Game.hud.P1Score += 10000000
+                                        managers.Game.hud.P2ScoreMult += 100;
+                                        managers.Game.hud.P2Score += 10000000
                                     }
 
                                     
@@ -302,11 +343,22 @@ module managers {
                                                 managers.Game.hud.P1Lives += 1
                                                 managers.Game.hud.P1playerLivesSprite[managers.Game.hud.P1Lives-1].alpha = 1
                                             }
+
+                                            if(managers.Game.hud.P2Lives < 9){
+                                                managers.Game.hud.P2Lives += 1
+                                                managers.Game.hud.P2playerLivesSprite[managers.Game.hud.P2Lives-1].alpha = 1
+                                            }
+
                                             if(managers.Game.hud.P1Power < 201)
                                                 managers.Game.hud.P1Power += 25
+                                            if(managers.Game.hud.P2Power < 201)
+                                                managers.Game.hud.P2Power += 25
+
     
                                             managers.Game.hud.P1ScoreMult += 100;
                                             managers.Game.hud.P1Score += 10000000
+                                            managers.Game.hud.P2ScoreMult += 100;
+                                            managers.Game.hud.P2Score += 10000000
                                         }
                                     
                                 }

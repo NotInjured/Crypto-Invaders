@@ -46,6 +46,7 @@ module managers {        // Access to globally-required items
         public static p5: boolean = false
         public static single: boolean = false
         public static multi: boolean = false
+        public static bossRush: boolean = false
 
         public static P1: objects.Player
         public static P1score: number

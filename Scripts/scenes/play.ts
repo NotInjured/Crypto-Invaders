@@ -453,1566 +453,2441 @@ module scenes {
 
             this.background.Update();
             if(managers.Game.single){
-                this.aircraft.y += 3;
+                if(!managers.Game.bossRush){
+                    this.aircraft.y += 3;
 
-                if(this.aircraft.y > 600)
-                    this.removeChild(this.aircraft);
-
-                this.bulletManager.Update()
-                this.missileManager.Update()
-                this.enemyBulletManager.Update()
-                this.coinsManager.Coin.forEach(coin =>{
-                    if(coin.IsDropped){
-                        coin.FindPlayer(this.Splayer)
-                        coin.Update()
-                    }
-                })
-
-                this.ChangeShip();
-                this.CheckCollisions()
-                this.Splayer.Update();
-
-                if(this.Splayer.IsInvincible){
-                    this.shields[0].x = this.Splayer.x +20
-                    this.shields[0].y = this.Splayer.y +10
-                    this.shields[0].alpha = 1;
-                }
+                    if(this.aircraft.y > 600)
+                        this.removeChild(this.aircraft);
     
-                if(!this.Splayer.IsInvincible)
-                    this.shields[0].alpha = 0;
+                    this.bulletManager.Update()
+                    this.missileManager.Update()
+                    this.enemyBulletManager.Update()
+                    this.coinsManager.Coin.forEach(coin =>{
+                        if(coin.IsDropped){
+                            coin.FindPlayer(this.Splayer)
+                            coin.Update()
+                        }
+                    })
     
-                if(!this.Splayer.isDead){
-                    if(managers.Game.hud.Power < 40 && !managers.Game.p1){
-                        this.bulletManager.Bullet.forEach(ammo =>{
-                            this.removeChild(ammo);
-                        });
-        
-                        managers.Game.bulletManager.buildBulletPool(this.Splayer.ShipType)
-        
-                        this.bulletManager.Bullet.forEach(bullet =>{
-                            this.addChild(bullet);
-                        });
-                        managers.Game.p1 = true
-                    }
-                    if((managers.Game.hud.Power >= 40 && managers.Game.hud.Power < 80) && !managers.Game.p2){
-                        this.bulletManager.Bullet.forEach(ammo =>{
-                            this.removeChild(ammo);
-                        });
-                        
-                        managers.Game.bulletManager.buildBulletPool(this.Splayer.ShipType)
-        
-                        this.bulletManager.Bullet.forEach(bullet =>{
-                            this.addChild(bullet);
-                        });
-                        managers.Game.p2 = true
-                    }
-                    if((managers.Game.hud.Power >= 80 && managers.Game.hud.Power < 120) && !managers.Game.p3){
-                        this.bulletManager.Bullet.forEach(ammo =>{
-                            this.removeChild(ammo);
-                        });
-                        
-                        managers.Game.bulletManager.buildBulletPool(this.Splayer.ShipType)
-        
-                        this.bulletManager.Bullet.forEach(bullet =>{
-                            this.addChild(bullet);
-                        });
-                        managers.Game.p3 = true
-                    }
-                    if((managers.Game.hud.Power >= 120 && managers.Game.hud.Power < 160) && !managers.Game.p4){
-                        this.bulletManager.Bullet.forEach(ammo =>{
-                            this.removeChild(ammo);
-                        });
-                        
-                        managers.Game.bulletManager.buildBulletPool(this.Splayer.ShipType)
-        
-                        this.bulletManager.Bullet.forEach(bullet =>{
-                            this.addChild(bullet);
-                        });
-                        managers.Game.p4 = true
-                    }
-                    if(managers.Game.hud.Power >= 160 && !managers.Game.p5){
-                        this.bulletManager.Bullet.forEach(ammo =>{
-                            this.removeChild(ammo);
-                        });
-                        
-                        managers.Game.bulletManager.buildBulletPool(this.Splayer.ShipType)
-        
-                        this.bulletManager.Bullet.forEach(bullet =>{
-                            this.addChild(bullet);
-                        });
-                        managers.Game.p5 = true
-                    }    
-                }
+                    this.ChangeShip();
+                    this.CheckCollisions()
+                    this.Splayer.Update();
     
-                if(this.Splayer.isDead){
-                    if(managers.Game.hud.Power >= 0 && managers.Game.hud.Power < 40){
-                        this.bulletManager.Bullet.forEach(ammo =>{
-                            this.removeChild(ammo);
-                        });
+                    if(this.Splayer.IsInvincible){
+                        this.shields[0].x = this.Splayer.x +20
+                        this.shields[0].y = this.Splayer.y +10
+                        this.shields[0].alpha = 1;
+                    }
         
-                        managers.Game.bulletManager.buildBulletPool(this.Splayer.ShipType)
+                    if(!this.Splayer.IsInvincible)
+                        this.shields[0].alpha = 0;
         
-                        this.bulletManager.Bullet.forEach(bullet =>{
-                            this.addChild(bullet);
-                        });
+                    if(!this.Splayer.isDead){
+                        if(managers.Game.hud.Power < 40 && !managers.Game.p1){
+                            this.bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+            
+                            managers.Game.bulletManager.buildBulletPool(this.Splayer.ShipType)
+            
+                            this.bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                            managers.Game.p1 = true
+                        }
+                        if((managers.Game.hud.Power >= 40 && managers.Game.hud.Power < 80) && !managers.Game.p2){
+                            this.bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.bulletManager.buildBulletPool(this.Splayer.ShipType)
+            
+                            this.bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                            managers.Game.p2 = true
+                        }
+                        if((managers.Game.hud.Power >= 80 && managers.Game.hud.Power < 120) && !managers.Game.p3){
+                            this.bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.bulletManager.buildBulletPool(this.Splayer.ShipType)
+            
+                            this.bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                            managers.Game.p3 = true
+                        }
+                        if((managers.Game.hud.Power >= 120 && managers.Game.hud.Power < 160) && !managers.Game.p4){
+                            this.bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.bulletManager.buildBulletPool(this.Splayer.ShipType)
+            
+                            this.bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                            managers.Game.p4 = true
+                        }
+                        if(managers.Game.hud.Power >= 160 && !managers.Game.p5){
+                            this.bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.bulletManager.buildBulletPool(this.Splayer.ShipType)
+            
+                            this.bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                            managers.Game.p5 = true
+                        }    
                     }
-                    if(managers.Game.hud.Power >= 40 && managers.Game.hud.Power < 80){
-                        this.bulletManager.Bullet.forEach(ammo =>{
-                            this.removeChild(ammo);
-                        });
-                        
-                        managers.Game.bulletManager.buildBulletPool(this.Splayer.ShipType)
         
-                        this.bulletManager.Bullet.forEach(bullet =>{
-                            this.addChild(bullet);
-                        });
-                    }
-                    if(managers.Game.hud.Power >= 80 && managers.Game.hud.Power < 120){
-                        this.bulletManager.Bullet.forEach(ammo =>{
-                            this.removeChild(ammo);
-                        });
-                        
-                        managers.Game.bulletManager.buildBulletPool(this.Splayer.ShipType)
-        
-                        this.bulletManager.Bullet.forEach(bullet =>{
-                            this.addChild(bullet);
-                        });
-                    }
-                    if(managers.Game.hud.Power >= 120 && managers.Game.hud.Power < 160){
-                        this.bulletManager.Bullet.forEach(ammo =>{
-                            this.removeChild(ammo);
-                        });
-                        
-                        managers.Game.bulletManager.buildBulletPool(this.Splayer.ShipType)
-        
-                        this.bulletManager.Bullet.forEach(bullet =>{
-                            this.addChild(bullet);
-                        });
-                    }
-                    if(managers.Game.hud.Power >= 160){
-                        this.bulletManager.Bullet.forEach(ammo =>{
-                            this.removeChild(ammo);
-                        });
-                        
-                        managers.Game.bulletManager.buildBulletPool(this.Splayer.ShipType)
-        
-                        this.bulletManager.Bullet.forEach(bullet =>{
-                            this.addChild(bullet);
-                        });
-                    }    
-                }
-
-                if(managers.Game.level1){
-                    if(managers.Game.timer >= 598 && managers.Game.timer <= 600){
-                        if(this.Splayer.y > 450)
-                            this.Splayer.y -= 1;
-                        if(this.P1.y > 450)
-                            this.P1.y -= 1;
-                        if(this.P2.y > 450)
-                            this.P2.y -= 1;
-                    }
-                    if(managers.Game.timer >= 597 && managers.Game.timer <= 598){
-                        if(this.Splayer.y < 550)
-                            this.Splayer.y += 1;
-                        if(this.P1.y < 550)
-                            this.P1.y += 1;
-                        if(this.P2.y < 550)
-                            this.P2.y += 1;
-                    }
-                    if(managers.Game.timer > 591 && managers.Game.timer <= 596){
-                        this.addChild(this.stageName)
-                    }
-                    if(managers.Game.timer >= 481 && managers.Game.timer <= 591){
-                        this.removeChild(this.stageName)
-                       
-                        
-                        this.level1Enemies[0].forEach(e =>{
-                            if(!e.isDead){
-                                e.isInvincible = false;
-                                e.Update();
-                                e.FindPlayer(this.Splayer);
-                                this.missileManager.Missile.forEach( m => {
-                                    m.FindEnemies(e)
-                                })
-                            }
-                        })
-                    }
-                    if(managers.Game.timer >= 481 && managers.Game.timer <= 581){
-                        this.level1Enemies[1].forEach(e =>{
-                            if(!e.isDead){
-                                e.isInvincible = false;
-                                e.Update();
-                                e.FindPlayer(this.Splayer);
-                                this.missileManager.Missile.forEach( m => {
-                                    m.FindEnemies(e)
-                                })
-                            }
-                        })
-    
-                        this.eliteUnits[0].forEach(e =>{
-                            if(!e.isDead){
-                                e.isInvincible = false;
-                                e.Update();
-                                e.FindPlayer(this.Splayer);
-                                this.missileManager.Missile.forEach( m => {
-                                    m.FindEnemies(e)
-                                })
-                            }
-                        })
-    
+                    if(this.Splayer.isDead){
+                        if(managers.Game.hud.Power >= 0 && managers.Game.hud.Power < 40){
+                            this.bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+            
+                            managers.Game.bulletManager.buildBulletPool(this.Splayer.ShipType)
+            
+                            this.bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                        }
+                        if(managers.Game.hud.Power >= 40 && managers.Game.hud.Power < 80){
+                            this.bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.bulletManager.buildBulletPool(this.Splayer.ShipType)
+            
+                            this.bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                        }
+                        if(managers.Game.hud.Power >= 80 && managers.Game.hud.Power < 120){
+                            this.bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.bulletManager.buildBulletPool(this.Splayer.ShipType)
+            
+                            this.bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                        }
+                        if(managers.Game.hud.Power >= 120 && managers.Game.hud.Power < 160){
+                            this.bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.bulletManager.buildBulletPool(this.Splayer.ShipType)
+            
+                            this.bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                        }
+                        if(managers.Game.hud.Power >= 160){
+                            this.bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.bulletManager.buildBulletPool(this.Splayer.ShipType)
+            
+                            this.bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                        }    
                     }
     
-                    if(managers.Game.timer >= 481 && managers.Game.timer <= 576){
-                        this.level1Enemies[2].forEach(e =>{
-                            if(!e.isDead){
-                                e.isInvincible = false;
-                                e.Update();
-                                e.FindPlayer(this.Splayer);
-                                this.missileManager.Missile.forEach( m => {
-                                    m.FindEnemies(e)
-                                })
-                            }
-                        })
-                    }
-    
-                    if(managers.Game.timer >= 481 && managers.Game.timer <= 536){
-                        this.eliteUnits[1].forEach(e =>{
-                            if(!e.isDead){
-                                e.isInvincible = false;
-                                e.Update();
-                                e.FindPlayer(this.Splayer);
-                                this.missileManager.Missile.forEach( m => {
-                                    m.FindEnemies(e)
-                                })
-                            }
-                        })
-                    }
-    
-                    if(managers.Game.timer < 481){
-                        this.level1Enemies[0].forEach(e =>{
-                            e.y += 10;
-                        })
-                        this.level1Enemies[1].forEach(e =>{
-                            e.x -= 10;
-                        })
-                        this.level1Enemies[2].forEach(e =>{
-                            e.y -= 10;
-                        })
-                    }
-    
-                    if(managers.Game.timer == 480){
-                        createjs.Sound.stop();
-                        this.bgm = createjs.Sound.play("bossMusic");
-                        this.bgm.loop = -1;
-                        this.bgm.volume = 0.05;
-                    }
-    
-                    if(managers.Game.timer < 479){
-                        this.bosses[0].isInvincible = false
-                        this.background.y += 0;
-                        if(!this.bosses[0].isDead){
-                            this.bosses[0].FindPlayer(this.Splayer)
-                            this.bosses[0].Update();
-                            this.missileManager.Missile.forEach( m => {
-                                m.FindEnemies(this.bosses[0])
+                    if(managers.Game.level1){
+                        if(managers.Game.timer >= 598 && managers.Game.timer <= 600){
+                            if(this.Splayer.y > 450)
+                                this.Splayer.y -= 1;
+                            if(this.P1.y > 450)
+                                this.P1.y -= 1;
+                            if(this.P2.y > 450)
+                                this.P2.y -= 1;
+                        }
+                        if(managers.Game.timer >= 597 && managers.Game.timer <= 598){
+                            if(this.Splayer.y < 550)
+                                this.Splayer.y += 1;
+                            if(this.P1.y < 550)
+                                this.P1.y += 1;
+                            if(this.P2.y < 550)
+                                this.P2.y += 1;
+                        }
+                        if(managers.Game.timer > 591 && managers.Game.timer <= 596){
+                            this.addChild(this.stageName)
+                        }
+                        if(managers.Game.timer >= 481 && managers.Game.timer <= 591){
+                            this.removeChild(this.stageName)
+                           
+                            
+                            this.level1Enemies[0].forEach(e =>{
+                                if(!e.isDead){
+                                    e.isInvincible = false;
+                                    e.Update();
+                                    e.FindPlayer(this.Splayer);
+                                    this.missileManager.Missile.forEach( m => {
+                                        m.FindEnemies(e)
+                                    })
+                                }
                             })
                         }
-                    }
-    
-                    if(managers.Game.boss1Hp == 0){
-                        this.removeChild(this.bosses[0])
-                        this.bosses[0].isInvincible = true;
-                        this.bosses[0].isDead = true;
-                        managers.Game.boss1IsDead = true;
-                        this.bosses[0].DropCoins(50)
-    
-                        let counter = 5;
-    
-                        let interval = setInterval(() =>{
-                            counter--;
-                            if(counter < 0){
-                                clearInterval(interval);
-                                managers.Game.level1Completed = true;
-                            }
-                        }, 1000)
-                    }
-                }
-                
-                if(managers.Game.level2){
-                    if(managers.Game.timer == 600){
-                        createjs.Sound.stop();
-                        this.bgm = createjs.Sound.play("bgm3");
-                        this.bgm.loop = -1;
-                        this.bgm.volume = 0.05;
-                    }
-    
-                    if(managers.Game.timer > 595 && managers.Game.timer <= 599){
-                        this.stageName.text = "Stage 2: HQ"
-                        this.stageName.x = 575
-                        this.addChild(this.stageName)
-                    }
-    
-                    if(managers.Game.timer > 505 && managers.Game.timer < 595){
-                        this.removeChild(this.stageName)
-                        this.level2Enemies[2].forEach(e =>{
-                            if(!e.isDead){
-                                e.isInvincible = false;
-                                e.Update();
-                                e.FindPlayer(this.Splayer);
+                        if(managers.Game.timer >= 481 && managers.Game.timer <= 581){
+                            this.level1Enemies[1].forEach(e =>{
+                                if(!e.isDead){
+                                    e.isInvincible = false;
+                                    e.Update();
+                                    e.FindPlayer(this.Splayer);
+                                    this.missileManager.Missile.forEach( m => {
+                                        m.FindEnemies(e)
+                                    })
+                                }
+                            })
+        
+                            this.eliteUnits[0].forEach(e =>{
+                                if(!e.isDead){
+                                    e.isInvincible = false;
+                                    e.Update();
+                                    e.FindPlayer(this.Splayer);
+                                    this.missileManager.Missile.forEach( m => {
+                                        m.FindEnemies(e)
+                                    })
+                                }
+                            })
+        
+                        }
+        
+                        if(managers.Game.timer >= 481 && managers.Game.timer <= 576){
+                            this.level1Enemies[2].forEach(e =>{
+                                if(!e.isDead){
+                                    e.isInvincible = false;
+                                    e.Update();
+                                    e.FindPlayer(this.Splayer);
+                                    this.missileManager.Missile.forEach( m => {
+                                        m.FindEnemies(e)
+                                    })
+                                }
+                            })
+                        }
+        
+                        if(managers.Game.timer >= 481 && managers.Game.timer <= 536){
+                            this.eliteUnits[1].forEach(e =>{
+                                if(!e.isDead){
+                                    e.isInvincible = false;
+                                    e.Update();
+                                    e.FindPlayer(this.Splayer);
+                                    this.missileManager.Missile.forEach( m => {
+                                        m.FindEnemies(e)
+                                    })
+                                }
+                            })
+                        }
+        
+                        if(managers.Game.timer < 481){
+                            this.level1Enemies[0].forEach(e =>{
+                                e.y += 10;
+                            })
+                            this.level1Enemies[1].forEach(e =>{
+                                e.x -= 10;
+                            })
+                            this.level1Enemies[2].forEach(e =>{
+                                e.y -= 10;
+                            })
+                        }
+        
+                        if(managers.Game.timer == 480){
+                            createjs.Sound.stop();
+                            this.bgm = createjs.Sound.play("bossMusic");
+                            this.bgm.loop = -1;
+                            this.bgm.volume = 0.05;
+                        }
+        
+                        if(managers.Game.timer < 479){
+                            this.bosses[0].isInvincible = false
+                            this.background.y += 0;
+                            if(!this.bosses[0].isDead){
+                                this.bosses[0].FindPlayer(this.Splayer)
+                                this.bosses[0].Update();
                                 this.missileManager.Missile.forEach( m => {
-                                    m.FindEnemies(e)
+                                    m.FindEnemies(this.bosses[0])
                                 })
                             }
-                        })
+                        }
+        
+                        if(managers.Game.boss1Hp == 0){
+                            this.removeChild(this.bosses[0])
+                            this.bosses[0].isInvincible = true;
+                            this.bosses[0].isDead = true;
+                            managers.Game.boss1IsDead = true;
+                            this.bosses[0].DropCoins(50)
+        
+                            let counter = 5;
+        
+                            let interval = setInterval(() =>{
+                                counter--;
+                                if(counter < 0){
+                                    clearInterval(interval);
+                                    managers.Game.level1Completed = true;
+                                }
+                            }, 1000)
+                        }
                     }
                     
-                    if(managers.Game.timer > 505 && managers.Game.timer < 590){
-                        this.level2Enemies[1].forEach(e =>{
-                            if(!e.isDead){
-                                e.isInvincible = false;
-                                e.Update();
-                                e.FindPlayer(this.Splayer);
-                                this.missileManager.Missile.forEach( m => {
-                                    m.FindEnemies(e)
-                                })
-                            }
-                        })
-    
-                        this.eliteUnits[2].forEach(e =>{
-                            if(!e.isDead){
-                                e.isInvincible = false;
-                                e.Update();
-                                e.FindPlayer(this.Splayer);
-                                this.missileManager.Missile.forEach( m => {
-                                    m.FindEnemies(e)
-                                })
-                            }
-                        })
-                    }
-    
-                    if(managers.Game.timer > 505 && managers.Game.timer < 585){
-                        this.level2Enemies[0].forEach(e =>{
-                            if(!e.isDead){
-                                e.isInvincible = false;
-                                e.Update();
-                                e.FindPlayer(this.Splayer);
-                                this.missileManager.Missile.forEach( m => {
-                                    m.FindEnemies(e)
-                                })
-                            }
-                        })
-                    }
-    
-                    if(managers.Game.timer > 505 && managers.Game.timer < 550){
-                        this.eliteUnits[3].forEach(e =>{
-                            if(!e.isDead){
-                                e.isInvincible = false;
-                                e.Update();
-                                e.FindPlayer(this.Splayer);
-                                this.missileManager.Missile.forEach( m => {
-                                    m.FindEnemies(e)
-                                })
-                            }
-                        })
-                    }
-    
-                    if(managers.Game.timer < 504){
-                        this.level2Enemies[0].forEach(e =>{
-                            e.y -= 10;
-                        })
-                        this.level2Enemies[1].forEach(e =>{
-                            e.x += 10;
-                        })
-                        this.level2Enemies[2].forEach(e =>{
-                            e.y += 10;
-                        })
-                    }
-    
-                    if(managers.Game.timer == 504){
-                        createjs.Sound.stop();
-                        this.bgm = createjs.Sound.play("bossMusic");
-                        this.bgm.loop = -1;
-                        this.bgm.volume = 0.05;
-                    }
-    
-                    if(managers.Game.timer < 503){
-                        if(!this.bosses[1].isDead){
-                            this.bosses[1].isInvincible = false
-                            this.bosses[1].FindPlayer(this.Splayer)
-                            this.bosses[1].Update()
-    
-                            this.missileManager.Missile.forEach( m => {
-                                m.FindEnemies(this.bosses[1])
+                    if(managers.Game.level2){
+                        if(managers.Game.timer == 600){
+                            createjs.Sound.stop();
+                            this.bgm = createjs.Sound.play("bgm3");
+                            this.bgm.loop = -1;
+                            this.bgm.volume = 0.05;
+                        }
+        
+                        if(managers.Game.timer > 595 && managers.Game.timer <= 599){
+                            this.stageName.text = "Stage 2: HQ"
+                            this.stageName.x = 575
+                            this.addChild(this.stageName)
+                        }
+        
+                        if(managers.Game.timer > 505 && managers.Game.timer < 595){
+                            this.removeChild(this.stageName)
+                            this.level2Enemies[2].forEach(e =>{
+                                if(!e.isDead){
+                                    e.isInvincible = false;
+                                    e.Update();
+                                    e.FindPlayer(this.Splayer);
+                                    this.missileManager.Missile.forEach( m => {
+                                        m.FindEnemies(e)
+                                    })
+                                }
                             })
                         }
+                        
+                        if(managers.Game.timer > 505 && managers.Game.timer < 590){
+                            this.level2Enemies[1].forEach(e =>{
+                                if(!e.isDead){
+                                    e.isInvincible = false;
+                                    e.Update();
+                                    e.FindPlayer(this.Splayer);
+                                    this.missileManager.Missile.forEach( m => {
+                                        m.FindEnemies(e)
+                                    })
+                                }
+                            })
+        
+                            this.eliteUnits[2].forEach(e =>{
+                                if(!e.isDead){
+                                    e.isInvincible = false;
+                                    e.Update();
+                                    e.FindPlayer(this.Splayer);
+                                    this.missileManager.Missile.forEach( m => {
+                                        m.FindEnemies(e)
+                                    })
+                                }
+                            })
+                        }
+        
+                        if(managers.Game.timer > 505 && managers.Game.timer < 585){
+                            this.level2Enemies[0].forEach(e =>{
+                                if(!e.isDead){
+                                    e.isInvincible = false;
+                                    e.Update();
+                                    e.FindPlayer(this.Splayer);
+                                    this.missileManager.Missile.forEach( m => {
+                                        m.FindEnemies(e)
+                                    })
+                                }
+                            })
+                        }
+        
+                        if(managers.Game.timer > 505 && managers.Game.timer < 550){
+                            this.eliteUnits[3].forEach(e =>{
+                                if(!e.isDead){
+                                    e.isInvincible = false;
+                                    e.Update();
+                                    e.FindPlayer(this.Splayer);
+                                    this.missileManager.Missile.forEach( m => {
+                                        m.FindEnemies(e)
+                                    })
+                                }
+                            })
+                        }
+        
+                        if(managers.Game.timer < 504){
+                            this.level2Enemies[0].forEach(e =>{
+                                e.y -= 10;
+                            })
+                            this.level2Enemies[1].forEach(e =>{
+                                e.x += 10;
+                            })
+                            this.level2Enemies[2].forEach(e =>{
+                                e.y += 10;
+                            })
+                        }
+        
+                        if(managers.Game.timer == 504){
+                            createjs.Sound.stop();
+                            this.bgm = createjs.Sound.play("bossMusic");
+                            this.bgm.loop = -1;
+                            this.bgm.volume = 0.05;
+                        }
+        
+                        if(managers.Game.timer < 503){
+                            if(!this.bosses[1].isDead){
+                                this.bosses[1].isInvincible = false
+                                this.bosses[1].FindPlayer(this.Splayer)
+                                this.bosses[1].Update()
+        
+                                this.missileManager.Missile.forEach( m => {
+                                    m.FindEnemies(this.bosses[1])
+                                })
+                            }
+                        }
+        
+                        if(managers.Game.boss2Hp == 0){
+                            this.removeChild(this.bosses[1])
+                            this.bosses[1].isInvincible = true;
+                            this.bosses[1].isDead = true;
+                            managers.Game.boss2IsDead = true;
+                            this.bosses[1].DropCoins(50)
+                            let counter2 = 5;
+        
+                            let interval = setInterval(() =>{
+                                counter2--;
+                                if(counter2 < 0){
+                                    clearInterval(interval);
+                                    managers.Game.level2Completed = true
+                                }
+                            }, 1000)
+                        }
+                    }
+                    
+                    if(managers.Game.level3){
+                        if(managers.Game.timer == 600){
+                            createjs.Sound.stop();
+                            this.bgm = createjs.Sound.play("bgm");
+                            this.bgm.loop = -1;
+                            this.bgm.volume = 0.05;
+                        }
+        
+                        if(managers.Game.timer > 595 && managers.Game.timer <= 599){
+                            this.stageName.text = "Stage 3: Journey"
+                            this.stageName.x = 525
+                            this.addChild(this.stageName)
+                        }
+        
+                        if(managers.Game.timer >= 505 && managers.Game.timer < 595){
+                            this.removeChild(this.stageName)
+                            this.level3Enemies[1].forEach(e =>{
+                                if(!e.isDead){
+                                    e.isInvincible = false;
+                                    e.Update();
+                                    e.FindPlayer(this.Splayer);
+                                    this.missileManager.Missile.forEach( m => {
+                                        m.FindEnemies(e)
+                                    })
+                                }
+                            })
+        
+                            this.eliteUnits[4].forEach(e =>{
+                                if(!e.isDead){
+                                    e.isInvincible = false;
+                                    e.Update();
+                                    e.FindPlayer(this.Splayer);
+                                    this.missileManager.Missile.forEach( m => {
+                                        m.FindEnemies(e)
+                                    })
+                                }
+                            })
+                        }
+                        if(managers.Game.timer >= 505 && managers.Game.timer < 590){
+                            this.level3Enemies[0].forEach(e =>{
+                                if(!e.isDead){
+                                    e.isInvincible = false;
+                                    e.Update();
+                                    e.FindPlayer(this.Splayer);
+                                    this.missileManager.Missile.forEach( m => {
+                                        m.FindEnemies(e)
+                                    })
+                                }
+                            })
+                        }
+        
+                        if(managers.Game.timer >= 505 && managers.Game.timer < 587){
+                            this.eliteUnits[4].forEach(e =>{
+                                if(!e.isDead){
+                                    e.isInvincible = false;
+                                    e.Update();
+                                    e.FindPlayer(this.Splayer);
+                                    this.missileManager.Missile.forEach( m => {
+                                        m.FindEnemies(e)
+                                    })
+                                }
+                            })
+                        }
+        
+                        if(managers.Game.timer >= 505 && managers.Game.timer < 585){
+                            this.level3Enemies[2].forEach(e =>{
+                                if(!e.isDead){
+                                    e.isInvincible = false;
+                                    e.Update();
+                                    e.FindPlayer(this.Splayer);
+                                    this.missileManager.Missile.forEach( m => {
+                                        m.FindEnemies(e)
+                                    })
+                                }
+                            })
+                        }
+                        if(managers.Game.timer >= 505 && managers.Game.timer < 565){
+                            this.eliteUnits[3].forEach(e =>{
+                                if(!e.isDead){
+                                    e.isInvincible = false;
+                                    e.Update();
+                                    e.FindPlayer(this.Splayer);
+                                    this.missileManager.Missile.forEach( m => {
+                                        m.FindEnemies(e)
+                                    })
+                                }
+                            })
+                        }
+        
+                        if(managers.Game.timer < 506){
+                            this.level3Enemies[0].forEach(e =>{
+                                e.y -= 10;
+                            })
+                            this.level3Enemies[1].forEach(e =>{
+                                e.x += 10;
+                            })
+                            this.level3Enemies[2].forEach(e =>{
+                                e.y += 10;
+                            })
+                        }
+        
+                        if(managers.Game.timer == 505){
+                            createjs.Sound.stop();
+                            this.bgm = createjs.Sound.play("bossMusic");
+                            this.bgm.loop = -1;
+                            this.bgm.volume = 0.05;
+                        }
+                        if(managers.Game.timer < 504){
+                            if(!this.bosses[2].isDead){
+                                this.bosses[2].isInvincible = false
+                                this.bosses[2].FindPlayer(this.Splayer)
+                                this.bosses[2].Update();
+        
+                                this.missileManager.Missile.forEach( m => {
+                                    m.FindEnemies(this.bosses[2])
+                                })
+                            }
+                            if(!this.bosses[3].isDead){
+                                this.bosses[3].isInvincible = false
+                                this.bosses[3].FindPlayer(this.Splayer)
+                                this.bosses[3].Update();
+        
+                                this.missileManager.Missile.forEach( m => {
+                                    m.FindEnemies(this.bosses[3])
+                                })
+                            }
+                        }
+        
+                        if(managers.Game.boss3_1Hp == 0){
+                            this.removeChild(this.bosses[2])
+                            this.bosses[2].isInvincible = true;
+                            this.bosses[2].isDead = true;
+                            managers.Game.boss3_1IsDead = true;
+                            this.bosses[2].DropCoins(50)
+                        }
+                        if(managers.Game.boss3_2Hp == 0){
+                            this.bosses[3].isInvincible = true;
+                            this.bosses[3].isDead = true;
+                            managers.Game.boss3_2IsDead = true;
+                            this.bosses[3].DropCoins(50)
+                        }
+        
+                        if((managers.Game.boss3_1Hp == 0 || 
+                            (managers.Game.boss3_1Hp < 0 && Math.abs(managers.Game.boss3_1Hp) % 250 == 0)) && 
+                            (managers.Game.boss3_2Hp == 0 || 
+                            (managers.Game.boss3_2Hp < 0 && Math.abs(managers.Game.boss3_2Hp) % 250 == 0))){
+                            let counter = 5;
+        
+                            let interval = setInterval(() =>{
+                                counter--;
+                                if(counter < 0){
+                                    clearInterval(interval);     
+                                    managers.Game.level3Completed = true;
+                                }
+                            }, 1000)
+                        }
+                    }
+                }
+
+                if(!managers.Game.bossRush){
+                    this.aircraft.y += 3;
+
+                    if(this.aircraft.y > 600)
+                        this.removeChild(this.aircraft);
+    
+                    this.bulletManager.Update()
+                    this.missileManager.Update()
+                    this.enemyBulletManager.Update()
+                    this.coinsManager.Coin.forEach(coin =>{
+                        if(coin.IsDropped){
+                            coin.FindPlayer(this.Splayer)
+                            coin.Update()
+                        }
+                    })
+    
+                    this.ChangeShip();
+                    this.CheckCollisions()
+                    this.Splayer.Update();
+    
+                    if(this.Splayer.IsInvincible){
+                        this.shields[0].x = this.Splayer.x +20
+                        this.shields[0].y = this.Splayer.y +10
+                        this.shields[0].alpha = 1;
+                    }
+        
+                    if(!this.Splayer.IsInvincible)
+                        this.shields[0].alpha = 0;
+        
+                    if(!this.Splayer.isDead){
+                        if(managers.Game.hud.Power < 40 && !managers.Game.p1){
+                            this.bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+            
+                            managers.Game.bulletManager.buildBulletPool(this.Splayer.ShipType)
+            
+                            this.bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                            managers.Game.p1 = true
+                        }
+                        if((managers.Game.hud.Power >= 40 && managers.Game.hud.Power < 80) && !managers.Game.p2){
+                            this.bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.bulletManager.buildBulletPool(this.Splayer.ShipType)
+            
+                            this.bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                            managers.Game.p2 = true
+                        }
+                        if((managers.Game.hud.Power >= 80 && managers.Game.hud.Power < 120) && !managers.Game.p3){
+                            this.bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.bulletManager.buildBulletPool(this.Splayer.ShipType)
+            
+                            this.bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                            managers.Game.p3 = true
+                        }
+                        if((managers.Game.hud.Power >= 120 && managers.Game.hud.Power < 160) && !managers.Game.p4){
+                            this.bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.bulletManager.buildBulletPool(this.Splayer.ShipType)
+            
+                            this.bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                            managers.Game.p4 = true
+                        }
+                        if(managers.Game.hud.Power >= 160 && !managers.Game.p5){
+                            this.bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.bulletManager.buildBulletPool(this.Splayer.ShipType)
+            
+                            this.bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                            managers.Game.p5 = true
+                        }    
+                    }
+        
+                    if(this.Splayer.isDead){
+                        if(managers.Game.hud.Power >= 0 && managers.Game.hud.Power < 40){
+                            this.bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+            
+                            managers.Game.bulletManager.buildBulletPool(this.Splayer.ShipType)
+            
+                            this.bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                        }
+                        if(managers.Game.hud.Power >= 40 && managers.Game.hud.Power < 80){
+                            this.bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.bulletManager.buildBulletPool(this.Splayer.ShipType)
+            
+                            this.bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                        }
+                        if(managers.Game.hud.Power >= 80 && managers.Game.hud.Power < 120){
+                            this.bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.bulletManager.buildBulletPool(this.Splayer.ShipType)
+            
+                            this.bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                        }
+                        if(managers.Game.hud.Power >= 120 && managers.Game.hud.Power < 160){
+                            this.bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.bulletManager.buildBulletPool(this.Splayer.ShipType)
+            
+                            this.bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                        }
+                        if(managers.Game.hud.Power >= 160){
+                            this.bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.bulletManager.buildBulletPool(this.Splayer.ShipType)
+            
+                            this.bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                        }    
                     }
     
-                    if(managers.Game.boss2Hp == 0){
-                        this.removeChild(this.bosses[1])
-                        this.bosses[1].isInvincible = true;
-                        this.bosses[1].isDead = true;
-                        managers.Game.boss2IsDead = true;
-                        this.bosses[1].DropCoins(50)
-                        let counter2 = 5;
-    
-                        let interval = setInterval(() =>{
-                            counter2--;
-                            if(counter2 < 0){
-                                clearInterval(interval);
-                                managers.Game.level2Completed = true
+                    if(managers.Game.level1){
+                        if(managers.Game.timer >= 598 && managers.Game.timer <= 600){
+                            if(this.Splayer.y > 450)
+                                this.Splayer.y -= 1;
+                        }
+                        if(managers.Game.timer >= 597 && managers.Game.timer <= 598){
+                            if(this.Splayer.y < 550)
+                                this.Splayer.y += 1;
+                        }
+                        if(managers.Game.timer > 591 && managers.Game.timer <= 596){
+                            this.addChild(this.stageName)
+                        }
+                        if(managers.Game.timer <= 591){
+                            this.removeChild(this.stageName)
+
+                            this.bosses[0].isInvincible = false
+                            if(!this.bosses[0].isDead){
+                                this.bosses[0].FindPlayer(this.Splayer)
+                                this.bosses[0].Update();
+                                this.missileManager.Missile.forEach( m => {
+                                    m.FindEnemies(this.bosses[0])
+                                })
                             }
-                        }, 1000)
+                        }
+
+                        if(managers.Game.boss1Hp == 0){
+                            this.removeChild(this.bosses[0])
+                            this.bosses[0].isInvincible = true;
+                            this.bosses[0].isDead = true;
+                            managers.Game.boss1IsDead = true;
+                            this.bosses[0].DropCoins(50)
+        
+                            let counter = 5;
+        
+                            let interval = setInterval(() =>{
+                                counter--;
+                                if(counter < 0){
+                                    clearInterval(interval);
+                                    managers.Game.level1Completed = true;
+                                }
+                            }, 1000)
+                        }
+                    }
+                    
+                    if(managers.Game.level2){
+                        if(managers.Game.timer == 600){
+                            createjs.Sound.stop();
+                            this.bgm = createjs.Sound.play("bgm3");
+                            this.bgm.loop = -1;
+                            this.bgm.volume = 0.05;
+                        }
+        
+                        if(managers.Game.timer > 595 && managers.Game.timer <= 599){
+                            this.stageName.text = "Stage 2: HQ"
+                            this.stageName.x = 575
+                            this.addChild(this.stageName)
+                        }
+        
+                        if(managers.Game.timer > 505 && managers.Game.timer < 595){
+                            this.removeChild(this.stageName)
+
+                            if(!this.bosses[1].isDead){
+                                this.bosses[1].isInvincible = false
+                                this.bosses[1].FindPlayer(this.Splayer)
+                                this.bosses[1].Update()
+        
+                                this.missileManager.Missile.forEach( m => {
+                                    m.FindEnemies(this.bosses[1])
+                                })
+                            }
+                        }
+
+                        if(managers.Game.boss2Hp == 0){
+                            this.removeChild(this.bosses[1])
+                            this.bosses[1].isInvincible = true;
+                            this.bosses[1].isDead = true;
+                            managers.Game.boss2IsDead = true;
+                            this.bosses[1].DropCoins(50)
+                            let counter2 = 5;
+        
+                            let interval = setInterval(() =>{
+                                counter2--;
+                                if(counter2 < 0){
+                                    clearInterval(interval);
+                                    managers.Game.level2Completed = true
+                                }
+                            }, 1000)
+                        }
+                    }
+                    
+                    if(managers.Game.level3){
+                        if(managers.Game.timer == 600){
+                            createjs.Sound.stop();
+                            this.bgm = createjs.Sound.play("bgm");
+                            this.bgm.loop = -1;
+                            this.bgm.volume = 0.05;
+                        }
+        
+                        if(managers.Game.timer > 595 && managers.Game.timer <= 599){
+                            this.stageName.text = "Stage 3: Journey"
+                            this.stageName.x = 525
+                            this.addChild(this.stageName)
+                        }
+        
+                        if(managers.Game.timer >= 505 && managers.Game.timer < 595){
+                            this.removeChild(this.stageName)
+
+                            if(!this.bosses[2].isDead){
+                                this.bosses[2].isInvincible = false
+                                this.bosses[2].FindPlayer(this.Splayer)
+                                this.bosses[2].Update();
+        
+                                this.missileManager.Missile.forEach( m => {
+                                    m.FindEnemies(this.bosses[2])
+                                })
+                            }
+                            if(!this.bosses[3].isDead){
+                                this.bosses[3].isInvincible = false
+                                this.bosses[3].FindPlayer(this.Splayer)
+                                this.bosses[3].Update();
+        
+                                this.missileManager.Missile.forEach( m => {
+                                    m.FindEnemies(this.bosses[3])
+                                })
+                            }
+                        }
+
+                        if(managers.Game.boss3_1Hp == 0){
+                            this.removeChild(this.bosses[2])
+                            this.bosses[2].isInvincible = true;
+                            this.bosses[2].isDead = true;
+                            managers.Game.boss3_1IsDead = true;
+                            this.bosses[2].DropCoins(50)
+                        }
+                        if(managers.Game.boss3_2Hp == 0){
+                            this.bosses[3].isInvincible = true;
+                            this.bosses[3].isDead = true;
+                            managers.Game.boss3_2IsDead = true;
+                            this.bosses[3].DropCoins(50)
+                        }
+        
+                        if((managers.Game.boss3_1Hp == 0 || 
+                            (managers.Game.boss3_1Hp < 0 && Math.abs(managers.Game.boss3_1Hp) % 250 == 0)) && 
+                            (managers.Game.boss3_2Hp == 0 || 
+                            (managers.Game.boss3_2Hp < 0 && Math.abs(managers.Game.boss3_2Hp) % 250 == 0))){
+                            let counter = 5;
+        
+                            let interval = setInterval(() =>{
+                                counter--;
+                                if(counter < 0){
+                                    clearInterval(interval);     
+                                    managers.Game.level3Completed = true;
+                                }
+                            }, 1000)
+                        }
                     }
                 }
                 
-                if(managers.Game.level3){
-                    if(managers.Game.timer == 600){
-                        createjs.Sound.stop();
-                        this.bgm = createjs.Sound.play("bgm");
-                        this.bgm.loop = -1;
-                        this.bgm.volume = 0.05;
-                    }
-    
-                    if(managers.Game.timer > 595 && managers.Game.timer <= 599){
-                        this.stageName.text = "Stage 3: Journey"
-                        this.stageName.x = 525
-                        this.addChild(this.stageName)
-                    }
-    
-                    if(managers.Game.timer >= 505 && managers.Game.timer < 595){
-                        this.removeChild(this.stageName)
-                        this.level3Enemies[1].forEach(e =>{
-                            if(!e.isDead){
-                                e.isInvincible = false;
-                                e.Update();
-                                e.FindPlayer(this.Splayer);
-                                this.missileManager.Missile.forEach( m => {
-                                    m.FindEnemies(e)
-                                })
-                            }
-                        })
-    
-                        this.eliteUnits[4].forEach(e =>{
-                            if(!e.isDead){
-                                e.isInvincible = false;
-                                e.Update();
-                                e.FindPlayer(this.Splayer);
-                                this.missileManager.Missile.forEach( m => {
-                                    m.FindEnemies(e)
-                                })
-                            }
-                        })
-                    }
-                    if(managers.Game.timer >= 505 && managers.Game.timer < 590){
-                        this.level3Enemies[0].forEach(e =>{
-                            if(!e.isDead){
-                                e.isInvincible = false;
-                                e.Update();
-                                e.FindPlayer(this.Splayer);
-                                this.missileManager.Missile.forEach( m => {
-                                    m.FindEnemies(e)
-                                })
-                            }
-                        })
-                    }
-    
-                    if(managers.Game.timer >= 505 && managers.Game.timer < 587){
-                        this.eliteUnits[4].forEach(e =>{
-                            if(!e.isDead){
-                                e.isInvincible = false;
-                                e.Update();
-                                e.FindPlayer(this.Splayer);
-                                this.missileManager.Missile.forEach( m => {
-                                    m.FindEnemies(e)
-                                })
-                            }
-                        })
-                    }
-    
-                    if(managers.Game.timer >= 505 && managers.Game.timer < 585){
-                        this.level3Enemies[2].forEach(e =>{
-                            if(!e.isDead){
-                                e.isInvincible = false;
-                                e.Update();
-                                e.FindPlayer(this.Splayer);
-                                this.missileManager.Missile.forEach( m => {
-                                    m.FindEnemies(e)
-                                })
-                            }
-                        })
-                    }
-                    if(managers.Game.timer >= 505 && managers.Game.timer < 565){
-                        this.eliteUnits[3].forEach(e =>{
-                            if(!e.isDead){
-                                e.isInvincible = false;
-                                e.Update();
-                                e.FindPlayer(this.Splayer);
-                                this.missileManager.Missile.forEach( m => {
-                                    m.FindEnemies(e)
-                                })
-                            }
-                        })
-                    }
-    
-                    if(managers.Game.timer < 506){
-                        this.level3Enemies[0].forEach(e =>{
-                            e.y -= 10;
-                        })
-                        this.level3Enemies[1].forEach(e =>{
-                            e.x += 10;
-                        })
-                        this.level3Enemies[2].forEach(e =>{
-                            e.y += 10;
-                        })
-                    }
-    
-                    if(managers.Game.timer == 505){
-                        createjs.Sound.stop();
-                        this.bgm = createjs.Sound.play("bossMusic");
-                        this.bgm.loop = -1;
-                        this.bgm.volume = 0.05;
-                    }
-                    if(managers.Game.timer < 504){
-                        if(!this.bosses[2].isDead){
-                            this.bosses[2].isInvincible = false
-                            this.bosses[2].FindPlayer(this.Splayer)
-                            this.bosses[2].Update();
-    
-                            this.missileManager.Missile.forEach( m => {
-                                m.FindEnemies(this.bosses[2])
-                            })
-                        }
-                        if(!this.bosses[3].isDead){
-                            this.bosses[3].isInvincible = false
-                            this.bosses[3].FindPlayer(this.Splayer)
-                            this.bosses[3].Update();
-    
-                            this.missileManager.Missile.forEach( m => {
-                                m.FindEnemies(this.bosses[3])
-                            })
-                        }
-                    }
-    
-                    if(managers.Game.boss3_1Hp == 0){
-                        this.removeChild(this.bosses[2])
-                        this.bosses[2].isInvincible = true;
-                        this.bosses[2].isDead = true;
-                        managers.Game.boss3_1IsDead = true;
-                        this.bosses[2].DropCoins(50)
-                    }
-                    if(managers.Game.boss3_2Hp == 0){
-                        this.bosses[3].isInvincible = true;
-                        this.bosses[3].isDead = true;
-                        managers.Game.boss3_2IsDead = true;
-                        this.bosses[3].DropCoins(50)
-                    }
-    
-                    if((managers.Game.boss3_1Hp == 0 || 
-                        (managers.Game.boss3_1Hp < 0 && Math.abs(managers.Game.boss3_1Hp) % 250 == 0)) && 
-                        (managers.Game.boss3_2Hp == 0 || 
-                        (managers.Game.boss3_2Hp < 0 && Math.abs(managers.Game.boss3_2Hp) % 250 == 0))){
-                        let counter = 5;
-    
-                        let interval = setInterval(() =>{
-                            counter--;
-                            if(counter < 0){
-                                clearInterval(interval);     
-                                managers.Game.level3Completed = true;
-                            }
-                        }, 1000)
-                    }
-                }
 
                 if(managers.Game.hud.Lives < 0)
                     managers.Game.currentScene = config.Scene.OVER;
             }
 
             if(managers.Game.multi){
-                this.P1aircraft.y += 3;
-                this.P2aircraft.y += 3;
-                this.P1Tag.x = this.P1.x - 17
-                this.P1Tag.y = this.P1.y - 50
-
-                this.P2Tag.x = this.P2.x - 17
-                this.P2Tag.y = this.P2.y - 50
-
-                if(this.P1aircraft.y > 720 ){
-                    this.removeChild(this.P1aircraft);
-                    this.removeChild(this.P2aircraft);
-                }
-
-                this.enemyBulletManager.Update()
-                this.coinsManager.Coin.forEach(coin =>{
-                    if(coin.IsDropped){
-                        if(coin.p1)
-                            coin.FindPlayer(this.P1);
-                        if(coin.p2)
-                            coin.FindPlayer(this.P2);
-                        coin.Update()
-                    }
-                })
-
-                this.ChangeShip();
-                this.P1Collisions()
-                this.P2Collisions()
-                
-                // P1
-                this.P1.Update()
-                this.P1bulletManager.Update()
-                this.P1missileManager.Update()
-                if(this.P1.IsInvincible){
-                    this.shields[1].x = this.P1.x +20
-                    this.shields[1].y = this.P1.y +10
-                    this.shields[1].alpha = 1;
-                }
+                if(!managers.Game.bossRush){
+                    this.P1aircraft.y += 3;
+                    this.P2aircraft.y += 3;
+                    this.P1Tag.x = this.P1.x - 17
+                    this.P1Tag.y = this.P1.y - 50
     
-                if(!this.P1.IsInvincible)
-                    this.shields[1].alpha = 0;
-
-                if(!this.P1.isDead){
-                    if(managers.Game.hud.P1Power < 40 && !managers.Game.P1p1){
-                        this.P1bulletManager.Bullet.forEach(ammo =>{
-                            this.removeChild(ammo);
-                        });
-                        
-                        managers.Game.P1BulletManager.buildBulletPool(this.P1.ShipType)
-        
-                        this.P1bulletManager.Bullet.forEach(bullet =>{
-                            this.addChild(bullet);
-                        });
-                        managers.Game.P1p1 = true
-                    }
-                    if((managers.Game.hud.P1Power >= 40 && managers.Game.hud.P1Power < 80) && !managers.Game.P1p2){
-                        this.P1bulletManager.Bullet.forEach(ammo =>{
-                            this.removeChild(ammo);
-                        });
-                        
-                        managers.Game.P1BulletManager.buildBulletPool(this.P1.ShipType)
-        
-                        this.P1bulletManager.Bullet.forEach(bullet =>{
-                            this.addChild(bullet);
-                        });
-                        managers.Game.P1p2 = true
-                    }
-                    if((managers.Game.hud.P1Power >= 80 && managers.Game.hud.P1Power < 120) && !managers.Game.P1p3){
-                        this.P1bulletManager.Bullet.forEach(ammo =>{
-                            this.removeChild(ammo);
-                        });
-                        
-                        managers.Game.P1BulletManager.buildBulletPool(this.P1.ShipType)
-        
-                        this.P1bulletManager.Bullet.forEach(bullet =>{
-                            this.addChild(bullet);
-                        });
-                        managers.Game.P1p3 = true
-                    }
-                    if((managers.Game.hud.P1Power >= 120 && managers.Game.hud.P1Power < 160) && !managers.Game.P1p4){
-                        this.P1bulletManager.Bullet.forEach(ammo =>{
-                            this.removeChild(ammo);
-                        });
-                        
-                        managers.Game.P1BulletManager.buildBulletPool(this.P1.ShipType)
-        
-                        this.P1bulletManager.Bullet.forEach(bullet =>{
-                            this.addChild(bullet);
-                        });
-                        managers.Game.P1p4 = true
-                    }
-                    if(managers.Game.hud.P1Power >= 160 && !managers.Game.P1p5){
-                        this.P1bulletManager.Bullet.forEach(ammo =>{
-                            this.removeChild(ammo);
-                        });
-                        
-                        managers.Game.P1BulletManager.buildBulletPool(this.P1.ShipType)
-        
-                        this.P1bulletManager.Bullet.forEach(bullet =>{
-                            this.addChild(bullet);
-                        });
-                        managers.Game.P1p5 = true
-                    }    
-                }
+                    this.P2Tag.x = this.P2.x - 17
+                    this.P2Tag.y = this.P2.y - 50
     
-                if(this.P1.isDead){
-                    if(managers.Game.hud.P1Power >= 0 && managers.Game.hud.P1Power < 40){
-                        this.P1bulletManager.Bullet.forEach(ammo =>{
-                            this.removeChild(ammo);
-                        });
-                        
-                        managers.Game.P1BulletManager.buildBulletPool(this.P1.ShipType)
-        
-                        this.P1bulletManager.Bullet.forEach(bullet =>{
-                            this.addChild(bullet);
-                        });
-                    }
-                    if(managers.Game.hud.P1Power >= 40 && managers.Game.hud.P1Power < 80){
-                        this.P1bulletManager.Bullet.forEach(ammo =>{
-                            this.removeChild(ammo);
-                        });
-                        
-                        managers.Game.P1BulletManager.buildBulletPool(this.P1.ShipType)
-        
-                        this.P1bulletManager.Bullet.forEach(bullet =>{
-                            this.addChild(bullet);
-                        });
-                    }
-                    if(managers.Game.hud.P1Power >= 80 && managers.Game.hud.P1Power < 120){
-                        this.P1bulletManager.Bullet.forEach(ammo =>{
-                            this.removeChild(ammo);
-                        });
-                        
-                        managers.Game.P1BulletManager.buildBulletPool(this.P1.ShipType)
-        
-                        this.P1bulletManager.Bullet.forEach(bullet =>{
-                            this.addChild(bullet);
-                        });
-                    }
-                    if(managers.Game.hud.P1Power >= 120 && managers.Game.hud.P1Power < 160){
-                        this.P1bulletManager.Bullet.forEach(ammo =>{
-                            this.removeChild(ammo);
-                        });
-                        
-                        managers.Game.P1BulletManager.buildBulletPool(this.P1.ShipType)
-        
-                        this.P1bulletManager.Bullet.forEach(bullet =>{
-                            this.addChild(bullet);
-                        });
-                    }
-                    if(managers.Game.hud.P1Power >= 160){
-                        this.P1bulletManager.Bullet.forEach(ammo =>{
-                            this.removeChild(ammo);
-                        });
-                        
-                        managers.Game.P1BulletManager.buildBulletPool(this.P1.ShipType)
-        
-                        this.P1bulletManager.Bullet.forEach(bullet =>{
-                            this.addChild(bullet);
-                        });
-                    }    
-                }
-                
-                // P2
-                this.P2.Update()
-                this.P2bulletManager.Update()
-                this.P2missileManager.Update()
-
-                if(this.P2.IsInvincible){
-                    this.shields[2].x = this.P2.x +20
-                    this.shields[2].y = this.P2.y +10
-                    this.shields[2].alpha = 1;
-                }
-    
-                if(!this.P2.IsInvincible)
-                    this.shields[2].alpha = 0;
-
-                if(!this.P2.isDead){
-                    if(managers.Game.hud.P2Power < 40 && !managers.Game.P2p1){
-                        this.P2bulletManager.Bullet.forEach(ammo =>{
-                            this.removeChild(ammo);
-                        });
-        
-                        managers.Game.P2BulletManager.buildBulletPool(this.P2.ShipType)
-        
-                        this.P2bulletManager.Bullet.forEach(bullet =>{
-                            this.addChild(bullet);
-                        });
-                        managers.Game.P2p1 = true
-                    }
-                    if((managers.Game.hud.P2Power >= 40 && managers.Game.hud.P2Power < 80) && !managers.Game.P2p2){
-                        this.P2bulletManager.Bullet.forEach(ammo =>{
-                            this.removeChild(ammo);
-                        });
-                        
-                        managers.Game.P2BulletManager.buildBulletPool(this.P2.ShipType)
-        
-                        this.P2bulletManager.Bullet.forEach(bullet =>{
-                            this.addChild(bullet);
-                        });
-                        managers.Game.P2p2 = true
-                    }
-                    if((managers.Game.hud.P2Power >= 80 && managers.Game.hud.P2Power < 120) && !managers.Game.P2p3){
-                        this.P2bulletManager.Bullet.forEach(ammo =>{
-                            this.removeChild(ammo);
-                        });
-                        
-                        managers.Game.P2BulletManager.buildBulletPool(this.P2.ShipType)
-        
-                        this.P2bulletManager.Bullet.forEach(bullet =>{
-                            this.addChild(bullet);
-                        });
-                        managers.Game.P2p3 = true
-                    }
-                    if((managers.Game.hud.P2Power >= 120 && managers.Game.hud.P2Power < 160) && !managers.Game.P2p4){
-                        this.P2bulletManager.Bullet.forEach(ammo =>{
-                            this.removeChild(ammo);
-                        });
-                        
-                        managers.Game.P2BulletManager.buildBulletPool(this.P2.ShipType)
-        
-                        this.P2bulletManager.Bullet.forEach(bullet =>{
-                            this.addChild(bullet);
-                        });
-                        managers.Game.P2p4 = true
-                    }
-                    if(managers.Game.hud.P2Power >= 160 && !managers.Game.P2p5){
-                        this.P2bulletManager.Bullet.forEach(ammo =>{
-                            this.removeChild(ammo);
-                        });
-                        
-                        managers.Game.P2BulletManager.buildBulletPool(this.P2.ShipType)
-        
-                        this.P2bulletManager.Bullet.forEach(bullet =>{
-                            this.addChild(bullet);
-                        });
-                        managers.Game.P2p5 = true
-                    }    
-                }
-    
-                if(this.P2.isDead){
-                    if(managers.Game.hud.P2Power >= 0 && managers.Game.hud.P2Power < 40){
-                        this.P2bulletManager.Bullet.forEach(ammo =>{
-                            this.removeChild(ammo);
-                        });
-                        
-                        managers.Game.P2BulletManager.buildBulletPool(this.P2.ShipType)
-        
-                        this.P2bulletManager.Bullet.forEach(bullet =>{
-                            this.addChild(bullet);
-                        });
-                    }
-                    if(managers.Game.hud.P2Power >= 40 && managers.Game.hud.P2Power < 80){
-                        this.P2bulletManager.Bullet.forEach(ammo =>{
-                            this.removeChild(ammo);
-                        });
-                        
-                        managers.Game.P2BulletManager.buildBulletPool(this.P2.ShipType)
-        
-                        this.P2bulletManager.Bullet.forEach(bullet =>{
-                            this.addChild(bullet);
-                        });
-                    }
-                    if(managers.Game.hud.P2Power >= 80 && managers.Game.hud.P2Power < 120){
-                        this.P2bulletManager.Bullet.forEach(ammo =>{
-                            this.removeChild(ammo);
-                        });
-                        
-                        managers.Game.P2BulletManager.buildBulletPool(this.P2.ShipType)
-        
-                        this.P2bulletManager.Bullet.forEach(bullet =>{
-                            this.addChild(bullet);
-                        });
-                    }
-                    if(managers.Game.hud.P2Power >= 120 && managers.Game.hud.P2Power < 160){
-                        this.P2bulletManager.Bullet.forEach(ammo =>{
-                            this.removeChild(ammo);
-                        });
-                        
-                        managers.Game.P2BulletManager.buildBulletPool(this.P2.ShipType)
-        
-                        this.P2bulletManager.Bullet.forEach(bullet =>{
-                            this.addChild(bullet);
-                        });
-                    }
-                    if(managers.Game.hud.P2Power >= 160){
-                        this.P2bulletManager.Bullet.forEach(ammo =>{
-                            this.removeChild(ammo);
-                        });
-                        
-                        managers.Game.P2BulletManager.buildBulletPool(this.P2.ShipType)
-        
-                        this.P2bulletManager.Bullet.forEach(bullet =>{
-                            this.addChild(bullet);
-                        });
-                    }    
-                }
-
-                if(managers.Game.level1){
-                    if(managers.Game.timer >= 598 && managers.Game.timer <= 600){
-                        if(this.P1.y > 450)
-                            this.P1.y -= 1;
-                        if(this.P2.y > 450)
-                            this.P2.y -= 1;
-                    }
-                    if(managers.Game.timer >= 597 && managers.Game.timer <= 598){
-                        if(this.P1.y < 550)
-                            this.P1.y += 1;
-                        if(this.P2.y < 550)
-                            this.P2.y += 1;
-                    }
-                    if(managers.Game.timer > 591 && managers.Game.timer <= 596){
-                        this.addChild(this.stageName)
-                    }
-                    if(managers.Game.timer >= 481 && managers.Game.timer <= 591){
-                    //if(managers.Game.timer <= 591){
-                        this.removeChild(this.stageName)
-                        
-                        this.level1Enemies[0].forEach(e =>{
-                            if(!e.isDead){
-                                e.isInvincible = false;
-                                e.Update();
-                                let rand = Math.floor(Math.random() * (2 - 1 + 1) + 1)
-                                if(rand == 1)
-                                    e.FindPlayer(this.P1);
-                                if(rand == 2)
-                                    e.FindPlayer(this.P2);
-                                this.P1missileManager.Missile.forEach( m => {
-                                    m.FindEnemies(e)
-                                })
-                                this.P2missileManager.Missile.forEach( m => {
-                                    m.FindEnemies(e)
-                                })
-                            }
-                        })
-                    }
-                    if(managers.Game.timer >= 481 && managers.Game.timer <= 581){
-                        this.level1Enemies[1].forEach(e =>{
-                            if(!e.isDead){
-                                e.isInvincible = false;
-                                e.Update();
-                                let rand = Math.floor(Math.random() * (2 - 1 + 1) + 1)
-                                if(rand == 1)
-                                    e.FindPlayer(this.P1);
-                                if(rand == 2)
-                                    e.FindPlayer(this.P2);
-                                this.P1missileManager.Missile.forEach( m => {
-                                    m.FindEnemies(e)
-                                })
-                                this.P2missileManager.Missile.forEach( m => {
-                                    m.FindEnemies(e)
-                                })
-                            }
-                        })
-    
-                        this.eliteUnits[0].forEach(e =>{
-                            if(!e.isDead){
-                                e.isInvincible = false;
-                                e.Update();
-                                let rand = Math.floor(Math.random() * (2 - 1 + 1) + 1)
-                                if(rand == 1)
-                                    e.FindPlayer(this.P1);
-                                if(rand == 2)
-                                    e.FindPlayer(this.P2);
-                                this.P1missileManager.Missile.forEach( m => {
-                                    m.FindEnemies(e)
-                                })
-                                this.P2missileManager.Missile.forEach( m => {
-                                    m.FindEnemies(e)
-                                })
-                            }
-                        })
-    
+                    if(this.P1aircraft.y > 720 ){
+                        this.removeChild(this.P1aircraft);
+                        this.removeChild(this.P2aircraft);
                     }
     
-                    if(managers.Game.timer >= 481 && managers.Game.timer <= 576){
-                        this.level1Enemies[2].forEach(e =>{
-                            if(!e.isDead){
-                                e.isInvincible = false;
-                                e.Update();
-                                let rand = Math.floor(Math.random() * (2 - 1 + 1) + 1)
-                                if(rand == 1)
-                                    e.FindPlayer(this.P1);
-                                if(rand == 2)
-                                    e.FindPlayer(this.P2);
-                                this.P1missileManager.Missile.forEach( m => {
-                                    m.FindEnemies(e)
-                                })
-                                this.P2missileManager.Missile.forEach( m => {
-                                    m.FindEnemies(e)
-                                })
-                            }
-                        })
-                    }
-    
-                    if(managers.Game.timer >= 481 && managers.Game.timer <= 536){
-                        this.eliteUnits[1].forEach(e =>{
-                            if(!e.isDead){
-                                e.isInvincible = false;
-                                e.Update();
-                                let rand = Math.floor(Math.random() * (2 - 1 + 1) + 1)
-                                if(rand == 1)
-                                    e.FindPlayer(this.P1);
-                                if(rand == 2)
-                                    e.FindPlayer(this.P2);
-
-                                this.P1missileManager.Missile.forEach( m => {
-                                    m.FindEnemies(e)
-                                })
-                                this.P2missileManager.Missile.forEach( m => {
-                                    m.FindEnemies(e)
-                                })
-                            }
-                        })
-                    }
-    
-                    if(managers.Game.timer < 481){
-                        this.level1Enemies[0].forEach(e =>{
-                            e.y += 10;
-                        })
-                        this.level1Enemies[1].forEach(e =>{
-                            e.x -= 10;
-                        })
-                        this.level1Enemies[2].forEach(e =>{
-                            e.y -= 10;
-                        })
-                    }
-    
-                    if(managers.Game.timer == 480){
-                        createjs.Sound.stop();
-                        this.bgm = createjs.Sound.play("bossMusic");
-                        this.bgm.loop = -1;
-                        this.bgm.volume = 0.05;
-                    }
-    
-                    if(managers.Game.timer < 479){
-                        this.bosses[0].isInvincible = false
-                        this.background.y += 0;
-                        if(!this.bosses[0].isDead){
-                            let rand = Math.floor(Math.random() * (2 - 1 + 1) + 1)
-                            if(rand == 1)
-                                this.bosses[0].FindPlayer(this.P1)
-                            if(rand == 2)
-                                this.bosses[0].FindPlayer(this.P2)
-                            this.bosses[0].Update();
-                            this.P1missileManager.Missile.forEach( m => {
-                                m.FindEnemies(this.bosses[0])
-                            })
-                            this.P2missileManager.Missile.forEach( m => {
-                                m.FindEnemies(this.bosses[0])
-                            })
+                    this.enemyBulletManager.Update()
+                    this.coinsManager.Coin.forEach(coin =>{
+                        if(coin.IsDropped){
+                            if(coin.p1)
+                                coin.FindPlayer(this.P1);
+                            if(coin.p2)
+                                coin.FindPlayer(this.P2);
+                            coin.Update()
                         }
+                    })
+    
+                    this.ChangeShip();
+                    this.P1Collisions()
+                    this.P2Collisions()
+                    
+                    // P1
+                    this.P1.Update()
+                    this.P1bulletManager.Update()
+                    this.P1missileManager.Update()
+                    if(this.P1.IsInvincible){
+                        this.shields[1].x = this.P1.x +20
+                        this.shields[1].y = this.P1.y +10
+                        this.shields[1].alpha = 1;
                     }
+        
+                    if(!this.P1.IsInvincible)
+                        this.shields[1].alpha = 0;
     
-                    if(managers.Game.boss1Hp == 0){
-                        this.removeChild(this.bosses[0])
-                        this.bosses[0].isInvincible = true;
-                        this.bosses[0].isDead = true;
-                        managers.Game.boss1IsDead = true;
-                        this.bosses[0].DropCoins(50)
-    
-                        let counter = 5;
-    
-                        let interval = setInterval(() =>{
-                            counter--;
-                            if(counter < 0){
-                                clearInterval(interval);
-                                managers.Game.level1Completed = true;
-                            }
-                        }, 1000)
+                    if(!this.P1.isDead){
+                        if(managers.Game.hud.P1Power < 40 && !managers.Game.P1p1){
+                            this.P1bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.P1BulletManager.buildBulletPool(this.P1.ShipType)
+            
+                            this.P1bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                            managers.Game.P1p1 = true
+                        }
+                        if((managers.Game.hud.P1Power >= 40 && managers.Game.hud.P1Power < 80) && !managers.Game.P1p2){
+                            this.P1bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.P1BulletManager.buildBulletPool(this.P1.ShipType)
+            
+                            this.P1bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                            managers.Game.P1p2 = true
+                        }
+                        if((managers.Game.hud.P1Power >= 80 && managers.Game.hud.P1Power < 120) && !managers.Game.P1p3){
+                            this.P1bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.P1BulletManager.buildBulletPool(this.P1.ShipType)
+            
+                            this.P1bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                            managers.Game.P1p3 = true
+                        }
+                        if((managers.Game.hud.P1Power >= 120 && managers.Game.hud.P1Power < 160) && !managers.Game.P1p4){
+                            this.P1bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.P1BulletManager.buildBulletPool(this.P1.ShipType)
+            
+                            this.P1bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                            managers.Game.P1p4 = true
+                        }
+                        if(managers.Game.hud.P1Power >= 160 && !managers.Game.P1p5){
+                            this.P1bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.P1BulletManager.buildBulletPool(this.P1.ShipType)
+            
+                            this.P1bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                            managers.Game.P1p5 = true
+                        }    
                     }
-                }
-                
-                if(managers.Game.level2){
-                    if(managers.Game.timer == 600){
-                        createjs.Sound.stop();
-                        this.bgm = createjs.Sound.play("bgm3");
-                        this.bgm.loop = -1;
-                        this.bgm.volume = 0.05;
-                    }
-    
-                    if(managers.Game.timer > 595 && managers.Game.timer <= 599){
-                        this.stageName.text = "Stage 2: HQ"
-                        this.stageName.x = 575
-                        this.addChild(this.stageName)
-                    }
-    
-                    if(managers.Game.timer > 505 && managers.Game.timer < 595){
-                        this.removeChild(this.stageName)
-                        
-                        this.level2Enemies[2].forEach(e =>{
-                            if(!e.isDead){
-                                e.isInvincible = false;
-                                e.Update();
-                                let rand = Math.floor(Math.random() * (2 - 1 + 1) + 1)
-                                if(rand == 1)
-                                    e.FindPlayer(this.P1);
-                                if(rand == 2)
-                                    e.FindPlayer(this.P2);
-                                this.P1missileManager.Missile.forEach( m => {
-                                    m.FindEnemies(e)
-                                })
-                                this.P2missileManager.Missile.forEach( m => {
-                                    m.FindEnemies(e)
-                                })
-                            }
-                        })
+        
+                    if(this.P1.isDead){
+                        if(managers.Game.hud.P1Power >= 0 && managers.Game.hud.P1Power < 40){
+                            this.P1bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.P1BulletManager.buildBulletPool(this.P1.ShipType)
+            
+                            this.P1bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                        }
+                        if(managers.Game.hud.P1Power >= 40 && managers.Game.hud.P1Power < 80){
+                            this.P1bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.P1BulletManager.buildBulletPool(this.P1.ShipType)
+            
+                            this.P1bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                        }
+                        if(managers.Game.hud.P1Power >= 80 && managers.Game.hud.P1Power < 120){
+                            this.P1bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.P1BulletManager.buildBulletPool(this.P1.ShipType)
+            
+                            this.P1bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                        }
+                        if(managers.Game.hud.P1Power >= 120 && managers.Game.hud.P1Power < 160){
+                            this.P1bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.P1BulletManager.buildBulletPool(this.P1.ShipType)
+            
+                            this.P1bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                        }
+                        if(managers.Game.hud.P1Power >= 160){
+                            this.P1bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.P1BulletManager.buildBulletPool(this.P1.ShipType)
+            
+                            this.P1bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                        }    
                     }
                     
-                    if(managers.Game.timer > 505 && managers.Game.timer < 590){
-                        this.level2Enemies[1].forEach(e =>{
-                            if(!e.isDead){
-                                e.isInvincible = false;
-                                e.Update();
-                                let rand = Math.floor(Math.random() * (2 - 1 + 1) + 1)
-                                if(rand == 1)
-                                    e.FindPlayer(this.P1);
-                                if(rand == 2)
-                                    e.FindPlayer(this.P2);
-                                this.P1missileManager.Missile.forEach( m => {
-                                    m.FindEnemies(e)
-                                })
-                                this.P2missileManager.Missile.forEach( m => {
-                                    m.FindEnemies(e)
-                                })
-                            }
-                        })
+                    // P2
+                    this.P2.Update()
+                    this.P2bulletManager.Update()
+                    this.P2missileManager.Update()
     
-                        this.eliteUnits[2].forEach(e =>{
-                            if(!e.isDead){
-                                e.isInvincible = false;
-                                e.Update();
-                                let rand = Math.floor(Math.random() * (2 - 1 + 1) + 1)
-                                if(rand == 1)
-                                    e.FindPlayer(this.P1);
-                                if(rand == 2)
-                                    e.FindPlayer(this.P2);
-                                this.P1missileManager.Missile.forEach( m => {
-                                    m.FindEnemies(e)
-                                })
-                                this.P2missileManager.Missile.forEach( m => {
-                                    m.FindEnemies(e)
-                                })
-                            }
-                        })
+                    if(this.P2.IsInvincible){
+                        this.shields[2].x = this.P2.x +20
+                        this.shields[2].y = this.P2.y +10
+                        this.shields[2].alpha = 1;
+                    }
+        
+                    if(!this.P2.IsInvincible)
+                        this.shields[2].alpha = 0;
+    
+                    if(!this.P2.isDead){
+                        if(managers.Game.hud.P2Power < 40 && !managers.Game.P2p1){
+                            this.P2bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+            
+                            managers.Game.P2BulletManager.buildBulletPool(this.P2.ShipType)
+            
+                            this.P2bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                            managers.Game.P2p1 = true
+                        }
+                        if((managers.Game.hud.P2Power >= 40 && managers.Game.hud.P2Power < 80) && !managers.Game.P2p2){
+                            this.P2bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.P2BulletManager.buildBulletPool(this.P2.ShipType)
+            
+                            this.P2bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                            managers.Game.P2p2 = true
+                        }
+                        if((managers.Game.hud.P2Power >= 80 && managers.Game.hud.P2Power < 120) && !managers.Game.P2p3){
+                            this.P2bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.P2BulletManager.buildBulletPool(this.P2.ShipType)
+            
+                            this.P2bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                            managers.Game.P2p3 = true
+                        }
+                        if((managers.Game.hud.P2Power >= 120 && managers.Game.hud.P2Power < 160) && !managers.Game.P2p4){
+                            this.P2bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.P2BulletManager.buildBulletPool(this.P2.ShipType)
+            
+                            this.P2bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                            managers.Game.P2p4 = true
+                        }
+                        if(managers.Game.hud.P2Power >= 160 && !managers.Game.P2p5){
+                            this.P2bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.P2BulletManager.buildBulletPool(this.P2.ShipType)
+            
+                            this.P2bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                            managers.Game.P2p5 = true
+                        }    
+                    }
+        
+                    if(this.P2.isDead){
+                        if(managers.Game.hud.P2Power >= 0 && managers.Game.hud.P2Power < 40){
+                            this.P2bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.P2BulletManager.buildBulletPool(this.P2.ShipType)
+            
+                            this.P2bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                        }
+                        if(managers.Game.hud.P2Power >= 40 && managers.Game.hud.P2Power < 80){
+                            this.P2bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.P2BulletManager.buildBulletPool(this.P2.ShipType)
+            
+                            this.P2bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                        }
+                        if(managers.Game.hud.P2Power >= 80 && managers.Game.hud.P2Power < 120){
+                            this.P2bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.P2BulletManager.buildBulletPool(this.P2.ShipType)
+            
+                            this.P2bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                        }
+                        if(managers.Game.hud.P2Power >= 120 && managers.Game.hud.P2Power < 160){
+                            this.P2bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.P2BulletManager.buildBulletPool(this.P2.ShipType)
+            
+                            this.P2bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                        }
+                        if(managers.Game.hud.P2Power >= 160){
+                            this.P2bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.P2BulletManager.buildBulletPool(this.P2.ShipType)
+            
+                            this.P2bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                        }    
                     }
     
-                    if(managers.Game.timer > 505 && managers.Game.timer < 585){
-                        this.level2Enemies[0].forEach(e =>{
-                            if(!e.isDead){
-                                e.isInvincible = false;
-                                e.Update();
-                                let rand = Math.floor(Math.random() * (2 - 1 + 1) + 1)
-                                if(rand == 1)
-                                    e.FindPlayer(this.P1);
-                                if(rand == 2)
-                                    e.FindPlayer(this.P2);
-                                this.P1missileManager.Missile.forEach( m => {
-                                    m.FindEnemies(e)
-                                })
-                                this.P2missileManager.Missile.forEach( m => {
-                                    m.FindEnemies(e)
-                                })
-                            }
-                        })
-                    }
-    
-                    if(managers.Game.timer > 505 && managers.Game.timer < 550){
-                        this.eliteUnits[3].forEach(e =>{
-                            if(!e.isDead){
-                                e.isInvincible = false;
-                                e.Update();
-                                let rand = Math.floor(Math.random() * (2 - 1 + 1) + 1)
-                                if(rand == 1)
-                                    e.FindPlayer(this.P1);
-                                if(rand == 2)
-                                    e.FindPlayer(this.P2);
-                                this.P1missileManager.Missile.forEach( m => {
-                                    m.FindEnemies(e)
-                                })
-                                this.P2missileManager.Missile.forEach( m => {
-                                    m.FindEnemies(e)
-                                })
-                            }
-                        })
-                    }
-    
-                    if(managers.Game.timer < 504){
-                        this.level2Enemies[0].forEach(e =>{
-                            e.y -= 10;
-                        })
-                        this.level2Enemies[1].forEach(e =>{
-                            e.x += 10;
-                        })
-                        this.level2Enemies[2].forEach(e =>{
-                            e.y += 10;
-                        })
-                    }
-    
-                    if(managers.Game.timer == 504){
-                        createjs.Sound.stop();
-                        this.bgm = createjs.Sound.play("bossMusic");
-                        this.bgm.loop = -1;
-                        this.bgm.volume = 0.05;
-                    }
-    
-                    if(managers.Game.timer < 503){
-                        if(!this.bosses[1].isDead){
-                            this.bosses[1].isInvincible = false
-                            let rand = Math.floor(Math.random() * (2 - 1 + 1) + 1)
-                                if(rand == 1)
-                                    this.bosses[1].FindPlayer(this.P1);
-                                if(rand == 2)
-                                    this.bosses[1].FindPlayer(this.P2);
-                            this.bosses[1].Update()
-    
-                            this.P1missileManager.Missile.forEach( m => {
-                                m.FindEnemies(this.bosses[1])
+                    if(managers.Game.level1){
+                        if(managers.Game.timer >= 598 && managers.Game.timer <= 600){
+                            if(this.P1.y > 450)
+                                this.P1.y -= 1;
+                            if(this.P2.y > 450)
+                                this.P2.y -= 1;
+                        }
+                        if(managers.Game.timer >= 597 && managers.Game.timer <= 598){
+                            if(this.P1.y < 550)
+                                this.P1.y += 1;
+                            if(this.P2.y < 550)
+                                this.P2.y += 1;
+                        }
+                        if(managers.Game.timer > 591 && managers.Game.timer <= 596){
+                            this.addChild(this.stageName)
+                        }
+                        if(managers.Game.timer >= 481 && managers.Game.timer <= 591){
+                        //if(managers.Game.timer <= 591){
+                            this.removeChild(this.stageName)
+                            
+                            this.level1Enemies[0].forEach(e =>{
+                                if(!e.isDead){
+                                    e.isInvincible = false;
+                                    e.Update();
+                                    let rand = Math.floor(Math.random() * (2 - 1 + 1) + 1)
+                                    if(rand == 1)
+                                        e.FindPlayer(this.P1);
+                                    if(rand == 2)
+                                        e.FindPlayer(this.P2);
+                                    this.P1missileManager.Missile.forEach( m => {
+                                        m.FindEnemies(e)
+                                    })
+                                    this.P2missileManager.Missile.forEach( m => {
+                                        m.FindEnemies(e)
+                                    })
+                                }
                             })
-                            this.P2missileManager.Missile.forEach( m => {
-                                m.FindEnemies(this.bosses[1])
+                        }
+                        if(managers.Game.timer >= 481 && managers.Game.timer <= 581){
+                            this.level1Enemies[1].forEach(e =>{
+                                if(!e.isDead){
+                                    e.isInvincible = false;
+                                    e.Update();
+                                    let rand = Math.floor(Math.random() * (2 - 1 + 1) + 1)
+                                    if(rand == 1)
+                                        e.FindPlayer(this.P1);
+                                    if(rand == 2)
+                                        e.FindPlayer(this.P2);
+                                    this.P1missileManager.Missile.forEach( m => {
+                                        m.FindEnemies(e)
+                                    })
+                                    this.P2missileManager.Missile.forEach( m => {
+                                        m.FindEnemies(e)
+                                    })
+                                }
                             })
+        
+                            this.eliteUnits[0].forEach(e =>{
+                                if(!e.isDead){
+                                    e.isInvincible = false;
+                                    e.Update();
+                                    let rand = Math.floor(Math.random() * (2 - 1 + 1) + 1)
+                                    if(rand == 1)
+                                        e.FindPlayer(this.P1);
+                                    if(rand == 2)
+                                        e.FindPlayer(this.P2);
+                                    this.P1missileManager.Missile.forEach( m => {
+                                        m.FindEnemies(e)
+                                    })
+                                    this.P2missileManager.Missile.forEach( m => {
+                                        m.FindEnemies(e)
+                                    })
+                                }
+                            })
+        
+                        }
+        
+                        if(managers.Game.timer >= 481 && managers.Game.timer <= 576){
+                            this.level1Enemies[2].forEach(e =>{
+                                if(!e.isDead){
+                                    e.isInvincible = false;
+                                    e.Update();
+                                    let rand = Math.floor(Math.random() * (2 - 1 + 1) + 1)
+                                    if(rand == 1)
+                                        e.FindPlayer(this.P1);
+                                    if(rand == 2)
+                                        e.FindPlayer(this.P2);
+                                    this.P1missileManager.Missile.forEach( m => {
+                                        m.FindEnemies(e)
+                                    })
+                                    this.P2missileManager.Missile.forEach( m => {
+                                        m.FindEnemies(e)
+                                    })
+                                }
+                            })
+                        }
+        
+                        if(managers.Game.timer >= 481 && managers.Game.timer <= 536){
+                            this.eliteUnits[1].forEach(e =>{
+                                if(!e.isDead){
+                                    e.isInvincible = false;
+                                    e.Update();
+                                    let rand = Math.floor(Math.random() * (2 - 1 + 1) + 1)
+                                    if(rand == 1)
+                                        e.FindPlayer(this.P1);
+                                    if(rand == 2)
+                                        e.FindPlayer(this.P2);
+    
+                                    this.P1missileManager.Missile.forEach( m => {
+                                        m.FindEnemies(e)
+                                    })
+                                    this.P2missileManager.Missile.forEach( m => {
+                                        m.FindEnemies(e)
+                                    })
+                                }
+                            })
+                        }
+        
+                        if(managers.Game.timer < 481){
+                            this.level1Enemies[0].forEach(e =>{
+                                e.y += 10;
+                            })
+                            this.level1Enemies[1].forEach(e =>{
+                                e.x -= 10;
+                            })
+                            this.level1Enemies[2].forEach(e =>{
+                                e.y -= 10;
+                            })
+                        }
+        
+                        if(managers.Game.timer == 480){
+                            createjs.Sound.stop();
+                            this.bgm = createjs.Sound.play("bossMusic");
+                            this.bgm.loop = -1;
+                            this.bgm.volume = 0.05;
+                        }
+        
+                        if(managers.Game.timer < 479){
+                            this.bosses[0].isInvincible = false
+                            this.background.y += 0;
+                            if(!this.bosses[0].isDead){
+                                let rand = Math.floor(Math.random() * (2 - 1 + 1) + 1)
+                                if(rand == 1)
+                                    this.bosses[0].FindPlayer(this.P1)
+                                if(rand == 2)
+                                    this.bosses[0].FindPlayer(this.P2)
+                                this.bosses[0].Update();
+                                this.P1missileManager.Missile.forEach( m => {
+                                    m.FindEnemies(this.bosses[0])
+                                })
+                                this.P2missileManager.Missile.forEach( m => {
+                                    m.FindEnemies(this.bosses[0])
+                                })
+                            }
+                        }
+        
+                        if(managers.Game.boss1Hp == 0){
+                            this.removeChild(this.bosses[0])
+                            this.bosses[0].isInvincible = true;
+                            this.bosses[0].isDead = true;
+                            managers.Game.boss1IsDead = true;
+                            this.bosses[0].DropCoins(50)
+        
+                            let counter = 5;
+        
+                            let interval = setInterval(() =>{
+                                counter--;
+                                if(counter < 0){
+                                    clearInterval(interval);
+                                    managers.Game.level1Completed = true;
+                                }
+                            }, 1000)
+                        }
+                    }
+                    
+                    if(managers.Game.level2){
+                        if(managers.Game.timer == 600){
+                            createjs.Sound.stop();
+                            this.bgm = createjs.Sound.play("bgm3");
+                            this.bgm.loop = -1;
+                            this.bgm.volume = 0.05;
+                        }
+        
+                        if(managers.Game.timer > 595 && managers.Game.timer <= 599){
+                            this.stageName.text = "Stage 2: HQ"
+                            this.stageName.x = 575
+                            this.addChild(this.stageName)
+                        }
+        
+                        if(managers.Game.timer > 505 && managers.Game.timer < 595){
+                            this.removeChild(this.stageName)
+                            
+                            this.level2Enemies[2].forEach(e =>{
+                                if(!e.isDead){
+                                    e.isInvincible = false;
+                                    e.Update();
+                                    let rand = Math.floor(Math.random() * (2 - 1 + 1) + 1)
+                                    if(rand == 1)
+                                        e.FindPlayer(this.P1);
+                                    if(rand == 2)
+                                        e.FindPlayer(this.P2);
+                                    this.P1missileManager.Missile.forEach( m => {
+                                        m.FindEnemies(e)
+                                    })
+                                    this.P2missileManager.Missile.forEach( m => {
+                                        m.FindEnemies(e)
+                                    })
+                                }
+                            })
+                        }
+                        
+                        if(managers.Game.timer > 505 && managers.Game.timer < 590){
+                            this.level2Enemies[1].forEach(e =>{
+                                if(!e.isDead){
+                                    e.isInvincible = false;
+                                    e.Update();
+                                    let rand = Math.floor(Math.random() * (2 - 1 + 1) + 1)
+                                    if(rand == 1)
+                                        e.FindPlayer(this.P1);
+                                    if(rand == 2)
+                                        e.FindPlayer(this.P2);
+                                    this.P1missileManager.Missile.forEach( m => {
+                                        m.FindEnemies(e)
+                                    })
+                                    this.P2missileManager.Missile.forEach( m => {
+                                        m.FindEnemies(e)
+                                    })
+                                }
+                            })
+        
+                            this.eliteUnits[2].forEach(e =>{
+                                if(!e.isDead){
+                                    e.isInvincible = false;
+                                    e.Update();
+                                    let rand = Math.floor(Math.random() * (2 - 1 + 1) + 1)
+                                    if(rand == 1)
+                                        e.FindPlayer(this.P1);
+                                    if(rand == 2)
+                                        e.FindPlayer(this.P2);
+                                    this.P1missileManager.Missile.forEach( m => {
+                                        m.FindEnemies(e)
+                                    })
+                                    this.P2missileManager.Missile.forEach( m => {
+                                        m.FindEnemies(e)
+                                    })
+                                }
+                            })
+                        }
+        
+                        if(managers.Game.timer > 505 && managers.Game.timer < 585){
+                            this.level2Enemies[0].forEach(e =>{
+                                if(!e.isDead){
+                                    e.isInvincible = false;
+                                    e.Update();
+                                    let rand = Math.floor(Math.random() * (2 - 1 + 1) + 1)
+                                    if(rand == 1)
+                                        e.FindPlayer(this.P1);
+                                    if(rand == 2)
+                                        e.FindPlayer(this.P2);
+                                    this.P1missileManager.Missile.forEach( m => {
+                                        m.FindEnemies(e)
+                                    })
+                                    this.P2missileManager.Missile.forEach( m => {
+                                        m.FindEnemies(e)
+                                    })
+                                }
+                            })
+                        }
+        
+                        if(managers.Game.timer > 505 && managers.Game.timer < 550){
+                            this.eliteUnits[3].forEach(e =>{
+                                if(!e.isDead){
+                                    e.isInvincible = false;
+                                    e.Update();
+                                    let rand = Math.floor(Math.random() * (2 - 1 + 1) + 1)
+                                    if(rand == 1)
+                                        e.FindPlayer(this.P1);
+                                    if(rand == 2)
+                                        e.FindPlayer(this.P2);
+                                    this.P1missileManager.Missile.forEach( m => {
+                                        m.FindEnemies(e)
+                                    })
+                                    this.P2missileManager.Missile.forEach( m => {
+                                        m.FindEnemies(e)
+                                    })
+                                }
+                            })
+                        }
+        
+                        if(managers.Game.timer < 504){
+                            this.level2Enemies[0].forEach(e =>{
+                                e.y -= 10;
+                            })
+                            this.level2Enemies[1].forEach(e =>{
+                                e.x += 10;
+                            })
+                            this.level2Enemies[2].forEach(e =>{
+                                e.y += 10;
+                            })
+                        }
+        
+                        if(managers.Game.timer == 504){
+                            createjs.Sound.stop();
+                            this.bgm = createjs.Sound.play("bossMusic");
+                            this.bgm.loop = -1;
+                            this.bgm.volume = 0.05;
+                        }
+        
+                        if(managers.Game.timer < 503){
+                            if(!this.bosses[1].isDead){
+                                this.bosses[1].isInvincible = false
+                                let rand = Math.floor(Math.random() * (2 - 1 + 1) + 1)
+                                    if(rand == 1)
+                                        this.bosses[1].FindPlayer(this.P1);
+                                    if(rand == 2)
+                                        this.bosses[1].FindPlayer(this.P2);
+                                this.bosses[1].Update()
+        
+                                this.P1missileManager.Missile.forEach( m => {
+                                    m.FindEnemies(this.bosses[1])
+                                })
+                                this.P2missileManager.Missile.forEach( m => {
+                                    m.FindEnemies(this.bosses[1])
+                                })
+                            }
+                        }
+        
+                        if(managers.Game.boss2Hp == 0){
+                            this.removeChild(this.bosses[1])
+                            this.bosses[1].isInvincible = true;
+                            this.bosses[1].isDead = true;
+                            managers.Game.boss2IsDead = true;
+                            this.bosses[1].DropCoins(50)
+                            let counter2 = 5;
+        
+                            let interval = setInterval(() =>{
+                                counter2--;
+                                if(counter2 < 0){
+                                    clearInterval(interval);
+                                    managers.Game.level2Completed = true
+                                }
+                            }, 1000)
+                        }
+                    }
+                    
+                    if(managers.Game.level3){
+                        if(managers.Game.timer == 600){
+                            createjs.Sound.stop();
+                            this.bgm = createjs.Sound.play("bgm");
+                            this.bgm.loop = -1;
+                            this.bgm.volume = 0.05;
+                        }
+        
+                        if(managers.Game.timer > 595 && managers.Game.timer <= 599){
+                            this.stageName.text = "Stage 3: Journey"
+                            this.stageName.x = 525
+                            this.addChild(this.stageName)
+                        }
+        
+                        if(managers.Game.timer >= 505 && managers.Game.timer < 595){
+                            this.removeChild(this.stageName)
+                            
+                            this.level3Enemies[1].forEach(e =>{
+                                if(!e.isDead){
+                                    e.isInvincible = false;
+                                    e.Update();
+                                    let rand = Math.floor(Math.random() * (2 - 1 + 1) + 1)
+                                    if(rand == 1)
+                                        e.FindPlayer(this.P1);
+                                    if(rand == 2)
+                                        e.FindPlayer(this.P2);
+                                    this.P1missileManager.Missile.forEach( m => {
+                                        m.FindEnemies(e)
+                                    })
+                                    this.P2missileManager.Missile.forEach( m => {
+                                        m.FindEnemies(e)
+                                    })
+                                }
+                            })
+        
+                            this.eliteUnits[4].forEach(e =>{
+                                if(!e.isDead){
+                                    e.isInvincible = false;
+                                    e.Update();
+                                    let rand = Math.floor(Math.random() * (2 - 1 + 1) + 1)
+                                    if(rand == 1)
+                                        e.FindPlayer(this.P1);
+                                    if(rand == 2)
+                                        e.FindPlayer(this.P2);
+                                    this.P1missileManager.Missile.forEach( m => {
+                                        m.FindEnemies(e)
+                                    })
+                                    this.P2missileManager.Missile.forEach( m => {
+                                        m.FindEnemies(e)
+                                    })
+                                }
+                            })
+                        }
+                        if(managers.Game.timer >= 505 && managers.Game.timer < 590){
+                            this.level3Enemies[0].forEach(e =>{
+                                if(!e.isDead){
+                                    e.isInvincible = false;
+                                    e.Update();
+                                    let rand = Math.floor(Math.random() * (2 - 1 + 1) + 1)
+                                    if(rand == 1)
+                                        e.FindPlayer(this.P1);
+                                    if(rand == 2)
+                                        e.FindPlayer(this.P2);
+                                    this.P1missileManager.Missile.forEach( m => {
+                                        m.FindEnemies(e)
+                                    })
+                                    this.P2missileManager.Missile.forEach( m => {
+                                        m.FindEnemies(e)
+                                    })
+                                }
+                            })
+                        }
+        
+                        if(managers.Game.timer >= 505 && managers.Game.timer < 587){
+                            this.eliteUnits[4].forEach(e =>{
+                                if(!e.isDead){
+                                    e.isInvincible = false;
+                                    e.Update();
+                                    let rand = Math.floor(Math.random() * (2 - 1 + 1) + 1)
+                                    if(rand == 1)
+                                        e.FindPlayer(this.P1);
+                                    if(rand == 2)
+                                        e.FindPlayer(this.P2);
+                                    this.P1missileManager.Missile.forEach( m => {
+                                        m.FindEnemies(e)
+                                    })
+                                    this.P2missileManager.Missile.forEach( m => {
+                                        m.FindEnemies(e)
+                                    })
+                                }
+                            })
+                        }
+        
+                        if(managers.Game.timer >= 505 && managers.Game.timer < 585){
+                            this.level3Enemies[2].forEach(e =>{
+                                if(!e.isDead){
+                                    e.isInvincible = false;
+                                    e.Update();
+                                    let rand = Math.floor(Math.random() * (2 - 1 + 1) + 1)
+                                    if(rand == 1)
+                                        e.FindPlayer(this.P1);
+                                    if(rand == 2)
+                                        e.FindPlayer(this.P2);
+                                    this.P1missileManager.Missile.forEach( m => {
+                                        m.FindEnemies(e)
+                                    })
+                                    this.P2missileManager.Missile.forEach( m => {
+                                        m.FindEnemies(e)
+                                    })
+                                }
+                            })
+                        }
+                        if(managers.Game.timer >= 505 && managers.Game.timer < 565){
+                            this.eliteUnits[3].forEach(e =>{
+                                if(!e.isDead){
+                                    e.isInvincible = false;
+                                    e.Update();
+                                    let rand = Math.floor(Math.random() * (2 - 1 + 1) + 1)
+                                    if(rand == 1)
+                                        e.FindPlayer(this.P1);
+                                    if(rand == 2)
+                                        e.FindPlayer(this.P2);
+                                    this.P1missileManager.Missile.forEach( m => {
+                                        m.FindEnemies(e)
+                                    })
+                                    this.P2missileManager.Missile.forEach( m => {
+                                        m.FindEnemies(e)
+                                    })
+                                }
+                            })
+                        }
+        
+                        if(managers.Game.timer < 506){
+                            this.level3Enemies[0].forEach(e =>{
+                                e.y -= 10;
+                            })
+                            this.level3Enemies[1].forEach(e =>{
+                                e.x += 10;
+                            })
+                            this.level3Enemies[2].forEach(e =>{
+                                e.y += 10;
+                            })
+                        }
+        
+                        if(managers.Game.timer == 505){
+                            createjs.Sound.stop();
+                            this.bgm = createjs.Sound.play("bossMusic");
+                            this.bgm.loop = -1;
+                            this.bgm.volume = 0.05;
+                        }
+                        if(managers.Game.timer < 504){
+                            if(!this.bosses[2].isDead){
+                                this.bosses[2].isInvincible = false
+                                this.bosses[2].FindPlayer(this.P1)
+                                this.bosses[2].Update();
+        
+                                this.P1missileManager.Missile.forEach( m => {
+                                    m.FindEnemies(this.bosses[2])
+                                })
+                                this.P2missileManager.Missile.forEach( m => {
+                                    m.FindEnemies(this.bosses[2])
+                                })
+                            }
+                            if(!this.bosses[3].isDead){
+                                this.bosses[3].isInvincible = false
+                                this.bosses[3].FindPlayer(this.P2)
+                                this.bosses[3].Update();
+        
+                                this.P1missileManager.Missile.forEach( m => {
+                                    m.FindEnemies(this.bosses[2])
+                                })
+                                this.P2missileManager.Missile.forEach( m => {
+                                    m.FindEnemies(this.bosses[2])
+                                })
+                            }
+                        }
+        
+                        if(managers.Game.boss3_1Hp == 0){
+                            this.removeChild(this.bosses[2])
+                            this.bosses[2].isInvincible = true;
+                            this.bosses[2].isDead = true;
+                            managers.Game.boss3_1IsDead = true;
+                            this.bosses[2].DropCoins(50)
+                        }
+    
+                        if(managers.Game.boss3_2Hp == 0){
+                            this.bosses[3].isInvincible = true;
+                            this.bosses[3].isDead = true;
+                            managers.Game.boss3_2IsDead = true;
+                            this.bosses[3].DropCoins(50)
+                        }
+        
+                        if((managers.Game.boss3_1Hp == 0 || 
+                            (managers.Game.boss3_1Hp < 0 && Math.abs(managers.Game.boss3_1Hp) % 250 == 0)) && 
+                            (managers.Game.boss3_2Hp == 0 || 
+                            (managers.Game.boss3_2Hp < 0 && Math.abs(managers.Game.boss3_2Hp) % 250 == 0))){
+                            let counter = 5;
+        
+                            let interval = setInterval(() =>{
+                                counter--;
+                                if(counter < 0){
+                                    clearInterval(interval);     
+                                    managers.Game.level3Completed = true;
+                                }
+                            }, 1000)
                         }
                     }
     
-                    if(managers.Game.boss2Hp == 0){
-                        this.removeChild(this.bosses[1])
-                        this.bosses[1].isInvincible = true;
-                        this.bosses[1].isDead = true;
-                        managers.Game.boss2IsDead = true;
-                        this.bosses[1].DropCoins(50)
-                        let counter2 = 5;
+                    if(managers.Game.hud.P1Lives < 0 && managers.Game.hud.P2Lives < 0){
+                        managers.Game.currentScene = config.Scene.OVER;
+                    }
     
-                        let interval = setInterval(() =>{
-                            counter2--;
-                            if(counter2 < 0){
-                                clearInterval(interval);
-                                managers.Game.level2Completed = true
+                    if(managers.Game.hud.P1Lives < 0){
+                        this.P1.isDead = true
+                        this.P1.alpha = 0
+                        this.P1Tag.alpha = 0
+                    }
+                    if(managers.Game.hud.P2Lives < 0){
+                        this.P2.isDead = true
+                        this.P2.alpha = 0
+                        this.P2Tag.alpha = 0
+                    }
+                }
+
+                if(managers.Game.bossRush){
+                    this.P1aircraft.y += 3;
+                    this.P2aircraft.y += 3;
+                    this.P1Tag.x = this.P1.x - 17
+                    this.P1Tag.y = this.P1.y - 50
+    
+                    this.P2Tag.x = this.P2.x - 17
+                    this.P2Tag.y = this.P2.y - 50
+    
+                    if(this.P1aircraft.y > 720 ){
+                        this.removeChild(this.P1aircraft);
+                        this.removeChild(this.P2aircraft);
+                    }
+    
+                    this.enemyBulletManager.Update()
+                    this.coinsManager.Coin.forEach(coin =>{
+                        if(coin.IsDropped){
+                            if(coin.p1)
+                                coin.FindPlayer(this.P1);
+                            if(coin.p2)
+                                coin.FindPlayer(this.P2);
+                            coin.Update()
+                        }
+                    })
+    
+                    this.ChangeShip();
+                    this.P1Collisions()
+                    this.P2Collisions()
+                    
+                    // P1
+                    this.P1.Update()
+                    this.P1bulletManager.Update()
+                    this.P1missileManager.Update()
+                    if(this.P1.IsInvincible){
+                        this.shields[1].x = this.P1.x +20
+                        this.shields[1].y = this.P1.y +10
+                        this.shields[1].alpha = 1;
+                    }
+        
+                    if(!this.P1.IsInvincible)
+                        this.shields[1].alpha = 0;
+    
+                    if(!this.P1.isDead){
+                        if(managers.Game.hud.P1Power < 40 && !managers.Game.P1p1){
+                            this.P1bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.P1BulletManager.buildBulletPool(this.P1.ShipType)
+            
+                            this.P1bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                            managers.Game.P1p1 = true
+                        }
+                        if((managers.Game.hud.P1Power >= 40 && managers.Game.hud.P1Power < 80) && !managers.Game.P1p2){
+                            this.P1bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.P1BulletManager.buildBulletPool(this.P1.ShipType)
+            
+                            this.P1bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                            managers.Game.P1p2 = true
+                        }
+                        if((managers.Game.hud.P1Power >= 80 && managers.Game.hud.P1Power < 120) && !managers.Game.P1p3){
+                            this.P1bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.P1BulletManager.buildBulletPool(this.P1.ShipType)
+            
+                            this.P1bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                            managers.Game.P1p3 = true
+                        }
+                        if((managers.Game.hud.P1Power >= 120 && managers.Game.hud.P1Power < 160) && !managers.Game.P1p4){
+                            this.P1bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.P1BulletManager.buildBulletPool(this.P1.ShipType)
+            
+                            this.P1bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                            managers.Game.P1p4 = true
+                        }
+                        if(managers.Game.hud.P1Power >= 160 && !managers.Game.P1p5){
+                            this.P1bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.P1BulletManager.buildBulletPool(this.P1.ShipType)
+            
+                            this.P1bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                            managers.Game.P1p5 = true
+                        }    
+                    }
+        
+                    if(this.P1.isDead){
+                        if(managers.Game.hud.P1Power >= 0 && managers.Game.hud.P1Power < 40){
+                            this.P1bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.P1BulletManager.buildBulletPool(this.P1.ShipType)
+            
+                            this.P1bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                        }
+                        if(managers.Game.hud.P1Power >= 40 && managers.Game.hud.P1Power < 80){
+                            this.P1bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.P1BulletManager.buildBulletPool(this.P1.ShipType)
+            
+                            this.P1bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                        }
+                        if(managers.Game.hud.P1Power >= 80 && managers.Game.hud.P1Power < 120){
+                            this.P1bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.P1BulletManager.buildBulletPool(this.P1.ShipType)
+            
+                            this.P1bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                        }
+                        if(managers.Game.hud.P1Power >= 120 && managers.Game.hud.P1Power < 160){
+                            this.P1bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.P1BulletManager.buildBulletPool(this.P1.ShipType)
+            
+                            this.P1bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                        }
+                        if(managers.Game.hud.P1Power >= 160){
+                            this.P1bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.P1BulletManager.buildBulletPool(this.P1.ShipType)
+            
+                            this.P1bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                        }    
+                    }
+                    
+                    // P2
+                    this.P2.Update()
+                    this.P2bulletManager.Update()
+                    this.P2missileManager.Update()
+    
+                    if(this.P2.IsInvincible){
+                        this.shields[2].x = this.P2.x +20
+                        this.shields[2].y = this.P2.y +10
+                        this.shields[2].alpha = 1;
+                    }
+        
+                    if(!this.P2.IsInvincible)
+                        this.shields[2].alpha = 0;
+    
+                    if(!this.P2.isDead){
+                        if(managers.Game.hud.P2Power < 40 && !managers.Game.P2p1){
+                            this.P2bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+            
+                            managers.Game.P2BulletManager.buildBulletPool(this.P2.ShipType)
+            
+                            this.P2bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                            managers.Game.P2p1 = true
+                        }
+                        if((managers.Game.hud.P2Power >= 40 && managers.Game.hud.P2Power < 80) && !managers.Game.P2p2){
+                            this.P2bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.P2BulletManager.buildBulletPool(this.P2.ShipType)
+            
+                            this.P2bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                            managers.Game.P2p2 = true
+                        }
+                        if((managers.Game.hud.P2Power >= 80 && managers.Game.hud.P2Power < 120) && !managers.Game.P2p3){
+                            this.P2bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.P2BulletManager.buildBulletPool(this.P2.ShipType)
+            
+                            this.P2bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                            managers.Game.P2p3 = true
+                        }
+                        if((managers.Game.hud.P2Power >= 120 && managers.Game.hud.P2Power < 160) && !managers.Game.P2p4){
+                            this.P2bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.P2BulletManager.buildBulletPool(this.P2.ShipType)
+            
+                            this.P2bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                            managers.Game.P2p4 = true
+                        }
+                        if(managers.Game.hud.P2Power >= 160 && !managers.Game.P2p5){
+                            this.P2bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.P2BulletManager.buildBulletPool(this.P2.ShipType)
+            
+                            this.P2bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                            managers.Game.P2p5 = true
+                        }    
+                    }
+        
+                    if(this.P2.isDead){
+                        if(managers.Game.hud.P2Power >= 0 && managers.Game.hud.P2Power < 40){
+                            this.P2bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.P2BulletManager.buildBulletPool(this.P2.ShipType)
+            
+                            this.P2bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                        }
+                        if(managers.Game.hud.P2Power >= 40 && managers.Game.hud.P2Power < 80){
+                            this.P2bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.P2BulletManager.buildBulletPool(this.P2.ShipType)
+            
+                            this.P2bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                        }
+                        if(managers.Game.hud.P2Power >= 80 && managers.Game.hud.P2Power < 120){
+                            this.P2bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.P2BulletManager.buildBulletPool(this.P2.ShipType)
+            
+                            this.P2bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                        }
+                        if(managers.Game.hud.P2Power >= 120 && managers.Game.hud.P2Power < 160){
+                            this.P2bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.P2BulletManager.buildBulletPool(this.P2.ShipType)
+            
+                            this.P2bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                        }
+                        if(managers.Game.hud.P2Power >= 160){
+                            this.P2bulletManager.Bullet.forEach(ammo =>{
+                                this.removeChild(ammo);
+                            });
+                            
+                            managers.Game.P2BulletManager.buildBulletPool(this.P2.ShipType)
+            
+                            this.P2bulletManager.Bullet.forEach(bullet =>{
+                                this.addChild(bullet);
+                            });
+                        }    
+                    }
+    
+                    if(managers.Game.level1){
+                        if(managers.Game.timer >= 598 && managers.Game.timer <= 600){
+                            if(this.P1.y > 450)
+                                this.P1.y -= 1;
+                            if(this.P2.y > 450)
+                                this.P2.y -= 1;
+                        }
+                        if(managers.Game.timer >= 597 && managers.Game.timer <= 598){
+                            if(this.P1.y < 550)
+                                this.P1.y += 1;
+                            if(this.P2.y < 550)
+                                this.P2.y += 1;
+                        }
+                        if(managers.Game.timer > 591 && managers.Game.timer <= 596){
+                            this.addChild(this.stageName)
+                        }
+                        if(managers.Game.timer >= 481 && managers.Game.timer <= 591){
+                            this.removeChild(this.stageName)
+
+                            this.bosses[0].isInvincible = false
+                            if(!this.bosses[0].isDead){
+                                let rand = Math.floor(Math.random() * (2 - 1 + 1) + 1)
+                                if(rand == 1)
+                                    this.bosses[0].FindPlayer(this.P1)
+                                if(rand == 2)
+                                    this.bosses[0].FindPlayer(this.P2)
+                                this.bosses[0].Update();
+                                this.P1missileManager.Missile.forEach( m => {
+                                    m.FindEnemies(this.bosses[0])
+                                })
+                                this.P2missileManager.Missile.forEach( m => {
+                                    m.FindEnemies(this.bosses[0])
+                                })
                             }
-                        }, 1000)
+
+                        }
+
+                        if(managers.Game.boss1Hp == 0){
+                            this.removeChild(this.bosses[0])
+                            this.bosses[0].isInvincible = true;
+                            this.bosses[0].isDead = true;
+                            managers.Game.boss1IsDead = true;
+                            this.bosses[0].DropCoins(50)
+        
+                            let counter = 5;
+        
+                            let interval = setInterval(() =>{
+                                counter--;
+                                if(counter < 0){
+                                    clearInterval(interval);
+                                    managers.Game.level1Completed = true;
+                                }
+                            }, 1000)
+                        }
+                    }
+                    
+                    if(managers.Game.level2){
+                        if(managers.Game.timer == 600){
+                            createjs.Sound.stop();
+                            this.bgm = createjs.Sound.play("bgm3");
+                            this.bgm.loop = -1;
+                            this.bgm.volume = 0.05;
+                        }
+        
+                        if(managers.Game.timer > 595 && managers.Game.timer <= 599){
+                            this.stageName.text = "Stage 2: HQ"
+                            this.stageName.x = 575
+                            this.addChild(this.stageName)
+                        }
+        
+                        if(managers.Game.timer > 505 && managers.Game.timer < 595){
+                            this.removeChild(this.stageName)
+                            if(!this.bosses[1].isDead){
+                                this.bosses[1].isInvincible = false
+                                let rand = Math.floor(Math.random() * (2 - 1 + 1) + 1)
+                                    if(rand == 1)
+                                        this.bosses[1].FindPlayer(this.P1);
+                                    if(rand == 2)
+                                        this.bosses[1].FindPlayer(this.P2);
+                                this.bosses[1].Update()
+        
+                                this.P1missileManager.Missile.forEach( m => {
+                                    m.FindEnemies(this.bosses[1])
+                                })
+                                this.P2missileManager.Missile.forEach( m => {
+                                    m.FindEnemies(this.bosses[1])
+                                })
+                            }
+
+                        }
+        
+                        if(managers.Game.boss2Hp == 0){
+                            this.removeChild(this.bosses[1])
+                            this.bosses[1].isInvincible = true;
+                            this.bosses[1].isDead = true;
+                            managers.Game.boss2IsDead = true;
+                            this.bosses[1].DropCoins(50)
+                            let counter2 = 5;
+        
+                            let interval = setInterval(() =>{
+                                counter2--;
+                                if(counter2 < 0){
+                                    clearInterval(interval);
+                                    managers.Game.level2Completed = true
+                                }
+                            }, 1000)
+                        }
+                    }
+                    
+                    if(managers.Game.level3){
+                        if(managers.Game.timer == 600){
+                            createjs.Sound.stop();
+                            this.bgm = createjs.Sound.play("bgm");
+                            this.bgm.loop = -1;
+                            this.bgm.volume = 0.05;
+                        }
+        
+                        if(managers.Game.timer > 595 && managers.Game.timer <= 599){
+                            this.stageName.text = "Stage 3: Journey"
+                            this.stageName.x = 525
+                            this.addChild(this.stageName)
+                        }
+        
+                        if(managers.Game.timer >= 505 && managers.Game.timer < 595){
+                            this.removeChild(this.stageName)
+                            if(!this.bosses[2].isDead){
+                                this.bosses[2].isInvincible = false
+                                this.bosses[2].FindPlayer(this.P1)
+                                this.bosses[2].Update();
+        
+                                this.P1missileManager.Missile.forEach( m => {
+                                    m.FindEnemies(this.bosses[2])
+                                })
+                                this.P2missileManager.Missile.forEach( m => {
+                                    m.FindEnemies(this.bosses[2])
+                                })
+                            }
+                            if(!this.bosses[3].isDead){
+                                this.bosses[3].isInvincible = false
+                                this.bosses[3].FindPlayer(this.P2)
+                                this.bosses[3].Update();
+        
+                                this.P1missileManager.Missile.forEach( m => {
+                                    m.FindEnemies(this.bosses[2])
+                                })
+                                this.P2missileManager.Missile.forEach( m => {
+                                    m.FindEnemies(this.bosses[2])
+                                })
+                            }
+                        }
+                        
+                        if(managers.Game.boss3_1Hp == 0){
+                            this.removeChild(this.bosses[2])
+                            this.bosses[2].isInvincible = true;
+                            this.bosses[2].isDead = true;
+                            managers.Game.boss3_1IsDead = true;
+                            this.bosses[2].DropCoins(50)
+                        }
+    
+                        if(managers.Game.boss3_2Hp == 0){
+                            this.bosses[3].isInvincible = true;
+                            this.bosses[3].isDead = true;
+                            managers.Game.boss3_2IsDead = true;
+                            this.bosses[3].DropCoins(50)
+                        }
+        
+                        if((managers.Game.boss3_1Hp == 0 || 
+                            (managers.Game.boss3_1Hp < 0 && Math.abs(managers.Game.boss3_1Hp) % 250 == 0)) && 
+                            (managers.Game.boss3_2Hp == 0 || 
+                            (managers.Game.boss3_2Hp < 0 && Math.abs(managers.Game.boss3_2Hp) % 250 == 0))){
+                            let counter = 5;
+        
+                            let interval = setInterval(() =>{
+                                counter--;
+                                if(counter < 0){
+                                    clearInterval(interval);     
+                                    managers.Game.level3Completed = true;
+                                }
+                            }, 1000)
+                        }
+                    }
+    
+                    if(managers.Game.hud.P1Lives < 0 && managers.Game.hud.P2Lives < 0){
+                        managers.Game.currentScene = config.Scene.OVER;
+                    }
+    
+                    if(managers.Game.hud.P1Lives < 0){
+                        this.P1.isDead = true
+                        this.P1.alpha = 0
+                        this.P1Tag.alpha = 0
+                    }
+                    if(managers.Game.hud.P2Lives < 0){
+                        this.P2.isDead = true
+                        this.P2.alpha = 0
+                        this.P2Tag.alpha = 0
                     }
                 }
                 
-                if(managers.Game.level3){
-                    if(managers.Game.timer == 600){
-                        createjs.Sound.stop();
-                        this.bgm = createjs.Sound.play("bgm");
-                        this.bgm.loop = -1;
-                        this.bgm.volume = 0.05;
-                    }
-    
-                    if(managers.Game.timer > 595 && managers.Game.timer <= 599){
-                        this.stageName.text = "Stage 3: Journey"
-                        this.stageName.x = 525
-                        this.addChild(this.stageName)
-                    }
-    
-                    if(managers.Game.timer >= 505 && managers.Game.timer < 595){
-                        this.removeChild(this.stageName)
-                        
-                        this.level3Enemies[1].forEach(e =>{
-                            if(!e.isDead){
-                                e.isInvincible = false;
-                                e.Update();
-                                let rand = Math.floor(Math.random() * (2 - 1 + 1) + 1)
-                                if(rand == 1)
-                                    e.FindPlayer(this.P1);
-                                if(rand == 2)
-                                    e.FindPlayer(this.P2);
-                                this.P1missileManager.Missile.forEach( m => {
-                                    m.FindEnemies(e)
-                                })
-                                this.P2missileManager.Missile.forEach( m => {
-                                    m.FindEnemies(e)
-                                })
-                            }
-                        })
-    
-                        this.eliteUnits[4].forEach(e =>{
-                            if(!e.isDead){
-                                e.isInvincible = false;
-                                e.Update();
-                                let rand = Math.floor(Math.random() * (2 - 1 + 1) + 1)
-                                if(rand == 1)
-                                    e.FindPlayer(this.P1);
-                                if(rand == 2)
-                                    e.FindPlayer(this.P2);
-                                this.P1missileManager.Missile.forEach( m => {
-                                    m.FindEnemies(e)
-                                })
-                                this.P2missileManager.Missile.forEach( m => {
-                                    m.FindEnemies(e)
-                                })
-                            }
-                        })
-                    }
-                    if(managers.Game.timer >= 505 && managers.Game.timer < 590){
-                        this.level3Enemies[0].forEach(e =>{
-                            if(!e.isDead){
-                                e.isInvincible = false;
-                                e.Update();
-                                let rand = Math.floor(Math.random() * (2 - 1 + 1) + 1)
-                                if(rand == 1)
-                                    e.FindPlayer(this.P1);
-                                if(rand == 2)
-                                    e.FindPlayer(this.P2);
-                                this.P1missileManager.Missile.forEach( m => {
-                                    m.FindEnemies(e)
-                                })
-                                this.P2missileManager.Missile.forEach( m => {
-                                    m.FindEnemies(e)
-                                })
-                            }
-                        })
-                    }
-    
-                    if(managers.Game.timer >= 505 && managers.Game.timer < 587){
-                        this.eliteUnits[4].forEach(e =>{
-                            if(!e.isDead){
-                                e.isInvincible = false;
-                                e.Update();
-                                let rand = Math.floor(Math.random() * (2 - 1 + 1) + 1)
-                                if(rand == 1)
-                                    e.FindPlayer(this.P1);
-                                if(rand == 2)
-                                    e.FindPlayer(this.P2);
-                                this.P1missileManager.Missile.forEach( m => {
-                                    m.FindEnemies(e)
-                                })
-                                this.P2missileManager.Missile.forEach( m => {
-                                    m.FindEnemies(e)
-                                })
-                            }
-                        })
-                    }
-    
-                    if(managers.Game.timer >= 505 && managers.Game.timer < 585){
-                        this.level3Enemies[2].forEach(e =>{
-                            if(!e.isDead){
-                                e.isInvincible = false;
-                                e.Update();
-                                let rand = Math.floor(Math.random() * (2 - 1 + 1) + 1)
-                                if(rand == 1)
-                                    e.FindPlayer(this.P1);
-                                if(rand == 2)
-                                    e.FindPlayer(this.P2);
-                                this.P1missileManager.Missile.forEach( m => {
-                                    m.FindEnemies(e)
-                                })
-                                this.P2missileManager.Missile.forEach( m => {
-                                    m.FindEnemies(e)
-                                })
-                            }
-                        })
-                    }
-                    if(managers.Game.timer >= 505 && managers.Game.timer < 565){
-                        this.eliteUnits[3].forEach(e =>{
-                            if(!e.isDead){
-                                e.isInvincible = false;
-                                e.Update();
-                                let rand = Math.floor(Math.random() * (2 - 1 + 1) + 1)
-                                if(rand == 1)
-                                    e.FindPlayer(this.P1);
-                                if(rand == 2)
-                                    e.FindPlayer(this.P2);
-                                this.P1missileManager.Missile.forEach( m => {
-                                    m.FindEnemies(e)
-                                })
-                                this.P2missileManager.Missile.forEach( m => {
-                                    m.FindEnemies(e)
-                                })
-                            }
-                        })
-                    }
-    
-                    if(managers.Game.timer < 506){
-                        this.level3Enemies[0].forEach(e =>{
-                            e.y -= 10;
-                        })
-                        this.level3Enemies[1].forEach(e =>{
-                            e.x += 10;
-                        })
-                        this.level3Enemies[2].forEach(e =>{
-                            e.y += 10;
-                        })
-                    }
-    
-                    if(managers.Game.timer == 505){
-                        createjs.Sound.stop();
-                        this.bgm = createjs.Sound.play("bossMusic");
-                        this.bgm.loop = -1;
-                        this.bgm.volume = 0.05;
-                    }
-                    if(managers.Game.timer < 504){
-                        if(!this.bosses[2].isDead){
-                            this.bosses[2].isInvincible = false
-                            this.bosses[2].FindPlayer(this.P1)
-                            this.bosses[2].Update();
-    
-                            this.P1missileManager.Missile.forEach( m => {
-                                m.FindEnemies(this.bosses[2])
-                            })
-                            this.P2missileManager.Missile.forEach( m => {
-                                m.FindEnemies(this.bosses[2])
-                            })
-                        }
-                        if(!this.bosses[3].isDead){
-                            this.bosses[3].isInvincible = false
-                            this.bosses[3].FindPlayer(this.P2)
-                            this.bosses[3].Update();
-    
-                            this.P1missileManager.Missile.forEach( m => {
-                                m.FindEnemies(this.bosses[2])
-                            })
-                            this.P2missileManager.Missile.forEach( m => {
-                                m.FindEnemies(this.bosses[2])
-                            })
-                        }
-                    }
-    
-                    if(managers.Game.boss3_1Hp == 0){
-                        this.removeChild(this.bosses[2])
-                        this.bosses[2].isInvincible = true;
-                        this.bosses[2].isDead = true;
-                        managers.Game.boss3_1IsDead = true;
-                        this.bosses[2].DropCoins(50)
-                    }
-
-                    if(managers.Game.boss3_2Hp == 0){
-                        this.bosses[3].isInvincible = true;
-                        this.bosses[3].isDead = true;
-                        managers.Game.boss3_2IsDead = true;
-                        this.bosses[3].DropCoins(50)
-                    }
-    
-                    if((managers.Game.boss3_1Hp == 0 || 
-                        (managers.Game.boss3_1Hp < 0 && Math.abs(managers.Game.boss3_1Hp) % 250 == 0)) && 
-                        (managers.Game.boss3_2Hp == 0 || 
-                        (managers.Game.boss3_2Hp < 0 && Math.abs(managers.Game.boss3_2Hp) % 250 == 0))){
-                        let counter = 5;
-    
-                        let interval = setInterval(() =>{
-                            counter--;
-                            if(counter < 0){
-                                clearInterval(interval);     
-                                managers.Game.level3Completed = true;
-                            }
-                        }, 1000)
-                    }
-                }
-
-                if(managers.Game.hud.P1Lives < 0 && managers.Game.hud.P2Lives < 0){
-                    managers.Game.currentScene = config.Scene.OVER;
-                }
-
-                if(managers.Game.hud.P1Lives < 0){
-                    this.P1.isDead = true
-                    this.P1.alpha = 0
-                    this.P1Tag.alpha = 0
-                }
-                if(managers.Game.hud.P2Lives < 0){
-                    this.P2.isDead = true
-                    this.P2.alpha = 0
-                    this.P2Tag.alpha = 0
-                }
             }
         }
 
         public Main(): void {
             // Order matters when adding game objects.
             this.addChild(this.background);
+            this.addChild(this.hudImage)
+            this.addChild(this.hud)
             
             if(managers.Game.single){
-                this.GameTimer()
-                this.addChild(this.aircraft)
-                this.level1Enemies.forEach(e =>{
-                    e.forEach(f =>{
-                        this.addChild(f)
+                if(!managers.Game.bossRush){
+                    this.GameTimer()
+                    this.addChild(this.aircraft)
+                    this.level1Enemies.forEach(e =>{
+                        e.forEach(f =>{
+                            this.addChild(f)
+                        })
                     })
-                })
-    
-                this.level2Enemies.forEach(e =>{
-                    e.forEach(f =>{
-                        this.addChild(f)
+        
+                    this.level2Enemies.forEach(e =>{
+                        e.forEach(f =>{
+                            this.addChild(f)
+                        })
                     })
-                })
-    
-                this.level3Enemies.forEach(e =>{
-                    e.forEach(f =>{
-                        this.addChild(f)
+        
+                    this.level3Enemies.forEach(e =>{
+                        e.forEach(f =>{
+                            this.addChild(f)
+                        })
                     })
-                })
-    
-                this.eliteUnits.forEach( e =>{
-                    e.forEach(f =>{
-                        this.addChild(f)
+        
+                    this.eliteUnits.forEach( e =>{
+                        e.forEach(f =>{
+                            this.addChild(f)
+                        })
                     })
-                })
-                this.bosses.forEach(e =>{
-                    this.addChild(e)
-                })
-    
-                this.bulletManager.Bullet.forEach(bullet =>{
-                    this.addChild(bullet)
-                })
-    
-                this.missileManager.Missile.forEach(m => {
-                    this.addChild(m)
-                })
+                    this.bosses.forEach(e =>{
+                        this.addChild(e)
+                    })
+        
+                    this.bulletManager.Bullet.forEach(bullet =>{
+                        this.addChild(bullet)
+                    })
+        
+                    this.missileManager.Missile.forEach(m => {
+                        this.addChild(m)
+                    })
+                    
+                    this.addChild(this.Splayer)
+                    this.shields.forEach(s =>{
+                        this.addChild(s)
+                    })
+        
+                    this.enemyBulletManager.Bullet.forEach(bullet =>{
+                        this.addChild(bullet)
+                    })
+                }
+
+                if(managers.Game.bossRush){
+                    this.GameTimer()
+                    this.addChild(this.aircraft)
+
+                    this.bosses.forEach(e =>{
+                        this.addChild(e)
+                    })
+        
+                    this.bulletManager.Bullet.forEach(bullet =>{
+                        this.addChild(bullet)
+                    })
+        
+                    this.missileManager.Missile.forEach(m => {
+                        this.addChild(m)
+                    })
+                    
+                    this.addChild(this.Splayer)
+                    this.shields.forEach(s =>{
+                        this.addChild(s)
+                    })
+        
+                    this.enemyBulletManager.Bullet.forEach(bullet =>{
+                        this.addChild(bullet)
+                    })
+                }
                 
-                this.addChild(this.Splayer)
-                this.shields.forEach(s =>{
-                    this.addChild(s)
-                })
-    
-                this.enemyBulletManager.Bullet.forEach(bullet =>{
-                    this.addChild(bullet)
-                })
-    
-                this.addChild(this.hudImage)
-                this.addChild(this.hud)
             }
             
             if(managers.Game.multi){
-                this.GameTimer()
+                if(!managers.Game.bossRush){
+                    this.GameTimer()
 
-                this.addChild(this.P1aircraft)
-                this.addChild(this.P2aircraft)
-
-                this.level1Enemies.forEach(e =>{
-                    e.forEach(f =>{
-                        this.addChild(f)
-                    })
-                })
+                    this.addChild(this.P1aircraft)
+                    this.addChild(this.P2aircraft)
     
-                this.level2Enemies.forEach(e =>{
-                    e.forEach(f =>{
-                        this.addChild(f)
+                    this.level1Enemies.forEach(e =>{
+                        e.forEach(f =>{
+                            this.addChild(f)
+                        })
                     })
-                })
+        
+                    this.level2Enemies.forEach(e =>{
+                        e.forEach(f =>{
+                            this.addChild(f)
+                        })
+                    })
+        
+                    this.level3Enemies.forEach(e =>{
+                        e.forEach(f =>{
+                            this.addChild(f)
+                        })
+                    })
+        
+                    this.eliteUnits.forEach( e =>{
+                        e.forEach(f =>{
+                            this.addChild(f)
+                        })
+                    })
+                    this.bosses.forEach(e =>{
+                        this.addChild(e)
+                    })
     
-                this.level3Enemies.forEach(e =>{
-                    e.forEach(f =>{
-                        this.addChild(f)
+                    this.P1bulletManager.Bullet.forEach(bullet =>{
+                        this.addChild(bullet)
                     })
-                })
+                    this.P1missileManager.Missile.forEach(m =>{
+                        this.addChild(m)
+                    })
     
-                this.eliteUnits.forEach( e =>{
-                    e.forEach(f =>{
-                        this.addChild(f)
+                    this.P2bulletManager.Bullet.forEach(bullet =>{
+                        this.addChild(bullet)
                     })
-                })
-                this.bosses.forEach(e =>{
-                    this.addChild(e)
-                })
+                    this.P2missileManager.Missile.forEach(m =>{
+                        this.addChild(m)
+                    })
+    
+                    this.addChild(this.P1)
+                    this.addChild(this.P1Tag)
+    
+                    this.addChild(this.P2)
+                    this.addChild(this.P2Tag)
+                    this.shields.forEach(s =>{
+                        this.addChild(s)
+                    })
+    
+                    this.enemyBulletManager.Bullet.forEach(bullet =>{
+                        this.addChild(bullet)
+                    })
+                }
 
-                this.P1bulletManager.Bullet.forEach(bullet =>{
-                    this.addChild(bullet)
-                })
-                this.P1missileManager.Missile.forEach(m =>{
-                    this.addChild(m)
-                })
+                if(managers.Game.bossRush){
+                    this.GameTimer()
 
-                this.P2bulletManager.Bullet.forEach(bullet =>{
-                    this.addChild(bullet)
-                })
-                this.P2missileManager.Missile.forEach(m =>{
-                    this.addChild(m)
-                })
+                    this.addChild(this.P1aircraft)
+                    this.addChild(this.P2aircraft)
 
-                this.addChild(this.P1)
-                this.addChild(this.P1Tag)
-
-                this.addChild(this.P2)
-                this.addChild(this.P2Tag)
-                this.shields.forEach(s =>{
-                    this.addChild(s)
-                })
-
-                this.enemyBulletManager.Bullet.forEach(bullet =>{
-                    this.addChild(bullet)
-                })
+                    this.bosses.forEach(e =>{
+                        this.addChild(e)
+                    })
+    
+                    this.P1bulletManager.Bullet.forEach(bullet =>{
+                        this.addChild(bullet)
+                    })
+                    this.P1missileManager.Missile.forEach(m =>{
+                        this.addChild(m)
+                    })
+    
+                    this.P2bulletManager.Bullet.forEach(bullet =>{
+                        this.addChild(bullet)
+                    })
+                    this.P2missileManager.Missile.forEach(m =>{
+                        this.addChild(m)
+                    })
+    
+                    this.addChild(this.P1)
+                    this.addChild(this.P1Tag)
+    
+                    this.addChild(this.P2)
+                    this.addChild(this.P2Tag)
+                    this.shields.forEach(s =>{
+                        this.addChild(s)
+                    })
+    
+                    this.enemyBulletManager.Bullet.forEach(bullet =>{
+                        this.addChild(bullet)
+                    })
+                }
             }
-
-            this.addChild(this.hudImage)
-            this.addChild(this.hud)
         }
 
         public CheckCollisions():void{

@@ -26,6 +26,7 @@ var managers;
         Game.p5 = false;
         Game.single = false;
         Game.multi = false;
+        Game.bossRush = false;
         Game.P1p1 = false;
         Game.P1p2 = false;
         Game.P1p3 = false;
