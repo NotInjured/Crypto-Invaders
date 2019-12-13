@@ -976,6 +976,7 @@
                 <false/>
             </struct>
             <key type="filename">buttonBack.png</key>
+            <key type="filename">buttonBossRush.png</key>
             <key type="filename">buttonContinue.png</key>
             <key type="filename">buttonDecrease.png</key>
             <key type="filename">buttonHelp.png</key>
@@ -1178,6 +1179,7 @@
             <filename>Laser2_Shoot_1.png</filename>
             <filename>buttonMulti.png</filename>
             <filename>buttonSingle.png</filename>
+            <filename>buttonBossRush.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

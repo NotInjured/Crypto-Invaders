@@ -1213,6 +1213,7 @@ module scenes {
                                 counter--;
                                 if(counter < 0){
                                     clearInterval(interval);
+                                    this.Splayer.alpha = 0
                                     managers.Game.level1Completed = true;
                                 }
                             }, 1000)
@@ -1233,7 +1234,7 @@ module scenes {
                             this.addChild(this.stageName)
                         }
         
-                        if(managers.Game.timer > 505 && managers.Game.timer < 595){
+                        if(managers.Game.timer < 595){
                             this.removeChild(this.stageName)
 
                             if(!this.bosses[1].isDead){
@@ -1279,7 +1280,7 @@ module scenes {
                             this.addChild(this.stageName)
                         }
         
-                        if(managers.Game.timer >= 505 && managers.Game.timer < 595){
+                        if(managers.Game.timer < 595){
                             this.removeChild(this.stageName)
 
                             if(!this.bosses[2].isDead){
@@ -2519,7 +2520,7 @@ module scenes {
                         if(managers.Game.timer > 591 && managers.Game.timer <= 596){
                             this.addChild(this.stageName)
                         }
-                        if(managers.Game.timer >= 481 && managers.Game.timer <= 591){
+                        if(managers.Game.timer <= 591){
                             this.removeChild(this.stageName)
 
                             this.bosses[0].isInvincible = false
@@ -2573,7 +2574,7 @@ module scenes {
                             this.addChild(this.stageName)
                         }
         
-                        if(managers.Game.timer > 505 && managers.Game.timer < 595){
+                        if(managers.Game.timer < 595){
                             this.removeChild(this.stageName)
                             if(!this.bosses[1].isDead){
                                 this.bosses[1].isInvincible = false
@@ -2626,7 +2627,7 @@ module scenes {
                             this.addChild(this.stageName)
                         }
         
-                        if(managers.Game.timer >= 505 && managers.Game.timer < 595){
+                        if(managers.Game.timer < 595){
                             this.removeChild(this.stageName)
                             if(!this.bosses[2].isDead){
                                 this.bosses[2].isInvincible = false

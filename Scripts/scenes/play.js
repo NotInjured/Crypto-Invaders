@@ -1027,6 +1027,7 @@ var scenes;
                                 counter_3--;
                                 if (counter_3 < 0) {
                                     clearInterval(interval_4);
+                                    _this.Splayer.alpha = 0;
                                     managers.Game.level1Completed = true;
                                 }
                             }, 1000);
@@ -1044,7 +1045,7 @@ var scenes;
                             this.stageName.x = 575;
                             this.addChild(this.stageName);
                         }
-                        if (managers.Game.timer > 505 && managers.Game.timer < 595) {
+                        if (managers.Game.timer < 595) {
                             this.removeChild(this.stageName);
                             if (!this.bosses[1].isDead) {
                                 this.bosses[1].isInvincible = false;
@@ -1083,7 +1084,7 @@ var scenes;
                             this.stageName.x = 525;
                             this.addChild(this.stageName);
                         }
-                        if (managers.Game.timer >= 505 && managers.Game.timer < 595) {
+                        if (managers.Game.timer < 595) {
                             this.removeChild(this.stageName);
                             if (!this.bosses[2].isDead) {
                                 this.bosses[2].isInvincible = false;
@@ -2163,7 +2164,7 @@ var scenes;
                         if (managers.Game.timer > 591 && managers.Game.timer <= 596) {
                             this.addChild(this.stageName);
                         }
-                        if (managers.Game.timer >= 481 && managers.Game.timer <= 591) {
+                        if (managers.Game.timer <= 591) {
                             this.removeChild(this.stageName);
                             this.bosses[0].isInvincible = false;
                             if (!this.bosses[0].isDead) {
@@ -2209,7 +2210,7 @@ var scenes;
                             this.stageName.x = 575;
                             this.addChild(this.stageName);
                         }
-                        if (managers.Game.timer > 505 && managers.Game.timer < 595) {
+                        if (managers.Game.timer < 595) {
                             this.removeChild(this.stageName);
                             if (!this.bosses[1].isDead) {
                                 this.bosses[1].isInvincible = false;
@@ -2255,7 +2256,7 @@ var scenes;
                             this.stageName.x = 525;
                             this.addChild(this.stageName);
                         }
-                        if (managers.Game.timer >= 505 && managers.Game.timer < 595) {
+                        if (managers.Game.timer < 595) {
                             this.removeChild(this.stageName);
                             if (!this.bosses[2].isDead) {
                                 this.bosses[2].isInvincible = false;
