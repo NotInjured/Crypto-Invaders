@@ -794,52 +794,104 @@ var objects;
                         }
                     }
                     if (this.startPos) {
-                        if (managers.Game.boss2Hp > 250) {
-                            this.ShootPattern(12);
-                            this.ShootPattern(13);
-                            this.ShootPattern(14);
-                            this.ShootPattern(15);
-                        }
-                        if (managers.Game.boss2Hp > 200 && managers.Game.boss2Hp < 250) {
-                            if (this.pattern1) {
+                        if (managers.Game.single) {
+                            if (managers.Game.boss2Hp > 250) {
                                 this.ShootPattern(12);
                                 this.ShootPattern(13);
                                 this.ShootPattern(14);
                                 this.ShootPattern(15);
                             }
-                            if (!this.pattern1 && this.pattern2) {
-                                this.ShootPattern(16);
-                                this.ShootPattern(17);
+                            if (managers.Game.boss2Hp > 200 && managers.Game.boss2Hp < 250) {
+                                if (this.pattern1) {
+                                    this.ShootPattern(12);
+                                    this.ShootPattern(13);
+                                    this.ShootPattern(14);
+                                    this.ShootPattern(15);
+                                }
+                                if (!this.pattern1 && this.pattern2) {
+                                    this.ShootPattern(16);
+                                    this.ShootPattern(17);
+                                }
+                            }
+                            if (managers.Game.boss2Hp > 100 && managers.Game.boss2Hp < 200) {
+                                if (this.pattern1) {
+                                    this.ShootPattern(12);
+                                    this.ShootPattern(13);
+                                    this.ShootPattern(14);
+                                    this.ShootPattern(15);
+                                }
+                                if (!this.pattern1 && this.pattern2) {
+                                    this.ShootPattern(16);
+                                    this.ShootPattern(17);
+                                }
+                                if (!this.pattern2 && this.pattern3) {
+                                    this.ShootPattern(18);
+                                    this.ShootPattern(19);
+                                }
+                            }
+                            if (managers.Game.boss2Hp < 100) {
+                                if (this.pattern1) {
+                                    this.ShootPattern(16);
+                                    this.ShootPattern(17);
+                                }
+                                if (!this.pattern1 && this.pattern2) {
+                                    this.ShootPattern(18);
+                                    this.ShootPattern(19);
+                                }
+                                if (!this.pattern2 && this.pattern3) {
+                                    this.ShootPattern(20);
+                                    this.ShootPattern(21);
+                                }
                             }
                         }
-                        if (managers.Game.boss2Hp > 100 && managers.Game.boss2Hp < 200) {
-                            if (this.pattern1) {
+                        if (managers.Game.multi) {
+                            if (managers.Game.boss2Hp > 550) {
                                 this.ShootPattern(12);
                                 this.ShootPattern(13);
                                 this.ShootPattern(14);
                                 this.ShootPattern(15);
                             }
-                            if (!this.pattern1 && this.pattern2) {
-                                this.ShootPattern(16);
-                                this.ShootPattern(17);
+                            if (managers.Game.boss2Hp > 450 && managers.Game.boss2Hp < 550) {
+                                if (this.pattern1) {
+                                    this.ShootPattern(12);
+                                    this.ShootPattern(13);
+                                    this.ShootPattern(14);
+                                    this.ShootPattern(15);
+                                }
+                                if (!this.pattern1 && this.pattern2) {
+                                    this.ShootPattern(16);
+                                    this.ShootPattern(17);
+                                }
                             }
-                            if (!this.pattern2 && this.pattern3) {
-                                this.ShootPattern(18);
-                                this.ShootPattern(19);
+                            if (managers.Game.boss2Hp > 350 && managers.Game.boss2Hp < 450) {
+                                if (this.pattern1) {
+                                    this.ShootPattern(12);
+                                    this.ShootPattern(13);
+                                    this.ShootPattern(14);
+                                    this.ShootPattern(15);
+                                }
+                                if (!this.pattern1 && this.pattern2) {
+                                    this.ShootPattern(16);
+                                    this.ShootPattern(17);
+                                }
+                                if (!this.pattern2 && this.pattern3) {
+                                    this.ShootPattern(18);
+                                    this.ShootPattern(19);
+                                }
                             }
-                        }
-                        if (managers.Game.boss2Hp < 100) {
-                            if (this.pattern1) {
-                                this.ShootPattern(16);
-                                this.ShootPattern(17);
-                            }
-                            if (!this.pattern1 && this.pattern2) {
-                                this.ShootPattern(18);
-                                this.ShootPattern(19);
-                            }
-                            if (!this.pattern2 && this.pattern3) {
-                                this.ShootPattern(20);
-                                this.ShootPattern(21);
+                            if (managers.Game.boss2Hp < 350) {
+                                if (this.pattern1) {
+                                    this.ShootPattern(16);
+                                    this.ShootPattern(17);
+                                }
+                                if (!this.pattern1 && this.pattern2) {
+                                    this.ShootPattern(18);
+                                    this.ShootPattern(19);
+                                }
+                                if (!this.pattern2 && this.pattern3) {
+                                    this.ShootPattern(20);
+                                    this.ShootPattern(21);
+                                }
                             }
                         }
                     }
@@ -1573,17 +1625,33 @@ var objects;
                                 if (this.shootNum > 36) {
                                     this.bullet.Reset();
                                     this.shoot = true;
-                                    if (managers.Game.boss2Hp > 200 && managers.Game.boss2Hp < 250) {
-                                        this.pattern1 = false;
-                                        this.pattern2 = true;
+                                    if (managers.Game.single) {
+                                        if (managers.Game.boss2Hp > 200 && managers.Game.boss2Hp < 250) {
+                                            this.pattern1 = false;
+                                            this.pattern2 = true;
+                                        }
+                                        if (managers.Game.boss2Hp > 100 && managers.Game.boss2Hp < 200) {
+                                            this.pattern1 = false;
+                                            this.pattern2 = true;
+                                        }
+                                        if (managers.Game.boss2Hp < 100) {
+                                            this.pattern1 = false;
+                                            this.pattern2 = true;
+                                        }
                                     }
-                                    if (managers.Game.boss2Hp > 100 && managers.Game.boss2Hp < 200) {
-                                        this.pattern1 = false;
-                                        this.pattern2 = true;
-                                    }
-                                    if (managers.Game.boss2Hp < 100) {
-                                        this.pattern1 = false;
-                                        this.pattern2 = true;
+                                    if (managers.Game.multi) {
+                                        if (managers.Game.boss2Hp > 450 && managers.Game.boss2Hp < 550) {
+                                            this.pattern1 = false;
+                                            this.pattern2 = true;
+                                        }
+                                        if (managers.Game.boss2Hp > 350 && managers.Game.boss2Hp < 450) {
+                                            this.pattern1 = false;
+                                            this.pattern2 = true;
+                                        }
+                                        if (managers.Game.boss2Hp < 350) {
+                                            this.pattern1 = false;
+                                            this.pattern2 = true;
+                                        }
                                     }
                                     this.Timer();
                                 }
@@ -1627,17 +1695,33 @@ var objects;
                                 if (this.shootNum > 199) {
                                     this.bullet.Reset();
                                     this.shoot = true;
-                                    if (managers.Game.boss2Hp > 200 && managers.Game.boss2Hp < 250) {
-                                        this.pattern2 = false;
-                                        this.pattern3 = true;
+                                    if (managers.Game.single) {
+                                        if (managers.Game.boss2Hp > 200 && managers.Game.boss2Hp < 250) {
+                                            this.pattern2 = false;
+                                            this.pattern3 = true;
+                                        }
+                                        if (managers.Game.boss2Hp > 100 && managers.Game.boss2Hp < 200) {
+                                            this.pattern2 = false;
+                                            this.pattern3 = true;
+                                        }
+                                        if (managers.Game.boss2Hp < 100) {
+                                            this.pattern1 = false;
+                                            this.pattern2 = true;
+                                        }
                                     }
-                                    if (managers.Game.boss2Hp > 100 && managers.Game.boss2Hp < 200) {
-                                        this.pattern2 = false;
-                                        this.pattern3 = true;
-                                    }
-                                    if (managers.Game.boss2Hp < 100) {
-                                        this.pattern1 = false;
-                                        this.pattern2 = true;
+                                    if (managers.Game.multi) {
+                                        if (managers.Game.boss2Hp > 450 && managers.Game.boss2Hp < 550) {
+                                            this.pattern2 = false;
+                                            this.pattern3 = true;
+                                        }
+                                        if (managers.Game.boss2Hp > 350 && managers.Game.boss2Hp < 450) {
+                                            this.pattern2 = false;
+                                            this.pattern3 = true;
+                                        }
+                                        if (managers.Game.boss2Hp < 350) {
+                                            this.pattern2 = false;
+                                            this.pattern3 = true;
+                                        }
                                     }
                                     this.Timer();
                                 }
@@ -1689,13 +1773,25 @@ var objects;
                                 if (this.shootNum > 249) {
                                     this.bullet.Reset();
                                     this.shoot = true;
-                                    if (managers.Game.boss2Hp > 100 && managers.Game.boss2Hp < 200) {
-                                        this.pattern3 = false;
-                                        this.pattern1 = true;
+                                    if (managers.Game.single) {
+                                        if (managers.Game.boss2Hp > 100 && managers.Game.boss2Hp < 200) {
+                                            this.pattern3 = false;
+                                            this.pattern1 = true;
+                                        }
+                                        if (managers.Game.boss2Hp < 100) {
+                                            this.pattern2 = false;
+                                            this.pattern3 = true;
+                                        }
                                     }
-                                    if (managers.Game.boss2Hp < 100) {
-                                        this.pattern2 = false;
-                                        this.pattern3 = true;
+                                    if (managers.Game.multi) {
+                                        if (managers.Game.boss2Hp > 350 && managers.Game.boss2Hp < 450) {
+                                            this.pattern3 = false;
+                                            this.pattern1 = true;
+                                        }
+                                        if (managers.Game.boss2Hp < 350) {
+                                            this.pattern2 = false;
+                                            this.pattern3 = true;
+                                        }
                                     }
                                     this.Timer();
                                 }
@@ -1749,9 +1845,17 @@ var objects;
                                 if (this.shootNum > 499) {
                                     this.bullet.Reset();
                                     this.shoot = true;
-                                    if (managers.Game.boss2Hp < 100) {
-                                        this.pattern3 = false;
-                                        this.pattern1 = true;
+                                    if (managers.Game.single) {
+                                        if (managers.Game.boss2Hp < 100) {
+                                            this.pattern3 = false;
+                                            this.pattern1 = true;
+                                        }
+                                    }
+                                    if (managers.Game.multi) {
+                                        if (managers.Game.boss2Hp < 350) {
+                                            this.pattern3 = false;
+                                            this.pattern1 = true;
+                                        }
                                     }
                                     this.Timer();
                                 }

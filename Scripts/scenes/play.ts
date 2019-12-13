@@ -151,8 +151,8 @@ module scenes {
             if(managers.Game.multi){
                 managers.Game.boss1Hp = 400
                 managers.Game.boss2Hp = 600
-                managers.Game.boss3_1Hp = 500
-                managers.Game.boss3_2Hp = 500
+                managers.Game.boss3_1Hp = 250
+                managers.Game.boss3_2Hp = 250
             }
             
             managers.Game.eEliteHp = 25
